@@ -1,5 +1,5 @@
 <?php
-
+namespace Ptlis;
 /****************************************************************************
 	*																		*
 	*	Version: content_negotiation.inc.php v2.0.2 2012-01-01				*
@@ -19,7 +19,7 @@
 	***************************************************************************/
 
 
-	class conNeg {
+	class ContentNegotiation {
 
 /**	@name	Specificness of quality factor match.
  *
