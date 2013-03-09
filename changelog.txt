@@ -75,3 +75,7 @@ Changelog:
        provided by the User Agent and the application isn't providing it's own
        list of types. Thanks to Ben Companjen for the report that brought this
        to my attention.
+
+2013-03-09 - Version 2.0.3
+     - Fix for github Issue #2 (https://github.com/ptlis/conneg/issues/2),
+       caused by the regex not accepting mime-types that contain numbers.
