@@ -333,7 +333,7 @@
 
 			// Mime types are a special case due to the possibility of subtypes & accept-extension fragmets
 			if($mimeNeg) {
-				if(!preg_match_all('/([a-z0-9\-\+\*]+)\/([a-z0-9\-\+\*]+)\s*;?\s*(:?(?:q=(0\.\d{1,5}|1\.0|[01])\s*?;?\s*?)|(?:([a-z]+)=(")?([0-9a-z\-\+\.]+)\s*?;?\s*?)\\6?){0,},*/i', $field, $matches)) {
+				if(!preg_match_all('/([a-z0-9\-\+\*]+)\/([a-z0-9\-\+\*]+)\s*;?\s*(:?(?:q=(0?\.\d{1,5}|1\.0|[01])\s*?;?\s*?)|(?:([a-z]+)=(")?([0-9a-z\-\+\.]+)\s*?;?\s*?)\\6?){0,},*/i', $field, $matches)) {
 					return array(false, array());
 				}
 
