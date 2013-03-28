@@ -2,8 +2,8 @@
 
 /****************************************************************************
 	*																		*
-	*	Version: content_negotiation.inc.php v2.0.2 2012-01-01				*
-	*	Copyright: (c) 2006-2012 ptlis										*
+	*	Version: content_negotiation.inc.php v2.0.4 2013-03-28				*
+	*	Copyright: (c) 2006-2013 ptlis										*
 	*	Licence: GNU Lesser General Public License v2.1						*
 	*	The current version of this library can be sourced from:			*
 	*		http://ptlis.net/source/php/content-negotiation/#downloads		*
@@ -13,7 +13,7 @@
 	*	Provides a simple API through which content negotiation is			*
 	*	performed on HTTP fields.											*
 	*																		*
-	*	This class requires PHP 5.x (it has been tested on 5.0.x - 5.3		*
+	*	This class requires PHP 5.x (it has been tested on 5.0.x - 5.4		*
 	*	with error reporting set to E_ALL | E_STRICT without problems).		*
 	*																		*
 	***************************************************************************/

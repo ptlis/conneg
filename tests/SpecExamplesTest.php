@@ -2,8 +2,8 @@
 
 /** Unit tests based one examples taken from RFC2616
 
-    @version    SpecExamplesTest.php v3.0-dev 2012-12-07
-    @copyright  (c) 2012 ptlis
+    @version    SpecExamplesTest.php v2.0.4 2013-03-28
+    @copyright  (c) 2013 ptlis
     @package    tests
     @license    GNU Lesser General Public License v2.1
     @author     Brian Ridley <ptlis@ptlis.net>

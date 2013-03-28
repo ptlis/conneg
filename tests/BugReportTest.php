@@ -2,7 +2,7 @@
 
 /** Unit tests for Accept field.
 
-    @version    BugReportTest.php v3.0-dev 2013-03-09
+    @version    BugReportTest.php v2.0.4 2013-03-28
     @copyright  (c) 2013 ptlis
     @license    GNU Lesser General Public License v2.1
     @package    tests

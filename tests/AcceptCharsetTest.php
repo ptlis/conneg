@@ -2,8 +2,8 @@
 
 /** Unit tests for Accept-Charset field.
 
-    @version    AcceptCharsetTest.php v3.0-dev 2012-12-07
-    @copyright  (c) 2012 ptlis
+    @version    AcceptCharsetTest.php v2.0.4 2013-03-28
+    @copyright  (c) 2013 ptlis
     @license    GNU Lesser General Public License v2.1
     @package    tests
     @author     Brian Ridley <ptlis@ptlis.net>

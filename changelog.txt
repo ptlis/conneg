@@ -44,7 +44,7 @@ Changelog:
        second mode where it sums the user agent and application quality factors
        and uses this value to determine the preferred resource. This behavior
        can be enabled by appending true as a second paramater to any of the
-       public functions. Thanks to richard 
+       public functions. Thanks to richard
        (http://code.google.com/u/@VhBSQ1BRBxZDVgB7/) for this suggestion.
 
 2010-01-28 - Version 2.0.0
@@ -79,3 +79,15 @@ Changelog:
 2013-03-09 - Version 2.0.3
      - Fix for github Issue #2 (https://github.com/ptlis/conneg/issues/2),
        caused by the regex not accepting mime-types that contain numbers.
+
+2013-03-28 - Version 2.0.4
+     - Fix for github Issue #3 (https://github.com/ptlis/conneg/issues/3)
+       caused by the regex not accepting non-integer quality factors that lack
+       a prefixed '0'.
+     - Backport of unit tests from the version 3 dev branch.
+     - Calculated quality factors are always returned as a string.
+     - Number of return values is now consistent on parsing failure / success.
+     - If an accept-extension fragment is found in one type all other returned
+       types will also have that key with a value of null.
+     - Fix to sorting when both the user-agent and application provide quality
+       factors including accept-extensions.
