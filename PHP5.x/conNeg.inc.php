@@ -170,7 +170,12 @@
 							$appTypes['acceptExtens'][$i]	= $userTypes['acceptExtens'][$i];
 							// Store any accept-extension tokens
 							for($j = 0; $j < count($userAcceptExtens); $j++) {
-								$appTypes[$userAcceptExtens[$j]][$i]	= $userTypes[$userAcceptExtens[$j]][$i];
+								if(array_key_exists($userAcceptExtens[$j], $userTypes)) {
+									$appTypes[$userAcceptExtens[$j]][$i]	= $userTypes[$userAcceptExtens[$j]][$i];
+								}
+								else {
+									$appTypes[$userAcceptExtens[$j]][$i]	= null;
+								}
 							}
 						}
 					}
@@ -274,16 +279,6 @@
 				unset($appTypes['specificness']);
 				unset($appTypes['acceptExtens']);
 				unset($appTypes['extensMatch']);
-
-				if(array_key_exists('accepExtens', $appTypes)) {
-					for($i = 0; $i < count($appTypes['acceptExtens']); $i++) {
-						for($j = 0; $j < count($appAcceptExtens); $j++) {
-							if($appTypes[$appAcceptExtens[$j]][$i] === null) {
-								unset($appTypes[$appAcceptExtens[$j]][$i]);
-							}
-						}
-					}
-				}
 
 				// Return appropriate data
 				switch($returnType) {
