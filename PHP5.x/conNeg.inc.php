@@ -245,9 +245,34 @@
 
 
 				for($i = 0; $i < count($appTypes['type']); $i++) {
+					// q factors to force to strings
+					$qFactorIndexes = array();
+					$qFactorIndexes['qFactorUser'] = 1;
+					if($appVals) {
+						$qFactorIndexes['qFactorApp'] = 1;
+					}
+
 					// Calculate product of q factors
 					if($productVals && $appVals) {
+						$qFactorIndexes['qFactorProduct'] = 1;
 						$appTypes['qFactorProduct'][$i]	= (string)($appTypes['qFactorUser'][$i] * $appTypes['qFactorApp'][$i]);
+					}
+
+					foreach($qFactorIndexes as $qFactor => $null) {
+						// Force '1.0' to '1'
+						if(abs($appTypes[$qFactor][$i] - 1) < 0.0001) {
+							$appTypes[$qFactor][$i]    = '1';
+						}
+
+						// Force '0.0' to '0'
+						if(abs($appTypes[$qFactor][$i] - 0) < 0.0001) {
+							$appTypes[$qFactor][$i]    = '0';
+						}
+
+						// Force '.3', '.75' etc to '0.3', '0.75' respectively
+						if(substr($appTypes[$qFactor][$i], 0, 1) === '.') {
+							$appTypes[$qFactor][$i] = '0' . $appTypes[$qFactor][$i];
+						}
 					}
 				}
 
@@ -455,7 +480,7 @@
 		static private function normaliseAppData(array $appTypes, $mimeNeg) {
 			for($i = 0; $i < count($appTypes['type']); $i++) {			// Set default values (and make all lower case)
 				$appTypes['type'][$i]			= strtolower($appTypes['type'][$i]);
-				$appTypes['qFactorUser'][$i]	= 0;
+				$appTypes['qFactorUser'][$i]	= '0';
 				$appTypes['specificness'][$i]	= self::WILDCARD_DEFAULT;
 				$appTypes['extensMatch'][$i]	= self::EXTENS_DEFAULT;
 				$appTypes['acceptExtens'][$i]	= null;
@@ -524,6 +549,7 @@
 			}
 
 			$sortCall	.= ', $types["type"]);';
+
 			eval($sortCall);
 		}
 
