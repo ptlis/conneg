@@ -234,15 +234,39 @@
 					}
 				}
 
-				// Calculate product of q factors
-				if($productVals && $appVals) {
-					for($i = 0; $i < count($appTypes['type']); $i++) {
-						$appTypes['qFactorProduct'][$i]	= $appTypes['qFactorUser'][$i] * $appTypes['qFactorApp'][$i];
+				foreach($appTypes as $index => $dataArr) {
+					$appTypes[$index] = array_values($dataArr);
+				}
+
+
+				for($i = 0; $i < count($appTypes['type']); $i++) {
+					// Calculate product of q factors
+					if($productVals && $appVals) {
+						$appTypes['qFactorProduct'][$i]	= (string)($appTypes['qFactorUser'][$i] * $appTypes['qFactorApp'][$i]);
 					}
 				}
 
 				// Sort the datastructure
-				self::sortTypes($appTypes, $productVals, $appVals, $appAcceptExtens);
+				self::sortTypes($appTypes, $productVals, $appVals, $appAcceptExtens, $userAcceptExtens);
+
+				// Remove items with a product of 0
+				if($productVals && $appVals) {
+					$tmpAppTypes = array(
+						'type' => array(),
+						'qFactorApp' => array(),
+						'qFactorUser' => array(),
+						'qFactorProduct' => array()
+					);
+					for($i = 0; $i < count($appTypes['type']); $i++) {
+						if($appTypes['qFactorProduct'][$i] != '0') {
+							$tmpAppTypes['type'][] = $appTypes['type'][$i];
+							$tmpAppTypes['qFactorApp'][] = $appTypes['qFactorApp'][$i];
+							$tmpAppTypes['qFactorUser'][] = $appTypes['qFactorUser'][$i];
+							$tmpAppTypes['qFactorProduct'][] = $appTypes['qFactorProduct'][$i];
+						}
+					}
+					$appTypes = $tmpAppTypes;
+				}
 
 				// Cleanup working data from the datastructure
 				unset($appTypes['mimeType']);
@@ -468,8 +492,10 @@
  *								of them and the user agent's.
  *	@param	$appAcceptExtens	An array of accept-extension paramaters provided
  *								by the application (empty if none are provided).
+ *	@param	$userAcceptExtens	An array of accept-extension paramaters provided
+ *								by the UA (empty if none are provided).
  */
-		static private function sortTypes(&$types, $productVals, $appVals, $appAcceptExtens) {
+		static private function sortTypes(&$types, $productVals, $appVals, $appAcceptExtens, $userAcceptExtens) {
 
 			$sortCall	= 'array_multisort(';
 			if($appVals) {
@@ -485,8 +511,11 @@
 				$sortCall	.= '$types["qFactorUser"], SORT_DESC, SORT_NUMERIC';
 			}
 
-			if(count($appAcceptExtens)) {
+			if(array_key_exists('extensMatch', $types)) {
 				$sortCall	.= ', $types["extensMatch"], SORT_DESC, SORT_NUMERIC';
+				foreach($userAcceptExtens as $extens) {
+					$sortCall	.= ', $types["' . $extens . '"]';
+				}
 				foreach($appAcceptExtens as $extens) {
 					$sortCall	.= ', $types["' . $extens . '"]';
 				}
