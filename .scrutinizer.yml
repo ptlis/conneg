@@ -1,0 +1,65 @@
+filter:
+    paths:
+        - src/
+
+tools:
+    external_code_coverage: true
+    php_mess_detector:
+        config:
+            ruleset: build/phpmd.xml
+    php_analyzer:
+        config:
+            parameter_reference_check: { enabled: false }
+            checkstyle: { enabled: false, no_trailing_whitespace: true, naming: { enabled: true, local_variable: '^[a-z][a-zA-Z0-9]*$', abstract_class_name: ^Abstract|Factory$, utility_class_name: 'Utils?$', constant_name: '^[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)*$', property_name: '^[a-z][a-zA-Z0-9]*$', method_name: '^(?:[a-z]|__)[a-zA-Z0-9]*$', parameter_name: '^[a-z][a-zA-Z0-9]*$', interface_name: '^[A-Z][a-zA-Z0-9]*Interface$', type_name: '^[A-Z][a-zA-Z0-9]*$', exception_name: '^[A-Z][a-zA-Z0-9]*Exception$', isser_method_name: '^(?:is|has|should|may|supports)' } }
+            unreachable_code: { enabled: true }
+            check_access_control: { enabled: false }
+            typo_checks: { enabled: false }
+            check_variables: { enabled: false }
+            suspicious_code: { use_statement_alias_conflict: true, precedence_in_condition_assignment: true, enabled: false, overriding_parameter: false, overriding_closure_use: false, parameter_closure_use_conflict: false, parameter_multiple_times: false, non_existent_class_in_instanceof_check: false, non_existent_class_in_catch_clause: false, assignment_of_null_return: false, non_commented_switch_fallthrough: false, non_commented_empty_catch_block: false, overriding_private_members: false }
+            dead_assignments: { enabled: true }
+            verify_php_doc_comments: { enabled: true, parameters: true, return: true, suggest_more_specific_types: false, ask_for_return_if_not_inferrable: false, ask_for_param_type_annotation: false }
+            loops_must_use_braces: { enabled: true }
+            check_usage_context: { enabled: true, method_call_on_non_object: { enabled: true, ignore_null_pointer: true }, foreach: { value_as_reference: true, traversable: true }, missing_argument: true, argument_type_checks: strict }
+            simplify_boolean_return: { enabled: false }
+            phpunit_checks: { enabled: false }
+            reflection_checks: { enabled: false }
+            precedence_checks: { enabled: true, assignment_in_condition: true, comparison_of_bit_result: true }
+            basic_semantic_checks: { enabled: true }
+            unused_code: { enabled: true }
+            deprecation_checks: { enabled: true }
+            useless_function_calls: { enabled: false }
+            metrics_lack_of_cohesion_methods: { enabled: false }
+            metrics_coupling: { enabled: true, stable_code: { namespace_prefixes: {  }, classes: {  } } }
+            doctrine_parameter_binding: { enabled: false }
+            doctrine_entity_manager_injection: { enabled: false }
+            symfony_request_injection: { enabled: false }
+            doc_comment_fixes: { enabled: true }
+            reflection_fixes: { enabled: false }
+            use_statement_fixes: { enabled: true, remove_unused: true, preserve_multiple: false, order_alphabetically: true }
+    php_code_sniffer:
+        config:
+            standard: PSR2
+            sniffs: { psr1: { classes: { class_declaration_sniff: true } }, generic: { code_analysis: { unused_function_parameter_sniff: true }, classes: { duplicate_class_name_sniff: true }, white_space: { disallow_tab_indent_sniff: true, scope_indent_sniff: true }, php: { disallow_short_open_tag_sniff: true, no_silenced_errors_sniff: true, forbidden_functions_sniff: true, lower_case_constant_sniff: true, lower_case_keyword_sniff: true }, formatting: { disallow_multiple_statements_sniff: true }, functions: { function_call_argument_spacing_sniff: true, call_time_pass_by_reference_sniff: true }, files: { one_interface_per_file_sniff: true, end_file_newline_sniff: true, inline_html_sniff: true, byte_order_mark_sniff: true, one_class_per_file_sniff: true, line_endings_sniff: true }, commenting: { fixme_sniff: true, todo_sniff: true }, control_structures: { inline_control_structure_sniff: true }, naming_conventions: { camel_caps_function_name_sniff: true, constructor_name_sniff: true, upper_case_constant_name_sniff: true }, metrics: { cyclomatic_complexity_sniff: true, nesting_level_sniff: true } }, zend: { files: { closing_tag_sniff: true } }, psr2: { classes: { class_declaration_sniff: true }, methods: { method_declaration_sniff: true }, namespaces: { namespace_declaration_sniff: true, use_declaration_sniff: true }, files: { end_file_newline_sniff: true }, control_structures: { switch_declaration_sniff: true, else_if_declaration_sniff: true } } }
+    sensiolabs_security_checker: true
+    php_cpd:
+        excluded_dirs:
+            - tests/
+            - vendor/
+            - bin/
+    php_loc:
+        excluded_dirs:
+            - vendor/
+    php_pdepend:
+        excluded_dirs:
+            1: tests
+    php_hhvm:
+        config:
+            bad_php_include_file: true
+            php_include_file_not_found: true
+            unknown_class: true
+            unknown_base_class: true
+            unknown_function: true
+            use_evaluation: true
+            use_undeclared_global_variable: true
+            unknown_object_method: true
+            unknown_trait: true

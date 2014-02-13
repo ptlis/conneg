@@ -1,0 +1,32 @@
+{
+    "name":         "ptlis/conneg",
+    "description":  "Tools for performing content negotiation.",
+    "license":      "MIT",
+    "keywords":     [ "content", "negotiation", "parse", "http", "field", "header", "types", "charset", "language", "mime", "encoding" ],
+    "type":         "library",
+    "authors": [
+        {
+            "name": "brian ridley",
+            "email":"ptlis@ptlis.net"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "require-dev": {
+        "pdepend/pdepend":                      "1.1.*",
+        "phploc/phploc":                        "2.0.*",
+        "phpmd/phpmd":                          "@dev",
+        "phpunit/phpunit":                      "3.7.*",
+        "sebastian/phpcpd":                     "2.0.*",
+        "squizlabs/php_codesniffer":            "1.5.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "ptlis\\ConNeg": "src/"
+        }
+    },
+    "config": {
+        "bin-dir": "bin"
+    }
+}
