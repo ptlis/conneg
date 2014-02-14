@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class for representing a Charset type.
+ * Class for representing an Encoding type.
  *
  * PHP Version 5.3
  *
@@ -13,14 +13,15 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Type;
+namespace ptlis\ConNeg\Type\Encoding;
 
 use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
+use ptlis\ConNeg\Type\TypeInterface;
 
 /**
- * Class for representing a Charset type.
+ * Class for representing an Encoding type.
  */
-class CharsetType implements TypeInterface
+class EncodingType implements TypeInterface
 {
     /**
      * @var string

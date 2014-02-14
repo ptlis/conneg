@@ -13,7 +13,9 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Type;
+namespace ptlis\ConNeg\Type\Mime;
+
+use ptlis\ConNeg\Type\TypeInterface;
 
 /**
  * Interface for MIME types.

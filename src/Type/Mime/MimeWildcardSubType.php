@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class for MIME with wildcard type & subtype.
+ * Class for MIME with wildcard subtype.
  *
  * PHP Version 5.3
  *
@@ -13,15 +13,20 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Type;
+namespace ptlis\ConNeg\Type\Mime;
 
 use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
 
 /**
- * Class for MIME with wildcard type & subtype.
+ * Class for MIME with wildcard subtype.
  */
-class MimeWildcardType implements MimeInterface
+class MimeWildcardSubType implements MimeInterface
 {
+    /**
+     * @var string
+     */
+    private $type;
+
     /**
      * @var QualityFactorInterface
      */
@@ -29,12 +34,14 @@ class MimeWildcardType implements MimeInterface
 
 
     /**
-     * Constructor.
+     * Constructor
      *
+     * @param string $type
      * @param QualityFactorInterface $qFactor
      */
-    public function __construct(QualityFactorInterface $qFactor)
+    public function __construct($type, QualityFactorInterface $qFactor)
     {
+        $this->type = $type;
         $this->qFactor = $qFactor;
     }
 
@@ -46,7 +53,7 @@ class MimeWildcardType implements MimeInterface
      */
     public function getType()
     {
-        return '*';
+        return $this->type;
     }
 
 
@@ -73,13 +80,13 @@ class MimeWildcardType implements MimeInterface
 
 
     /**
-     * Return the precedence of the type, wildcard matches have the lowest precedence of matching types.
+     * Return the precedence of the type, wildcard subtype matches have the second lowest precedence of matching types.
      *
      * @return int
      */
     public function getPrecedence()
     {
-        return 0;
+        return 1;
     }
 
 

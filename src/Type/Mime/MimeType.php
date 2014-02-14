@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class for representing an Encoding type.
+ * Class for MIME type.
  *
  * PHP Version 5.3
  *
@@ -13,19 +13,24 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Type;
+namespace ptlis\ConNeg\Type\Mime;
 
 use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
 
 /**
- * Class for representing an Encoding type.
+ * Class for MIME type.
  */
-class EncodingType implements TypeInterface
+class MimeType implements MimeInterface
 {
     /**
      * @var string
      */
     private $type;
+
+    /**
+     * @var string
+     */
+    private $subType;
 
     /**
      * @var QualityFactorInterface
@@ -37,12 +42,36 @@ class EncodingType implements TypeInterface
      * Constructor
      *
      * @param string $type
+     * @param string $subType
      * @param QualityFactorInterface $qFactor
      */
-    public function __construct($type, QualityFactorInterface $qFactor)
+    public function __construct($type, $subType, QualityFactorInterface $qFactor)
     {
         $this->type = $type;
+        $this->subType = $subType;
         $this->qFactor = $qFactor;
+    }
+
+
+    /**
+     * Returns the type portion of the media range.
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+
+    /**
+     * Returns the subtype portion of the media range.
+     *
+     * @return string
+     */
+    public function getSubType()
+    {
+        return $this->subType;
     }
 
 
@@ -53,18 +82,18 @@ class EncodingType implements TypeInterface
      */
     public function getFullType()
     {
-        return $this->type;
+        return $this->getType() . '/' . $this->getSubType();
     }
 
 
     /**
-     * Return the precedence of the type, non-wildcard type have the highest precedence.
+     * Return the precedence of the type, non-wildcard type have the highest precedence when you ignore accept-extens.
      *
      * @return int
      */
     public function getPrecedence()
     {
-        return 0;
+        return 2;
     }
 
 

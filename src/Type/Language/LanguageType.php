@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class for MIME type.
+ * Class for representing a Language type.
  *
  * PHP Version 5.3
  *
@@ -13,24 +13,20 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Type;
+namespace ptlis\ConNeg\Type\Language;
 
 use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
+use ptlis\ConNeg\Type\TypeInterface;
 
 /**
- * Class for MIME type.
+ * Class for representing a Language type.
  */
-class MimeType implements MimeInterface
+class LanguageType implements TypeInterface
 {
     /**
      * @var string
      */
     private $type;
-
-    /**
-     * @var string
-     */
-    private $subType;
 
     /**
      * @var QualityFactorInterface
@@ -42,36 +38,12 @@ class MimeType implements MimeInterface
      * Constructor
      *
      * @param string $type
-     * @param string $subType
      * @param QualityFactorInterface $qFactor
      */
-    public function __construct($type, $subType, QualityFactorInterface $qFactor)
+    public function __construct($type, QualityFactorInterface $qFactor)
     {
         $this->type = $type;
-        $this->subType = $subType;
         $this->qFactor = $qFactor;
-    }
-
-
-    /**
-     * Returns the type portion of the media range.
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-
-    /**
-     * Returns the subtype portion of the media range.
-     *
-     * @return string
-     */
-    public function getSubType()
-    {
-        return $this->subType;
     }
 
 
@@ -82,18 +54,18 @@ class MimeType implements MimeInterface
      */
     public function getFullType()
     {
-        return $this->getType() . '/' . $this->getSubType();
+        return $this->type;
     }
 
 
     /**
-     * Return the precedence of the type, non-wildcard type have the highest precedence when you ignore accept-extens.
+     * Return the precedence of the type, non-wildcard type have the highest precedence.
      *
      * @return int
      */
     public function getPrecedence()
     {
-        return 2;
+        return 0;
     }
 
 
