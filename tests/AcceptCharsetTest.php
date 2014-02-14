@@ -9,7 +9,10 @@
     @author     Brian Ridley <ptlis@ptlis.net>
  */
 
+
 namespace tests;
+
+require_once realpath(__DIR__ . '/../PHP5.x/conNeg.inc.php');
 
 
 /** Tests of Accept-Charset negotiation. */

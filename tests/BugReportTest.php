@@ -11,6 +11,7 @@
 
 namespace tests;
 
+require_once realpath(__DIR__ . '/../PHP5.x/conNeg.inc.php');
 
 /** Unit tests written against bug reports. */
 class BugReportTest extends \PHPUnit_Framework_TestCase

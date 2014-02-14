@@ -11,6 +11,8 @@
 
 namespace tests;
 
+require_once realpath(__DIR__ . '/../PHP5.x/conNeg.inc.php');
+
 
 /** Tests of negotiation on field from RFC2616. */
 class SpecExamplesTest extends \PHPUnit_Framework_TestCase
