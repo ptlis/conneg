@@ -23,7 +23,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ptlis\\ConNeg": "src/"
+            "ptlis\\ConNeg\\": "src/"
         }
     },
     "config": {
