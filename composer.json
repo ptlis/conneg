@@ -22,7 +22,7 @@
         "squizlabs/php_codesniffer":            "1.5.*"
     },
     "autoload": {
-        "psr-0": {
+        "psr-4": {
             "ptlis\\ConNeg": "src/"
         }
     },
