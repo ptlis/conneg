@@ -36,9 +36,9 @@ class RegexProvider implements
      */
     private $typeRegex = "
         /
-            ([_a-z0-9\-\+\*\.\:]+)                          # Match types
+            (?<type>[_a-z0-9\-\+\*\.\:]+)                   # Match types
             \s*;?\s*                                        # Quality factor separator
-            q?=?(0\.\d{1,5}|1\.0|[01])?                     # Match quality factor
+            q?=?(?<qfactor>0\.\d{1,5}|1\.0|[01])?           # Match quality factor
             ,*                                              # Media-range separator
         /ix
     ";
