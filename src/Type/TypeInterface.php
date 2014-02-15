@@ -27,7 +27,7 @@ interface TypeInterface
      *
      * @return string
      */
-    public function getFullType();
+    public function getType();
 
 
     /**

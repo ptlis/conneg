@@ -24,7 +24,7 @@ class CharsetTypeTest extends \PHPUnit_Framework_TestCase
     {
         $type = new CharsetType('utf-8', new QualityFactor(0.8));
 
-        $this->assertSame('utf-8', $type->getFullType());
+        $this->assertSame('utf-8', $type->getType());
         $this->assertSame(0.8, $type->getQualityFactor()->getFactor());
         $this->assertSame('utf-8;q=0.8', $type->__toString());
         $this->assertSame(1, $type->getPrecedence());
@@ -35,7 +35,7 @@ class CharsetTypeTest extends \PHPUnit_Framework_TestCase
     {
         $type = new CharsetType('utf-8');
 
-        $this->assertSame('utf-8', $type->getFullType());
+        $this->assertSame('utf-8', $type->getType());
         $this->assertSame(1, $type->getQualityFactor()->getFactor());
         $this->assertSame('utf-8;q=1', $type->__toString());
         $this->assertSame(1, $type->getPrecedence());

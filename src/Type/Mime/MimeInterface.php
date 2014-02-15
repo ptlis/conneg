@@ -27,7 +27,7 @@ interface MimeInterface extends TypeInterface
      *
      * @return string
      */
-    public function getType();
+    public function getMimeType();
 
 
     /**
@@ -35,5 +35,5 @@ interface MimeInterface extends TypeInterface
      *
      * @return string
      */
-    public function getSubType();
+    public function getMimeSubType();
 }

@@ -24,7 +24,7 @@ class EncodingTypeTest extends \PHPUnit_Framework_TestCase
     {
         $type = new EncodingType('gzip', new QualityFactor(0.8));
 
-        $this->assertSame('gzip', $type->getFullType());
+        $this->assertSame('gzip', $type->getType());
         $this->assertSame(0.8, $type->getQualityFactor()->getFactor());
         $this->assertSame('gzip;q=0.8', $type->__toString());
         $this->assertSame(1, $type->getPrecedence());
@@ -35,7 +35,7 @@ class EncodingTypeTest extends \PHPUnit_Framework_TestCase
     {
         $type = new EncodingType('deflate');
 
-        $this->assertSame('deflate', $type->getFullType());
+        $this->assertSame('deflate', $type->getType());
         $this->assertSame(1, $type->getQualityFactor()->getFactor());
         $this->assertSame('deflate;q=1', $type->__toString());
         $this->assertSame(1, $type->getPrecedence());

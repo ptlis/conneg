@@ -56,7 +56,7 @@ class MimeWildcardSubType implements MimeInterface
      *
      * @return string
      */
-    public function getType()
+    public function getMimeType()
     {
         return $this->type;
     }
@@ -67,7 +67,7 @@ class MimeWildcardSubType implements MimeInterface
      *
      * @return string
      */
-    public function getSubType()
+    public function getMimeSubType()
     {
         return '*';
     }
@@ -78,9 +78,9 @@ class MimeWildcardSubType implements MimeInterface
      *
      * @return string
      */
-    public function getFullType()
+    public function getType()
     {
-        return $this->getType() . '/' . $this->getSubType();
+        return $this->getMimeType() . '/' . $this->getMimeSubType();
     }
 
 
@@ -113,7 +113,7 @@ class MimeWildcardSubType implements MimeInterface
      */
     public function __toString()
     {
-        return $this->getFullType() . ';q=' . $this->getQualityFactor();
+        return $this->getType() . ';q=' . $this->getQualityFactor();
     }
 
 

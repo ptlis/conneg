@@ -57,7 +57,7 @@ class EncodingType implements TypeInterface
      *
      * @return string
      */
-    public function getFullType()
+    public function getType()
     {
         return $this->type;
     }
@@ -92,7 +92,7 @@ class EncodingType implements TypeInterface
      */
     public function __toString()
     {
-        return $this->getFullType() . ';q=' . $this->getQualityFactor();
+        return $this->getType() . ';q=' . $this->getQualityFactor();
     }
 
 

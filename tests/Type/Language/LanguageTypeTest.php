@@ -24,7 +24,7 @@ class LanguageTypeTest extends \PHPUnit_Framework_TestCase
     {
         $type = new LanguageType('en-gb', new QualityFactor(0.8));
 
-        $this->assertSame('en-gb', $type->getFullType());
+        $this->assertSame('en-gb', $type->getType());
         $this->assertSame(0.8, $type->getQualityFactor()->getFactor());
         $this->assertSame('en-gb;q=0.8', $type->__toString());
         $this->assertSame(1, $type->getPrecedence());
@@ -35,7 +35,7 @@ class LanguageTypeTest extends \PHPUnit_Framework_TestCase
     {
         $type = new LanguageType('en-us');
 
-        $this->assertSame('en-us', $type->getFullType());
+        $this->assertSame('en-us', $type->getType());
         $this->assertSame(1, $type->getQualityFactor()->getFactor());
         $this->assertSame('en-us;q=1', $type->__toString());
         $this->assertSame(1, $type->getPrecedence());

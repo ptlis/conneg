@@ -43,7 +43,7 @@ class AbsentType implements TypeInterface
      *
      * @return string
      */
-    public function getFullType()
+    public function getType()
     {
         return '';
     }
