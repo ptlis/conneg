@@ -46,7 +46,8 @@ class CharsetTypeFactory implements TypeFactoryInterface
 
 
     /**
-     * Parse the provided Accept-Charset field & return a TypeCollection containing CharsetType Instances.
+     * Parse the provided Accept-Charset field & return a TypeCollection containing CharsetType & WildcardType
+     * instances.
      *
      * @param string $field
      *
@@ -68,7 +69,7 @@ class CharsetTypeFactory implements TypeFactoryInterface
 
 
     /**
-     * Extracts type data from $typeList and populates typeCollection with CharsetTypes.
+     * Extracts type data from $typeList and populates typeCollection with CharsetType & WildcardType instances..
      *
      * @param TypeCollection $typeCollection
      * @param array          $typeList

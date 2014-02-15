@@ -46,7 +46,8 @@ class EncodingTypeFactory implements TypeFactoryInterface
 
 
     /**
-     * Parse the provided Accept-Encoding field & return a TypeCollection containing EncodingType Instances.
+     * Parse the provided Accept-Encoding field & return a TypeCollection containing EncodingType & WildcardType i
+     * instances.
      *
      * @param string $field
      *
@@ -68,7 +69,7 @@ class EncodingTypeFactory implements TypeFactoryInterface
 
 
     /**
-     * Extracts type data from $typeList and populates typeCollection with CharsetTypes.
+     * Extracts type data from $typeList and populates typeCollection with CharsetType & WildcardType instances..
      *
      * @param TypeCollection $typeCollection
      * @param array          $typeList

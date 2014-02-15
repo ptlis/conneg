@@ -46,7 +46,8 @@ class LanguageTypeFactory implements TypeFactoryInterface
 
 
     /**
-     * Parse the provided Accept-Language field & return a TypeCollection containing LanguageType Instances.
+     * Parse the provided Accept-Language field & return a TypeCollection containing LanguageType & WildcardType
+     * instances.
      *
      * @param string $field
      *
@@ -68,7 +69,7 @@ class LanguageTypeFactory implements TypeFactoryInterface
 
 
     /**
-     * Extracts type data from $typeList and populates typeCollection with CharsetTypes.
+     * Extracts type data from $typeList and populates typeCollection with CharsetType & WildcardType instances..
      *
      * @param TypeCollection $typeCollection
      * @param array          $typeList
