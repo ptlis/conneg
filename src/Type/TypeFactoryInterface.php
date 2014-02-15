@@ -24,6 +24,8 @@ use ptlis\ConNeg\Type\TypeInterface;
 interface TypeFactoryInterface
 {
     /**
+     * Parse a http field & return a collection of types.
+     *
      * @param string $field
      *
      * @return TypeCollection
