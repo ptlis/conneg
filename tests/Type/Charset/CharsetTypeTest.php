@@ -13,7 +13,7 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Test\Charset;
+namespace ptlis\ConNeg\Test\Type\Charset;
 
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\Charset\CharsetType;
