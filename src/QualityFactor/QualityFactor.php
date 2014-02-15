@@ -54,6 +54,6 @@ class QualityFactor implements QualityFactorInterface
      */
     public function __toString()
     {
-        return $this->getFactor();
+        return strval($this->getFactor());
     }
 }
