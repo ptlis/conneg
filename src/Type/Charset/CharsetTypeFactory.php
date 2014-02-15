@@ -96,6 +96,8 @@ class CharsetTypeFactory implements TypeFactoryInterface
 
 
     /**
+     * Build & return CharsetType from params.
+     *
      * @param string $type
      * @param string $qualityFactor
      *
