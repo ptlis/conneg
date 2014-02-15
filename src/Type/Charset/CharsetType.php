@@ -65,7 +65,7 @@ class CharsetType implements TypeInterface
      */
     public function getPrecedence()
     {
-        return 0;
+        return 1;
     }
 
 

@@ -57,7 +57,7 @@ class WildcardType implements TypeInterface
      */
     public function getPrecedence()
     {
-        return 2;
+        return 0;
     }
 
 

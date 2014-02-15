@@ -65,7 +65,7 @@ class LanguageType implements TypeInterface
      */
     public function getPrecedence()
     {
-        return 0;
+        return 1;
     }
 
 
