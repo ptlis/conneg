@@ -13,7 +13,7 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Type;
+namespace ptlis\ConNeg\Type\Mime;
 
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
@@ -43,29 +43,29 @@ class AbsentMimeType implements MimeInterface
      *
      * @return string
      */
+    public function getMimeType()
+    {
+        return '';
+    }
+
+
+    /**
+     * Returns an empty string.
+     *
+     * @return string
+     */
+    public function getMimeSubType()
+    {
+        return '';
+    }
+
+
+    /**
+     * Returns an empty string.
+     *
+     * @return string
+     */
     public function getType()
-    {
-        return '';
-    }
-
-
-    /**
-     * Returns an empty string.
-     *
-     * @return string
-     */
-    public function getSubType()
-    {
-        return '';
-    }
-
-
-    /**
-     * Returns an empty string.
-     *
-     * @return string
-     */
-    public function getFullType()
     {
         return '';
     }
