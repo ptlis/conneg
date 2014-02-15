@@ -79,9 +79,9 @@ class LanguageTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testParseSingleWildcardTypeIncludeQualityFactor()
     {
-        $field = '*';
+        $field = '*;q=0.5';
 
-        $expectType = new WildcardType(new QualityFactor(1));
+        $expectType = new WildcardType(new QualityFactor(0.5));
         $expectCollection = new TypeCollection();
         $expectCollection->addType($expectType);
 
@@ -93,9 +93,9 @@ class LanguageTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testParseSingleWildcardTypeOmitQualityFactor()
     {
-        $field = '*;q=0.5';
+        $field = '*';
 
-        $expectType = new WildcardType(new QualityFactor(0.5));
+        $expectType = new WildcardType(new QualityFactor(1));
         $expectCollection = new TypeCollection();
         $expectCollection->addType($expectType);
 
