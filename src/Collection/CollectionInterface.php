@@ -27,11 +27,11 @@ interface CollectionInterface extends Countable, IteratorAggregate
     /**
      * Set the internal store to the provided values.
      *
-     * @param array $typePairList
+     * @param array $list
      *
      * @return CollectionInterface
      */
-    public function setList(array $typePairList);
+    public function setList(array $list);
 
 
     /**
