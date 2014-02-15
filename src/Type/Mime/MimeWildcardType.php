@@ -15,6 +15,7 @@
 
 namespace ptlis\ConNeg\Type\Mime;
 
+use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
 
 /**
@@ -31,10 +32,14 @@ class MimeWildcardType implements MimeInterface
     /**
      * Constructor.
      *
-     * @param QualityFactorInterface $qFactor
+     * @param QualityFactorInterface|null $qFactor
      */
-    public function __construct(QualityFactorInterface $qFactor)
+    public function __construct(QualityFactorInterface $qFactor = null)
     {
+        if (is_null($qFactor)) {
+            $qFactor = new QualityFactor(1);
+        }
+
         $this->qFactor = $qFactor;
     }
 

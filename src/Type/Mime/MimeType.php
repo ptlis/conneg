@@ -15,6 +15,7 @@
 
 namespace ptlis\ConNeg\Type\Mime;
 
+use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
 
 /**
@@ -43,10 +44,14 @@ class MimeType implements MimeInterface
      *
      * @param string $type
      * @param string $subType
-     * @param QualityFactorInterface $qFactor
+     * @param QualityFactorInterface|null $qFactor
      */
-    public function __construct($type, $subType, QualityFactorInterface $qFactor)
+    public function __construct($type, $subType, QualityFactorInterface $qFactor = null)
     {
+        if (is_null($qFactor)) {
+            $qFactor = new QualityFactor(1);
+        }
+
         $this->type = $type;
         $this->subType = $subType;
         $this->qFactor = $qFactor;

@@ -15,6 +15,7 @@
 
 namespace ptlis\ConNeg\Type\Encoding;
 
+use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
 use ptlis\ConNeg\Type\TypeInterface;
 
@@ -38,10 +39,14 @@ class EncodingType implements TypeInterface
      * Constructor
      *
      * @param string $type
-     * @param QualityFactorInterface $qFactor
+     * @param QualityFactorInterface|null $qFactor
      */
-    public function __construct($type, QualityFactorInterface $qFactor)
+    public function __construct($type, QualityFactorInterface $qFactor = null)
     {
+        if (is_null($qFactor)) {
+            $qFactor = new QualityFactor(1);
+        }
+
         $this->type = $type;
         $this->qFactor = $qFactor;
     }
