@@ -21,6 +21,7 @@ use ptlis\ConNeg\Type\AbsentType;
 use ptlis\ConNeg\Type\TypeInterface;
 use ptlis\ConNeg\Type\WildcardType;
 use ptlis\ConNeg\TypePair\TypePair;
+use ptlis\ConNeg\TypePair\TypePairInterface;
 
 /**
  * Class for negotiating on charset, encoding & language types.
@@ -95,7 +96,7 @@ class SharedNegotiator implements NegotiatorInterface
      * @param TypeCollection $userTypeList
      * @param TypeCollection $appTypeList
      *
-     * @return TypeInterface
+     * @return TypePairInterface
      */
     public function negotiateBest(TypeCollection $userTypeList, TypeCollection $appTypeList)
     {
