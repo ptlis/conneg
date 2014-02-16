@@ -77,8 +77,6 @@ class MimeTypeFactory implements TypeFactoryInterface
     {
         foreach (array_keys($typeList['type']) as $key) {
 
-            $qFactor = false;
-
             preg_match_all(
                 $this->regexProvider->getAcceptExtensRegex(),
                 $typeList['extens'][$key],
