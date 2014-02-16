@@ -146,7 +146,7 @@ class TypeCollection implements CollectionInterface
             $descSort
         );
 
-        $newCollection = new TypePairCollection();
+        $newCollection = new TypeCollection();
         $newCollection->setList($newTypePairList);
 
         return $newCollection;
