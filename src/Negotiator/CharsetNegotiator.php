@@ -16,12 +16,7 @@
 namespace ptlis\ConNeg\Negotiator;
 
 use ptlis\ConNeg\Collection\TypePairCollection;
-use ptlis\ConNeg\Type\AbsentType;
-use ptlis\ConNeg\Type\Charset\CharsetTypeFactory;
-use ptlis\ConNeg\Type\TypeInterface;
 use ptlis\ConNeg\Collection\TypeCollection;
-use ptlis\ConNeg\Type\WildcardType;
-use ptlis\ConNeg\TypePair\TypePair;
 use ptlis\ConNeg\TypePair\TypePairInterface;
 
 /**
