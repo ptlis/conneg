@@ -50,16 +50,35 @@ class RegexProvider implements
      */
     private $mimeRegex = "
         /
-            ([_a-z0-9\-\+\*\.\:]+                           # Mime type
-            \/                                              # Separator
-            [_a-z0-9\-\+\*\.\:]+)                           # Mimes subtype
-            ((?:                                            # Matching for accept-params
-            (?:[a-z]+)                                      # Accept-extens key / 'q'
-            =*                                              # Optional value separator
-            (\")?(?:[0-9a-z\-\+\.\s]+)?\\3                  # Value, optionally between quotation marks
-            ?\s*;?\s*                                       # accept-params separator
-            )*)                                             # Match 0 or greater q factors / accept-extension
-            ,*                                               # media-range separator
+            (?<type>                                        # Full type
+                (?<mime_type>[_a-z0-9\-\+\*\.\:]+)          # Mime type
+                \/                                          # Separator
+                (?<sub_type>[_a-z0-9\-\+\*\.\:]+)           # Mimes subtype
+            )
+
+            (?<extens>                                      # Matching for accept-extens & quality factor
+                (?:
+                    ;?\s*
+                    (?:[a-z]+)                              # Accept-extens key or quality factor
+                    =*                                      # Optional value separator
+                    (\")?(?:[0-9a-z\-\+\.\s]+)?\\3          # Value, optionally between quotation marks
+                    ?\s*;?\s*                               # accept-params separator
+                )*                                          # Match 0 or greater quality factors or accept-extension
+            )
+            ,*                                              # media-range separator
+        /ix
+    ";
+
+    /**
+     * Regex used to parse accept-extens fragments for a single type from Accept field.
+     *
+     * @var string
+     */
+    private $extensRegex = "
+        /
+            (?<key>[_a-z0-9\-\+\*\.]+)                      # Accept-extensions key or quality factor
+            (=((\")?(?<value>[0-9a-z\-\+\.\s]+)\\2?))?      # Optional Value, optionally between quotation marks
+            \s*;?\s*                                        # accept-extens separator
         /ix
     ";
 
@@ -105,5 +124,16 @@ class RegexProvider implements
     public function getMimeRegex()
     {
         return $this->mimeRegex;
+    }
+
+
+    /**
+     * Get the regex to parse accept-extens & quality factor.
+     *
+     * @return string
+     */
+    public function getAcceptExtensRegex()
+    {
+        return $this->extensRegex;
     }
 }

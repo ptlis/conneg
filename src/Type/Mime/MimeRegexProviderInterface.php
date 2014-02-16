@@ -26,4 +26,12 @@ interface MimeRegexProviderInterface
      * @return string
      */
     public function getMimeRegex();
+
+
+    /**
+     * Get the regex to parse accept-extens & quality factor.
+     *
+     * @return string
+     */
+    public function getAcceptExtensRegex();
 }
