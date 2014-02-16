@@ -19,12 +19,12 @@ use Exception;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Collection\TypePairCollection;
 use ptlis\ConNeg\Negotiator\CharsetNegotiator;
-use ptlis\ConNeg\Type\AbsentType;
-use ptlis\ConNeg\Type\Charset\CharsetType;
 use ptlis\ConNeg\Type\Charset\CharsetTypeFactory;
 use ptlis\ConNeg\Type\Encoding\EncodingTypeFactory;
 use ptlis\ConNeg\Type\Language\LanguageTypeFactory;
 use ptlis\ConNeg\Type\Mime\MimeTypeFactory;
+use ptlis\ConNeg\Type\TypeFactoryInterface;
+use ptlis\Conneg\TypePair\TypePairInterface;
 
 /**
  * Class providing a simple API through which content negotiation is performed.
@@ -80,12 +80,12 @@ class Negotiate
      * @param string $userField
      * @param string|TypeCollection $appPrefs
      *
-     * @return CharsetType|AbsentType
+     * @return TypePairInterface
      */
     public function charsetBest($userField, $appPrefs)
     {
         $userTypeList = $this->charsetFactory->parse($userField);
-        $appTypeList = $this->charsetPrefsToTypes($appPrefs);
+        $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, $this->charsetFactory);
 
         return $this->charsetNegotiator->negotiateBest($userTypeList, $appTypeList);
     }
@@ -104,7 +104,7 @@ class Negotiate
     public function charsetAll($userField, $appPrefs)
     {
         $userTypeList = $this->charsetFactory->parse($userField);
-        $appTypeList = $this->charsetPrefsToTypes($appPrefs);
+        $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, $this->charsetFactory);
 
         return $this->charsetNegotiator->negotiateAll($userTypeList, $appTypeList);
     }
@@ -145,14 +145,15 @@ class Negotiate
      *
      * @throws \Exception
      *
-     * @param $appPrefs
+     * @param string|TypeCollection $appPrefs
+     * @param TypeFactoryInterface  $factory
      *
      * @return TypeCollection
      */
-    private function charsetPrefsToTypes($appPrefs)
+    private function sharedAppPrefsToTypes($appPrefs, TypeFactoryInterface $factory)
     {
         if (gettype($appPrefs) === 'string') {
-            $appTypeList = $this->charsetFactory->parse($appPrefs);
+            $appTypeList = $factory->parse($appPrefs);
 
         } elseif ($appPrefs instanceof TypeCollection) {
             $appTypeList = $appPrefs;
