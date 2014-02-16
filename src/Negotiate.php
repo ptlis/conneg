@@ -19,6 +19,7 @@ use Exception;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Collection\TypePairCollection;
 use ptlis\ConNeg\Negotiator\CharsetNegotiator;
+use ptlis\ConNeg\Negotiator\EncodingNegotiator;
 use ptlis\ConNeg\Negotiator\SharedNegotiator;
 use ptlis\ConNeg\Type\Charset\CharsetTypeFactory;
 use ptlis\ConNeg\Type\Encoding\EncodingTypeFactory;
@@ -41,6 +42,11 @@ class Negotiate
      * @var CharsetTypeFactory
      */
     private $charsetFactory;
+
+    /**
+     * @var EncodingNegotiator
+     */
+    private $encodingNegotiator;
 
     /**
      * @var EncodingTypeFactory
@@ -69,15 +75,17 @@ class Negotiate
         $this->charsetFactory = new CharsetTypeFactory($regexProvider);
         $this->charsetNegotiator = new CharsetNegotiator($sharedNegotiator);
 
-
         $this->encodingFactory = new EncodingTypeFactory($regexProvider);
+        $this->encodingNegotiator = new EncodingNegotiator($sharedNegotiator);
+
+
         $this->languageFactory = new LanguageTypeFactory($regexProvider);
         $this->mimeFactory = new MimeTypeFactory($regexProvider);
     }
 
 
     /**
-     * Parse the user-agent field & negotiate against application types, return the preferred type.
+     * Parse the Accept-Charset field & negotiate against application types, return the preferred type.
      *
      * @param string $userField
      * @param string|TypeCollection $appPrefs
@@ -94,14 +102,15 @@ class Negotiate
 
 
     /**
-     * Parse the user-agent field & negotiate against application types, return an array of types sorted by preference.
+     * Parse the Accept-Charset field & negotiate against application types, return an array of types sorted by
+     * preference.
      *
      * @param string $userField
      * @param string|TypeCollection $appPrefs
      *
      * @throws Exception
      *
-     * @return TypePairCollection containing CharsetType and WildcardType instances.
+     * @return TypePairCollection containing CharsetType, WildcardType & AbsentType instances.
      */
     public function charsetAll($userField, $appPrefs)
     {
@@ -112,13 +121,40 @@ class Negotiate
     }
 
 
+    /**
+     * Parse the Accept-Encoding field & negotiate against application types, return the preferred type.
+     *
+     * @param string $userField
+     * @param string|TypeCollection $appPrefs
+     *
+     * @return TypePairInterface
+     */
     public function encodingBest($userField, $appPrefs)
     {
+        $userTypeList = $this->encodingFactory->parse($userField);
+        $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, $this->encodingFactory);
+
+        return $this->encodingNegotiator->negotiateBest($userTypeList, $appTypeList);
     }
 
 
+    /**
+     * Parse the Accept-Encoding field & negotiate against application types, return an array of types sorted by
+     * preference.
+     *
+     * @param string $userField
+     * @param string|TypeCollection $appPrefs
+     *
+     * @throws Exception
+     *
+     * @return TypePairCollection containing EncodingType, WildcardType & AbsentType instances.
+     */
     public function encodingAll($userField, $appPrefs)
     {
+        $userTypeList = $this->encodingFactory->parse($userField);
+        $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, $this->encodingFactory);
+
+        return $this->encodingNegotiator->negotiateAll($userTypeList, $appTypeList);
     }
 
 
