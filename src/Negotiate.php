@@ -19,6 +19,7 @@ use Exception;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Collection\TypePairCollection;
 use ptlis\ConNeg\Negotiator\CharsetNegotiator;
+use ptlis\ConNeg\Negotiator\SharedNegotiator;
 use ptlis\ConNeg\Type\Charset\CharsetTypeFactory;
 use ptlis\ConNeg\Type\Encoding\EncodingTypeFactory;
 use ptlis\ConNeg\Type\Language\LanguageTypeFactory;
@@ -63,9 +64,10 @@ class Negotiate
     public function __construct()
     {
         $regexProvider = new RegexProvider();
+        $sharedNegotiator = new SharedNegotiator();
 
         $this->charsetFactory = new CharsetTypeFactory($regexProvider);
-        $this->charsetNegotiator = new CharsetNegotiator($this->charsetFactory);
+        $this->charsetNegotiator = new CharsetNegotiator($sharedNegotiator);
 
 
         $this->encodingFactory = new EncodingTypeFactory($regexProvider);
