@@ -20,6 +20,7 @@ use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Collection\TypePairCollection;
 use ptlis\ConNeg\Negotiator\CharsetNegotiator;
 use ptlis\ConNeg\Negotiator\EncodingNegotiator;
+use ptlis\ConNeg\Negotiator\LanguageNegotiator;
 use ptlis\ConNeg\Negotiator\SharedNegotiator;
 use ptlis\ConNeg\Type\Charset\CharsetTypeFactory;
 use ptlis\ConNeg\Type\Encoding\EncodingTypeFactory;
@@ -34,19 +35,14 @@ use ptlis\Conneg\TypePair\TypePairInterface;
 class Negotiate
 {
     /**
-     * @var CharsetNegotiator
-     */
-    private $charsetNegotiator;
-
-    /**
      * @var CharsetTypeFactory
      */
     private $charsetFactory;
 
     /**
-     * @var EncodingNegotiator
+     * @var CharsetNegotiator
      */
-    private $encodingNegotiator;
+    private $charsetNegotiator;
 
     /**
      * @var EncodingTypeFactory
@@ -54,9 +50,19 @@ class Negotiate
     private $encodingFactory;
 
     /**
+     * @var EncodingNegotiator
+     */
+    private $encodingNegotiator;
+
+    /**
      * @var LanguageTypeFactory
      */
     private $languageFactory;
+
+    /**
+     * @var LanguageNegotiator
+     */
+    private $languageNegotiator;
 
     /**
      * @var MimeTypeFactory
@@ -69,18 +75,20 @@ class Negotiate
      */
     public function __construct()
     {
-        $regexProvider = new RegexProvider();
-        $sharedNegotiator = new SharedNegotiator();
+        $regexProvider              = new RegexProvider();
+        $sharedNegotiator           = new SharedNegotiator();
 
-        $this->charsetFactory = new CharsetTypeFactory($regexProvider);
-        $this->charsetNegotiator = new CharsetNegotiator($sharedNegotiator);
+        $this->charsetFactory       = new CharsetTypeFactory($regexProvider);
+        $this->charsetNegotiator    = new CharsetNegotiator($sharedNegotiator);
 
-        $this->encodingFactory = new EncodingTypeFactory($regexProvider);
-        $this->encodingNegotiator = new EncodingNegotiator($sharedNegotiator);
+        $this->encodingFactory      = new EncodingTypeFactory($regexProvider);
+        $this->encodingNegotiator   = new EncodingNegotiator($sharedNegotiator);
+
+        $this->languageFactory      = new LanguageTypeFactory($regexProvider);
+        $this->languageNegotiator   = new LanguageNegotiator($sharedNegotiator);
 
 
-        $this->languageFactory = new LanguageTypeFactory($regexProvider);
-        $this->mimeFactory = new MimeTypeFactory($regexProvider);
+        $this->mimeFactory          = new MimeTypeFactory($regexProvider);
     }
 
 
@@ -158,13 +166,40 @@ class Negotiate
     }
 
 
+    /**
+     * Parse the Accept-Language field & negotiate against application types, return the preferred type.
+     *
+     * @param string $userField
+     * @param string|TypeCollection $appPrefs
+     *
+     * @return TypePairInterface
+     */
     public function languageBest($userField, $appPrefs)
     {
+        $userTypeList = $this->languageFactory->parse($userField);
+        $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, $this->languageFactory);
+
+        return $this->languageNegotiator->negotiateBest($userTypeList, $appTypeList);
     }
 
 
+    /**
+     * Parse the Accept-Language field & negotiate against application types, return an array of types sorted by
+     * preference.
+     *
+     * @param string $userField
+     * @param string|TypeCollection $appPrefs
+     *
+     * @throws Exception
+     *
+     * @return TypePairCollection containing LanguageType, WildcardType & AbsentType instances.
+     */
     public function languageAll($userField, $appPrefs)
     {
+        $userTypeList = $this->languageFactory->parse($userField);
+        $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, $this->languageFactory);
+
+        return $this->languageNegotiator->negotiateAll($userTypeList, $appTypeList);
     }
 
 
