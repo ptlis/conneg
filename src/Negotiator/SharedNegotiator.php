@@ -40,9 +40,9 @@ class SharedNegotiator implements NegotiatorInterface
     {
         $matchingList = array();
         foreach ($appTypeList as $appType) {
-            $matchingList[$appType->getType()] = array(
-                'appType' => $appType,
-                'userType' => new AbsentType()
+            $matchingList[$appType->getType()] = new TypePair(
+                $appType,
+                new AbsentType()
             );
         }
 
@@ -51,29 +51,35 @@ class SharedNegotiator implements NegotiatorInterface
             // Type match
             if (array_key_exists($userType->getType(), $matchingList)) {
                 $betterUserType = $this->preferredUserMatch(
-                    $matchingList[$userType->getType()]['appType'],
-                    $matchingList[$userType->getType()]['userType'],
+                    $matchingList[$userType->getType()]->getAppType(),
+                    $matchingList[$userType->getType()]->getUserType(),
                     $userType
                 );
 
                 if ($betterUserType) {
-                    $matchingList[$userType->getType()]['userType'] = $userType;
+                    $matchingList[$userType->getType()] = new TypePair(
+                        $matchingList[$userType->getType()]->getAppType(),
+                        $userType
+                    );
                 }
 
-                // Wildcard Match
+            // Wildcard Match
             } elseif ($userType instanceof WildcardType) {
 
                 foreach ($matchingList as $key => $matching) {
-                    if ($userType->getPrecedence() > $matching['userType']->getPrecedence()) {
-                        $matchingList[$key]['userType'] = $userType;
+                    if ($userType->getPrecedence() > $matching->getUserType()->getPrecedence()) {
+                        $matchingList[$key] = new TypePair(
+                            $matchingList[$key]->getAppType(),
+                            $userType
+                        );
                     }
                 }
 
-                // No match
+            // No match
             } else {
-                $matchingList[$userType->getType()] = array(
-                    'appType' => new AbsentType(),
-                    'userType' => $userType
+                $matchingList[$userType->getType()] = new TypePair(
+                    new AbsentType(),
+                    $userType
                 );
             }
         }
@@ -81,9 +87,7 @@ class SharedNegotiator implements NegotiatorInterface
         $pairCollection = new TypePairCollection();
 
         foreach ($matchingList as $matching) {
-            $pairCollection->addPair(
-                new TypePair($matching['appType'], $matching['userType'])
-            );
+            $pairCollection->addPair($matching);
         }
 
         return $pairCollection->getDescending();
