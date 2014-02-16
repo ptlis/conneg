@@ -84,10 +84,10 @@ class TypePair implements TypePairInterface
      */
     public function getType()
     {
-        if (strlen($this->userType->getFullType())) {
-            return $this->userType->getFullType();
+        if (strlen($this->userType->getType())) {
+            return $this->userType->getType();
         } else {
-            return $this->appType->getFullType();
+            return $this->appType->getType();
         }
     }
 

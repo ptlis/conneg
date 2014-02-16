@@ -16,7 +16,9 @@
 namespace ptlis\ConNeg\Collection;
 
 use ArrayIterator;
-use ptlis\ConNeg\Type\TypeInterface;
+use OutOfBoundsException;
+use ptlis\ConNeg\Type\AbsentType;
+use ptlis\ConNeg\Type\Charset\CharsetType;
 use ptlis\ConNeg\TypePair\TypePair;
 use ptlis\ConNeg\TypePair\TypePairInterface;
 use Traversable;
@@ -26,14 +28,6 @@ use Traversable;
  */
 class TypePairCollection implements CollectionInterface
 {
-    /**
-     * Used to prevent addition of application-provided types after user types have been set resulting in simpler logic.
-     *
-     * @var bool
-     */
-    private $userTypeSet = false;
-
-
     /**
      * @var TypePairInterface[]
      */
@@ -64,56 +58,14 @@ class TypePairCollection implements CollectionInterface
     }
 
 
-    /**
-     * Add a type provided by the user-agent.
-     *
-     * @param TypeInterface $userType
-     *
-     * @return $this
-     */
-    public function addUserType(TypeInterface $userType)
+    public function addPair(TypePairInterface $pair)
     {
-        $this->userTypeSet = true;
-
-        if (!array_key_exists($userType->getFullType(), $this->typePairList)) {
-            $this->typePairList[$userType->getFullType()] = new TypePair(null, $userType);
-
-        } else {
-            // Search for matching application type
-            foreach ($this->typePairList as $typePair) {
-                // Test for equality
-                // Test for precedence
-            }
-        }
-
-        return $this;
-    }
-
-
-    /**
-     * Add a type provided by the application.
-     *
-     * @param TypeInterface $appType
-     *
-     * @return TypePairCollection
-     */
-    public function addAppType(TypeInterface $appType)
-    {
-        // Error if a user type has already been set.
-        if ($this->userTypeSet) {
-            // TODO: Throw exception
-        }
-
-        $this->typePairList[$appType->getFullType()] = new TypePair($appType, null);
-
-        return $this;
+        $this->typePairList[] = $pair;
     }
 
 
     /**
      * Return count of elements.
-     *
-     * @link http://php.net/manual/en/countable.count.php
      *
      * @return int
      */
@@ -125,8 +77,6 @@ class TypePairCollection implements CollectionInterface
 
     /**
      * Retrieve an external iterator.
-     *
-     * @link http://php.net/manual/en/iteratoraggregate.getiterator.php
      *
      * @return Traversable
      */
@@ -146,19 +96,9 @@ class TypePairCollection implements CollectionInterface
         // TODO: do we need to create a clone of the objects in here?
         $newTypePairList = $this->typePairList;
 
-        $descSort = function (TypePairInterface $lTypePair, TypePairInterface $rTypePair) {
-            if ($lTypePair->getQualityFactorProduct() < $rTypePair->getQualityFactorProduct()) {
-                return -1;
-            } elseif ($lTypePair->getQualityFactorProduct() === $rTypePair->getQualityFactorProduct()) {
-                return 0;
-            } else {
-                return 1;
-            }
-        };
-
         usort(
             $newTypePairList,
-            $descSort
+            $this->getAscendingSort()
         );
 
         $newCollection = new TypePairCollection();
@@ -178,25 +118,44 @@ class TypePairCollection implements CollectionInterface
         // TODO: do we need to create a clone of the objects in here?
         $newTypePairList = $this->typePairList;
 
-        $descSort = function (TypePairInterface $lTypePair, TypePairInterface $rTypePair) {
-            if ($rTypePair->getQualityFactorProduct() < $lTypePair->getQualityFactorProduct()) {
-                return -1;
-            } elseif ($lTypePair->getQualityFactorProduct() === $rTypePair->getQualityFactorProduct()) {
-                return 0;
-            } else {
-                return 1;
-            }
-        };
-
         usort(
             $newTypePairList,
-            $descSort
+            $this->getDescendingSort()
         );
 
         $newCollection = new TypePairCollection();
         $newCollection->setList($newTypePairList);
 
         return $newCollection;
+    }
+
+
+    /**
+     * Get the preferred pair.
+     *
+     * @return TypePairInterface
+     */
+    public function getBest()
+    {
+        // TODO: do we need to create a clone of the objects in here?
+        $newTypePairList = $this->typePairList;
+
+        usort(
+            $newTypePairList,
+            $this->getDescendingSort()
+        );
+
+        if (count($newTypePairList)) {
+            $bestPair = $newTypePairList[0];
+
+        } else {
+            $bestPair = new TypePair(
+                new AbsentType(),
+                new AbsentType()
+            );
+        }
+
+        return $bestPair;
     }
 
 
@@ -212,5 +171,35 @@ class TypePairCollection implements CollectionInterface
         }
 
         $this->typePairList = $newTypePairList;
+    }
+
+
+    /**
+     * Returns a callback that can be used with usort() to sort pairs into descending order.
+     *
+     * @return callable
+     */
+    private function getDescendingSort()
+    {
+        $sort = new TypePairSort();
+
+        return function (TypePairInterface $lTypePair, TypePairInterface $rTypePair) use ($sort) {
+            return $sort->compare($lTypePair, $rTypePair);
+        };
+    }
+
+
+    /**
+     * Returns a callback that can be used with usort() to sort pairs into ascending order.
+     *
+     * @return callable
+     */
+    public function getAscendingSort()
+    {
+        $sort = new TypePairSort();
+
+        return function (TypePairInterface $lTypePair, TypePairInterface $rTypePair) use ($sort) {
+            return -1 * $sort->compare($lTypePair, $rTypePair);
+        };
     }
 }

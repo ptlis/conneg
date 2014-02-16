@@ -44,4 +44,12 @@ interface TypePairInterface
      * @return float
      */
     public function getQualityFactorProduct();
+
+
+    /**
+     * Get the shared type for this pair.
+     *
+     * @return string
+     */
+    public function getType();
 }
