@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Test to verify the use of the Negotiate::charsetAll & Negotiate::charsetBest methods.
+ * Test to verify the use of the Negotiate::charsetBest method.
  *
  * PHP Version 5.3
  *
