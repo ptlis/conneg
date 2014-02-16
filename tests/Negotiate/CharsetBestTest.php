@@ -15,13 +15,10 @@
 
 namespace ptlis\ConNeg\Test\Negotiate;
 
-
-use ptlis\ConNeg\Collection\TypePairCollection;
 use ptlis\ConNeg\Negotiate;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\AbsentType;
 use ptlis\ConNeg\Type\Charset\CharsetType;
-use ptlis\ConNeg\Type\WildcardType;
 use ptlis\ConNeg\TypePair\TypePair;
 
 class CharsetBestTest extends \PHPUnit_Framework_TestCase
