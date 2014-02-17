@@ -29,12 +29,12 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
         $typePairList = array();
 
         $typePairList[] = new SharedTypePair(
-            new CharsetType('en-gb', new QualityFactor(1)),
-            new CharsetType('en-gb', new QualityFactor(0.9))
+            new CharsetType('utf-8', new QualityFactor(1)),
+            new CharsetType('utf-8', new QualityFactor(0.9))
         );
         $typePairList[] = new SharedTypePair(
-            new CharsetType('fr', new QualityFactor(0.8)),
-            new CharsetType('fr', new QualityFactor(0.8))
+            new CharsetType('iso-8859-5', new QualityFactor(0.8)),
+            new CharsetType('iso-8859-5', new QualityFactor(0.8))
         );
 
         $expectCollection->setList($typePairList);
@@ -49,14 +49,14 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
 
         $expectCollection->addPair(
             new SharedTypePair(
-                new CharsetType('en-gb', new QualityFactor(1)),
-                new CharsetType('en-gb', new QualityFactor(0.9))
+                new CharsetType('utf-8', new QualityFactor(1)),
+                new CharsetType('utf-8', new QualityFactor(0.9))
             )
         );
         $expectCollection->addPair(
             new SharedTypePair(
-                new CharsetType('fr', new QualityFactor(0.8)),
-                new CharsetType('fr', new QualityFactor(0.8))
+                new CharsetType('iso-8859-5', new QualityFactor(0.8)),
+                new CharsetType('iso-8859-5', new QualityFactor(0.8))
             )
         );
 
@@ -70,14 +70,14 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
 
         $expectCollection->addPair(
             new SharedTypePair(
-                new CharsetType('en-gb', new QualityFactor(1)),
-                new CharsetType('en-gb', new QualityFactor(0.9))
+                new CharsetType('utf-8', new QualityFactor(1)),
+                new CharsetType('utf-8', new QualityFactor(0.9))
             )
         );
         $expectCollection->addPair(
             new SharedTypePair(
-                new CharsetType('fr', new QualityFactor(0.8)),
-                new CharsetType('fr', new QualityFactor(0.8))
+                new CharsetType('iso-8859-5', new QualityFactor(0.8)),
+                new CharsetType('iso-8859-5', new QualityFactor(0.8))
             )
         );
 
@@ -94,24 +94,24 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
 
         $collection->addPair(
             new SharedTypePair(
-                new CharsetType('en-gb', new QualityFactor(1)),
-                new CharsetType('en-gb', new QualityFactor(0.9))
+                new CharsetType('utf-8', new QualityFactor(1)),
+                new CharsetType('utf-8', new QualityFactor(0.9))
             )
         );
         $collection->addPair(
             new SharedTypePair(
-                new CharsetType('fr', new QualityFactor(0.8)),
-                new CharsetType('fr', new QualityFactor(0.8))
+                new CharsetType('iso-8859-5', new QualityFactor(0.8)),
+                new CharsetType('iso-8859-5', new QualityFactor(0.8))
             )
         );
 
         $expectAppType = array(
-            'fr;q=0.8',
-            'en-gb;q=1'
+            'iso-8859-5;q=0.8',
+            'utf-8;q=1'
         );
         $expectUserType = array(
-            'fr;q=0.8',
-            'en-gb;q=0.9'
+            'iso-8859-5;q=0.8',
+            'utf-8;q=0.9'
         );
 
         $newCollection = $collection->getAscending();
@@ -131,24 +131,24 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
 
         $collection->addPair(
             new SharedTypePair(
-                new CharsetType('fr', new QualityFactor(0.8)),
-                new CharsetType('fr', new QualityFactor(0.8))
+                new CharsetType('iso-8859-5', new QualityFactor(0.8)),
+                new CharsetType('iso-8859-5', new QualityFactor(0.8))
             )
         );
         $collection->addPair(
             new SharedTypePair(
-                new CharsetType('en-gb', new QualityFactor(1)),
-                new CharsetType('en-gb', new QualityFactor(0.9))
+                new CharsetType('utf-8', new QualityFactor(1)),
+                new CharsetType('utf-8', new QualityFactor(0.9))
             )
         );
 
         $expectAppType = array(
-            'en-gb;q=1',
-            'fr;q=0.8'
+            'utf-8;q=1',
+            'iso-8859-5;q=0.8'
         );
         $expectUserType = array(
-            'en-gb;q=0.9',
-            'fr;q=0.8'
+            'utf-8;q=0.9',
+            'iso-8859-5;q=0.8'
         );
 
         $newCollection = $collection->getDescending();
@@ -168,20 +168,20 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
 
         $collection->addPair(
             new SharedTypePair(
-                new CharsetType('fr', new QualityFactor(0.8)),
-                new CharsetType('fr', new QualityFactor(0.8))
+                new CharsetType('iso-8859-5', new QualityFactor(0.8)),
+                new CharsetType('iso-8859-5', new QualityFactor(0.8))
             )
         );
         $collection->addPair(
             new SharedTypePair(
-                new CharsetType('en-gb', new QualityFactor(1)),
-                new CharsetType('en-gb', new QualityFactor(0.9))
+                new CharsetType('utf-8', new QualityFactor(1)),
+                new CharsetType('utf-8', new QualityFactor(0.9))
             )
         );
 
         $expectPair = new SharedTypePair(
-            new CharsetType('en-gb', new QualityFactor(1)),
-            new CharsetType('en-gb', new QualityFactor(0.9))
+            new CharsetType('utf-8', new QualityFactor(1)),
+            new CharsetType('utf-8', new QualityFactor(0.9))
         );
 
         $bestPair = $collection->getBest();
@@ -196,14 +196,14 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
 
         $collection->addPair(
             new SharedTypePair(
-                new CharsetType('fr', new QualityFactor(0.8)),
-                new CharsetType('fr', new QualityFactor(0.8))
+                new CharsetType('iso-8859-5', new QualityFactor(0.8)),
+                new CharsetType('iso-8859-5', new QualityFactor(0.8))
             )
         );
         $collection->addPair(
             new SharedTypePair(
-                new CharsetType('en-gb', new QualityFactor(1)),
-                new CharsetType('en-gb', new QualityFactor(0.9))
+                new CharsetType('utf-8', new QualityFactor(1)),
+                new CharsetType('utf-8', new QualityFactor(0.9))
             )
         );
 
