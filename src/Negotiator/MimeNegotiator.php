@@ -113,7 +113,7 @@ class MimeNegotiator implements NegotiatorInterface
      * @param TypeCollection $userTypeList
      * @param TypeCollection $appTypeList
      *
-     * @return MimeTypeInterface
+     * @return MimeTypePair
      */
     public function negotiateBest(TypeCollection $userTypeList, TypeCollection $appTypeList)
     {
