@@ -20,6 +20,7 @@ use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
 use ptlis\ConNeg\TypePair\SharedTypePair;
 use ptlis\ConNeg\TypePair\TypePairInterface;
+use ptlis\ConNeg\Type\TypeInterface;
 use ptlis\ConNeg\Type\TypeFactoryInterface;
 use ptlis\ConNeg\Type\WildcardType;
 
@@ -63,41 +64,7 @@ class SharedNegotiator implements NegotiatorInterface
             );
         }
 
-        foreach ($userTypeList as $userType) {
-
-            // Type match
-            if (array_key_exists($userType->getType(), $matchingList)) {
-
-                $newPair = new SharedTypePair(
-                    $matchingList[$userType->getType()]->getAppType(),
-                    $userType
-                );
-                $sort = new TypePairSort();
-
-                if ($sort->compare($matchingList[$userType->getType()], $newPair) > 0) {
-                    $matchingList[$userType->getType()] = $newPair;
-                }
-
-            // Wildcard Match
-            } elseif ($userType instanceof WildcardType) {
-
-                foreach ($matchingList as $key => $matching) {
-                    if ($userType->getPrecedence() > $matching->getUserType()->getPrecedence()) {
-                        $matchingList[$key] = new SharedTypePair(
-                            $matchingList[$key]->getAppType(),
-                            $userType
-                        );
-                    }
-                }
-
-            // No match
-            } else {
-                $matchingList[$userType->getType()] = new SharedTypePair(
-                    $this->typeFactory->get('', 0),
-                    $userType
-                );
-            }
-        }
+        $matchingList = $this->matchUserToAppTypes($userTypeList, $matchingList);
 
         $pairCollection = new SharedTypePairCollection();
 
@@ -122,5 +89,69 @@ class SharedNegotiator implements NegotiatorInterface
         $pairCollection = $this->negotiateAll($userTypeList, $appTypeList);
 
         return $pairCollection->getBest();
+    }
+
+
+    /**
+     * Match user types to app types.
+     *
+     * @param TypeCollection    $userTypeList
+     * @param SharedTypePair[]    $matchingList
+     *
+     * @return SharedTypePair[]
+     */
+    private function matchUserToAppTypes(TypeCollection $userTypeList, array $matchingList)
+    {
+        foreach ($userTypeList as $userType) {
+
+            // Type match
+            if (array_key_exists($userType->getType(), $matchingList)) {
+                $newPair = new SharedTypePair(
+                    $matchingList[$userType->getType()]->getAppType(),
+                    $userType
+                );
+                $sort = new TypePairSort();
+
+                if ($sort->compare($matchingList[$userType->getType()], $newPair) > 0) {
+                    $matchingList[$userType->getType()] = $newPair;
+                }
+
+            // Wildcard Match
+            } elseif ($userType instanceof WildcardType) {
+                $matchingList = $this->matchFullWildcard($matchingList, $userType);
+
+            // No match
+            } else {
+                $matchingList[$userType->getType()] = new SharedTypePair(
+                    $this->typeFactory->get('', 0),
+                    $userType
+                );
+            }
+        }
+
+        return $matchingList;
+    }
+
+
+    /**
+     * Attempt to match wildcard type against each item in matching list.
+     *
+     * @param SharedTypePair[]    $matchingList
+     * @param TypeInterface $userType
+     *
+     * @return SharedTypePair[]
+     */
+    private function matchFullWildcard(array $matchingList, TypeInterface $userType)
+    {
+        foreach ($matchingList as $key => $matching) {
+            if ($userType->getPrecedence() > $matching->getUserType()->getPrecedence()) {
+                $matchingList[$key] = new SharedTypePair(
+                    $matchingList[$key]->getAppType(),
+                    $userType
+                );
+            }
+        }
+
+        return $matchingList;
     }
 }
