@@ -86,11 +86,7 @@ class CharsetTypeFactory implements TypeFactoryInterface
                 $qFactor = 1;
             }
 
-            if ('*' === $typeList['type'][$key]) {
-                $type = new WildcardType(new QualityFactor($qFactor));
-            } else {
-                $type = new CharsetType($typeList['type'][$key], new QualityFactor($qFactor));
-            }
+            $type = $this->get($typeList['type'][$key], $qFactor);
 
             $typeCollection->addType($type);
         }

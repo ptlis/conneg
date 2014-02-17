@@ -86,11 +86,7 @@ class EncodingTypeFactory implements TypeFactoryInterface
                 $qFactor = 1;
             }
 
-            if ('*' === $typeList['type'][$key]) {
-                $type = new WildcardType(new QualityFactor($qFactor));
-            } else {
-                $type = new EncodingType($typeList['type'][$key], new QualityFactor($qFactor));
-            }
+            $type = $this->get($typeList['type'][$key], $qFactor);
 
             $typeCollection->addType($type);
         }

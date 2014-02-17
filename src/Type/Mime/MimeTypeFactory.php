@@ -18,7 +18,6 @@ namespace ptlis\ConNeg\Type\Mime;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\TypeFactoryInterface;
-use ptlis\ConNeg\Type\TypeInterface;
 
 /**
  * Factory class to parse Accept fields & create MimeType instances.
@@ -96,21 +95,7 @@ class MimeTypeFactory implements TypeFactoryInterface
                 $qFactor = 1;
             }
 
-            // TODO: invalid wildcards (wildcard type not subtype etc)
-
-            if ('*' === $typeList['mime_type'][$key]) {
-                $type = new MimeWildcardType(new QualityFactor($qFactor));
-
-            } elseif ('*' === $typeList['sub_type'][$key]) {
-                $type = new MimeWildcardSubType($typeList['mime_type'][$key], new QualityFactor($qFactor));
-
-            } else {
-                $type = new MimeType(
-                    $typeList['mime_type'][$key],
-                    $typeList['sub_type'][$key],
-                    new QualityFactor($qFactor)
-                );
-            }
+            $type = $this->get($typeList['type'][$key], $qFactor);
 
             $typeCollection->addType($type);
         }
@@ -135,7 +120,7 @@ class MimeTypeFactory implements TypeFactoryInterface
             switch (true) {
                 // Full wildcard type
                 case $mimeType === '*' && $subType === '*':
-                    $typeObj = new MimeWildcardType($mimeType, new QualityFactor($qualityFactor));
+                    $typeObj = new MimeWildcardType(new QualityFactor($qualityFactor));
                     break;
 
                 // Wildcard subtype
