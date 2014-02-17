@@ -16,7 +16,7 @@
 namespace ptlis\ConNeg\Negotiator;
 
 use ptlis\ConNeg\Collection\TypeCollection;
-use ptlis\ConNeg\Collection\TypePairCollection;
+use ptlis\ConNeg\Collection\CollectionInterface;
 use ptlis\ConNeg\Type\TypeInterface;
 
 /**
@@ -30,7 +30,7 @@ interface NegotiatorInterface
      * @param TypeCollection $userTypeList
      * @param TypeCollection $appTypeList
      *
-     * @return TypePairCollection
+     * @return CollectionInterface
      */
     public function negotiateAll(TypeCollection $userTypeList, TypeCollection $appTypeList);
 

@@ -15,7 +15,7 @@
 
 namespace ptlis\ConNeg\Negotiator;
 
-use ptlis\ConNeg\Collection\TypePairCollection;
+use ptlis\ConNeg\Collection\SharedTypePairCollection;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\TypePair\TypePairInterface;
 
@@ -47,7 +47,7 @@ class LanguageNegotiator implements NegotiatorInterface
      * @param TypeCollection $userTypeList
      * @param TypeCollection $appTypeList
      *
-     * @return TypePairCollection
+     * @return SharedTypePairCollection
      */
     public function negotiateAll(TypeCollection $userTypeList, TypeCollection $appTypeList)
     {

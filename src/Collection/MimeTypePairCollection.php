@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Collection for TypePair instances, provides sort capabilities.
+ * Collection for MimeTypePair instances, provides sort capabilities.
  *
  * PHP Version 5.3
  *
@@ -16,20 +16,17 @@
 namespace ptlis\ConNeg\Collection;
 
 use ArrayIterator;
-use OutOfBoundsException;
-use ptlis\ConNeg\Type\AbsentType;
-use ptlis\ConNeg\Type\Charset\CharsetType;
-use ptlis\ConNeg\TypePair\SharedTypePair;
-use ptlis\ConNeg\TypePair\TypePairInterface;
+use ptlis\ConNeg\Type\Mime\AbsentMimeType;
+use ptlis\ConNeg\TypePair\MimeTypePair;
 use Traversable;
 
 /**
  * Collection for TypePair instances, provides sort capabilities.
  */
-class TypePairCollection implements CollectionInterface
+class MimeTypePairCollection implements CollectionInterface
 {
     /**
-     * @var TypePairInterface[]
+     * @var MimeTypePair[]
      */
     private $typePairList;
 
@@ -46,7 +43,7 @@ class TypePairCollection implements CollectionInterface
     /**
      * Set the internal store to the provided values.
      *
-     * @param TypePairInterface[] $typePairList
+     * @param MimeTypePair[] $typePairList
      *
      * @return CollectionInterface
      */
@@ -58,7 +55,12 @@ class TypePairCollection implements CollectionInterface
     }
 
 
-    public function addPair(TypePairInterface $pair)
+    /**
+     * Add a type pair to the collection.
+     *
+     * @param MimeTypePair $pair
+     */
+    public function addPair(MimeTypePair $pair)
     {
         $this->typePairList[] = $pair;
     }
@@ -89,7 +91,7 @@ class TypePairCollection implements CollectionInterface
     /**
      * Returns a new sorted collection.
      *
-     * @return TypePairCollection with elements in ascending order
+     * @return MimeTypePairCollection with elements in ascending order
      */
     public function getAscending()
     {
@@ -101,7 +103,7 @@ class TypePairCollection implements CollectionInterface
             $this->getAscendingSort()
         );
 
-        $newCollection = new TypePairCollection();
+        $newCollection = new MimeTypePairCollection();
         $newCollection->setList($newTypePairList);
 
         return $newCollection;
@@ -111,7 +113,7 @@ class TypePairCollection implements CollectionInterface
     /**
      * Returns a new sorted collection.
      *
-     * @return TypePairCollection with elements in descending order
+     * @return MimeTypePairCollection with elements in descending order
      */
     public function getDescending()
     {
@@ -123,7 +125,7 @@ class TypePairCollection implements CollectionInterface
             $this->getDescendingSort()
         );
 
-        $newCollection = new TypePairCollection();
+        $newCollection = new MimeTypePairCollection();
         $newCollection->setList($newTypePairList);
 
         return $newCollection;
@@ -133,7 +135,7 @@ class TypePairCollection implements CollectionInterface
     /**
      * Get the preferred pair.
      *
-     * @return TypePairInterface
+     * @return MimeTypePair
      */
     public function getBest()
     {
@@ -149,9 +151,9 @@ class TypePairCollection implements CollectionInterface
             $bestPair = $newTypePairList[0];
 
         } else {
-            $bestPair = new SharedTypePair(
-                new AbsentType(),
-                new AbsentType()
+            $bestPair = new MimeTypePair(
+                new AbsentMimeType(),
+                new AbsentMimeType()
             );
         }
 
@@ -183,7 +185,7 @@ class TypePairCollection implements CollectionInterface
     {
         $sort = new TypePairSort();
 
-        return function (TypePairInterface $lTypePair, TypePairInterface $rTypePair) use ($sort) {
+        return function (MimeTypePair $lTypePair, MimeTypePair $rTypePair) use ($sort) {
             return $sort->compare($lTypePair, $rTypePair);
         };
     }
@@ -198,7 +200,7 @@ class TypePairCollection implements CollectionInterface
     {
         $sort = new TypePairSort();
 
-        return function (TypePairInterface $lTypePair, TypePairInterface $rTypePair) use ($sort) {
+        return function (MimeTypePair $lTypePair, MimeTypePair $rTypePair) use ($sort) {
             return -1 * $sort->compare($lTypePair, $rTypePair);
         };
     }

@@ -15,7 +15,7 @@
 
 namespace ptlis\ConNeg\Test\Negotiate;
 
-use ptlis\ConNeg\Collection\TypePairCollection;
+use ptlis\ConNeg\Collection\SharedTypePairCollection;
 use ptlis\ConNeg\Negotiate;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\AbsentType;
@@ -30,7 +30,7 @@ class encodingAllTest extends \PHPUnit_Framework_TestCase
         $httpField  = '';
         $appPrefs   = '';
 
-        $expectCollection = new TypePairCollection();
+        $expectCollection = new SharedTypePairCollection();
 
         $negotiate = new Negotiate();
         $resultCollection = $negotiate->encodingAll($httpField, $appPrefs);
@@ -44,7 +44,7 @@ class encodingAllTest extends \PHPUnit_Framework_TestCase
         $httpField  = 'deflate,7zip;q=0.75';
         $appPrefs   = '';
 
-        $expectCollection = new TypePairCollection();
+        $expectCollection = new SharedTypePairCollection();
         $expectCollection->addPair(
             new SharedTypePair(
                 new AbsentType(),
@@ -70,7 +70,7 @@ class encodingAllTest extends \PHPUnit_Framework_TestCase
         $httpField  = 'gzip;q=0.75,deflate';
         $appPrefs   = '';
 
-        $expectCollection = new TypePairCollection();
+        $expectCollection = new SharedTypePairCollection();
         $expectCollection->addPair(
             new SharedTypePair(
                 new AbsentType(),
@@ -96,7 +96,7 @@ class encodingAllTest extends \PHPUnit_Framework_TestCase
         $httpField  = '';
         $appPrefs   = 'compress;q=1,gzip;q=0.5';
 
-        $expectCollection = new TypePairCollection();
+        $expectCollection = new SharedTypePairCollection();
         $expectCollection->addPair(
             new SharedTypePair(
                 new EncodingType('compress', new QualityFactor(1)),
@@ -122,7 +122,7 @@ class encodingAllTest extends \PHPUnit_Framework_TestCase
         $httpField  = '';
         $appPrefs   = '7zip;q=0.5,gzip;q=1';
 
-        $expectCollection = new TypePairCollection();
+        $expectCollection = new SharedTypePairCollection();
         $expectCollection->addPair(
             new SharedTypePair(
                 new EncodingType('gzip', new QualityFactor(1)),
@@ -148,7 +148,7 @@ class encodingAllTest extends \PHPUnit_Framework_TestCase
         $httpField  = '';
         $appPrefs   = '7zip;q=0.5,deflate;q=0.5';
 
-        $expectCollection = new TypePairCollection();
+        $expectCollection = new SharedTypePairCollection();
         $expectCollection->addPair(
             new SharedTypePair(
                 new EncodingType('7zip', new QualityFactor(0.5)),
@@ -174,7 +174,7 @@ class encodingAllTest extends \PHPUnit_Framework_TestCase
         $httpField  = 'compress;q=0.6,deflate;q=0.9';
         $appPrefs   = 'deflate;q=0.9,compress;q=0.6';
 
-        $expectCollection = new TypePairCollection();
+        $expectCollection = new SharedTypePairCollection();
         $expectCollection->addPair(
             new SharedTypePair(
                 new EncodingType('deflate', new QualityFactor(0.9)),
@@ -200,7 +200,7 @@ class encodingAllTest extends \PHPUnit_Framework_TestCase
         $httpField  = '7zip;q=0.6,deflate;q=0.9,gzip;q=0.3';
         $appPrefs   = 'bz;q=0.8,7zip;q=0.3,gzip;q=0.5';
 
-        $expectCollection = new TypePairCollection();
+        $expectCollection = new SharedTypePairCollection();
         $expectCollection->addPair(
             new SharedTypePair(
                 new EncodingType('7zip', new QualityFactor(0.3)),
@@ -238,7 +238,7 @@ class encodingAllTest extends \PHPUnit_Framework_TestCase
         $httpField  = 'gzip;q=0.8,compress;q=0.9,*;q=0.5';
         $appPrefs   = 'gzip,compress;q=0.7,7zip;q=0.3';
 
-        $expectCollection = new TypePairCollection();
+        $expectCollection = new SharedTypePairCollection();
         $expectCollection->addPair(
             new SharedTypePair(
                 new EncodingType('gzip', new QualityFactor(1)),
