@@ -106,7 +106,7 @@ class TypeCollection implements CollectionInterface
             if ($lTypePair->getQualityFactor() < $rTypePair->getQualityFactor()) {
                 return -1;
             } elseif ($lTypePair->getQualityFactor()->getFactor() === $rTypePair->getQualityFactor()->getFactor()) {
-                return 0;
+                return strcasecmp($lTypePair->getType(), $rTypePair->getType());
             } else {
                 return 1;
             }
@@ -138,7 +138,7 @@ class TypeCollection implements CollectionInterface
             if ($rTypePair->getQualityFactor() < $lTypePair->getQualityFactor()) {
                 return -1;
             } elseif ($lTypePair->getQualityFactor()->getFactor() === $rTypePair->getQualityFactor()->getFactor()) {
-                return 0;
+                return strcasecmp($lTypePair->getType(), $rTypePair->getType());
             } else {
                 return 1;
             }
