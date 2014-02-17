@@ -65,37 +65,7 @@ class MimeNegotiator implements NegotiatorInterface
             );
         }
 
-        foreach ($userTypeList as $userType) {
-
-            // Full Wildcard Match
-            if ($userType instanceof MimeWildcardType) {
-                $matchingList = $this->matchFullWildcard($matchingList, $userType);
-
-            // Wildcard SubType Match
-            } elseif ($userType instanceof MimeWildcardSubType) {
-                $matchingList = $this->matchSubTypeWildcard($matchingList, $userType);
-
-            // Exact Match
-            } elseif (array_key_exists($userType->getType(), $matchingList)) {
-
-                $newPair = new MimeTypePair(
-                    $matchingList[$userType->getType()]->getAppType(),
-                    $userType
-                );
-                $sort = new TypePairSort();
-
-                if ($sort->compare($matchingList[$userType->getType()], $newPair) > 0) {
-                    $matchingList[$userType->getType()] = $newPair;
-                }
-
-            // No match
-            } else {
-                $matchingList[$userType->getType()] = new MimeTypePair(
-                    $this->typeFactory->get('', 0),
-                    $userType
-                );
-            }
-        }
+        $matchingList = $this->matchUserToAppTypes($userTypeList, $matchingList);
 
         $pairCollection = new MimeTypePairCollection();
 
@@ -162,6 +132,52 @@ class MimeNegotiator implements NegotiatorInterface
 
                 $matchingList[$key] = new MimeTypePair(
                     $matchingList[$key]->getAppType(),
+                    $userType
+                );
+            }
+        }
+
+        return $matchingList;
+    }
+
+
+    /**
+     * Match user types to app types.
+     *
+     * @param TypeCollection    $userTypeList
+     * @param MimeTypePair[]    $matchingList
+     *
+     * @return MimeTypePair[]
+     */
+    private function matchUserToAppTypes(TypeCollection $userTypeList, array $matchingList)
+    {
+        foreach ($userTypeList as $userType) {
+
+            // Full Wildcard Match
+            if ($userType instanceof MimeWildcardType) {
+                $matchingList = $this->matchFullWildcard($matchingList, $userType);
+
+            // Wildcard SubType Match
+            } elseif ($userType instanceof MimeWildcardSubType) {
+                $matchingList = $this->matchSubTypeWildcard($matchingList, $userType);
+
+            // Exact Match
+            } elseif (array_key_exists($userType->getType(), $matchingList)) {
+
+                $newPair = new MimeTypePair(
+                    $matchingList[$userType->getType()]->getAppType(),
+                    $userType
+                );
+                $sort = new TypePairSort();
+
+                if ($sort->compare($matchingList[$userType->getType()], $newPair) > 0) {
+                    $matchingList[$userType->getType()] = $newPair;
+                }
+
+            // No match
+            } else {
+                $matchingList[$userType->getType()] = new MimeTypePair(
+                    $this->typeFactory->get('', 0),
                     $userType
                 );
             }
