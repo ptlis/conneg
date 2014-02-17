@@ -60,10 +60,14 @@ class SharedTypePairCollection implements CollectionInterface
      * Add a type pair to the collection.
      *
      * @param TypePairInterface $pair
+     *
+     * @return SharedTypePairCollection
      */
     public function addPair(TypePairInterface $pair)
     {
         $this->typePairList[] = $pair;
+
+        return $this;
     }
 
 

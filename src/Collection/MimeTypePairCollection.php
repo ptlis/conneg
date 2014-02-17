@@ -59,10 +59,14 @@ class MimeTypePairCollection implements CollectionInterface
      * Add a type pair to the collection.
      *
      * @param MimeTypePair $pair
+     *
+     * @return MimeTypePairCollection
      */
     public function addPair(MimeTypePair $pair)
     {
         $this->typePairList[] = $pair;
+
+        return $this;
     }
 
 
