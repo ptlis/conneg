@@ -127,8 +127,31 @@ class MimeTypeFactory implements TypeFactoryInterface
      */
     public function get($type, $qualityFactor)
     {
-        list($mimeType, $subType) = explode('/', $type);
+        if (strlen($type)) {
+            // TODO: what if no slash??
+            list($mimeType, $subType) = explode('/', $type);
 
-        return new MimeType($mimeType, $subType, new QualityFactor($qualityFactor));
+            // TODO: what if odd wildcard (eg */html)
+            switch (true) {
+                // Full wildcard type
+                case $mimeType === '*' && $subType === '*':
+                    $typeObj = new MimeWildcardType($mimeType, new QualityFactor($qualityFactor));
+                    break;
+
+                // Wildcard subtype
+                case $mimeType !== '*' && $subType === '*':
+                    $typeObj = new MimeWildcardSubType($mimeType, new QualityFactor($qualityFactor));
+                    break;
+
+                default:
+                    $typeObj = new MimeType($mimeType, $subType, new QualityFactor($qualityFactor));
+                    break;
+            }
+
+        } else {
+            $typeObj = new AbsentMimeType();
+        }
+
+        return $typeObj;
     }
 }

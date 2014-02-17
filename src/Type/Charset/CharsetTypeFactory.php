@@ -17,6 +17,7 @@ namespace ptlis\ConNeg\Type\Charset;
 
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
+use ptlis\ConNeg\Type\AbsentType;
 use ptlis\ConNeg\Type\TypeFactoryInterface;
 use ptlis\ConNeg\Type\TypeInterface;
 use ptlis\ConNeg\Type\WildcardType;
@@ -106,6 +107,20 @@ class CharsetTypeFactory implements TypeFactoryInterface
      */
     public function get($type, $qualityFactor)
     {
-        return new CharsetType($type, new QualityFactor($qualityFactor));
+        switch ($type) {
+            case '':
+                $typeObj = new AbsentType();
+                break;
+
+            case '*':
+                $typeObj = new WildcardType(new QualityFactor($qualityFactor));
+                break;
+
+            default:
+                $typeObj = new CharsetType($type, new QualityFactor($qualityFactor));
+                break;
+        }
+
+        return $typeObj;
     }
 }

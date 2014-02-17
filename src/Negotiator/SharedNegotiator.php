@@ -17,8 +17,10 @@ namespace ptlis\ConNeg\Negotiator;
 
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Collection\TypePairCollection;
+use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\AbsentType;
 use ptlis\ConNeg\Type\TypeInterface;
+use ptlis\ConNeg\Type\TypeFactoryInterface;
 use ptlis\ConNeg\Type\WildcardType;
 use ptlis\ConNeg\TypePair\SharedTypePair;
 use ptlis\ConNeg\TypePair\TypePairInterface;
@@ -28,6 +30,23 @@ use ptlis\ConNeg\TypePair\TypePairInterface;
  */
 class SharedNegotiator implements NegotiatorInterface
 {
+    /**
+     * @var TypeFactoryInterface
+     */
+    private $typeFactory;
+
+
+    /**
+     * Constructor
+     *
+     * @param TypeFactoryInterface $typeFactory
+     */
+    public function __construct(TypeFactoryInterface $typeFactory)
+    {
+        $this->typeFactory = $typeFactory;
+    }
+
+
     /**
      * Return a collection of types sorted by preference.
      *
@@ -42,7 +61,7 @@ class SharedNegotiator implements NegotiatorInterface
         foreach ($appTypeList as $appType) {
             $matchingList[$appType->getType()] = new SharedTypePair(
                 $appType,
-                new AbsentType()
+                $this->typeFactory->get('', 0)
             );
         }
 
@@ -78,7 +97,7 @@ class SharedNegotiator implements NegotiatorInterface
             // No match
             } else {
                 $matchingList[$userType->getType()] = new SharedTypePair(
-                    new AbsentType(),
+                    $this->typeFactory->get('', 0),
                     $userType
                 );
             }

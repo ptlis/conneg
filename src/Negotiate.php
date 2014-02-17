@@ -21,6 +21,7 @@ use ptlis\ConNeg\Collection\TypePairCollection;
 use ptlis\ConNeg\Negotiator\CharsetNegotiator;
 use ptlis\ConNeg\Negotiator\EncodingNegotiator;
 use ptlis\ConNeg\Negotiator\LanguageNegotiator;
+use ptlis\ConNeg\Negotiator\MimeNegotiator;
 use ptlis\ConNeg\Negotiator\SharedNegotiator;
 use ptlis\ConNeg\Type\Charset\CharsetTypeFactory;
 use ptlis\ConNeg\Type\Encoding\EncodingTypeFactory;
@@ -69,6 +70,11 @@ class Negotiate
      */
     private $mimeFactory;
 
+    /**
+     * @var MimeNegotiator
+     */
+    private $mimeNegotiator;
+
 
     /**
      * Constructor, initialise factories.
@@ -76,19 +82,18 @@ class Negotiate
     public function __construct()
     {
         $regexProvider              = new RegexProvider();
-        $sharedNegotiator           = new SharedNegotiator();
 
         $this->charsetFactory       = new CharsetTypeFactory($regexProvider);
-        $this->charsetNegotiator    = new CharsetNegotiator($sharedNegotiator);
+        $this->charsetNegotiator    = new CharsetNegotiator(new SharedNegotiator($this->charsetFactory));
 
         $this->encodingFactory      = new EncodingTypeFactory($regexProvider);
-        $this->encodingNegotiator   = new EncodingNegotiator($sharedNegotiator);
+        $this->encodingNegotiator   = new EncodingNegotiator(new SharedNegotiator($this->encodingFactory));
 
         $this->languageFactory      = new LanguageTypeFactory($regexProvider);
-        $this->languageNegotiator   = new LanguageNegotiator($sharedNegotiator);
-
+        $this->languageNegotiator   = new LanguageNegotiator(new SharedNegotiator($this->languageFactory));
 
         $this->mimeFactory          = new MimeTypeFactory($regexProvider);
+        $this->mimeNegotiator       = new MimeNegotiator($this->mimeFactory);
     }
 
 
