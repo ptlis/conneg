@@ -17,8 +17,8 @@ namespace ptlis\ConNeg\Collection;
 
 use ArrayIterator;
 use Traversable;
-use ptlis\ConNeg\Type\Mime\AbsentMimeType;
 use ptlis\ConNeg\TypePair\MimeTypePair;
+use ptlis\ConNeg\Type\Mime\AbsentMimeType;
 
 /**
  * Collection for TypePair instances, provides sort capabilities.
