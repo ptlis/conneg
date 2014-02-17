@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Test to verify the correctness of LanguageTypeFactory.
+ * Test to verify the correctness of SharedTypeFactory with languages.
  *
  * PHP Version 5.3
  *
@@ -19,7 +19,7 @@ use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\RegexProvider;
 use ptlis\ConNeg\Type\Language\LanguageType;
-use ptlis\ConNeg\Type\Language\LanguageTypeFactory;
+use ptlis\ConNeg\Type\SharedTypeFactory;
 use ptlis\ConNeg\Type\WildcardType;
 
 class LanguageTypeFactoryTest extends \PHPUnit_Framework_TestCase
@@ -31,7 +31,11 @@ class LanguageTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $expectType = new LanguageType($type, new QualityFactor($qFactor));
 
-        $factory = new LanguageTypeFactory(new RegexProvider());
+        $regexProvider = new RegexProvider();
+        $factory = new SharedTypeFactory(
+            $regexProvider->getLanguageRegex(),
+            'ptlis\ConNeg\Type\Language\LanguageType'
+        );
 
         $this->assertEquals($expectType, $factory->get($type, $qFactor));
     }
@@ -43,7 +47,11 @@ class LanguageTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $expectCollection = new TypeCollection();
 
-        $factory = new LanguageTypeFactory(new RegexProvider());
+        $regexProvider = new RegexProvider();
+        $factory = new SharedTypeFactory(
+            $regexProvider->getLanguageRegex(),
+            'ptlis\ConNeg\Type\Language\LanguageType'
+        );
 
         $this->assertEquals($expectCollection, $factory->parse($field));
     }
@@ -57,7 +65,11 @@ class LanguageTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new TypeCollection();
         $expectCollection->addType($expectType);
 
-        $factory = new LanguageTypeFactory(new RegexProvider());
+        $regexProvider = new RegexProvider();
+        $factory = new SharedTypeFactory(
+            $regexProvider->getLanguageRegex(),
+            'ptlis\ConNeg\Type\Language\LanguageType'
+        );
 
         $this->assertEquals($expectCollection, $factory->parse($field));
     }
@@ -71,7 +83,11 @@ class LanguageTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new TypeCollection();
         $expectCollection->addType($expectType);
 
-        $factory = new LanguageTypeFactory(new RegexProvider());
+        $regexProvider = new RegexProvider();
+        $factory = new SharedTypeFactory(
+            $regexProvider->getLanguageRegex(),
+            'ptlis\ConNeg\Type\Language\LanguageType'
+        );
 
         $this->assertEquals($expectCollection, $factory->parse($field));
     }
@@ -85,7 +101,11 @@ class LanguageTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new TypeCollection();
         $expectCollection->addType($expectType);
 
-        $factory = new LanguageTypeFactory(new RegexProvider());
+        $regexProvider = new RegexProvider();
+        $factory = new SharedTypeFactory(
+            $regexProvider->getLanguageRegex(),
+            'ptlis\ConNeg\Type\Language\LanguageType'
+        );
 
         $this->assertEquals($expectCollection, $factory->parse($field));
     }
@@ -99,7 +119,11 @@ class LanguageTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new TypeCollection();
         $expectCollection->addType($expectType);
 
-        $factory = new LanguageTypeFactory(new RegexProvider());
+        $regexProvider = new RegexProvider();
+        $factory = new SharedTypeFactory(
+            $regexProvider->getLanguageRegex(),
+            'ptlis\ConNeg\Type\Language\LanguageType'
+        );
 
         $this->assertEquals($expectCollection, $factory->parse($field));
     }
@@ -113,7 +137,11 @@ class LanguageTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $expectCollection->addType(new LanguageType('en-gb', new QualityFactor(1)));
         $expectCollection->addType(new LanguageType('en', new QualityFactor(0.7)));
 
-        $factory = new LanguageTypeFactory(new RegexProvider());
+        $regexProvider = new RegexProvider();
+        $factory = new SharedTypeFactory(
+            $regexProvider->getLanguageRegex(),
+            'ptlis\ConNeg\Type\Language\LanguageType'
+        );
 
         $this->assertEquals($expectCollection, $factory->parse($field));
     }
@@ -128,7 +156,11 @@ class LanguageTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $expectCollection->addType(new LanguageType('de', new QualityFactor(1)));
         $expectCollection->addType(new WildcardType(new QualityFactor(0.35)));
 
-        $factory = new LanguageTypeFactory(new RegexProvider());
+        $regexProvider = new RegexProvider();
+        $factory = new SharedTypeFactory(
+            $regexProvider->getLanguageRegex(),
+            'ptlis\ConNeg\Type\Language\LanguageType'
+        );
 
         $this->assertEquals($expectCollection, $factory->parse($field));
     }
@@ -143,7 +175,11 @@ class LanguageTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $expectCollection->addType(new LanguageType('en-gb', new QualityFactor(0.8)));
         $expectCollection->addType(new LanguageType('en', new QualityFactor(0.7)));
 
-        $factory = new LanguageTypeFactory(new RegexProvider());
+        $regexProvider = new RegexProvider();
+        $factory = new SharedTypeFactory(
+            $regexProvider->getLanguageRegex(),
+            'ptlis\ConNeg\Type\Language\LanguageType'
+        );
 
         $this->assertEquals($expectCollection, $factory->parse($field));
     }

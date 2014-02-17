@@ -25,10 +25,8 @@ use ptlis\ConNeg\Negotiator\EncodingNegotiator;
 use ptlis\ConNeg\Negotiator\LanguageNegotiator;
 use ptlis\ConNeg\Negotiator\MimeNegotiator;
 use ptlis\ConNeg\Negotiator\SharedNegotiator;
-use ptlis\ConNeg\Type\Charset\CharsetTypeFactory;
-use ptlis\ConNeg\Type\Encoding\EncodingTypeFactory;
-use ptlis\ConNeg\Type\Language\LanguageTypeFactory;
 use ptlis\ConNeg\Type\Mime\MimeTypeFactory;
+use ptlis\ConNeg\Type\SharedTypeFactory;
 use ptlis\ConNeg\Type\TypeFactoryInterface;
 use ptlis\Conneg\TypePair\TypePairInterface;
 
@@ -38,7 +36,7 @@ use ptlis\Conneg\TypePair\TypePairInterface;
 class Negotiate
 {
     /**
-     * @var CharsetTypeFactory
+     * @var SharedTypeFactory
      */
     private $charsetFactory;
 
@@ -48,7 +46,7 @@ class Negotiate
     private $charsetNegotiator;
 
     /**
-     * @var EncodingTypeFactory
+     * @var SharedTypeFactory
      */
     private $encodingFactory;
 
@@ -58,7 +56,7 @@ class Negotiate
     private $encodingNegotiator;
 
     /**
-     * @var LanguageTypeFactory
+     * @var SharedTypeFactory
      */
     private $languageFactory;
 
@@ -85,13 +83,22 @@ class Negotiate
     {
         $regexProvider              = new RegexProvider();
 
-        $this->charsetFactory       = new CharsetTypeFactory($regexProvider);
+        $this->charsetFactory       = new SharedTypeFactory(
+            $regexProvider->getCharsetRegex(),
+            'ptlis\ConNeg\Type\Charset\CharsetType'
+        );
         $this->charsetNegotiator    = new CharsetNegotiator(new SharedNegotiator($this->charsetFactory));
 
-        $this->encodingFactory      = new EncodingTypeFactory($regexProvider);
+        $this->encodingFactory      = new SharedTypeFactory(
+            $regexProvider->getEncodingRegex(),
+            'ptlis\ConNeg\Type\Encoding\EncodingType'
+        );
         $this->encodingNegotiator   = new EncodingNegotiator(new SharedNegotiator($this->encodingFactory));
 
-        $this->languageFactory      = new LanguageTypeFactory($regexProvider);
+        $this->languageFactory      = new SharedTypeFactory(
+            $regexProvider->getLanguageRegex(),
+            'ptlis\ConNeg\Type\Language\LanguageType'
+        );
         $this->languageNegotiator   = new LanguageNegotiator(new SharedNegotiator($this->languageFactory));
 
         $this->mimeFactory          = new MimeTypeFactory($regexProvider);
