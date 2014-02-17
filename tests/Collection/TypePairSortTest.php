@@ -204,6 +204,78 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
     }
 
 
+    public function testGetAscendingSix()
+    {
+        $typePairList = array();
+        $typePairList[] = new SharedTypePair(
+            new LanguageType('en-gb', new QualityFactor(0.9)),
+            new AbsentType()
+        );
+        $typePairList[] = new SharedTypePair(
+            new LanguageType('fr', new QualityFactor(0.8)),
+            new AbsentType()
+        );
+
+        $sort = new TypePairSort();
+
+        $newCollection = new SharedTypePairCollection();
+        $sort->sortAscending($typePairList, $newCollection);
+
+        $expectAppType = array(
+            'fr;q=0.8',
+            'en-gb;q=0.9'
+        );
+
+        $expectUserType = array(
+            '',
+            ''
+        );
+
+        $i = 0;
+        foreach ($newCollection as $typePair) {
+            $this->assertSame($expectAppType[$i], $typePair->getAppType()->__toString());
+            $this->assertSame($expectUserType[$i], $typePair->getUserType()->__toString());
+            $i++;
+        }
+    }
+
+
+    public function testGetAscendingSeven()
+    {
+        $typePairList = array();
+        $typePairList[] = new SharedTypePair(
+            new AbsentType(),
+            new LanguageType('en-gb', new QualityFactor(0.9))
+        );
+        $typePairList[] = new SharedTypePair(
+            new AbsentType(),
+            new LanguageType('fr', new QualityFactor(0.8))
+        );
+
+        $sort = new TypePairSort();
+
+        $newCollection = new SharedTypePairCollection();
+        $sort->sortAscending($typePairList, $newCollection);
+
+        $expectAppType = array(
+            '',
+            ''
+        );
+
+        $expectUserType = array(
+            'fr;q=0.8',
+            'en-gb;q=0.9'
+        );
+
+        $i = 0;
+        foreach ($newCollection as $typePair) {
+            $this->assertSame($expectAppType[$i], $typePair->getAppType()->__toString());
+            $this->assertSame($expectUserType[$i], $typePair->getUserType()->__toString());
+            $i++;
+        }
+    }
+
+
     public function testGetDescending()
     {
         $typePairList = array();

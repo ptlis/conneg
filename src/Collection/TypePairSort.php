@@ -106,6 +106,9 @@ class TypePairSort
         } elseif (0 !== ($result = $this->compareQualityFactor($lUserType, $rUserType))) {
             return $result;
 
+        } elseif (0 !== ($result = $this->compareQualityFactor($lAppType, $rAppType))) {
+            return $result;
+
         } else {
             return $this->compareType($lTypePair, $rTypePair);
         }
