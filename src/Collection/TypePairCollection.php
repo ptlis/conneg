@@ -19,7 +19,7 @@ use ArrayIterator;
 use OutOfBoundsException;
 use ptlis\ConNeg\Type\AbsentType;
 use ptlis\ConNeg\Type\Charset\CharsetType;
-use ptlis\ConNeg\TypePair\TypePair;
+use ptlis\ConNeg\TypePair\SharedTypePair;
 use ptlis\ConNeg\TypePair\TypePairInterface;
 use Traversable;
 
@@ -149,7 +149,7 @@ class TypePairCollection implements CollectionInterface
             $bestPair = $newTypePairList[0];
 
         } else {
-            $bestPair = new TypePair(
+            $bestPair = new SharedTypePair(
                 new AbsentType(),
                 new AbsentType()
             );

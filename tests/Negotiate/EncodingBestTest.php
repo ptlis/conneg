@@ -19,7 +19,7 @@ use ptlis\ConNeg\Negotiate;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\AbsentType;
 use ptlis\ConNeg\Type\Encoding\EncodingType;
-use ptlis\ConNeg\TypePair\TypePair;
+use ptlis\ConNeg\TypePair\SharedTypePair;
 
 class EncodingBestTest extends \PHPUnit_Framework_TestCase
 {
@@ -28,7 +28,7 @@ class EncodingBestTest extends \PHPUnit_Framework_TestCase
         $httpField  = '';
         $appPrefs   = '';
 
-        $expectPair = new TypePair(
+        $expectPair = new SharedTypePair(
             new AbsentType(),
             new AbsentType()
         );
@@ -45,7 +45,7 @@ class EncodingBestTest extends \PHPUnit_Framework_TestCase
         $httpField  = '7zip,gzip;q=0.75';
         $appPrefs   = '';
 
-        $expectPair = new TypePair(
+        $expectPair = new SharedTypePair(
             new AbsentType(),
             new EncodingType('7zip', new QualityFactor(1))
         );
@@ -62,7 +62,7 @@ class EncodingBestTest extends \PHPUnit_Framework_TestCase
         $httpField  = '';
         $appPrefs   = 'compress;q=1,7zip;q=0.5';
 
-        $expectPair = new TypePair(
+        $expectPair = new SharedTypePair(
             new EncodingType('compress', new QualityFactor(1)),
             new AbsentType()
         );
@@ -79,7 +79,7 @@ class EncodingBestTest extends \PHPUnit_Framework_TestCase
         $httpField  = '';
         $appPrefs   = '7zip;q=0.5,compress;q=0.5';
 
-        $expectPair = new TypePair(
+        $expectPair = new SharedTypePair(
             new EncodingType('7zip', new QualityFactor(0.5)),
             new AbsentType()
         );
@@ -96,7 +96,7 @@ class EncodingBestTest extends \PHPUnit_Framework_TestCase
         $httpField  = '7zip;q=0.6,gzip;q=0.9';
         $appPrefs   = 'gzip;q=0.9,7zip;q=0.6';
 
-        $expectPair = new TypePair(
+        $expectPair = new SharedTypePair(
             new EncodingType('gzip', new QualityFactor(0.9)),
             new EncodingType('gzip', new QualityFactor(0.9))
         );
@@ -113,7 +113,7 @@ class EncodingBestTest extends \PHPUnit_Framework_TestCase
         $httpField  = '7zip;q=0.6,gzip;q=0.9,compress;q=0.3';
         $appPrefs   = 'deflate;q=0.8,7zip;q=0.3,compress;q=0.5';
 
-        $expectPair = new TypePair(
+        $expectPair = new SharedTypePair(
             new EncodingType('7zip', new QualityFactor(0.3)),
             new EncodingType('7zip', new QualityFactor(0.6))
         );
@@ -130,7 +130,7 @@ class EncodingBestTest extends \PHPUnit_Framework_TestCase
         $httpField  = 'gzip;q=0.8,7zip;q=0.9,*;q=0.5';
         $appPrefs   = 'gzip,7zip;q=0.7,deflate;q=0.3';
 
-        $expectPair = new TypePair(
+        $expectPair = new SharedTypePair(
             new EncodingType('gzip', new QualityFactor(1)),
             new EncodingType('gzip', new QualityFactor(0.8))
         );

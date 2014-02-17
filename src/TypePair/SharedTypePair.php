@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class for type pairs.
+ * Class for type pairs, used for encoding, charset & language negotiation.
  *
  * PHP Version 5.3
  *
@@ -21,7 +21,7 @@ use ptlis\ConNeg\Type\TypeInterface;
 /**
  * Class for type pairs.
  */
-class TypePair implements TypePairInterface
+class SharedTypePair implements TypePairInterface
 {
     /**
      * @var TypeInterface
@@ -37,19 +37,11 @@ class TypePair implements TypePairInterface
     /**
      * Constructor.
      *
-     * @param TypeInterface|null $userType
-     * @param TypeInterface|null $appType
+     * @param TypeInterface $userType
+     * @param TypeInterface $appType
      */
-    public function __construct(TypeInterface $appType = null, TypeInterface $userType = null)
+    public function __construct(TypeInterface $appType, TypeInterface $userType)
     {
-        if (is_null($userType)) {
-            $userType = new AbsentType();
-        }
-
-        if (is_null($appType)) {
-            $appType = new AbsentType();
-        }
-
         $this->userType = $userType;
         $this->appType = $appType;
     }

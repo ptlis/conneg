@@ -20,7 +20,7 @@ use ptlis\ConNeg\Collection\TypePairCollection;
 use ptlis\ConNeg\Type\AbsentType;
 use ptlis\ConNeg\Type\TypeInterface;
 use ptlis\ConNeg\Type\WildcardType;
-use ptlis\ConNeg\TypePair\TypePair;
+use ptlis\ConNeg\TypePair\SharedTypePair;
 use ptlis\ConNeg\TypePair\TypePairInterface;
 
 /**
@@ -40,7 +40,7 @@ class SharedNegotiator implements NegotiatorInterface
     {
         $matchingList = array();
         foreach ($appTypeList as $appType) {
-            $matchingList[$appType->getType()] = new TypePair(
+            $matchingList[$appType->getType()] = new SharedTypePair(
                 $appType,
                 new AbsentType()
             );
@@ -57,7 +57,7 @@ class SharedNegotiator implements NegotiatorInterface
                 );
 
                 if ($betterUserType) {
-                    $matchingList[$userType->getType()] = new TypePair(
+                    $matchingList[$userType->getType()] = new SharedTypePair(
                         $matchingList[$userType->getType()]->getAppType(),
                         $userType
                     );
@@ -68,7 +68,7 @@ class SharedNegotiator implements NegotiatorInterface
 
                 foreach ($matchingList as $key => $matching) {
                     if ($userType->getPrecedence() > $matching->getUserType()->getPrecedence()) {
-                        $matchingList[$key] = new TypePair(
+                        $matchingList[$key] = new SharedTypePair(
                             $matchingList[$key]->getAppType(),
                             $userType
                         );
@@ -77,7 +77,7 @@ class SharedNegotiator implements NegotiatorInterface
 
             // No match
             } else {
-                $matchingList[$userType->getType()] = new TypePair(
+                $matchingList[$userType->getType()] = new SharedTypePair(
                     new AbsentType(),
                     $userType
                 );

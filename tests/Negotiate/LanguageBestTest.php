@@ -19,7 +19,7 @@ use ptlis\ConNeg\Negotiate;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\AbsentType;
 use ptlis\ConNeg\Type\Language\LanguageType;
-use ptlis\ConNeg\TypePair\TypePair;
+use ptlis\ConNeg\TypePair\SharedTypePair;
 
 class LanguageBestTest extends \PHPUnit_Framework_TestCase
 {
@@ -28,7 +28,7 @@ class LanguageBestTest extends \PHPUnit_Framework_TestCase
         $httpField  = '';
         $appPrefs   = '';
 
-        $expectPair = new TypePair(
+        $expectPair = new SharedTypePair(
             new AbsentType(),
             new AbsentType()
         );
@@ -45,7 +45,7 @@ class LanguageBestTest extends \PHPUnit_Framework_TestCase
         $httpField  = 'en-us,fr;q=0.75';
         $appPrefs   = '';
 
-        $expectPair = new TypePair(
+        $expectPair = new SharedTypePair(
             new AbsentType(),
             new LanguageType('en-us', new QualityFactor(1))
         );
@@ -62,7 +62,7 @@ class LanguageBestTest extends \PHPUnit_Framework_TestCase
         $httpField  = '';
         $appPrefs   = 'en-gb;q=1,en-us;q=0.5';
 
-        $expectPair = new TypePair(
+        $expectPair = new SharedTypePair(
             new LanguageType('en-gb', new QualityFactor(1)),
             new AbsentType()
         );
@@ -79,7 +79,7 @@ class LanguageBestTest extends \PHPUnit_Framework_TestCase
         $httpField  = '';
         $appPrefs   = 'en-us;q=0.5,en-gb;q=0.5';
 
-        $expectPair = new TypePair(
+        $expectPair = new SharedTypePair(
             new LanguageType('en-gb', new QualityFactor(0.5)),
             new AbsentType()
         );
@@ -96,7 +96,7 @@ class LanguageBestTest extends \PHPUnit_Framework_TestCase
         $httpField  = 'en-us;q=0.6,fr;q=0.9';
         $appPrefs   = 'fr;q=0.9,en-us;q=0.6';
 
-        $expectPair = new TypePair(
+        $expectPair = new SharedTypePair(
             new LanguageType('fr', new QualityFactor(0.9)),
             new LanguageType('fr', new QualityFactor(0.9))
         );
@@ -113,7 +113,7 @@ class LanguageBestTest extends \PHPUnit_Framework_TestCase
         $httpField  = 'en-us;q=0.6,fr;q=0.9,en-gb;q=0.3';
         $appPrefs   = 'es;q=0.8,en-us;q=0.3,en-gb;q=0.5';
 
-        $expectPair = new TypePair(
+        $expectPair = new SharedTypePair(
             new LanguageType('en-us', new QualityFactor(0.3)),
             new LanguageType('en-us', new QualityFactor(0.6))
         );
@@ -130,7 +130,7 @@ class LanguageBestTest extends \PHPUnit_Framework_TestCase
         $httpField  = 'fr;q=0.8,en-us;q=0.9,*;q=0.5';
         $appPrefs   = 'fr,en-us;q=0.7,es;q=0.3';
 
-        $expectPair = new TypePair(
+        $expectPair = new SharedTypePair(
             new LanguageType('fr', new QualityFactor(1)),
             new LanguageType('fr', new QualityFactor(0.8))
         );
