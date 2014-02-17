@@ -10,6 +10,7 @@ namespace ptlis\ConNeg\Type;
 
 
 use ptlis\ConNeg\Collection\TypeCollection;
+use ptlis\ConNeg\Exception\ConNegException;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 
 class SharedTypeFactory implements TypeFactoryInterface
@@ -42,6 +43,8 @@ class SharedTypeFactory implements TypeFactoryInterface
     /**
      * Parse a http field & return a collection of types.
      *
+     * @throws ConNegException
+     *
      * @param string $field
      *
      * @return TypeCollection
@@ -53,8 +56,8 @@ class SharedTypeFactory implements TypeFactoryInterface
         if (preg_match_all($this->regex, $field, $typeList)) {
             $this->getFromArray($typeCollection, $typeList);
 
-        } else {
-            // TODO: Throw exception
+        } elseif (strlen($field)) {
+            throw new ConNegException('Error parsing field');
         }
 
         return $typeCollection;

@@ -20,6 +20,7 @@ use ptlis\ConNeg\Collection\CollectionInterface;
 use ptlis\ConNeg\Collection\MimeTypePairCollection;
 use ptlis\ConNeg\Collection\SharedTypePairCollection;
 use ptlis\ConNeg\Collection\TypeCollection;
+use ptlis\ConNeg\Exception\ConNegException;
 use ptlis\ConNeg\Negotiator\CharsetNegotiator;
 use ptlis\ConNeg\Negotiator\EncodingNegotiator;
 use ptlis\ConNeg\Negotiator\LanguageNegotiator;
@@ -130,7 +131,7 @@ class Negotiate
      * @param string $userField
      * @param string|TypeCollection $appPrefs
      *
-     * @throws Exception
+     * @throws ConNegException
      *
      * @return SharedTypePairCollection containing CharsetType, WildcardType & AbsentType instances.
      */
@@ -167,7 +168,7 @@ class Negotiate
      * @param string $userField
      * @param string|TypeCollection $appPrefs
      *
-     * @throws Exception
+     * @throws ConNegException
      *
      * @return SharedTypePairCollection containing EncodingType, WildcardType & AbsentType instances.
      */
@@ -204,7 +205,7 @@ class Negotiate
      * @param string $userField
      * @param string|TypeCollection $appPrefs
      *
-     * @throws Exception
+     * @throws ConNegException
      *
      * @return SharedTypePairCollection containing LanguageType, WildcardType & AbsentType instances.
      */
@@ -240,7 +241,7 @@ class Negotiate
      * @param string $userField
      * @param string|TypeCollection $appPrefs
      *
-     * @throws Exception
+     * @throws ConNegException
      *
      * @return MimeTypePairCollection containing MimeType, MimeWildcardType, MimeWildcardSubType & AbsentType instances.
      */
@@ -256,7 +257,7 @@ class Negotiate
     /**
      * Convert application type preferences to a TypeCollection.
      *
-     * @throws \Exception
+     * @throws ConNegException
      *
      * @param string|CollectionInterface $appPrefs
      * @param TypeFactoryInterface  $factory
@@ -272,8 +273,7 @@ class Negotiate
             $appTypeList = $appPrefs;
 
         } else {
-            // TODO: Throw appropriate exception
-            throw new Exception('invalid application preferences passed to ' . __CLASS__ . '::' . __METHOD__);
+            throw new ConNegException('invalid application preferences passed to ' . __CLASS__ . '::' . __METHOD__);
         }
 
         return $appTypeList;

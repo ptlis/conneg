@@ -16,6 +16,7 @@
 namespace ptlis\ConNeg\Type\Mime;
 
 use ptlis\ConNeg\Collection\TypeCollection;
+use ptlis\ConNeg\Exception\ConNegException;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\TypeFactoryInterface;
 
@@ -47,6 +48,8 @@ class MimeTypeFactory implements TypeFactoryInterface
      * Parse the provided Accept field & return a TypeCollection containing MimeType, MimeWildcardType &
      * MimeWildcardSubType Instances.
      *
+     * @throws ConNegException
+     *
      * @param string $field
      *
      * @return TypeCollection
@@ -58,8 +61,8 @@ class MimeTypeFactory implements TypeFactoryInterface
         if (preg_match_all($this->regexProvider->getMimeRegex(), $field, $typeList)) {
             $this->getFromArray($typeCollection, $typeList);
 
-        } else {
-            // TODO: Throw exception
+        } elseif (strlen($field)) {
+            throw new ConNegException('Error parsing field');
         }
 
         return $typeCollection;
