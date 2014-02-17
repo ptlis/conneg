@@ -21,7 +21,7 @@ use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
 /**
  * Class for absence of a MIME type.
  */
-class AbsentMimeType implements MimeInterface
+class AbsentMimeType implements MimeTypeInterface
 {
     /**
      * @var QualityFactorInterface

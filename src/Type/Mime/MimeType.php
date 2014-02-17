@@ -21,7 +21,7 @@ use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
 /**
  * Class for MIME type.
  */
-class MimeType implements MimeInterface
+class MimeType implements MimeTypeInterface
 {
     /**
      * @var string

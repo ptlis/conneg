@@ -21,7 +21,7 @@ use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
 /**
  * Class for MIME with wildcard type & subtype.
  */
-class MimeWildcardType implements MimeInterface
+class MimeWildcardType implements MimeTypeInterface
 {
     /**
      * @var QualityFactorInterface

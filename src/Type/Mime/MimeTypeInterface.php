@@ -20,7 +20,7 @@ use ptlis\ConNeg\Type\TypeInterface;
 /**
  * Interface for MIME types.
  */
-interface MimeInterface extends TypeInterface
+interface MimeTypeInterface extends TypeInterface
 {
     /**
      * Returns the type portion of the media range.
