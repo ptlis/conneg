@@ -19,6 +19,7 @@ use Exception;
 use ptlis\ConNeg\Collection\CollectionInterface;
 use ptlis\ConNeg\Collection\MimeTypePairCollection;
 use ptlis\ConNeg\Collection\SharedTypePairCollection;
+use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Negotiator\CharsetNegotiator;
 use ptlis\ConNeg\Negotiator\EncodingNegotiator;
 use ptlis\ConNeg\Negotiator\LanguageNegotiator;
@@ -102,7 +103,7 @@ class Negotiate
      * Parse the Accept-Charset field & negotiate against application types, return the preferred type.
      *
      * @param string $userField
-     * @param string|SharedTypePairCollection $appPrefs
+     * @param string|TypeCollection $appPrefs
      *
      * @return TypePairInterface
      */
@@ -120,7 +121,7 @@ class Negotiate
      * preference.
      *
      * @param string $userField
-     * @param string|SharedTypePairCollection $appPrefs
+     * @param string|TypeCollection $appPrefs
      *
      * @throws Exception
      *
@@ -139,7 +140,7 @@ class Negotiate
      * Parse the Accept-Encoding field & negotiate against application types, return the preferred type.
      *
      * @param string $userField
-     * @param string|SharedTypePairCollection $appPrefs
+     * @param string|TypeCollection $appPrefs
      *
      * @return TypePairInterface
      */
@@ -157,7 +158,7 @@ class Negotiate
      * preference.
      *
      * @param string $userField
-     * @param string|SharedTypePairCollection $appPrefs
+     * @param string|TypeCollection $appPrefs
      *
      * @throws Exception
      *
@@ -176,7 +177,7 @@ class Negotiate
      * Parse the Accept-Language field & negotiate against application types, return the preferred type.
      *
      * @param string $userField
-     * @param string|SharedTypePairCollection $appPrefs
+     * @param string|TypeCollection $appPrefs
      *
      * @return TypePairInterface
      */
@@ -194,7 +195,7 @@ class Negotiate
      * preference.
      *
      * @param string $userField
-     * @param string|SharedTypePairCollection $appPrefs
+     * @param string|TypeCollection $appPrefs
      *
      * @throws Exception
      *
@@ -213,7 +214,7 @@ class Negotiate
      * Parse the Accept field & negotiate against application types, return the preferred type.
      *
      * @param string $userField
-     * @param string|MimeTypePairCollection $appPrefs
+     * @param string|TypeCollection $appPrefs
      *
      * @return TypePairInterface
      */
@@ -230,7 +231,7 @@ class Negotiate
      * Parse the Accept field & negotiate against application types, return an array of types sorted by preference.
      *
      * @param string $userField
-     * @param string|MimeTypePairCollection $appPrefs
+     * @param string|TypeCollection $appPrefs
      *
      * @throws Exception
      *
@@ -253,7 +254,7 @@ class Negotiate
      * @param string|CollectionInterface $appPrefs
      * @param TypeFactoryInterface  $factory
      *
-     * @return CollectionInterface
+     * @return TypeCollection
      */
     private function sharedAppPrefsToTypes($appPrefs, TypeFactoryInterface $factory)
     {
