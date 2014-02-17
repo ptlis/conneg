@@ -23,14 +23,9 @@ use ptlis\ConNeg\Type\Mime\MimeTypeInterface;
 class MimeTypePair implements TypePairInterface
 {
     /**
-     * @var MimeTypeInterface
+     * @var SharedTypePair
      */
-    private $userType;
-
-    /**
-     * @var MimeTypeInterface
-     */
-    private $appType;
+    private $sharedTypePair;
 
 
     /**
@@ -41,8 +36,7 @@ class MimeTypePair implements TypePairInterface
      */
     public function __construct(MimeTypeInterface $appType, MimeTypeInterface $userType)
     {
-        $this->userType = $userType;
-        $this->appType = $appType;
+        $this->sharedTypePair = new SharedTypePair($appType, $userType);
     }
 
 
@@ -53,7 +47,7 @@ class MimeTypePair implements TypePairInterface
      */
     public function getUserType()
     {
-        return $this->userType;
+        return $this->sharedTypePair->getUserType();
     }
 
 
@@ -64,7 +58,7 @@ class MimeTypePair implements TypePairInterface
      */
     public function getAppType()
     {
-        return $this->appType;
+        return $this->sharedTypePair->getAppType();
     }
 
 
@@ -75,11 +69,7 @@ class MimeTypePair implements TypePairInterface
      */
     public function getType()
     {
-        if (strlen($this->userType->getType())) {
-            return $this->userType->getType();
-        } else {
-            return $this->appType->getType();
-        }
+        return $this->sharedTypePair->getType();
     }
 
 
@@ -90,7 +80,7 @@ class MimeTypePair implements TypePairInterface
      */
     public function getQualityFactorProduct()
     {
-        return $this->userType->getQualityFactor()->getFactor() * $this->appType->getQualityFactor()->getFactor();
+        return $this->sharedTypePair->getQualityFactorProduct();
     }
 
 
@@ -99,7 +89,6 @@ class MimeTypePair implements TypePairInterface
      */
     public function __clone()
     {
-        $this->userType = clone $this->userType;
-        $this->appType = clone $this->appType;
+        $this->sharedTypePair = clone $this->sharedTypePair;
     }
 }
