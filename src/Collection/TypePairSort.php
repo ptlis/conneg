@@ -15,8 +15,8 @@
 
 namespace ptlis\ConNeg\Collection;
 
-use ptlis\ConNeg\Type\TypeInterface;
 use ptlis\ConNeg\TypePair\TypePairInterface;
+use ptlis\ConNeg\Type\TypeInterface;
 
 /**
  * Helper class encoding the rules governing the sorting of TypePairCollections.

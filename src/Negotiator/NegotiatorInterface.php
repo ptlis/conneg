@@ -15,8 +15,8 @@
 
 namespace ptlis\ConNeg\Negotiator;
 
-use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Collection\CollectionInterface;
+use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Type\TypeInterface;
 
 /**

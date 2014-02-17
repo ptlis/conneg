@@ -15,15 +15,15 @@
 
 namespace ptlis\ConNeg\Negotiator;
 
-use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Collection\MimeTypePairCollection;
+use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
+use ptlis\ConNeg\TypePair\MimeTypePair;
 use ptlis\ConNeg\Type\Mime\AbsentMimeType;
 use ptlis\ConNeg\Type\Mime\MimeTypeFactory;
+use ptlis\ConNeg\Type\Mime\MimeTypeInterface;
 use ptlis\ConNeg\Type\Mime\MimeWildcardSubType;
 use ptlis\ConNeg\Type\Mime\MimeWildcardType;
-use ptlis\ConNeg\Type\Mime\MimeTypeInterface;
-use ptlis\ConNeg\TypePair\MimeTypePair;
 
 /**
  * Class for negotiating on mime types.
@@ -129,7 +129,7 @@ class MimeNegotiator implements NegotiatorInterface
      * @param MimeTypePair[]    $matchingList
      * @param MimeTypeInterface $userType
      *
-     * @return array
+     * @return MimeTypePair[]
      */
     private function matchFullWildcard(array $matchingList, MimeTypeInterface $userType)
     {
@@ -152,7 +152,7 @@ class MimeNegotiator implements NegotiatorInterface
      * @param MimeTypePair[]    $matchingList
      * @param MimeTypeInterface $userType
      *
-     * @return array
+     * @return MimeTypePair[]
      */
     private function matchSubTypeWildcard(array $matchingList, MimeTypeInterface $userType)
     {

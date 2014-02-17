@@ -16,10 +16,10 @@
 namespace ptlis\ConNeg\Collection;
 
 use ArrayIterator;
-use ptlis\ConNeg\Type\AbsentType;
+use Traversable;
 use ptlis\ConNeg\TypePair\SharedTypePair;
 use ptlis\ConNeg\TypePair\TypePairInterface;
-use Traversable;
+use ptlis\ConNeg\Type\AbsentType;
 
 /**
  * Collection for TypePair instances, provides sort capabilities.

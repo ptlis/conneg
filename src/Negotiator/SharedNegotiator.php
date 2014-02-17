@@ -15,13 +15,13 @@
 
 namespace ptlis\ConNeg\Negotiator;
 
-use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Collection\SharedTypePairCollection;
+use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
-use ptlis\ConNeg\Type\TypeFactoryInterface;
-use ptlis\ConNeg\Type\WildcardType;
 use ptlis\ConNeg\TypePair\SharedTypePair;
 use ptlis\ConNeg\TypePair\TypePairInterface;
+use ptlis\ConNeg\Type\TypeFactoryInterface;
+use ptlis\ConNeg\Type\WildcardType;
 
 /**
  * Class for negotiating on charset, encoding & language types.
