@@ -24,7 +24,68 @@ use ptlis\ConNeg\TypePair\TypePairInterface;
 class TypePairSort
 {
     /**
+     * Sort the array of typePairs in ascending order.
      *
+     * @param TypePairInterface[] $typePairList
+     * @param CollectionInterface $newCollection
+     */
+    public function sortAscending(array $typePairList, CollectionInterface $newCollection)
+    {
+        $that = $this;
+        usort(
+            $typePairList,
+            function (TypePairInterface $lTypePair, TypePairInterface $rTypePair) use ($that) {
+                return -1 * $that->compare($lTypePair, $rTypePair);
+            }
+        );
+
+        $newCollection->setList($typePairList);
+    }
+
+
+    /**
+     * Sort the array of typePairs in descending order.
+     *
+     * @param TypePairInterface[] $typePairList
+     * @param CollectionInterface $newCollection
+     */
+    public function sortDescending(array $typePairList, CollectionInterface $newCollection)
+    {
+        $that = $this;
+        usort(
+            $typePairList,
+            function (TypePairInterface $lTypePair, TypePairInterface $rTypePair) use ($that) {
+                return $that->compare($lTypePair, $rTypePair);
+            }
+        );
+
+        $newCollection->setList($typePairList);
+    }
+
+
+    public function getBest(array $typePairList, TypePairInterface $defaultPair)
+    {
+        $that = $this;
+        usort(
+            $typePairList,
+            function (TypePairInterface $lTypePair, TypePairInterface $rTypePair) use ($that) {
+                return $that->compare($lTypePair, $rTypePair);
+            }
+        );
+
+        if (count($typePairList)) {
+            $bestPair = $typePairList[0];
+
+        } else {
+            $bestPair = $defaultPair;
+        }
+
+        return $bestPair;
+    }
+
+
+    /**
+     * Comparison function used for ordering type pairs.
      *
      * @param TypePairInterface $lTypePair
      * @param TypePairInterface $rTypePair

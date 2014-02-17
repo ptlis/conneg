@@ -97,15 +97,9 @@ class SharedTypePairCollection implements CollectionInterface
     public function getAscending()
     {
         // TODO: do we need to create a clone of the objects in here?
-        $newTypePairList = $this->typePairList;
-
-        usort(
-            $newTypePairList,
-            $this->getAscendingSort()
-        );
-
         $newCollection = new SharedTypePairCollection();
-        $newCollection->setList($newTypePairList);
+        $sort = new TypePairSort();
+        $sort->sortAscending($this->typePairList, $newCollection);
 
         return $newCollection;
     }
@@ -119,15 +113,9 @@ class SharedTypePairCollection implements CollectionInterface
     public function getDescending()
     {
         // TODO: do we need to create a clone of the objects in here?
-        $newTypePairList = $this->typePairList;
-
-        usort(
-            $newTypePairList,
-            $this->getDescendingSort()
-        );
-
         $newCollection = new SharedTypePairCollection();
-        $newCollection->setList($newTypePairList);
+        $sort = new TypePairSort();
+        $sort->sortDescending($this->typePairList, $newCollection);
 
         return $newCollection;
     }
@@ -141,22 +129,12 @@ class SharedTypePairCollection implements CollectionInterface
     public function getBest()
     {
         // TODO: do we need to create a clone of the objects in here?
-        $newTypePairList = $this->typePairList;
-
-        usort(
-            $newTypePairList,
-            $this->getDescendingSort()
+        $defaultPair = new SharedTypePair(
+            new AbsentType(),
+            new AbsentType()
         );
-
-        if (count($newTypePairList)) {
-            $bestPair = $newTypePairList[0];
-
-        } else {
-            $bestPair = new SharedTypePair(
-                new AbsentType(),
-                new AbsentType()
-            );
-        }
+        $sort = new TypePairSort();
+        $bestPair = $sort->getBest($this->typePairList, $defaultPair);
 
         return $bestPair;
     }
@@ -174,35 +152,5 @@ class SharedTypePairCollection implements CollectionInterface
         }
 
         $this->typePairList = $newTypePairList;
-    }
-
-
-    /**
-     * Returns a callback that can be used with usort() to sort pairs into descending order.
-     *
-     * @return callable
-     */
-    private function getDescendingSort()
-    {
-        $sort = new TypePairSort();
-
-        return function (TypePairInterface $lTypePair, TypePairInterface $rTypePair) use ($sort) {
-            return $sort->compare($lTypePair, $rTypePair);
-        };
-    }
-
-
-    /**
-     * Returns a callback that can be used with usort() to sort pairs into ascending order.
-     *
-     * @return callable
-     */
-    public function getAscendingSort()
-    {
-        $sort = new TypePairSort();
-
-        return function (TypePairInterface $lTypePair, TypePairInterface $rTypePair) use ($sort) {
-            return -1 * $sort->compare($lTypePair, $rTypePair);
-        };
     }
 }
