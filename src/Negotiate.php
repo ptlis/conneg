@@ -16,8 +16,9 @@
 namespace ptlis\ConNeg;
 
 use Exception;
-use ptlis\ConNeg\Collection\TypeCollection;
-use ptlis\ConNeg\Collection\TypePairCollection;
+use ptlis\ConNeg\Collection\CollectionInterface;
+use ptlis\ConNeg\Collection\MimeTypePairCollection;
+use ptlis\ConNeg\Collection\SharedTypePairCollection;
 use ptlis\ConNeg\Negotiator\CharsetNegotiator;
 use ptlis\ConNeg\Negotiator\EncodingNegotiator;
 use ptlis\ConNeg\Negotiator\LanguageNegotiator;
@@ -101,7 +102,7 @@ class Negotiate
      * Parse the Accept-Charset field & negotiate against application types, return the preferred type.
      *
      * @param string $userField
-     * @param string|TypeCollection $appPrefs
+     * @param string|SharedTypePairCollection $appPrefs
      *
      * @return TypePairInterface
      */
@@ -119,11 +120,11 @@ class Negotiate
      * preference.
      *
      * @param string $userField
-     * @param string|TypeCollection $appPrefs
+     * @param string|SharedTypePairCollection $appPrefs
      *
      * @throws Exception
      *
-     * @return TypePairCollection containing CharsetType, WildcardType & AbsentType instances.
+     * @return SharedTypePairCollection containing CharsetType, WildcardType & AbsentType instances.
      */
     public function charsetAll($userField, $appPrefs)
     {
@@ -138,7 +139,7 @@ class Negotiate
      * Parse the Accept-Encoding field & negotiate against application types, return the preferred type.
      *
      * @param string $userField
-     * @param string|TypeCollection $appPrefs
+     * @param string|SharedTypePairCollection $appPrefs
      *
      * @return TypePairInterface
      */
@@ -156,11 +157,11 @@ class Negotiate
      * preference.
      *
      * @param string $userField
-     * @param string|TypeCollection $appPrefs
+     * @param string|SharedTypePairCollection $appPrefs
      *
      * @throws Exception
      *
-     * @return TypePairCollection containing EncodingType, WildcardType & AbsentType instances.
+     * @return SharedTypePairCollection containing EncodingType, WildcardType & AbsentType instances.
      */
     public function encodingAll($userField, $appPrefs)
     {
@@ -175,7 +176,7 @@ class Negotiate
      * Parse the Accept-Language field & negotiate against application types, return the preferred type.
      *
      * @param string $userField
-     * @param string|TypeCollection $appPrefs
+     * @param string|SharedTypePairCollection $appPrefs
      *
      * @return TypePairInterface
      */
@@ -193,11 +194,11 @@ class Negotiate
      * preference.
      *
      * @param string $userField
-     * @param string|TypeCollection $appPrefs
+     * @param string|SharedTypePairCollection $appPrefs
      *
      * @throws Exception
      *
-     * @return TypePairCollection containing LanguageType, WildcardType & AbsentType instances.
+     * @return SharedTypePairCollection containing LanguageType, WildcardType & AbsentType instances.
      */
     public function languageAll($userField, $appPrefs)
     {
@@ -208,13 +209,39 @@ class Negotiate
     }
 
 
+    /**
+     * Parse the Accept field & negotiate against application types, return the preferred type.
+     *
+     * @param string $userField
+     * @param string|MimeTypePairCollection $appPrefs
+     *
+     * @return TypePairInterface
+     */
     public function mimeBest($userField, $appPrefs)
     {
+        $userTypeList = $this->mimeFactory->parse($userField);
+        $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, $this->mimeFactory);
+
+        return $this->mimeNegotiator->negotiateBest($userTypeList, $appTypeList);
     }
 
 
+    /**
+     * Parse the Accept field & negotiate against application types, return an array of types sorted by preference.
+     *
+     * @param string $userField
+     * @param string|MimeTypePairCollection $appPrefs
+     *
+     * @throws Exception
+     *
+     * @return MimeTypePairCollection containing MimeType, MimeWildcardType, MimeWildcardSubType & AbsentType instances.
+     */
     public function mimeAll($userField, $appPrefs)
     {
+        $userTypeList = $this->mimeFactory->parse($userField);
+        $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, $this->mimeFactory);
+
+        return $this->mimeNegotiator->negotiateAll($userTypeList, $appTypeList);
     }
 
 
@@ -223,17 +250,17 @@ class Negotiate
      *
      * @throws \Exception
      *
-     * @param string|TypeCollection $appPrefs
+     * @param string|CollectionInterface $appPrefs
      * @param TypeFactoryInterface  $factory
      *
-     * @return TypeCollection
+     * @return CollectionInterface
      */
     private function sharedAppPrefsToTypes($appPrefs, TypeFactoryInterface $factory)
     {
         if (gettype($appPrefs) === 'string') {
             $appTypeList = $factory->parse($appPrefs);
 
-        } elseif ($appPrefs instanceof TypeCollection) {
+        } elseif ($appPrefs instanceof CollectionInterface) {
             $appTypeList = $appPrefs;
 
         } else {

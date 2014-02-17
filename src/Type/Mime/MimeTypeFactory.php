@@ -123,7 +123,7 @@ class MimeTypeFactory implements TypeFactoryInterface
      * @param string $type
      * @param string $qualityFactor
      *
-     * @return TypeInterface
+     * @return MimeType|MimeWildcardSubtype|MimeWildcardType
      */
     public function get($type, $qualityFactor)
     {
