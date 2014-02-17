@@ -99,7 +99,6 @@ class TypeCollection implements CollectionInterface
      */
     public function getAscending()
     {
-        // TODO: do we need to create a clone of the objects in here?
         $newTypeList = $this->typeList;
 
         $descSort = function (TypeInterface $lTypePair, TypeInterface $rTypePair) {
@@ -131,7 +130,6 @@ class TypeCollection implements CollectionInterface
      */
     public function getDescending()
     {
-        // TODO: do we need to create a clone of the objects in here?
         $newTypePairList = $this->typeList;
 
         $descSort = function (TypeInterface $lTypePair, TypeInterface $rTypePair) {

@@ -193,7 +193,7 @@ class TypeCollectionTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    public function testClone()
+    public function testCloneOne()
     {
         $collection = new TypeCollection();
 
@@ -203,6 +203,20 @@ class TypeCollectionTest extends \PHPUnit_Framework_TestCase
         $expectCollection = clone $collection;
 
         $this->assertEquals($expectCollection, $collection);
+        $this->assertNotSame($expectCollection, $collection);
+    }
+
+
+    public function testCloneTwo()
+    {
+        $collection = new TypeCollection();
+
+        $collection->addType(new MimeType('text', 'n3', new QualityFactor(0.8)));
+        $collection->addType(new MimeType('text', 'html', new QualityFactor(1)));
+
+        $expectCollection = $collection->getAscending();
+        $expectCollection->addType(new MimeType('application', 'xml', new QualityFactor(1)));
+
         $this->assertNotSame($expectCollection, $collection);
     }
 }

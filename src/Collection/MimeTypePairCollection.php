@@ -95,7 +95,6 @@ class MimeTypePairCollection implements CollectionInterface
      */
     public function getAscending()
     {
-        // TODO: do we need to create a clone of the objects in here?
         $newCollection = new MimeTypePairCollection();
         $sort = new TypePairSort();
         $sort->sortAscending($this->typePairList, $newCollection);
@@ -111,7 +110,6 @@ class MimeTypePairCollection implements CollectionInterface
      */
     public function getDescending()
     {
-        // TODO: do we need to create a clone of the objects in here?
         $newCollection = new MimeTypePairCollection();
         $sort = new TypePairSort();
         $sort->sortDescending($this->typePairList, $newCollection);
@@ -127,7 +125,6 @@ class MimeTypePairCollection implements CollectionInterface
      */
     public function getBest()
     {
-        // TODO: do we need to create a clone of the objects in here?
         $defaultPair = new MimeTypePair(
             new AbsentMimeType(),
             new AbsentMimeType()
