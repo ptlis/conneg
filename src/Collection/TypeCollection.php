@@ -48,8 +48,9 @@ class TypeCollection implements CollectionInterface
      */
     public function setList(array $typeList)
     {
-        // TODO: Ensure all values are instances of TypeInterface
-        $this->typeList = $typeList;
+        foreach ($typeList as $type) {
+            $this->addType($type);
+        }
 
         return $this;
     }
