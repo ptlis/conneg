@@ -38,7 +38,7 @@ class SharedTypeFactory implements TypeFactoryInterface
     {
         if (!is_subclass_of($typeClass, 'ptlis\ConNeg\Type\TypeInterface')) {
             throw new ConNegException(
-                $typeClass . ' does not implement TypeInterface'
+                '"' . $typeClass . '" does not implement TypeInterface'
             );
         }
 

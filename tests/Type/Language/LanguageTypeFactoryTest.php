@@ -183,4 +183,21 @@ class LanguageTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expectCollection, $factory->parse($field));
     }
+
+
+    public function testInvalidTypeClass()
+    {
+        $typeClass = 'ptlis\ConNeg\Type\bob\bob';
+
+        $this->setExpectedException(
+            'ptlis\ConNeg\Exception\ConNegException',
+            '"' . $typeClass . '" does not implement TypeInterface'
+        );
+
+        $regexProvider = new RegexProvider();
+        new SharedTypeFactory(
+            $regexProvider->getLanguageRegex(),
+            $typeClass
+        );
+    }
 }
