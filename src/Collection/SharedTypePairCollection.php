@@ -50,7 +50,9 @@ class SharedTypePairCollection implements CollectionInterface
      */
     public function setList(array $typePairList)
     {
-        $this->typePairList = $typePairList;
+        foreach ($typePairList as $typePair) {
+            $this->addPair($typePair);
+        }
 
         return $this;
     }
