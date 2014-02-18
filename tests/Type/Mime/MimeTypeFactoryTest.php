@@ -214,4 +214,19 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expectCollection, $factory->parseUser('$^(£$'));
     }
+
+
+    public function testGetInvalidType()
+    {
+        $type = 'bob';
+
+        $this->setExpectedException(
+            'ptlis\ConNeg\Exception\InvalidTypeException',
+            '"' . $type . '" is not a valid mime type'
+        );
+
+        $factory = new MimeTypeFactory(new RegexProvider());
+
+        $factory->get($type, $factory->parseUser('$^(£$'));
+    }
 }

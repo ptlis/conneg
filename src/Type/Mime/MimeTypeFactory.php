@@ -17,6 +17,7 @@ namespace ptlis\ConNeg\Type\Mime;
 
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Exception\ConNegException;
+use ptlis\ConNeg\Exception\InvalidTypeException;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\TypeFactoryInterface;
 
@@ -118,6 +119,8 @@ class MimeTypeFactory implements TypeFactoryInterface
     /**
      * Build & return LanguageType from params.
      *
+     * @throws InvalidTypeException
+     *
      * @param string $type
      * @param string $qualityFactor
      *
@@ -125,9 +128,9 @@ class MimeTypeFactory implements TypeFactoryInterface
      */
     public function get($type, $qualityFactor)
     {
-        if (strlen($type)) {
-            // TODO: what if no slash??
-            list($mimeType, $subType) = explode('/', $type);
+        $explodedType = explode('/', $type);
+        if (2 == count($explodedType)) {
+            list($mimeType, $subType) = $explodedType;
 
             // TODO: what if odd wildcard (eg */html)
             switch (true) {
@@ -146,8 +149,13 @@ class MimeTypeFactory implements TypeFactoryInterface
                     break;
             }
 
-        } else {
+        } elseif (!strlen($type)) {
             $typeObj = new AbsentMimeType();
+
+        } else {
+            throw new InvalidTypeException(
+                '"' . $type . '" is not a valid mime type'
+            );
         }
 
         return $typeObj;
