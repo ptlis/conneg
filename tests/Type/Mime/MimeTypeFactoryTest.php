@@ -46,7 +46,7 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory = new MimeTypeFactory(new RegexProvider());
 
-        $this->assertEquals($expectCollection, $factory->parse($field));
+        $this->assertEquals($expectCollection, $factory->parseUser($field));
     }
 
 
@@ -60,7 +60,7 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory = new MimeTypeFactory(new RegexProvider());
 
-        $this->assertEquals($expectCollection, $factory->parse($field));
+        $this->assertEquals($expectCollection, $factory->parseUser($field));
     }
 
 
@@ -74,7 +74,7 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory = new MimeTypeFactory(new RegexProvider());
 
-        $this->assertEquals($expectCollection, $factory->parse($field));
+        $this->assertEquals($expectCollection, $factory->parseUser($field));
     }
 
 
@@ -88,7 +88,7 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory = new MimeTypeFactory(new RegexProvider());
 
-        $this->assertEquals($expectCollection, $factory->parse($field));
+        $this->assertEquals($expectCollection, $factory->parseUser($field));
     }
 
 
@@ -102,7 +102,7 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory = new MimeTypeFactory(new RegexProvider());
 
-        $this->assertEquals($expectCollection, $factory->parse($field));
+        $this->assertEquals($expectCollection, $factory->parseUser($field));
     }
 
 
@@ -116,7 +116,7 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory = new MimeTypeFactory(new RegexProvider());
 
-        $this->assertEquals($expectCollection, $factory->parse($field));
+        $this->assertEquals($expectCollection, $factory->parseUser($field));
     }
 
 
@@ -130,7 +130,7 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory = new MimeTypeFactory(new RegexProvider());
 
-        $this->assertEquals($expectCollection, $factory->parse($field));
+        $this->assertEquals($expectCollection, $factory->parseUser($field));
     }
 
 
@@ -144,7 +144,7 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory = new MimeTypeFactory(new RegexProvider());
 
-        $this->assertEquals($expectCollection, $factory->parse($field));
+        $this->assertEquals($expectCollection, $factory->parseUser($field));
     }
 
 
@@ -159,7 +159,7 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory = new MimeTypeFactory(new RegexProvider());
 
-        $this->assertEquals($expectCollection, $factory->parse($field));
+        $this->assertEquals($expectCollection, $factory->parseUser($field));
     }
 
 
@@ -173,7 +173,7 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory = new MimeTypeFactory(new RegexProvider());
 
-        $this->assertEquals($expectCollection, $factory->parse($field));
+        $this->assertEquals($expectCollection, $factory->parseUser($field));
     }
 
 
@@ -189,6 +189,6 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory = new MimeTypeFactory(new RegexProvider());
 
-        $this->assertEquals($expectCollection, $factory->parse($field));
+        $this->assertEquals($expectCollection, $factory->parseUser($field));
     }
 }

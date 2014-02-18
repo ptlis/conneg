@@ -45,8 +45,7 @@ class MimeTypeFactory implements TypeFactoryInterface
 
 
     /**
-     * Parse the provided Accept field & return a TypeCollection containing MimeType, MimeWildcardType &
-     * MimeWildcardSubType Instances.
+     * Parse application types as http field & return a collection of types.
      *
      * @throws ConNegException
      *
@@ -54,18 +53,29 @@ class MimeTypeFactory implements TypeFactoryInterface
      *
      * @return TypeCollection
      */
-    public function parse($field)
+    public function parseApp($field)
     {
-        $typeCollection = new TypeCollection();
+        return $this->parse($field);
+    }
 
-        if (preg_match_all($this->regexProvider->getMimeRegex(), $field, $typeList)) {
-            $this->getFromArray($typeCollection, $typeList);
 
-        } elseif (strlen($field)) {
-            throw new ConNegException('Error parsing field');
+    /**
+     * Parse user-agent types from http field & return a collection of types.
+     *
+     * @param string $field
+     *
+     * @return TypeCollection
+     */
+    public function parseUser($field)
+    {
+        try {
+            $userTypes = $this->parse($field);
+
+        } catch (ConNegException $e) {
+            $userTypes = new TypeCollection();
         }
 
-        return $typeCollection;
+        return $userTypes;
     }
 
 
@@ -141,5 +151,30 @@ class MimeTypeFactory implements TypeFactoryInterface
         }
 
         return $typeObj;
+    }
+
+
+    /**
+     * Parse the provided Accept field & return a TypeCollection containing MimeType, MimeWildcardType &
+     * MimeWildcardSubType Instances.
+     *
+     * @throws ConNegException
+     *
+     * @param string $field
+     *
+     * @return TypeCollection
+     */
+    private function parse($field)
+    {
+        $typeCollection = new TypeCollection();
+
+        if (preg_match_all($this->regexProvider->getMimeRegex(), $field, $typeList)) {
+            $this->getFromArray($typeCollection, $typeList);
+
+        } elseif (strlen($field)) {
+            throw new ConNegException('Error parsing field');
+        }
+
+        return $typeCollection;
     }
 }

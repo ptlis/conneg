@@ -53,7 +53,7 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
             'ptlis\ConNeg\Type\Charset\CharsetType'
         );
 
-        $this->assertEquals($expectCollection, $factory->parse($field));
+        $this->assertEquals($expectCollection, $factory->parseUser($field));
     }
 
 
@@ -71,7 +71,7 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
             'ptlis\ConNeg\Type\Charset\CharsetType'
         );
 
-        $this->assertEquals($expectCollection, $factory->parse($field));
+        $this->assertEquals($expectCollection, $factory->parseUser($field));
     }
 
 
@@ -89,7 +89,7 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
             'ptlis\ConNeg\Type\Charset\CharsetType'
         );
 
-        $this->assertEquals($expectCollection, $factory->parse($field));
+        $this->assertEquals($expectCollection, $factory->parseUser($field));
     }
 
 
@@ -107,7 +107,7 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
             'ptlis\ConNeg\Type\Charset\CharsetType'
         );
 
-        $this->assertEquals($expectCollection, $factory->parse($field));
+        $this->assertEquals($expectCollection, $factory->parseUser($field));
     }
 
 
@@ -125,7 +125,7 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
             'ptlis\ConNeg\Type\Charset\CharsetType'
         );
 
-        $this->assertEquals($expectCollection, $factory->parse($field));
+        $this->assertEquals($expectCollection, $factory->parseUser($field));
     }
 
 
@@ -143,7 +143,7 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
             'ptlis\ConNeg\Type\Charset\CharsetType'
         );
 
-        $this->assertEquals($expectCollection, $factory->parse($field));
+        $this->assertEquals($expectCollection, $factory->parseUser($field));
     }
 
 
@@ -162,7 +162,7 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
             'ptlis\ConNeg\Type\Charset\CharsetType'
         );
 
-        $this->assertEquals($expectCollection, $factory->parse($field));
+        $this->assertEquals($expectCollection, $factory->parseUser($field));
     }
 
 
@@ -180,6 +180,6 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
             'ptlis\ConNeg\Type\Charset\CharsetType'
         );
 
-        $this->assertEquals($expectCollection, $factory->parse($field));
+        $this->assertEquals($expectCollection, $factory->parseUser($field));
     }
 }

@@ -24,13 +24,23 @@ use ptlis\ConNeg\Type\TypeInterface;
 interface TypeFactoryInterface
 {
     /**
-     * Parse a http field & return a collection of types.
+     * Parse application types as http field & return a collection of types.
      *
      * @param string $field
      *
      * @return TypeCollection
      */
-    public function parse($field);
+    public function parseApp($field);
+
+
+    /**
+     * Parse user-agent types from http field & return a collection of types.
+     *
+     * @param string $field
+     *
+     * @return TypeCollection
+     */
+    public function parseUser($field);
 
 
     /**

@@ -117,7 +117,7 @@ class Negotiate
      */
     public function charsetBest($userField, $appPrefs)
     {
-        $userTypeList = $this->charsetFactory->parse($userField);
+        $userTypeList = $this->charsetFactory->parseUser($userField);
         $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, $this->charsetFactory);
 
         return $this->charsetNegotiator->negotiateBest($userTypeList, $appTypeList);
@@ -137,7 +137,7 @@ class Negotiate
      */
     public function charsetAll($userField, $appPrefs)
     {
-        $userTypeList = $this->charsetFactory->parse($userField);
+        $userTypeList = $this->charsetFactory->parseUser($userField);
         $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, $this->charsetFactory);
 
         return $this->charsetNegotiator->negotiateAll($userTypeList, $appTypeList);
@@ -154,7 +154,7 @@ class Negotiate
      */
     public function encodingBest($userField, $appPrefs)
     {
-        $userTypeList = $this->encodingFactory->parse($userField);
+        $userTypeList = $this->encodingFactory->parseUser($userField);
         $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, $this->encodingFactory);
 
         return $this->encodingNegotiator->negotiateBest($userTypeList, $appTypeList);
@@ -174,7 +174,7 @@ class Negotiate
      */
     public function encodingAll($userField, $appPrefs)
     {
-        $userTypeList = $this->encodingFactory->parse($userField);
+        $userTypeList = $this->encodingFactory->parseUser($userField);
         $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, $this->encodingFactory);
 
         return $this->encodingNegotiator->negotiateAll($userTypeList, $appTypeList);
@@ -191,7 +191,7 @@ class Negotiate
      */
     public function languageBest($userField, $appPrefs)
     {
-        $userTypeList = $this->languageFactory->parse($userField);
+        $userTypeList = $this->languageFactory->parseUser($userField);
         $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, $this->languageFactory);
 
         return $this->languageNegotiator->negotiateBest($userTypeList, $appTypeList);
@@ -211,7 +211,7 @@ class Negotiate
      */
     public function languageAll($userField, $appPrefs)
     {
-        $userTypeList = $this->languageFactory->parse($userField);
+        $userTypeList = $this->languageFactory->parseUser($userField);
         $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, $this->languageFactory);
 
         return $this->languageNegotiator->negotiateAll($userTypeList, $appTypeList);
@@ -228,7 +228,7 @@ class Negotiate
      */
     public function mimeBest($userField, $appPrefs)
     {
-        $userTypeList = $this->mimeFactory->parse($userField);
+        $userTypeList = $this->mimeFactory->parseUser($userField);
         $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, $this->mimeFactory);
 
         return $this->mimeNegotiator->negotiateBest($userTypeList, $appTypeList);
@@ -247,7 +247,7 @@ class Negotiate
      */
     public function mimeAll($userField, $appPrefs)
     {
-        $userTypeList = $this->mimeFactory->parse($userField);
+        $userTypeList = $this->mimeFactory->parseUser($userField);
         $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, $this->mimeFactory);
 
         return $this->mimeNegotiator->negotiateAll($userTypeList, $appTypeList);
@@ -267,7 +267,7 @@ class Negotiate
     private function sharedAppPrefsToTypes($appPrefs, TypeFactoryInterface $factory)
     {
         if (gettype($appPrefs) === 'string') {
-            $appTypeList = $factory->parse($appPrefs);
+            $appTypeList = $factory->parseApp($appPrefs);
 
         } elseif ($appPrefs instanceof CollectionInterface) {
             $appTypeList = $appPrefs;
