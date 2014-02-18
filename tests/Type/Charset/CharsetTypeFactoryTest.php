@@ -182,4 +182,52 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
     }
+
+
+    public function testInvalidTypeClass()
+    {
+        $typeClass = 'ptlis\ConNeg\Type\bob\bob';
+
+        $this->setExpectedException(
+            'ptlis\ConNeg\Exception\ConNegException',
+            '"' . $typeClass . '" does not implement TypeInterface'
+        );
+
+        $regexProvider = new RegexProvider();
+        new SharedTypeFactory(
+            $regexProvider->getCharsetRegex(),
+            $typeClass
+        );
+    }
+
+
+    public function testParseAppInvalidType()
+    {
+        $this->setExpectedException(
+            'ptlis\ConNeg\Exception\ConNegException',
+            'Error parsing field'
+        );
+
+        $regexProvider = new RegexProvider();
+        $factory = new SharedTypeFactory(
+            $regexProvider->getCharsetRegex(),
+            'ptlis\ConNeg\Type\Language\LanguageType'
+        );
+
+        $factory->parseApp('$^(£$');
+    }
+
+
+    public function testParseUserInvalidType()
+    {
+        $expectCollection = new TypeCollection();
+
+        $regexProvider = new RegexProvider();
+        $factory = new SharedTypeFactory(
+            $regexProvider->getCharsetRegex(),
+            'ptlis\ConNeg\Type\Language\LanguageType'
+        );
+
+        $this->assertEquals($expectCollection, $factory->parseUser('$^(£$'));
+    }
 }
