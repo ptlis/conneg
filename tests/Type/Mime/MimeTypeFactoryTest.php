@@ -191,4 +191,27 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
     }
+
+
+    public function testParseAppInvalidType()
+    {
+        $this->setExpectedException(
+            'ptlis\ConNeg\Exception\ConNegException',
+            'Error parsing field'
+        );
+
+        $factory = new MimeTypeFactory(new RegexProvider());
+
+        $factory->parseApp('$^(£$');
+    }
+
+
+    public function testParseUserInvalidType()
+    {
+        $expectCollection = new TypeCollection();
+
+        $factory = new MimeTypeFactory(new RegexProvider());
+
+        $this->assertEquals($expectCollection, $factory->parseUser('$^(£$'));
+    }
 }

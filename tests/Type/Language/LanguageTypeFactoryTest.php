@@ -200,4 +200,35 @@ class LanguageTypeFactoryTest extends \PHPUnit_Framework_TestCase
             $typeClass
         );
     }
+
+
+    public function testParseAppInvalidType()
+    {
+        $this->setExpectedException(
+            'ptlis\ConNeg\Exception\ConNegException',
+            'Error parsing field'
+        );
+
+        $regexProvider = new RegexProvider();
+        $factory = new SharedTypeFactory(
+            $regexProvider->getLanguageRegex(),
+            'ptlis\ConNeg\Type\Language\LanguageType'
+        );
+
+        $factory->parseApp('$^(£$');
+    }
+
+
+    public function testParseUserInvalidType()
+    {
+        $expectCollection = new TypeCollection();
+
+        $regexProvider = new RegexProvider();
+        $factory = new SharedTypeFactory(
+            $regexProvider->getLanguageRegex(),
+            'ptlis\ConNeg\Type\Language\LanguageType'
+        );
+
+        $this->assertEquals($expectCollection, $factory->parseUser('$^(£$'));
+    }
 }
