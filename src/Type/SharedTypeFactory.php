@@ -29,13 +29,20 @@ class SharedTypeFactory implements TypeFactoryInterface
     /**
      * Constructor
      *
+     * @throws ConNegException
+     *
      * @param string $regex
      * @param string $typeClass
      */
     public function __construct($regex, $typeClass)
     {
+        if (!is_subclass_of($typeClass, 'ptlis\ConNeg\Type\TypeInterface')) {
+            throw new ConNegException(
+                $typeClass . ' does not implement TypeInterface'
+            );
+        }
+
         $this->regex = $regex;
-        // Todo: ensure is instance of TypeInterface
         $this->typeClass = $typeClass;
     }
 
