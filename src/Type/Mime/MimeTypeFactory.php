@@ -131,23 +131,7 @@ class MimeTypeFactory implements TypeFactoryInterface
         $explodedType = explode('/', $type);
         if (2 == count($explodedType)) {
             list($mimeType, $subType) = $explodedType;
-
-            // TODO: what if odd wildcard (eg */html)
-            switch (true) {
-                // Full wildcard type
-                case $mimeType === '*' && $subType === '*':
-                    $typeObj = new MimeWildcardType(new QualityFactor($qualityFactor));
-                    break;
-
-                // Wildcard subtype
-                case $mimeType !== '*' && $subType === '*':
-                    $typeObj = new MimeWildcardSubType($mimeType, new QualityFactor($qualityFactor));
-                    break;
-
-                default:
-                    $typeObj = new MimeType($mimeType, $subType, new QualityFactor($qualityFactor));
-                    break;
-            }
+            $typeObj = $this->getFromParts($mimeType, $subType, $qualityFactor);
 
         } elseif (!strlen($type)) {
             $typeObj = new AbsentMimeType();
@@ -156,6 +140,39 @@ class MimeTypeFactory implements TypeFactoryInterface
             throw new InvalidTypeException(
                 '"' . $type . '" is not a valid mime type'
             );
+        }
+
+        return $typeObj;
+    }
+
+
+    /**
+     * Get the type from parts.
+     *
+     * @throws InvalidTypeException
+     *
+     * @param string $mimeType
+     * @param string $subType
+     * @param string $qualityFactor
+     *
+     * @return MimeTypeInterface
+     */
+    private function getFromParts($mimeType, $subType, $qualityFactor)
+    {
+        switch (true) {
+            // Full wildcard type
+            case $mimeType === '*' && $subType === '*':
+                $typeObj = new MimeWildcardType(new QualityFactor($qualityFactor));
+                break;
+
+            // Wildcard subtype
+            case $mimeType !== '*' && $subType === '*':
+                $typeObj = new MimeWildcardSubType($mimeType, new QualityFactor($qualityFactor));
+                break;
+
+            default:
+                $typeObj = new MimeType($mimeType, $subType, new QualityFactor($qualityFactor));
+                break;
         }
 
         return $typeObj;
