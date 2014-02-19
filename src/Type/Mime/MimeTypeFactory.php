@@ -170,6 +170,13 @@ class MimeTypeFactory implements TypeFactoryInterface
                 $typeObj = new MimeWildcardSubType($mimeType, new QualityFactor($qualityFactor));
                 break;
 
+            // Wildcard type
+            case $mimeType === '*' && $subType !== '*':
+                throw new InvalidTypeException(
+                    '"' . $mimeType . '/' . $subType . '" is not a valid mime type'
+                );
+                break;
+
             default:
                 $typeObj = new MimeType($mimeType, $subType, new QualityFactor($qualityFactor));
                 break;

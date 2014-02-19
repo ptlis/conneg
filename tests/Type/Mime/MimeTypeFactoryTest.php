@@ -227,6 +227,21 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory = new MimeTypeFactory(new RegexProvider());
 
-        $factory->get($type, $factory->parseUser('$^(£$'));
+        $factory->get($type, 0.5);
+    }
+
+
+    public function testGetInvalidWildcardType()
+    {
+        $type = '*/bob';
+
+        $this->setExpectedException(
+            'ptlis\ConNeg\Exception\InvalidTypeException',
+            '"' . $type . '" is not a valid mime type'
+        );
+
+        $factory = new MimeTypeFactory(new RegexProvider());
+
+        $factory->get($type, 0.5);
     }
 }
