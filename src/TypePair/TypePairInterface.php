@@ -20,7 +20,7 @@ use ptlis\ConNeg\Type\TypeInterface;
 /**
  * Interface for types.
  */
-interface TypePairInterface
+interface TypePairInterface extends TypeInterface
 {
     /**
      * Returns the user's preferred type or an instance of AbsentType.
@@ -36,20 +36,4 @@ interface TypePairInterface
      * @return TypeInterface
      */
     public function getAppType();
-
-
-    /**
-     * Returns the product of the application & user-agent quality factors.
-     *
-     * @return float
-     */
-    public function getQualityFactorProduct();
-
-
-    /**
-     * Get the shared type for this pair.
-     *
-     * @return string
-     */
-    public function getType();
 }

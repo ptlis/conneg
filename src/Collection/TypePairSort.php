@@ -123,9 +123,9 @@ class TypePairSort
      */
     private function compareQualityFactorProduct(TypePairInterface $lTypePair, TypePairInterface $rTypePair)
     {
-        if ($rTypePair->getQualityFactorProduct() < $lTypePair->getQualityFactorProduct()) {
+        if ($rTypePair->getQualityFactor() < $lTypePair->getQualityFactor()) {
             return -1;
-        } elseif ($rTypePair->getQualityFactorProduct() > $lTypePair->getQualityFactorProduct()) {
+        } elseif ($rTypePair->getQualityFactor() > $lTypePair->getQualityFactor()) {
             return 1;
         } else {
             return 0;

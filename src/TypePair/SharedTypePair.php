@@ -15,6 +15,7 @@
 
 namespace ptlis\ConNeg\TypePair;
 
+use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
 use ptlis\ConNeg\Type\AbsentType;
 use ptlis\ConNeg\Type\TypeInterface;
 
@@ -89,9 +90,20 @@ class SharedTypePair implements TypePairInterface
      *
      * @return float
      */
-    public function getQualityFactorProduct()
+    public function getQualityFactor()
     {
         return $this->userType->getQualityFactor()->getFactor() * $this->appType->getQualityFactor()->getFactor();
+    }
+
+
+    /**
+     * Returns the combined precedence.
+     *
+     * @return int
+     */
+    public function getPrecedence()
+    {
+        return $this->getAppType()->getPrecedence() * $this->getUserType()->getPrecedence();
     }
 
 
@@ -102,5 +114,16 @@ class SharedTypePair implements TypePairInterface
     {
         $this->userType = clone $this->userType;
         $this->appType = clone $this->appType;
+    }
+
+
+    /**
+     * Create string representation of type.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getType() . ';q=' . $this->getQualityFactor();
     }
 }

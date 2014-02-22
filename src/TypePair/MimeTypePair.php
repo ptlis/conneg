@@ -78,9 +78,20 @@ class MimeTypePair implements TypePairInterface
      *
      * @return float
      */
-    public function getQualityFactorProduct()
+    public function getQualityFactor()
     {
-        return $this->sharedTypePair->getQualityFactorProduct();
+        return $this->sharedTypePair->getQualityFactor();
+    }
+
+
+    /**
+     * Returns the combined precedence.
+     *
+     * @return int
+     */
+    public function getPrecedence()
+    {
+        return $this->getAppType()->getPrecedence() * $this->getUserType()->getPrecedence();
     }
 
 
@@ -90,5 +101,16 @@ class MimeTypePair implements TypePairInterface
     public function __clone()
     {
         $this->sharedTypePair = clone $this->sharedTypePair;
+    }
+
+
+    /**
+     * Create string representation of type.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getType() . ';q=' . $this->getQualityFactor();
     }
 }
