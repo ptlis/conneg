@@ -77,7 +77,7 @@ class SharedTypePair implements TypePairInterface
      */
     public function getType()
     {
-        if (strlen($this->userType->getType())) {
+        if (strlen($this->userType->getType()) && !strstr($this->userType->getType(), '*')) {
             return $this->userType->getType();
         } else {
             return $this->appType->getType();
@@ -103,7 +103,7 @@ class SharedTypePair implements TypePairInterface
      */
     public function getPrecedence()
     {
-        return $this->getAppType()->getPrecedence() * $this->getUserType()->getPrecedence();
+        return $this->getAppType()->getPrecedence() + $this->getUserType()->getPrecedence();
     }
 
 

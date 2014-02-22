@@ -91,7 +91,7 @@ class MimeTypePair implements TypePairInterface
      */
     public function getPrecedence()
     {
-        return $this->getAppType()->getPrecedence() * $this->getUserType()->getPrecedence();
+        return $this->getAppType()->getPrecedence() + $this->getUserType()->getPrecedence();
     }
 
 
