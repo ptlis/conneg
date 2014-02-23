@@ -219,4 +219,16 @@ class TypeCollectionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNotSame($expectCollection, $collection);
     }
+
+
+    public function testToString()
+    {
+        $collection = new TypeCollection();
+
+        $collection->addType(new MimeType('text', 'n3', new QualityFactor(0.8)));
+        $collection->addType(new MimeType('text', 'html', new QualityFactor(1)));
+
+
+        $this->assertEquals('text/n3;q=0.8,text/html;q=1', $collection->__toString());
+    }
 }

@@ -212,4 +212,25 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectCollection, $collection);
         $this->assertNotSame($expectCollection, $collection);
     }
+
+
+    public function testToString()
+    {
+        $collection = new SharedTypePairCollection();
+
+        $collection->addPair(
+            new SharedTypePair(
+                new CharsetType('iso-8859-5', new QualityFactor(0.8)),
+                new CharsetType('iso-8859-5', new QualityFactor(0.8))
+            )
+        );
+        $collection->addPair(
+            new SharedTypePair(
+                new CharsetType('utf-8', new QualityFactor(1)),
+                new CharsetType('utf-8', new QualityFactor(0.9))
+            )
+        );
+
+        $this->assertEquals('iso-8859-5;q=0.64,utf-8;q=0.9', $collection->__toString());
+    }
 }

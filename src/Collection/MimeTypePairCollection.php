@@ -155,4 +155,15 @@ class MimeTypePairCollection implements CollectionInterface
 
         $this->typePairList = $newTypePairList;
     }
+
+
+    /**
+     * Return a string representation of the collection.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return implode(',', $this->typePairList);
+    }
 }

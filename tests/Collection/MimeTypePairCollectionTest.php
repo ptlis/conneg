@@ -212,4 +212,25 @@ class MimeTypePairCollectionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectCollection, $collection);
         $this->assertNotSame($expectCollection, $collection);
     }
+
+
+    public function testToString()
+    {
+        $collection = new MimeTypePairCollection();
+
+        $collection->addPair(
+            new MimeTypePair(
+                new MimeType('text', 'n3', new QualityFactor(0.8)),
+                new MimeType('text', 'n3', new QualityFactor(0.8))
+            )
+        );
+        $collection->addPair(
+            new MimeTypePair(
+                new MimeType('text', 'html', new QualityFactor(1)),
+                new MimeType('text', 'html', new QualityFactor(0.9))
+            )
+        );
+
+        $this->assertEquals('text/n3;q=0.64,text/html;q=0.9', $collection->__toString());
+    }
 }

@@ -68,4 +68,12 @@ interface CollectionInterface extends Countable, IteratorAggregate
      * @return CollectionInterface with elements in descending order
      */
     public function getDescending();
+
+
+    /**
+     * Returns a string representation of the collection.
+     *
+     * @return string
+     */
+    public function __toString();
 }
