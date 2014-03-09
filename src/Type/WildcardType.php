@@ -15,7 +15,6 @@
 
 namespace ptlis\ConNeg\Type;
 
-use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
 
 /**

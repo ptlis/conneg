@@ -15,8 +15,6 @@
 
 namespace ptlis\ConNeg\TypePair;
 
-use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
-use ptlis\ConNeg\Type\AbsentType;
 use ptlis\ConNeg\Type\TypeInterface;
 
 /**

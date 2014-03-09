@@ -15,7 +15,6 @@
 
 namespace ptlis\ConNeg;
 
-use Exception;
 use ptlis\ConNeg\Collection\CollectionInterface;
 use ptlis\ConNeg\Collection\MimeTypePairCollection;
 use ptlis\ConNeg\Collection\SharedTypePairCollection;

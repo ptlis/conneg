@@ -15,7 +15,6 @@
 
 namespace ptlis\ConNeg\Type\Mime;
 
-use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
 
 /**
