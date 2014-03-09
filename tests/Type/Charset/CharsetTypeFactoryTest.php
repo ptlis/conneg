@@ -17,6 +17,7 @@ namespace ptlis\ConNeg\Test\Type\Charset;
 
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
+use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
 use ptlis\ConNeg\RegexProvider;
 use ptlis\ConNeg\Type\Charset\CharsetType;
 use ptlis\ConNeg\Type\SharedTypeFactory;
@@ -34,7 +35,8 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $regexProvider = new RegexProvider();
         $factory = new SharedTypeFactory(
             $regexProvider->getCharsetRegex(),
-            'ptlis\ConNeg\Type\Charset\CharsetType'
+            'ptlis\ConNeg\Type\Charset\CharsetType',
+            new QualityFactorFactory()
         );
 
         $this->assertEquals($expectType, $factory->get($type, $qFactor));
@@ -50,7 +52,8 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $regexProvider = new RegexProvider();
         $factory = new SharedTypeFactory(
             $regexProvider->getCharsetRegex(),
-            'ptlis\ConNeg\Type\Charset\CharsetType'
+            'ptlis\ConNeg\Type\Charset\CharsetType',
+            new QualityFactorFactory()
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -68,7 +71,8 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $regexProvider = new RegexProvider();
         $factory = new SharedTypeFactory(
             $regexProvider->getCharsetRegex(),
-            'ptlis\ConNeg\Type\Charset\CharsetType'
+            'ptlis\ConNeg\Type\Charset\CharsetType',
+            new QualityFactorFactory()
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -86,7 +90,8 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $regexProvider = new RegexProvider();
         $factory = new SharedTypeFactory(
             $regexProvider->getCharsetRegex(),
-            'ptlis\ConNeg\Type\Charset\CharsetType'
+            'ptlis\ConNeg\Type\Charset\CharsetType',
+            new QualityFactorFactory()
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -104,7 +109,8 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $regexProvider = new RegexProvider();
         $factory = new SharedTypeFactory(
             $regexProvider->getCharsetRegex(),
-            'ptlis\ConNeg\Type\Charset\CharsetType'
+            'ptlis\ConNeg\Type\Charset\CharsetType',
+            new QualityFactorFactory()
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -122,7 +128,8 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $regexProvider = new RegexProvider();
         $factory = new SharedTypeFactory(
             $regexProvider->getCharsetRegex(),
-            'ptlis\ConNeg\Type\Charset\CharsetType'
+            'ptlis\ConNeg\Type\Charset\CharsetType',
+            new QualityFactorFactory()
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -140,7 +147,8 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $regexProvider = new RegexProvider();
         $factory = new SharedTypeFactory(
             $regexProvider->getCharsetRegex(),
-            'ptlis\ConNeg\Type\Charset\CharsetType'
+            'ptlis\ConNeg\Type\Charset\CharsetType',
+            new QualityFactorFactory()
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -159,7 +167,8 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $regexProvider = new RegexProvider();
         $factory = new SharedTypeFactory(
             $regexProvider->getCharsetRegex(),
-            'ptlis\ConNeg\Type\Charset\CharsetType'
+            'ptlis\ConNeg\Type\Charset\CharsetType',
+            new QualityFactorFactory()
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -177,7 +186,8 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $regexProvider = new RegexProvider();
         $factory = new SharedTypeFactory(
             $regexProvider->getCharsetRegex(),
-            'ptlis\ConNeg\Type\Charset\CharsetType'
+            'ptlis\ConNeg\Type\Charset\CharsetType',
+            new QualityFactorFactory()
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -196,7 +206,8 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $regexProvider = new RegexProvider();
         new SharedTypeFactory(
             $regexProvider->getCharsetRegex(),
-            $typeClass
+            $typeClass,
+            new QualityFactorFactory()
         );
     }
 
@@ -211,7 +222,8 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $regexProvider = new RegexProvider();
         $factory = new SharedTypeFactory(
             $regexProvider->getCharsetRegex(),
-            'ptlis\ConNeg\Type\Language\LanguageType'
+            'ptlis\ConNeg\Type\Language\LanguageType',
+            new QualityFactorFactory()
         );
 
         $factory->parseApp('$^(£$');
@@ -225,7 +237,8 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $regexProvider = new RegexProvider();
         $factory = new SharedTypeFactory(
             $regexProvider->getCharsetRegex(),
-            'ptlis\ConNeg\Type\Language\LanguageType'
+            'ptlis\ConNeg\Type\Language\LanguageType',
+            new QualityFactorFactory()
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser('$^(£$'));

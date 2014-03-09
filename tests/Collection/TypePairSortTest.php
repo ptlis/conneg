@@ -209,11 +209,11 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
         $typePairList = array();
         $typePairList[] = new SharedTypePair(
             new LanguageType('en-gb', new QualityFactor(0.9)),
-            new AbsentType()
+            new AbsentType(new QualityFactor(0))
         );
         $typePairList[] = new SharedTypePair(
             new LanguageType('fr', new QualityFactor(0.8)),
-            new AbsentType()
+            new AbsentType(new QualityFactor(0))
         );
 
         $sort = new TypePairSort();
@@ -244,11 +244,11 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
     {
         $typePairList = array();
         $typePairList[] = new SharedTypePair(
-            new AbsentType(),
+            new AbsentType(new QualityFactor(0)),
             new LanguageType('en-gb', new QualityFactor(0.9))
         );
         $typePairList[] = new SharedTypePair(
-            new AbsentType(),
+            new AbsentType(new QualityFactor(0)),
             new LanguageType('fr', new QualityFactor(0.8))
         );
 
@@ -316,9 +316,15 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
     {
         $sort = new TypePairSort();
 
-        $best = $sort->getBest(array(), new SharedTypePair(new AbsentType(), new AbsentType()));
+        $best = $sort->getBest(
+            array(),
+            new SharedTypePair(
+                new AbsentType(new QualityFactor(0)),
+                new AbsentType(new QualityFactor(0))
+            )
+        );
 
-        $expect = new SharedTypePair(new AbsentType(), new AbsentType());
+        $expect = new SharedTypePair(new AbsentType(new QualityFactor(0)), new AbsentType(new QualityFactor(0)));
 
         $this->assertEquals($expect, $best);
     }
@@ -338,7 +344,13 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
             new LanguageType('fr', new QualityFactor(0.9))
         );
 
-        $best = $sort->getBest($typePairList, new SharedTypePair(new AbsentType(), new AbsentType()));
+        $best = $sort->getBest(
+            $typePairList,
+            new SharedTypePair(
+                new AbsentType(new QualityFactor(0)),
+                new AbsentType(new QualityFactor(0))
+            )
+        );
 
         $expect = new SharedTypePair(
             new LanguageType('fr', new QualityFactor(0.8)),

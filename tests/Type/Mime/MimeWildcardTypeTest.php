@@ -35,7 +35,7 @@ class MimeWildcardTypeTest extends \PHPUnit_Framework_TestCase
 
     public function testNewCharsetTypeOmitQualityFactor()
     {
-        $type = new MimeWildcardType();
+        $type = new MimeWildcardType(new QualityFactor(1));
 
         $this->assertSame('*/*', $type->getType());
         $this->assertSame('*', $type->getMimeType());

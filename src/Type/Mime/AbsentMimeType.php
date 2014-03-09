@@ -15,7 +15,6 @@
 
 namespace ptlis\ConNeg\Type\Mime;
 
-use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
 
 /**
@@ -31,10 +30,12 @@ class AbsentMimeType implements MimeTypeInterface
 
     /**
      * Constructor
+     *
+     * @param QualityFactorInterface $qFactor
      */
-    public function __construct()
+    public function __construct(QualityFactorInterface $qFactor)
     {
-        $this->qFactor = new QualityFactor(0);
+        $this->qFactor = $qFactor;
     }
 
 

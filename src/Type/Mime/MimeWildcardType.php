@@ -32,14 +32,10 @@ class MimeWildcardType implements MimeTypeInterface
     /**
      * Constructor.
      *
-     * @param QualityFactorInterface|null $qFactor
+     * @param QualityFactorInterface $qFactor
      */
-    public function __construct(QualityFactorInterface $qFactor = null)
+    public function __construct(QualityFactorInterface $qFactor)
     {
-        if (is_null($qFactor)) {
-            $qFactor = new QualityFactor(1);
-        }
-
         $this->qFactor = $qFactor;
     }
 

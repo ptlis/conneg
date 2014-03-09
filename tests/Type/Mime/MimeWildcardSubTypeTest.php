@@ -35,7 +35,7 @@ class MimeWildcardSubTypeTest extends \PHPUnit_Framework_TestCase
 
     public function testNewCharsetTypeOmitQualityFactor()
     {
-        $type = new MimeWildcardSubType('application');
+        $type = new MimeWildcardSubType('application', new QualityFactor(1));
 
         $this->assertSame('application/*', $type->getType());
         $this->assertSame('application', $type->getMimeType());
@@ -48,7 +48,7 @@ class MimeWildcardSubTypeTest extends \PHPUnit_Framework_TestCase
 
     public function testCloneCharsetType()
     {
-        $type = new MimeWildcardSubType(new QualityFactor(1));
+        $type = new MimeWildcardSubType('text', new QualityFactor(1));
 
         $cloneType = clone $type;
 

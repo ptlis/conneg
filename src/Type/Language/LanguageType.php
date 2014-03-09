@@ -39,14 +39,10 @@ class LanguageType implements TypeInterface
      * Constructor
      *
      * @param string $type
-     * @param QualityFactorInterface|null $qFactor
+     * @param QualityFactorInterface $qFactor
      */
-    public function __construct($type, QualityFactorInterface $qFactor = null)
+    public function __construct($type, QualityFactorInterface $qFactor)
     {
-        if (is_null($qFactor)) {
-            $qFactor = new QualityFactor(1);
-        }
-
         $this->type = $type;
         $this->qFactor = $qFactor;
     }

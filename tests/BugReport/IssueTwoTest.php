@@ -36,37 +36,37 @@ class IssueTwoTest extends \PHPUnit_Framework_TestCase
         $expectCollection
             ->addPair(
                 new MimeTypePair(
-                    new AbsentMimeType(),
+                    new AbsentMimeType(new QualityFactor(0)),
                     new MimeType('text', 'turtle', new QualityFactor(1))
                 )
             )
             ->addPair(
                 new MimeTypePair(
-                    new AbsentMimeType(),
+                    new AbsentMimeType(new QualityFactor(0)),
                     new MimeType('application', 'rdf+json', new QualityFactor(0.8))
                 )
             )
             ->addPair(
                 new MimeTypePair(
-                    new AbsentMimeType(),
+                    new AbsentMimeType(new QualityFactor(0)),
                     new MimeType('application', 'rdf+xml', new QualityFactor(0.8))
                 )
             )
             ->addPair(
                 new MimeTypePair(
-                    new AbsentMimeType(),
+                    new AbsentMimeType(new QualityFactor(0)),
                     new MimeType('text', 'n3', new QualityFactor(0.8))
                 )
             )
             ->addPair(
                 new MimeTypePair(
-                    new AbsentMimeType(),
+                    new AbsentMimeType(new QualityFactor(0)),
                     new MimeType('text', 'rdf+n3', new QualityFactor(0.8))
                 )
             )
             ->addPair(
                 new MimeTypePair(
-                    new AbsentMimeType(),
+                    new AbsentMimeType(new QualityFactor(0)),
                     new MimeType('application', 'ld+json', new QualityFactor(0.5))
                 )
             );

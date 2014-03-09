@@ -16,6 +16,7 @@
 namespace ptlis\ConNeg\Collection;
 
 use ArrayIterator;
+use ptlis\ConNeg\QualityFactor\QualityFactor;
 use Traversable;
 use ptlis\ConNeg\TypePair\SharedTypePair;
 use ptlis\ConNeg\TypePair\TypePairInterface;
@@ -133,8 +134,8 @@ class SharedTypePairCollection implements CollectionInterface
     public function getBest()
     {
         $defaultPair = new SharedTypePair(
-            new AbsentType(),
-            new AbsentType()
+            new AbsentType(new QualityFactor(0)),
+            new AbsentType(new QualityFactor(0))
         );
         $sort = new TypePairSort();
         $bestPair = $sort->getBest($this->typePairList, $defaultPair);

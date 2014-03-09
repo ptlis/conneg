@@ -18,6 +18,7 @@ namespace ptlis\ConNeg\Negotiator;
 use ptlis\ConNeg\Collection\MimeTypePairCollection;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
+use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\TypePair\MimeTypePair;
 use ptlis\ConNeg\Type\Mime\AbsentMimeType;
 use ptlis\ConNeg\Type\Mime\MimeTypeFactory;
@@ -61,7 +62,7 @@ class MimeNegotiator implements NegotiatorInterface
         foreach ($appTypeList as $appType) {
             $matchingList[$appType->getType()] = new MimeTypePair(
                 $appType,
-                new AbsentMimeType()
+                new AbsentMimeType(new QualityFactor(0))
             );
         }
 

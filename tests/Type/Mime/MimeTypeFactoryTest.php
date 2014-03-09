@@ -17,6 +17,7 @@ namespace ptlis\ConNeg\Test\Type\Charset;
 
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
+use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
 use ptlis\ConNeg\RegexProvider;
 use ptlis\ConNeg\Type\Mime\MimeType;
 use ptlis\ConNeg\Type\Mime\MimeTypeFactory;
@@ -32,7 +33,7 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $expectType = new MimeType('text', 'html', new QualityFactor($qFactor));
 
-        $factory = new MimeTypeFactory(new RegexProvider());
+        $factory = new MimeTypeFactory(new RegexProvider(), new QualityFactorFactory());
 
         $this->assertEquals($expectType, $factory->get($type, $qFactor));
     }
@@ -44,7 +45,7 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $expectCollection = new TypeCollection();
 
-        $factory = new MimeTypeFactory(new RegexProvider());
+        $factory = new MimeTypeFactory(new RegexProvider(), new QualityFactorFactory());
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
     }
@@ -58,7 +59,7 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new TypeCollection();
         $expectCollection->addType($expectType);
 
-        $factory = new MimeTypeFactory(new RegexProvider());
+        $factory = new MimeTypeFactory(new RegexProvider(), new QualityFactorFactory());
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
     }
@@ -72,7 +73,7 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new TypeCollection();
         $expectCollection->addType($expectType);
 
-        $factory = new MimeTypeFactory(new RegexProvider());
+        $factory = new MimeTypeFactory(new RegexProvider(), new QualityFactorFactory());
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
     }
@@ -86,7 +87,7 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new TypeCollection();
         $expectCollection->addType($expectType);
 
-        $factory = new MimeTypeFactory(new RegexProvider());
+        $factory = new MimeTypeFactory(new RegexProvider(), new QualityFactorFactory());
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
     }
@@ -100,7 +101,7 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new TypeCollection();
         $expectCollection->addType($expectType);
 
-        $factory = new MimeTypeFactory(new RegexProvider());
+        $factory = new MimeTypeFactory(new RegexProvider(), new QualityFactorFactory());
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
     }
@@ -114,7 +115,7 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new TypeCollection();
         $expectCollection->addType($expectType);
 
-        $factory = new MimeTypeFactory(new RegexProvider());
+        $factory = new MimeTypeFactory(new RegexProvider(), new QualityFactorFactory());
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
     }
@@ -128,7 +129,7 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new TypeCollection();
         $expectCollection->addType($expectType);
 
-        $factory = new MimeTypeFactory(new RegexProvider());
+        $factory = new MimeTypeFactory(new RegexProvider(), new QualityFactorFactory());
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
     }
@@ -142,7 +143,7 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $expectCollection->addType(new MimeType('text', 'html', new QualityFactor(1)));
         $expectCollection->addType(new MimeType('application', 'xml+rdf', new QualityFactor(0.7)));
 
-        $factory = new MimeTypeFactory(new RegexProvider());
+        $factory = new MimeTypeFactory(new RegexProvider(), new QualityFactorFactory());
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
     }
@@ -157,7 +158,7 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $expectCollection->addType(new MimeWildcardSubType('text', new QualityFactor(0.5)));
         $expectCollection->addType(new MimeWildcardType(new QualityFactor(0.1)));
 
-        $factory = new MimeTypeFactory(new RegexProvider());
+        $factory = new MimeTypeFactory(new RegexProvider(), new QualityFactorFactory());
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
     }
@@ -171,7 +172,7 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $expectCollection->addType(new MimeWildcardSubType('audio', new QualityFactor(0.2)));
         $expectCollection->addType(new MimeType('audio', 'basic', new QualityFactor(1)));
 
-        $factory = new MimeTypeFactory(new RegexProvider());
+        $factory = new MimeTypeFactory(new RegexProvider(), new QualityFactorFactory());
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
     }
@@ -187,7 +188,7 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $expectCollection->addType(new MimeType('text', 'x-dvi', new QualityFactor(0.8)));
         $expectCollection->addType(new MimeType('text', 'x-c', new QualityFactor(1)));
 
-        $factory = new MimeTypeFactory(new RegexProvider());
+        $factory = new MimeTypeFactory(new RegexProvider(), new QualityFactorFactory());
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
     }
@@ -200,7 +201,7 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
             'Error parsing field'
         );
 
-        $factory = new MimeTypeFactory(new RegexProvider());
+        $factory = new MimeTypeFactory(new RegexProvider(), new QualityFactorFactory());
 
         $factory->parseApp('$^(£$');
     }
@@ -210,7 +211,7 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $expectCollection = new TypeCollection();
 
-        $factory = new MimeTypeFactory(new RegexProvider());
+        $factory = new MimeTypeFactory(new RegexProvider(), new QualityFactorFactory());
 
         $this->assertEquals($expectCollection, $factory->parseUser('$^(£$'));
     }
@@ -225,7 +226,7 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
             '"' . $type . '" is not a valid mime type'
         );
 
-        $factory = new MimeTypeFactory(new RegexProvider());
+        $factory = new MimeTypeFactory(new RegexProvider(), new QualityFactorFactory());
 
         $factory->get($type, 0.5);
     }
@@ -240,7 +241,7 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
             '"' . $type . '" is not a valid mime type'
         );
 
-        $factory = new MimeTypeFactory(new RegexProvider());
+        $factory = new MimeTypeFactory(new RegexProvider(), new QualityFactorFactory());
 
         $factory->get($type, 0.5);
     }

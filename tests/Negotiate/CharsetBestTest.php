@@ -29,8 +29,8 @@ class CharsetBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = '';
 
         $expectPair = new SharedTypePair(
-            new AbsentType(),
-            new AbsentType()
+            new AbsentType(new QualityFactor(0)),
+            new AbsentType(new QualityFactor(0))
         );
 
         $negotiate = new Negotiate();
@@ -46,7 +46,7 @@ class CharsetBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = '';
 
         $expectPair = new SharedTypePair(
-            new AbsentType(),
+            new AbsentType(new QualityFactor(0)),
             new CharsetType('utf-8', new QualityFactor(1))
         );
 
@@ -64,7 +64,7 @@ class CharsetBestTest extends \PHPUnit_Framework_TestCase
 
         $expectPair = new SharedTypePair(
             new CharsetType('iso-8859-1', new QualityFactor(1)),
-            new AbsentType()
+            new AbsentType(new QualityFactor(0))
         );
 
         $negotiate = new Negotiate();
@@ -81,7 +81,7 @@ class CharsetBestTest extends \PHPUnit_Framework_TestCase
 
         $expectPair = new SharedTypePair(
             new CharsetType('iso-8859-1', new QualityFactor(0.5)),
-            new AbsentType()
+            new AbsentType(new QualityFactor(0))
         );
 
         $negotiate = new Negotiate();

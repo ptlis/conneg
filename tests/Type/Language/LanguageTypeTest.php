@@ -33,7 +33,7 @@ class LanguageTypeTest extends \PHPUnit_Framework_TestCase
 
     public function testNewCharsetTypeOmitQualityFactor()
     {
-        $type = new LanguageType('en-us');
+        $type = new LanguageType('en-us', new QualityFactor(1));
 
         $this->assertSame('en-us', $type->getType());
         $this->assertSame(1, $type->getQualityFactor()->getFactor());

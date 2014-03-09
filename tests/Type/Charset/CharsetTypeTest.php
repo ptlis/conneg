@@ -33,7 +33,7 @@ class CharsetTypeTest extends \PHPUnit_Framework_TestCase
 
     public function testNewCharsetTypeOmitQualityFactor()
     {
-        $type = new CharsetType('utf-8');
+        $type = new CharsetType('utf-8', new QualityFactor(1));
 
         $this->assertSame('utf-8', $type->getType());
         $this->assertSame(1, $type->getQualityFactor()->getFactor());

@@ -16,6 +16,7 @@
 namespace ptlis\ConNeg\Collection;
 
 use ArrayIterator;
+use ptlis\ConNeg\QualityFactor\QualityFactor;
 use Traversable;
 use ptlis\ConNeg\TypePair\MimeTypePair;
 use ptlis\ConNeg\Type\Mime\AbsentMimeType;
@@ -132,8 +133,8 @@ class MimeTypePairCollection implements CollectionInterface
     public function getBest()
     {
         $defaultPair = new MimeTypePair(
-            new AbsentMimeType(),
-            new AbsentMimeType()
+            new AbsentMimeType(new QualityFactor(0)),
+            new AbsentMimeType(new QualityFactor(0))
         );
         $sort = new TypePairSort();
         $bestPair = $sort->getBest($this->typePairList, $defaultPair);

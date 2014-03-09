@@ -36,13 +36,13 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
         $expectCollection
             ->addPair(
                 new MimeTypePair(
-                    new AbsentMimeType(),
+                    new AbsentMimeType(new QualityFactor(0)),
                     new MimeType('application', 'rdf+xml', new QualityFactor(0.5))
                 )
             )
             ->addPair(
                 new MimeTypePair(
-                    new AbsentMimeType(),
+                    new AbsentMimeType(new QualityFactor(0)),
                     new MimeType('text', 'html', new QualityFactor(0.3))
                 )
             );
@@ -66,7 +66,7 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
         $expectCollection
             ->addPair(
                 new MimeTypePair(
-                    new AbsentMimeType(),
+                    new AbsentMimeType(new QualityFactor(0)),
                     new MimeType('application', 'xhtml+xml', new QualityFactor(0.5))
                 )
             );
@@ -90,13 +90,13 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
         $expectCollection
             ->addPair(
                 new MimeTypePair(
-                    new AbsentMimeType(),
+                    new AbsentMimeType(new QualityFactor(0)),
                     new MimeType('application', 'rdf+xml', new QualityFactor(0.5))
                 )
             )
             ->addPair(
                 new MimeTypePair(
-                    new AbsentMimeType(),
+                    new AbsentMimeType(new QualityFactor(0)),
                     new MimeType('text', 'html', new QualityFactor(0.5))
                 )
             );

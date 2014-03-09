@@ -44,14 +44,10 @@ class MimeType implements MimeTypeInterface
      *
      * @param string $type
      * @param string $subType
-     * @param QualityFactorInterface|null $qFactor
+     * @param QualityFactorInterface $qFactor
      */
-    public function __construct($type, $subType, QualityFactorInterface $qFactor = null)
+    public function __construct($type, $subType, QualityFactorInterface $qFactor)
     {
-        if (is_null($qFactor)) {
-            $qFactor = new QualityFactor(1);
-        }
-
         $this->type = $type;
         $this->subType = $subType;
         $this->qFactor = $qFactor;

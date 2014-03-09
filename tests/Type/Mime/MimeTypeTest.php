@@ -35,7 +35,7 @@ class MimeTypeTest extends \PHPUnit_Framework_TestCase
 
     public function testNewCharsetTypeOmitQualityFactor()
     {
-        $type = new MimeType('application', 'xml');
+        $type = new MimeType('application', 'xml', new QualityFactor(1));
 
         $this->assertSame('application/xml', $type->getType());
         $this->assertSame('application', $type->getMimeType());

@@ -18,7 +18,7 @@ namespace ptlis\ConNeg\Type\Mime;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Exception\ConNegException;
 use ptlis\ConNeg\Exception\InvalidTypeException;
-use ptlis\ConNeg\QualityFactor\QualityFactor;
+use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
 use ptlis\ConNeg\Type\TypeFactoryInterface;
 
 /**
@@ -33,15 +33,22 @@ class MimeTypeFactory implements TypeFactoryInterface
      */
     private $regexProvider;
 
+    /**
+     * @var QualityFactorFactory
+     */
+    private $qualityFactorFactory;
+
 
     /**
      * Constructor
      *
      * @param MimeRegexProviderInterface $regex
+     * @param QualityFactorFactory       $qualityFactorFactory
      */
-    public function __construct(MimeRegexProviderInterface $regex)
+    public function __construct(MimeRegexProviderInterface $regex, QualityFactorFactory $qualityFactorFactory)
     {
         $this->regexProvider = $regex;
+        $this->qualityFactorFactory = $qualityFactorFactory;
     }
 
 
@@ -134,7 +141,7 @@ class MimeTypeFactory implements TypeFactoryInterface
             $typeObj = $this->getFromParts($mimeType, $subType, $qualityFactor);
 
         } elseif (!strlen($type)) {
-            $typeObj = new AbsentMimeType();
+            $typeObj = new AbsentMimeType($this->qualityFactorFactory->get(0));
 
         } else {
             throw new InvalidTypeException(
@@ -162,12 +169,12 @@ class MimeTypeFactory implements TypeFactoryInterface
         switch (true) {
             // Full wildcard type
             case $mimeType === '*' && $subType === '*':
-                $typeObj = new MimeWildcardType(new QualityFactor($qualityFactor));
+                $typeObj = new MimeWildcardType($this->qualityFactorFactory->get($qualityFactor));
                 break;
 
             // Wildcard subtype
             case $mimeType !== '*' && $subType === '*':
-                $typeObj = new MimeWildcardSubType($mimeType, new QualityFactor($qualityFactor));
+                $typeObj = new MimeWildcardSubType($mimeType, $this->qualityFactorFactory->get($qualityFactor));
                 break;
 
             // Wildcard type
@@ -178,7 +185,7 @@ class MimeTypeFactory implements TypeFactoryInterface
                 break;
 
             default:
-                $typeObj = new MimeType($mimeType, $subType, new QualityFactor($qualityFactor));
+                $typeObj = new MimeType($mimeType, $subType, $this->qualityFactorFactory->get($qualityFactor));
                 break;
         }
 

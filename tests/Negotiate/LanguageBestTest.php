@@ -29,8 +29,8 @@ class LanguageBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = '';
 
         $expectPair = new SharedTypePair(
-            new AbsentType(),
-            new AbsentType()
+            new AbsentType(new QualityFactor(0)),
+            new AbsentType(new QualityFactor(0))
         );
 
         $negotiate = new Negotiate();
@@ -46,7 +46,7 @@ class LanguageBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = '';
 
         $expectPair = new SharedTypePair(
-            new AbsentType(),
+            new AbsentType(new QualityFactor(0)),
             new LanguageType('en-us', new QualityFactor(1))
         );
 
@@ -64,7 +64,7 @@ class LanguageBestTest extends \PHPUnit_Framework_TestCase
 
         $expectPair = new SharedTypePair(
             new LanguageType('en-gb', new QualityFactor(1)),
-            new AbsentType()
+            new AbsentType(new QualityFactor(0))
         );
 
         $negotiate = new Negotiate();
@@ -81,7 +81,7 @@ class LanguageBestTest extends \PHPUnit_Framework_TestCase
 
         $expectPair = new SharedTypePair(
             new LanguageType('en-gb', new QualityFactor(0.5)),
-            new AbsentType()
+            new AbsentType(new QualityFactor(0))
         );
 
         $negotiate = new Negotiate();

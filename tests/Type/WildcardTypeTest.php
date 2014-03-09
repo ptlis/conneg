@@ -33,7 +33,7 @@ class WildcardTypeTest extends \PHPUnit_Framework_TestCase
 
     public function testNewCharsetTypeOmitQualityFactor()
     {
-        $type = new WildcardType();
+        $type = new WildcardType(new QualityFactor(1));
 
         $this->assertSame('*', $type->getType());
         $this->assertSame(1, $type->getQualityFactor()->getFactor());

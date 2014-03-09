@@ -8,10 +8,9 @@
 
 namespace ptlis\ConNeg\Type;
 
-
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Exception\ConNegException;
-use ptlis\ConNeg\QualityFactor\QualityFactor;
+use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
 
 class SharedTypeFactory implements TypeFactoryInterface
 {
@@ -25,6 +24,11 @@ class SharedTypeFactory implements TypeFactoryInterface
      */
     private $typeClass;
 
+    /**
+     * @var QualityFactorFactory
+     */
+    private $qualityFactorFactory;
+
 
     /**
      * Constructor
@@ -33,8 +37,9 @@ class SharedTypeFactory implements TypeFactoryInterface
      *
      * @param string $regex
      * @param string $typeClass
+     * @param QualityFactorFactory $qualityFactorFactory
      */
-    public function __construct($regex, $typeClass)
+    public function __construct($regex, $typeClass, QualityFactorFactory $qualityFactorFactory)
     {
         if (!is_subclass_of($typeClass, 'ptlis\ConNeg\Type\TypeInterface')) {
             throw new ConNegException(
@@ -44,6 +49,7 @@ class SharedTypeFactory implements TypeFactoryInterface
 
         $this->regex = $regex;
         $this->typeClass = $typeClass;
+        $this->qualityFactorFactory = $qualityFactorFactory;
     }
 
 
@@ -92,15 +98,15 @@ class SharedTypeFactory implements TypeFactoryInterface
     {
         switch ($type) {
             case '':
-                $typeObj = new AbsentType();
+                $typeObj = new AbsentType($this->qualityFactorFactory->get(0));
                 break;
 
             case '*':
-                $typeObj = new WildcardType(new QualityFactor($qualityFactor));
+                $typeObj = new WildcardType($this->qualityFactorFactory->get($qualityFactor));
                 break;
 
             default:
-                $typeObj = new $this->typeClass($type, new QualityFactor($qualityFactor));
+                $typeObj = new $this->typeClass($type, $this->qualityFactorFactory->get($qualityFactor));
                 break;
         }
 
