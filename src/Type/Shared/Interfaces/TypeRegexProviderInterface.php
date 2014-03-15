@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Interface class for regex provider to be used by factory to parse an Accept-Language field.
- *
  * PHP Version 5.3
  *
  * @copyright   (c) 2006-2014 brian ridley
@@ -13,17 +11,17 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Type\Language;
+namespace ptlis\ConNeg\Type\Shared\Interfaces;
 
 /**
- * Interface class for regex provider to be used by factory to parse an Accept-Language field.
+ * Interface class for regular expression providers.
  */
-interface LanguageRegexProviderInterface
+interface TypeRegexProviderInterface
 {
     /**
-     * Get the regex to parse an Accept-Language field.
+     * Return a regex to parse the required HTTP field.
      *
      * @return string
      */
-    public function getLanguageRegex();
+    public function getTypeRegex();
 }

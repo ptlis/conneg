@@ -11,14 +11,16 @@ namespace ptlis\ConNeg\Type\Shared;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Exception\ConNegException;
 use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
+use ptlis\ConNeg\Type\Shared\Interfaces\TypeRegexProviderInterface;
 use ptlis\ConNeg\Type\Shared\Interfaces\TypeFactoryInterface;
+use ptlis\ConNeg\Type\Shared\Interfaces\TypeInterface;
 
 class SharedTypeFactory implements TypeFactoryInterface
 {
     /**
-     * @var string
+     * @var TypeRegexProviderInterface
      */
-    private $regex;
+    private $regexProvider;
 
     /**
      * @var string
@@ -36,19 +38,22 @@ class SharedTypeFactory implements TypeFactoryInterface
      *
      * @throws ConNegException
      *
-     * @param string $regex
+     * @param TypeRegexProviderInterface $regexProvider
      * @param string $typeClass
      * @param QualityFactorFactory $qualityFactorFactory
      */
-    public function __construct($regex, $typeClass, QualityFactorFactory $qualityFactorFactory)
-    {
+    public function __construct(
+        TypeRegexProviderInterface $regexProvider,
+        $typeClass,
+        QualityFactorFactory $qualityFactorFactory
+    ) {
         if (!is_subclass_of($typeClass, 'ptlis\ConNeg\Type\Shared\Interfaces\TypeInterface')) {
             throw new ConNegException(
                 '"' . $typeClass . '" does not implement TypeInterface'
             );
         }
 
-        $this->regex = $regex;
+        $this->regexProvider = $regexProvider;
         $this->typeClass = $typeClass;
         $this->qualityFactorFactory = $qualityFactorFactory;
     }
@@ -152,7 +157,7 @@ class SharedTypeFactory implements TypeFactoryInterface
     {
         $typeCollection = new TypeCollection();
 
-        if (preg_match_all($this->regex, $field, $typeList)) {
+        if (preg_match_all($this->regexProvider->getTypeRegex(), $field, $typeList)) {
             $this->getFromArray($typeCollection, $typeList);
 
         } elseif (strlen($field)) {

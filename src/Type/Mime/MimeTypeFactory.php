@@ -19,10 +19,8 @@ use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Exception\ConNegException;
 use ptlis\ConNeg\Exception\InvalidTypeException;
 use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
-use ptlis\ConNeg\Type\Mime\AbsentMimeType;
-use ptlis\ConNeg\Type\Mime\MimeType;
-use ptlis\ConNeg\Type\Mime\MimeWildcardSubType;
-use ptlis\ConNeg\Type\Mime\MimeWildcardType;
+use ptlis\ConNeg\Type\Mime\Interfaces\MimeTypeInterface;
+use ptlis\ConNeg\Type\Shared\Interfaces\TypeRegexProviderInterface;
 use ptlis\ConNeg\Type\Shared\Interfaces\TypeFactoryInterface;
 
 /**
@@ -33,7 +31,7 @@ class MimeTypeFactory implements TypeFactoryInterface
     /**
      * Class providing regex to use for parsing the Accept-Charset field.
      *
-     * @var MimeRegexProviderInterface
+     * @var TypeRegexProviderInterface
      */
     private $regexProvider;
 
@@ -46,10 +44,10 @@ class MimeTypeFactory implements TypeFactoryInterface
     /**
      * Constructor
      *
-     * @param MimeRegexProviderInterface $regex
+     * @param MimeTypeRegexProvider $regex
      * @param QualityFactorFactory       $qualityFactorFactory
      */
-    public function __construct(MimeRegexProviderInterface $regex, QualityFactorFactory $qualityFactorFactory)
+    public function __construct(MimeTypeRegexProvider $regex, QualityFactorFactory $qualityFactorFactory)
     {
         $this->regexProvider = $regex;
         $this->qualityFactorFactory = $qualityFactorFactory;
@@ -211,7 +209,7 @@ class MimeTypeFactory implements TypeFactoryInterface
     {
         $typeCollection = new TypeCollection();
 
-        if (preg_match_all($this->regexProvider->getMimeRegex(), $field, $typeList)) {
+        if (preg_match_all($this->regexProvider->getTypeRegex(), $field, $typeList)) {
             $this->getFromArray($typeCollection, $typeList);
 
         } elseif (strlen($field)) {

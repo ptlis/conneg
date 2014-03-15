@@ -24,9 +24,11 @@ use ptlis\ConNeg\Type\Charset\CharsetNegotiator;
 use ptlis\ConNeg\Type\Encoding\EncodingNegotiator;
 use ptlis\ConNeg\Type\Language\LanguageNegotiator;
 use ptlis\ConNeg\Type\Mime\MimeNegotiator;
+use ptlis\ConNeg\Type\Mime\MimeTypeRegexProvider;
 use ptlis\ConNeg\Type\Shared\SharedNegotiator;
 use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
 use ptlis\ConNeg\Type\Mime\MimeTypeFactory;
+use ptlis\ConNeg\Type\Shared\SharedTypeRegexProvider;
 use ptlis\ConNeg\Type\Shared\SharedTypeFactory;
 use ptlis\ConNeg\Type\Shared\Interfaces\TypeFactoryInterface;
 use ptlis\Conneg\TypePair\TypePairInterface;
@@ -82,31 +84,31 @@ class Negotiate
      */
     public function __construct()
     {
-        $regexProvider              = new RegexProvider();
+        $sharedRegexProvider        = new SharedTypeRegexProvider();
         $qualityFactorFactory       = new QualityFactorFactory();
 
         $this->charsetFactory       = new SharedTypeFactory(
-            $regexProvider->getCharsetRegex(),
+            $sharedRegexProvider,
             'ptlis\ConNeg\Type\Charset\CharsetType',
             $qualityFactorFactory
         );
         $this->charsetNegotiator    = new CharsetNegotiator(new SharedNegotiator($this->charsetFactory));
 
         $this->encodingFactory      = new SharedTypeFactory(
-            $regexProvider->getEncodingRegex(),
+            $sharedRegexProvider,
             'ptlis\ConNeg\Type\Encoding\EncodingType',
             $qualityFactorFactory
         );
         $this->encodingNegotiator   = new EncodingNegotiator(new SharedNegotiator($this->encodingFactory));
 
         $this->languageFactory      = new SharedTypeFactory(
-            $regexProvider->getLanguageRegex(),
+            $sharedRegexProvider,
             'ptlis\ConNeg\Type\Language\LanguageType',
             $qualityFactorFactory
         );
         $this->languageNegotiator   = new LanguageNegotiator(new SharedNegotiator($this->languageFactory));
 
-        $this->mimeFactory          = new MimeTypeFactory($regexProvider, $qualityFactorFactory);
+        $this->mimeFactory          = new MimeTypeFactory(new MimeTypeRegexProvider(), $qualityFactorFactory);
         $this->mimeNegotiator       = new MimeNegotiator($this->mimeFactory);
     }
 

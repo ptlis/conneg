@@ -18,9 +18,9 @@ namespace ptlis\ConNeg\Test\Type\Charset;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
-use ptlis\ConNeg\RegexProvider;
 use ptlis\ConNeg\Type\Encoding\EncodingType;
 use ptlis\ConNeg\Type\Shared\SharedTypeFactory;
+use ptlis\ConNeg\Type\Shared\SharedTypeRegexProvider;
 use ptlis\ConNeg\Type\Shared\WildcardType;
 
 class EncodingTypeFactoryTest extends \PHPUnit_Framework_TestCase
@@ -32,9 +32,9 @@ class EncodingTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $expectType = new EncodingType($type, new QualityFactor($qFactor));
 
-        $regexProvider = new RegexProvider();
+        $regexProvider = new SharedTypeRegexProvider();
         $factory = new SharedTypeFactory(
-            $regexProvider->getEncodingRegex(),
+            $regexProvider,
             'ptlis\ConNeg\Type\Encoding\EncodingType',
             new QualityFactorFactory()
         );
@@ -49,9 +49,9 @@ class EncodingTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $expectCollection = new TypeCollection();
 
-        $regexProvider = new RegexProvider();
+        $regexProvider = new SharedTypeRegexProvider();
         $factory = new SharedTypeFactory(
-            $regexProvider->getEncodingRegex(),
+            $regexProvider,
             'ptlis\ConNeg\Type\Encoding\EncodingType',
             new QualityFactorFactory()
         );
@@ -68,9 +68,9 @@ class EncodingTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new TypeCollection();
         $expectCollection->addType($expectType);
 
-        $regexProvider = new RegexProvider();
+        $regexProvider = new SharedTypeRegexProvider();
         $factory = new SharedTypeFactory(
-            $regexProvider->getEncodingRegex(),
+            $regexProvider,
             'ptlis\ConNeg\Type\Encoding\EncodingType',
             new QualityFactorFactory()
         );
@@ -87,9 +87,9 @@ class EncodingTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new TypeCollection();
         $expectCollection->addType($expectType);
 
-        $regexProvider = new RegexProvider();
+        $regexProvider = new SharedTypeRegexProvider();
         $factory = new SharedTypeFactory(
-            $regexProvider->getEncodingRegex(),
+            $regexProvider,
             'ptlis\ConNeg\Type\Encoding\EncodingType',
             new QualityFactorFactory(),
             new QualityFactorFactory()
@@ -107,9 +107,9 @@ class EncodingTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new TypeCollection();
         $expectCollection->addType($expectType);
 
-        $regexProvider = new RegexProvider();
+        $regexProvider = new SharedTypeRegexProvider();
         $factory = new SharedTypeFactory(
-            $regexProvider->getEncodingRegex(),
+            $regexProvider,
             'ptlis\ConNeg\Type\Encoding\EncodingType',
             new QualityFactorFactory()
         );
@@ -126,9 +126,9 @@ class EncodingTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new TypeCollection();
         $expectCollection->addType($expectType);
 
-        $regexProvider = new RegexProvider();
+        $regexProvider = new SharedTypeRegexProvider();
         $factory = new SharedTypeFactory(
-            $regexProvider->getEncodingRegex(),
+            $regexProvider,
             'ptlis\ConNeg\Type\Encoding\EncodingType',
             new QualityFactorFactory()
         );
@@ -145,9 +145,9 @@ class EncodingTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $expectCollection->addType(new EncodingType('gzip', new QualityFactor(1)));
         $expectCollection->addType(new EncodingType('compress', new QualityFactor(0.7)));
 
-        $regexProvider = new RegexProvider();
+        $regexProvider = new SharedTypeRegexProvider();
         $factory = new SharedTypeFactory(
-            $regexProvider->getEncodingRegex(),
+            $regexProvider,
             'ptlis\ConNeg\Type\Encoding\EncodingType',
             new QualityFactorFactory()
         );
@@ -165,9 +165,9 @@ class EncodingTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $expectCollection->addType(new EncodingType('gzip', new QualityFactor(1)));
         $expectCollection->addType(new WildcardType(new QualityFactor(0.35)));
 
-        $regexProvider = new RegexProvider();
+        $regexProvider = new SharedTypeRegexProvider();
         $factory = new SharedTypeFactory(
-            $regexProvider->getEncodingRegex(),
+            $regexProvider,
             'ptlis\ConNeg\Type\Encoding\EncodingType',
             new QualityFactorFactory()
         );
@@ -184,9 +184,9 @@ class EncodingTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $expectCollection->addType(new EncodingType('compress', new QualityFactor(1)));
         $expectCollection->addType(new EncodingType('gzip', new QualityFactor(1)));
 
-        $regexProvider = new RegexProvider();
+        $regexProvider = new SharedTypeRegexProvider();
         $factory = new SharedTypeFactory(
-            $regexProvider->getEncodingRegex(),
+            $regexProvider,
             'ptlis\ConNeg\Type\Encoding\EncodingType',
             new QualityFactorFactory()
         );
@@ -203,9 +203,9 @@ class EncodingTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $expectCollection->addType(new EncodingType('compress', new QualityFactor(0.5)));
         $expectCollection->addType(new EncodingType('gzip', new QualityFactor(1)));
 
-        $regexProvider = new RegexProvider();
+        $regexProvider = new SharedTypeRegexProvider();
         $factory = new SharedTypeFactory(
-            $regexProvider->getEncodingRegex(),
+            $regexProvider,
             'ptlis\ConNeg\Type\Encoding\EncodingType',
             new QualityFactorFactory()
         );
@@ -223,9 +223,9 @@ class EncodingTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $expectCollection->addType(new EncodingType('identity', new QualityFactor(0.5)));
         $expectCollection->addType(new WildcardType(new QualityFactor(0)));
 
-        $regexProvider = new RegexProvider();
+        $regexProvider = new SharedTypeRegexProvider();
         $factory = new SharedTypeFactory(
-            $regexProvider->getEncodingRegex(),
+            $regexProvider,
             'ptlis\ConNeg\Type\Encoding\EncodingType',
             new QualityFactorFactory()
         );
@@ -243,9 +243,9 @@ class EncodingTypeFactoryTest extends \PHPUnit_Framework_TestCase
             '"' . $typeClass . '" does not implement TypeInterface'
         );
 
-        $regexProvider = new RegexProvider();
+        $regexProvider = new SharedTypeRegexProvider();
         new SharedTypeFactory(
-            $regexProvider->getEncodingRegex(),
+            $regexProvider,
             $typeClass,
             new QualityFactorFactory()
         );
@@ -259,9 +259,9 @@ class EncodingTypeFactoryTest extends \PHPUnit_Framework_TestCase
             'Error parsing field'
         );
 
-        $regexProvider = new RegexProvider();
+        $regexProvider = new SharedTypeRegexProvider();
         $factory = new SharedTypeFactory(
-            $regexProvider->getEncodingRegex(),
+            $regexProvider,
             'ptlis\ConNeg\Type\Language\LanguageType',
             new QualityFactorFactory()
         );
@@ -274,9 +274,9 @@ class EncodingTypeFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $expectCollection = new TypeCollection();
 
-        $regexProvider = new RegexProvider();
+        $regexProvider = new SharedTypeRegexProvider();
         $factory = new SharedTypeFactory(
-            $regexProvider->getEncodingRegex(),
+            $regexProvider,
             'ptlis\ConNeg\Type\Language\LanguageType',
             new QualityFactorFactory()
         );
