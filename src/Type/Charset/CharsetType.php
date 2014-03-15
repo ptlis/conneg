@@ -89,13 +89,4 @@ class CharsetType implements TypeInterface
     {
         return $this->getType() . ';q=' . $this->getQualityFactor();
     }
-
-
-    /**
-     * Deep clone.
-     */
-    public function __clone()
-    {
-        $this->qFactor = clone $this->qFactor;
-    }
 }

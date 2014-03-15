@@ -82,13 +82,4 @@ class AbsentType implements TypeInterface
     {
         return '';
     }
-
-
-    /**
-     * Deep clone.
-     */
-    public function __clone()
-    {
-        $this->qFactor = clone $this->qFactor;
-    }
 }

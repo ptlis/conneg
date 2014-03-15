@@ -104,13 +104,4 @@ class AbsentMimeType implements MimeTypeInterface
     {
         return '';
     }
-
-
-    /**
-     * Deep clone.
-     */
-    public function __clone()
-    {
-        $this->qFactor = clone $this->qFactor;
-    }
 }
