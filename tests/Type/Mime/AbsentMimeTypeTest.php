@@ -13,7 +13,7 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Test\Type;
+namespace ptlis\ConNeg\Test\Type\Mime;
 
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\Mime\AbsentMimeType;

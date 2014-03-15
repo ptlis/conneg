@@ -18,7 +18,6 @@ namespace ptlis\ConNeg\Type\Mime;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Exception\ConNegException;
 use ptlis\ConNeg\Exception\InvalidTypeException;
-use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
 use ptlis\ConNeg\Type\Mime\Interfaces\MimeTypeInterface;
 use ptlis\ConNeg\Type\Shared\Interfaces\TypeRegexProviderInterface;
 use ptlis\ConNeg\Type\Shared\Interfaces\TypeFactoryInterface;
@@ -36,21 +35,21 @@ class MimeTypeFactory implements TypeFactoryInterface
     private $regexProvider;
 
     /**
-     * @var QualityFactorFactory
+     * @var MimeTypeBuilder
      */
-    private $qualityFactorFactory;
+    private $typeBuilder;
 
 
     /**
      * Constructor
      *
      * @param MimeTypeRegexProvider $regex
-     * @param QualityFactorFactory       $qualityFactorFactory
+     * @param MimeTypeBuilder       $typeBuilder
      */
-    public function __construct(MimeTypeRegexProvider $regex, QualityFactorFactory $qualityFactorFactory)
+    public function __construct(MimeTypeRegexProvider $regex, MimeTypeBuilder $typeBuilder)
     {
         $this->regexProvider = $regex;
-        $this->qualityFactorFactory = $qualityFactorFactory;
+        $this->typeBuilder = $typeBuilder;
     }
 
 
@@ -137,61 +136,10 @@ class MimeTypeFactory implements TypeFactoryInterface
      */
     public function get($type, $qualityFactor)
     {
-        $explodedType = explode('/', $type);
-        if (2 == count($explodedType)) {
-            list($mimeType, $subType) = $explodedType;
-            $typeObj = $this->getFromParts($mimeType, $subType, $qualityFactor);
-
-        } elseif (!strlen($type)) {
-            $typeObj = new AbsentMimeType($this->qualityFactorFactory->get(0));
-
-        } else {
-            throw new InvalidTypeException(
-                '"' . $type . '" is not a valid mime type'
-            );
-        }
-
-        return $typeObj;
-    }
-
-
-    /**
-     * Get the type from parts.
-     *
-     * @throws InvalidTypeException
-     *
-     * @param string $mimeType
-     * @param string $subType
-     * @param string $qualityFactor
-     *
-     * @return MimeTypeInterface
-     */
-    private function getFromParts($mimeType, $subType, $qualityFactor)
-    {
-        switch (true) {
-            // Full wildcard type
-            case $mimeType === '*' && $subType === '*':
-                $typeObj = new MimeWildcardType($this->qualityFactorFactory->get($qualityFactor));
-                break;
-
-            // Wildcard subtype
-            case $mimeType !== '*' && $subType === '*':
-                $typeObj = new MimeWildcardSubType($mimeType, $this->qualityFactorFactory->get($qualityFactor));
-                break;
-
-            // Wildcard type
-            case $mimeType === '*' && $subType !== '*':
-                throw new InvalidTypeException(
-                    '"' . $mimeType . '/' . $subType . '" is not a valid mime type'
-                );
-                break;
-
-            default:
-                $typeObj = new MimeType($mimeType, $subType, $this->qualityFactorFactory->get($qualityFactor));
-                break;
-        }
-
-        return $typeObj;
+        return $this->typeBuilder
+            ->setType($type)
+            ->setQualityFactor($qualityFactor)
+            ->get();
     }
 
 

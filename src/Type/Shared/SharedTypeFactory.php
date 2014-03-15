@@ -1,20 +1,28 @@
 <?php
+
 /**
- * Created by PhpStorm.
- * User: brian
- * Date: 2/17/14
- * Time: 7:55 PM
+ * PHP Version 5.3
+ *
+ * @copyright   (c) 2006-2014 brian ridley
+ * @author      brian ridley <ptlis@ptlis.net>
+ * @license     http://opensource.org/licenses/MIT MIT
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace ptlis\ConNeg\Type\Shared;
 
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Exception\ConNegException;
-use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
+use ptlis\ConNeg\Type\Shared\Interfaces\TypeBuilderInterface;
 use ptlis\ConNeg\Type\Shared\Interfaces\TypeRegexProviderInterface;
 use ptlis\ConNeg\Type\Shared\Interfaces\TypeFactoryInterface;
 use ptlis\ConNeg\Type\Shared\Interfaces\TypeInterface;
 
+/**
+ * Factory for creation of Charset, Encoding and Language types.
+ */
 class SharedTypeFactory implements TypeFactoryInterface
 {
     /**
@@ -23,14 +31,9 @@ class SharedTypeFactory implements TypeFactoryInterface
     private $regexProvider;
 
     /**
-     * @var string
+     * @var TypeBuilderInterface
      */
-    private $typeClass;
-
-    /**
-     * @var QualityFactorFactory
-     */
-    private $qualityFactorFactory;
+    private $typeBuilder;
 
 
     /**
@@ -39,23 +42,14 @@ class SharedTypeFactory implements TypeFactoryInterface
      * @throws ConNegException
      *
      * @param TypeRegexProviderInterface $regexProvider
-     * @param string $typeClass
-     * @param QualityFactorFactory $qualityFactorFactory
+     * @param TypeBuilderInterface $typeBuilder
      */
     public function __construct(
         TypeRegexProviderInterface $regexProvider,
-        $typeClass,
-        QualityFactorFactory $qualityFactorFactory
+        TypeBuilderInterface $typeBuilder
     ) {
-        if (!is_subclass_of($typeClass, 'ptlis\ConNeg\Type\Shared\Interfaces\TypeInterface')) {
-            throw new ConNegException(
-                '"' . $typeClass . '" does not implement TypeInterface'
-            );
-        }
-
         $this->regexProvider = $regexProvider;
-        $this->typeClass = $typeClass;
-        $this->qualityFactorFactory = $qualityFactorFactory;
+        $this->typeBuilder = $typeBuilder;
     }
 
 
@@ -95,6 +89,8 @@ class SharedTypeFactory implements TypeFactoryInterface
 
 
     /**
+     * Get a type from the provided parameters.
+     *
      * @param string $type
      * @param string $qualityFactor
      *
@@ -102,21 +98,10 @@ class SharedTypeFactory implements TypeFactoryInterface
      */
     public function get($type, $qualityFactor)
     {
-        switch ($type) {
-            case '':
-                $typeObj = new AbsentType($this->qualityFactorFactory->get(0));
-                break;
-
-            case '*':
-                $typeObj = new WildcardType($this->qualityFactorFactory->get($qualityFactor));
-                break;
-
-            default:
-                $typeObj = new $this->typeClass($type, $this->qualityFactorFactory->get($qualityFactor));
-                break;
-        }
-
-        return $typeObj;
+        return $this->typeBuilder
+            ->setType($type)
+            ->setQualityFactor($qualityFactor)
+            ->get();
     }
 
 
