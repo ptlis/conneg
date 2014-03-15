@@ -13,11 +13,11 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Negotiator;
+namespace ptlis\ConNeg\Type\Shared\Interfaces;
 
 use ptlis\ConNeg\Collection\CollectionInterface;
 use ptlis\ConNeg\Collection\TypeCollection;
-use ptlis\ConNeg\Type\TypeInterface;
+use ptlis\ConNeg\Type\Shared\Interfaces\TypeInterface;
 
 /**
  * Interface class for negotiators.

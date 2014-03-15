@@ -16,7 +16,7 @@
 namespace ptlis\ConNeg\Test\Type;
 
 use ptlis\ConNeg\QualityFactor\QualityFactor;
-use ptlis\ConNeg\Type\AbsentType;
+use ptlis\ConNeg\Type\Shared\AbsentType;
 
 class AbsentTypeTest extends \PHPUnit_Framework_TestCase
 {

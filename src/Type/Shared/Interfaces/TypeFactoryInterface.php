@@ -13,10 +13,10 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Type;
+namespace ptlis\ConNeg\Type\Shared\Interfaces;
 
 use ptlis\ConNeg\Collection\TypeCollection;
-use ptlis\ConNeg\Type\TypeInterface;
+use ptlis\ConNeg\Type\Shared\Interfaces\TypeInterface;
 
 /**
  * Interface for factories that parse & create Types.

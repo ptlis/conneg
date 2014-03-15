@@ -17,7 +17,7 @@ namespace ptlis\ConNeg\Test\TypePair;
 
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\Charset\CharsetType;
-use ptlis\ConNeg\Type\WildcardType;
+use ptlis\ConNeg\Type\Shared\WildcardType;
 use ptlis\ConNeg\TypePair\SharedTypePair;
 
 class SharedTypePairTest extends \PHPUnit_Framework_TestCase

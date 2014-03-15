@@ -19,7 +19,11 @@ use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Exception\ConNegException;
 use ptlis\ConNeg\Exception\InvalidTypeException;
 use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
-use ptlis\ConNeg\Type\TypeFactoryInterface;
+use ptlis\ConNeg\Type\Mime\AbsentMimeType;
+use ptlis\ConNeg\Type\Mime\MimeType;
+use ptlis\ConNeg\Type\Mime\MimeWildcardSubType;
+use ptlis\ConNeg\Type\Mime\MimeWildcardType;
+use ptlis\ConNeg\Type\Shared\Interfaces\TypeFactoryInterface;
 
 /**
  * Factory class to parse Accept fields & create MimeType instances.

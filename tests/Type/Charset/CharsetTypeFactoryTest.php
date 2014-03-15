@@ -20,8 +20,8 @@ use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
 use ptlis\ConNeg\RegexProvider;
 use ptlis\ConNeg\Type\Charset\CharsetType;
-use ptlis\ConNeg\Type\SharedTypeFactory;
-use ptlis\ConNeg\Type\WildcardType;
+use ptlis\ConNeg\Type\Shared\SharedTypeFactory;
+use ptlis\ConNeg\Type\Shared\WildcardType;
 
 class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
 {

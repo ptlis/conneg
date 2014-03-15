@@ -16,7 +16,7 @@
 namespace ptlis\ConNeg\Type\Charset;
 
 use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
-use ptlis\ConNeg\Type\TypeInterface;
+use ptlis\ConNeg\Type\Shared\Interfaces\TypeInterface;
 
 /**
  * Class for representing a Charset type.

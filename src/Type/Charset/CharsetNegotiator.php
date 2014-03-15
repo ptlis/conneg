@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class for negotiating on encoding types.
+ * Class for negotiating on charset types.
  *
  * PHP Version 5.3
  *
@@ -13,16 +13,18 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Negotiator;
+namespace ptlis\ConNeg\Type\Charset;
 
 use ptlis\ConNeg\Collection\SharedTypePairCollection;
 use ptlis\ConNeg\Collection\TypeCollection;
+use ptlis\ConNeg\Type\Shared\SharedNegotiator;
+use ptlis\ConNeg\Type\Shared\Interfaces\NegotiatorInterface;
 use ptlis\ConNeg\TypePair\TypePairInterface;
 
 /**
- * Class for negotiating on encoding types.
+ * Class for negotiating on charset types.
  */
-class EncodingNegotiator implements NegotiatorInterface
+class CharsetNegotiator implements NegotiatorInterface
 {
     /**
      * @var SharedNegotiator
@@ -42,7 +44,7 @@ class EncodingNegotiator implements NegotiatorInterface
 
 
     /**
-     * Return a collection of encoding types sorted by preference.
+     * Return a collection of charset types sorted by preference.
      *
      * @param TypeCollection $userTypeList
      * @param TypeCollection $appTypeList

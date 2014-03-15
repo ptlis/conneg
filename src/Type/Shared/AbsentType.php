@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class for representing a wildcard type.
+ * Class for representing the absence of a type.
  *
  * PHP Version 5.3
  *
@@ -13,14 +13,15 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Type;
+namespace ptlis\ConNeg\Type\Shared;
 
 use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
+use ptlis\ConNeg\Type\Shared\Interfaces\TypeInterface;
 
 /**
- * Class for representing a wildcard type.
+ * Class for representing the absence of a type.
  */
-class WildcardType implements TypeInterface
+class AbsentType implements TypeInterface
 {
     /**
      * @var QualityFactorInterface
@@ -29,7 +30,7 @@ class WildcardType implements TypeInterface
 
 
     /**
-     * Constructor.
+     * Constructor
      *
      * @param QualityFactorInterface $qFactor
      */
@@ -40,24 +41,24 @@ class WildcardType implements TypeInterface
 
 
     /**
-     * Return the full type as a string.
+     * Return an empty string.
      *
      * @return string
      */
     public function getType()
     {
-        return '*';
+        return '';
     }
 
 
     /**
-     * Return the precedence of the type, wildcard matches have the lowest precedence of matching types.
+     * Return the precedence of the type, non-matching types have the lowest precedence.
      *
      * @return int
      */
     public function getPrecedence()
     {
-        return 0;
+        return -1;
     }
 
 
@@ -73,13 +74,13 @@ class WildcardType implements TypeInterface
 
 
     /**
-     * Create string representation of type.
+     * Returns an empty string.
      *
      * @return string
      */
     public function __toString()
     {
-        return $this->getType() . ';q=' . $this->getQualityFactor();
+        return '';
     }
 
 

@@ -15,7 +15,7 @@
 
 namespace ptlis\ConNeg\TypePair;
 
-use ptlis\ConNeg\Type\Mime\MimeTypeInterface;
+use ptlis\ConNeg\Type\Mime\Interfaces\MimeTypeInterface;
 
 /**
  * Class for type pairs.

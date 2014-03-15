@@ -6,11 +6,12 @@
  * Time: 7:55 PM
  */
 
-namespace ptlis\ConNeg\Type;
+namespace ptlis\ConNeg\Type\Shared;
 
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Exception\ConNegException;
 use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
+use ptlis\ConNeg\Type\Shared\Interfaces\TypeFactoryInterface;
 
 class SharedTypeFactory implements TypeFactoryInterface
 {
@@ -41,7 +42,7 @@ class SharedTypeFactory implements TypeFactoryInterface
      */
     public function __construct($regex, $typeClass, QualityFactorFactory $qualityFactorFactory)
     {
-        if (!is_subclass_of($typeClass, 'ptlis\ConNeg\Type\TypeInterface')) {
+        if (!is_subclass_of($typeClass, 'ptlis\ConNeg\Type\Shared\Interfaces\TypeInterface')) {
             throw new ConNegException(
                 '"' . $typeClass . '" does not implement TypeInterface'
             );

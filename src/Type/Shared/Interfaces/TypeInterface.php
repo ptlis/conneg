@@ -13,7 +13,7 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Type;
+namespace ptlis\ConNeg\Type\Shared\Interfaces;
 
 use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
 

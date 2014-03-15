@@ -13,16 +13,17 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Negotiator;
+namespace ptlis\ConNeg\Type\Shared;
 
 use ptlis\ConNeg\Collection\SharedTypePairCollection;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
 use ptlis\ConNeg\TypePair\SharedTypePair;
 use ptlis\ConNeg\TypePair\TypePairInterface;
-use ptlis\ConNeg\Type\TypeInterface;
-use ptlis\ConNeg\Type\TypeFactoryInterface;
-use ptlis\ConNeg\Type\WildcardType;
+use ptlis\ConNeg\Type\Shared\Interfaces\NegotiatorInterface;
+use ptlis\ConNeg\Type\Shared\Interfaces\TypeInterface;
+use ptlis\ConNeg\Type\Shared\Interfaces\TypeFactoryInterface;
+use ptlis\ConNeg\Type\Shared\WildcardType;
 
 /**
  * Class for negotiating on charset, encoding & language types.

@@ -56,7 +56,7 @@ class TypeCollectionTest extends \PHPUnit_Framework_TestCase
 
         $ascendingCollection = $expectCollection->getAscending();
         foreach ($ascendingCollection as $type) {
-            $this->assertInstanceOf('ptlis\ConNeg\Type\TypeInterface', $type);
+            $this->assertInstanceOf('ptlis\ConNeg\Type\Shared\Interfaces\TypeInterface', $type);
         }
     }
 

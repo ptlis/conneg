@@ -16,7 +16,7 @@
 namespace ptlis\ConNeg\Type\Encoding;
 
 use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
-use ptlis\ConNeg\Type\TypeInterface;
+use ptlis\ConNeg\Type\Shared\Interfaces\TypeInterface;
 
 /**
  * Class for representing an Encoding type.

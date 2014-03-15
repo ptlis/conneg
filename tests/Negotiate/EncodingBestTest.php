@@ -17,7 +17,7 @@ namespace ptlis\ConNeg\Test\Negotiate;
 
 use ptlis\ConNeg\Negotiate;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
-use ptlis\ConNeg\Type\AbsentType;
+use ptlis\ConNeg\Type\Shared\AbsentType;
 use ptlis\ConNeg\Type\Encoding\EncodingType;
 use ptlis\ConNeg\TypePair\SharedTypePair;
 

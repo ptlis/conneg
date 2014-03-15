@@ -16,6 +16,7 @@
 namespace ptlis\ConNeg\Type\Mime;
 
 use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
+use ptlis\ConNeg\Type\Mime\Interfaces\MimeTypeInterface;
 
 /**
  * Class for MIME type.

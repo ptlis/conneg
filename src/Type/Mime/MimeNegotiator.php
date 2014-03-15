@@ -13,16 +13,14 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Negotiator;
+namespace ptlis\ConNeg\Type\Mime;
 
 use ptlis\ConNeg\Collection\MimeTypePairCollection;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
 use ptlis\ConNeg\TypePair\MimeTypePair;
-use ptlis\ConNeg\Type\Mime\MimeTypeFactory;
-use ptlis\ConNeg\Type\Mime\MimeTypeInterface;
-use ptlis\ConNeg\Type\Mime\MimeWildcardSubType;
-use ptlis\ConNeg\Type\Mime\MimeWildcardType;
+use ptlis\ConNeg\Type\Mime\Interfaces\MimeTypeInterface;
+use ptlis\ConNeg\Type\Shared\Interfaces\NegotiatorInterface;
 
 /**
  * Class for negotiating on mime types.

@@ -20,15 +20,15 @@ use ptlis\ConNeg\Collection\MimeTypePairCollection;
 use ptlis\ConNeg\Collection\SharedTypePairCollection;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Exception\ConNegException;
-use ptlis\ConNeg\Negotiator\CharsetNegotiator;
-use ptlis\ConNeg\Negotiator\EncodingNegotiator;
-use ptlis\ConNeg\Negotiator\LanguageNegotiator;
-use ptlis\ConNeg\Negotiator\MimeNegotiator;
-use ptlis\ConNeg\Negotiator\SharedNegotiator;
+use ptlis\ConNeg\Type\Charset\CharsetNegotiator;
+use ptlis\ConNeg\Type\Encoding\EncodingNegotiator;
+use ptlis\ConNeg\Type\Language\LanguageNegotiator;
+use ptlis\ConNeg\Type\Mime\MimeNegotiator;
+use ptlis\ConNeg\Type\Shared\SharedNegotiator;
 use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
 use ptlis\ConNeg\Type\Mime\MimeTypeFactory;
-use ptlis\ConNeg\Type\SharedTypeFactory;
-use ptlis\ConNeg\Type\TypeFactoryInterface;
+use ptlis\ConNeg\Type\Shared\SharedTypeFactory;
+use ptlis\ConNeg\Type\Shared\Interfaces\TypeFactoryInterface;
 use ptlis\Conneg\TypePair\TypePairInterface;
 
 /**
