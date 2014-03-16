@@ -139,6 +139,30 @@ class MimeNegotiator implements NegotiatorInterface
 
 
     /**
+     * Attempt to match the given type to an existing type in typeList.
+     *
+     * @param array             $matchingList
+     * @param MimeTypeInterface $userType
+     *
+     * @return array
+     */
+    private function matchExact(array $matchingList, MimeTypeInterface $userType)
+    {
+        $newPair = new MimeTypePair(
+            $matchingList[$userType->getType()]->getAppType(),
+            $userType
+        );
+        $sort = new TypePairSort();
+
+        if ($sort->compare($matchingList[$userType->getType()], $newPair) > 0) {
+            $matchingList[$userType->getType()] = $newPair;
+        }
+
+        return $matchingList;
+    }
+
+
+    /**
      * Match user types to app types.
      *
      * @param TypeCollection    $userTypeList
@@ -160,16 +184,7 @@ class MimeNegotiator implements NegotiatorInterface
 
             // Exact Match
             } elseif (array_key_exists($userType->getType(), $matchingList)) {
-
-                $newPair = new MimeTypePair(
-                    $matchingList[$userType->getType()]->getAppType(),
-                    $userType
-                );
-                $sort = new TypePairSort();
-
-                if ($sort->compare($matchingList[$userType->getType()], $newPair) > 0) {
-                    $matchingList[$userType->getType()] = $newPair;
-                }
+                $matchingList = $this->matchExact($matchingList, $userType);
 
             // No match
             } else {
