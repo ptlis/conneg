@@ -142,7 +142,7 @@ abstract class AbstractTypeBuilder implements TypeBuilderInterface
     {
         $this->appType = false;
         $this->type = '';
-        $this->qFactor = new QualityFactor(1);
+        $this->qFactor = $this->qFactorFactory->get(0, $this->appType);
     }
 
 
