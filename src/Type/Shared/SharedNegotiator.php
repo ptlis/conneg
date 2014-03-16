@@ -61,7 +61,7 @@ class SharedNegotiator implements NegotiatorInterface
         foreach ($appTypeList as $appType) {
             $matchingList[$appType->getType()] = new SharedTypePair(
                 $appType,
-                $this->typeFactory->get('', 0)
+                $this->typeFactory->get('', 0, false)
             );
         }
 
@@ -124,7 +124,7 @@ class SharedNegotiator implements NegotiatorInterface
             // No match
             } else {
                 $matchingList[$userType->getType()] = new SharedTypePair(
-                    $this->typeFactory->get('', 0),
+                    $this->typeFactory->get('', 0, true),
                     $userType
                 );
             }
