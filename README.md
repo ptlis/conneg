@@ -8,12 +8,6 @@ A Content Negotiation library for PHP >= 5.3. The API provides support for negot
 TODO:
 ====
 
-Check for invalid quality factors (not float, < 0 or > 1.
-qFactorFactory - no "new QualityFactor" outside of here
-AbstractFactory for Encoding, Language & Charset ? possibly concrete class & decorate with type specific
-Wildcard types should not be allowed in provided application types
-Out of order adding?
-Re-order app/user type in TypePair constructor (consistancy)
-TypePairs should not have null values in constructor
-best -> perferred
-TypePairInterface implements TypeInterface??
+* Wildcard types should not be allowed in provided application types
+* Re-order app/user type in TypePair constructor (consistancy)
+* Tests for partial invalid app/user parse (eg "bob,text/html", "$£$"W£$,en-gb")
