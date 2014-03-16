@@ -178,7 +178,7 @@ class LanguageTypeFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    public function testParseAppInvalidType()
+    public function testParseAppInvalidTypeOne()
     {
         $this->setExpectedException(
             'ptlis\ConNeg\Exception\ConNegException',
@@ -194,6 +194,24 @@ class LanguageTypeFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
 
+    public function testGetInvalidTypeTwo()
+    {
+        $type = new \stdClass();
+
+        $this->setExpectedException(
+            'ptlis\ConNeg\Exception\InvalidTypeException',
+            'Invalid type provided to builder.'
+        );
+
+        $factory = new SharedTypeFactory(
+            new SharedTypeRegexProvider(),
+            new LanguageTypeBuilder(new QualityFactorFactory())
+        );
+
+        $factory->get($type, 0.5);
+    }
+
+
     public function testParseUserInvalidType()
     {
         $expectCollection = new TypeCollection();
@@ -204,5 +222,21 @@ class LanguageTypeFactoryTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser('$^(£$'));
+    }
+
+
+    public function testParseAppInvalidWildcardType()
+    {
+        $this->setExpectedException(
+            'ptlis\ConNeg\Exception\InvalidTypeException',
+            'Wildcards are not valid in application-provided types.'
+        );
+
+        $factory = new SharedTypeFactory(
+            new SharedTypeRegexProvider(),
+            new LanguageTypeBuilder(new QualityFactorFactory())
+        );
+
+        $factory->parseApp('*');
     }
 }

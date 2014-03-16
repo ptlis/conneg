@@ -24,6 +24,9 @@ class MimeTypeBuilder extends AbstractTypeBuilder
 {
     public function get()
     {
+        if (gettype($this->type) !== 'string') {
+            throw new InvalidTypeException('Invalid type provided to builder.');
+        }
 
         switch (true) {
             // Absent Type
@@ -34,6 +37,12 @@ class MimeTypeBuilder extends AbstractTypeBuilder
             // Type & subtype present
             case 2 === count($explodedType = explode('/', $this->type)):
                 list($mimeType, $subType) = $explodedType;
+
+                if (($mimeType === '*' || $subType === '*') && $this->appType) {
+                    throw new InvalidTypeException(
+                        'Wildcards are not valid in application-provided types.'
+                    );
+                }
 
                 if ($mimeType === '*' && $subType !== '*') {
                     throw new InvalidTypeException(

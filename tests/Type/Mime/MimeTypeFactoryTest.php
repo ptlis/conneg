@@ -261,7 +261,7 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    public function testGetInvalidType()
+    public function testGetInvalidTypeOne()
     {
         $type = 'bob';
 
@@ -279,13 +279,13 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    public function testGetInvalidWildcardType()
+    public function testGetInvalidTypeTwo()
     {
-        $type = '*/bob';
+        $type = new \stdClass();
 
         $this->setExpectedException(
             'ptlis\ConNeg\Exception\InvalidTypeException',
-            '"' . $type . '" is not a valid mime type'
+            'Invalid type provided to builder.'
         );
 
         $factory = new MimeTypeFactory(
@@ -294,5 +294,53 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
         );
 
         $factory->get($type, 0.5);
+    }
+
+
+    public function testParseAppInvalidWildcardTypeOne()
+    {
+        $this->setExpectedException(
+            'ptlis\ConNeg\Exception\InvalidTypeException',
+            'Wildcards are not valid in application-provided types.'
+        );
+
+        $factory = new MimeTypeFactory(
+            new MimeTypeRegexProvider(),
+            new MimeTypeBuilder(new QualityFactorFactory())
+        );
+
+        $factory->parseApp('*/*');
+    }
+
+
+    public function testParseAppInvalidWildcardTypeTwo()
+    {
+        $this->setExpectedException(
+            'ptlis\ConNeg\Exception\InvalidTypeException',
+            'Wildcards are not valid in application-provided types.'
+        );
+
+        $factory = new MimeTypeFactory(
+            new MimeTypeRegexProvider(),
+            new MimeTypeBuilder(new QualityFactorFactory())
+        );
+
+        $factory->parseApp('*/html');
+    }
+
+
+    public function testParseAppInvalidWildcardTypeThree()
+    {
+        $this->setExpectedException(
+            'ptlis\ConNeg\Exception\InvalidTypeException',
+            'Wildcards are not valid in application-provided types.'
+        );
+
+        $factory = new MimeTypeFactory(
+            new MimeTypeRegexProvider(),
+            new MimeTypeBuilder(new QualityFactorFactory())
+        );
+
+        $factory->parseApp('text/*');
     }
 }

@@ -14,6 +14,7 @@
 namespace ptlis\ConNeg\Type\Shared;
 
 use ptlis\ConNeg\Exception\ConNegException;
+use ptlis\ConNeg\Exception\InvalidTypeException;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
 use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
@@ -112,7 +113,7 @@ abstract class AbstractTypeBuilder implements TypeBuilderInterface
     public function get()
     {
         if (gettype($this->type) !== 'string') {
-            throw new ConNegException('Invalid type provided to builder.');
+            throw new InvalidTypeException('Invalid type provided to builder.');
         }
 
         switch ($this->type) {
@@ -121,6 +122,11 @@ abstract class AbstractTypeBuilder implements TypeBuilderInterface
                 break;
 
             case '*':
+                if ($this->appType) {
+                    throw new InvalidTypeException(
+                        'Wildcards are not valid in application-provided types.'
+                    );
+                }
                 $type = new WildcardType($this->qFactorFactory->get($this->qFactor, $this->appType));
                 break;
 
