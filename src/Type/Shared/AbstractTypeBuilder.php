@@ -15,7 +15,7 @@ namespace ptlis\ConNeg\Type\Shared;
 
 use ptlis\ConNeg\Exception\ConNegException;
 use ptlis\ConNeg\Exception\InvalidTypeException;
-use ptlis\ConNeg\QualityFactor\QualityFactor;
+use ptlis\ConNeg\Exception\QualityFactorException;
 use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
 use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
 use ptlis\ConNeg\Type\Shared\Interfaces\TypeBuilderInterface;
@@ -42,7 +42,7 @@ abstract class AbstractTypeBuilder implements TypeBuilderInterface
     protected $type;
 
     /**
-     * @var float
+     * @var QualityFactorInterface
      */
     protected $qFactor;
 
@@ -77,12 +77,18 @@ abstract class AbstractTypeBuilder implements TypeBuilderInterface
     /**
      * Set the string representation of the type.
      *
+     * @throws InvalidTypeException
+     *
      * @param string $type
      *
      * @return TypeBuilderInterface
      */
     public function setType($type)
     {
+        if (gettype($type) !== 'string') {
+            throw new InvalidTypeException('Invalid type provided to builder.');
+        }
+
         $this->type = $type;
 
         return $this;
@@ -91,13 +97,15 @@ abstract class AbstractTypeBuilder implements TypeBuilderInterface
     /**
      * Set the quality factor.
      *
+     * @throws QualityFactorException
+     *
      * @param float $qFactor
      *
      * @return TypeBuilderInterface
      */
     public function setQualityFactor($qFactor)
     {
-        $this->qFactor = $qFactor;
+        $this->qFactor = $this->qFactorFactory->get($qFactor, $this->appType);
 
         return $this;
     }
@@ -112,13 +120,9 @@ abstract class AbstractTypeBuilder implements TypeBuilderInterface
      */
     public function get()
     {
-        if (gettype($this->type) !== 'string') {
-            throw new InvalidTypeException('Invalid type provided to builder.');
-        }
-
         switch ($this->type) {
             case '':
-                $type = new AbsentType($this->qFactorFactory->get(0, $this->appType));
+                $type = new AbsentType($this->qFactor);
                 break;
 
             case '*':
@@ -127,7 +131,7 @@ abstract class AbstractTypeBuilder implements TypeBuilderInterface
                         'Wildcards are not valid in application-provided types.'
                     );
                 }
-                $type = new WildcardType($this->qFactorFactory->get($this->qFactor, $this->appType));
+                $type = new WildcardType($this->qFactor);
                 break;
 
             default:
@@ -148,7 +152,7 @@ abstract class AbstractTypeBuilder implements TypeBuilderInterface
     {
         $this->appType = false;
         $this->type = '';
-        $this->qFactor = 0;
+        $this->qFactor = $this->qFactorFactory->get(0, $this->appType);
     }
 
 

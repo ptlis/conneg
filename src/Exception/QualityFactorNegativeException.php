@@ -16,6 +16,6 @@ namespace ptlis\ConNeg\Exception;
 /**
  * Exception throw if a quality factor is less than 0.
  */
-class QualityFactorNegativeException extends ConNegException
+class QualityFactorNegativeException extends QualityFactorException
 {
 }

@@ -16,6 +16,6 @@ namespace ptlis\ConNeg\Exception;
 /**
  * Exception throw if a quality factor cannot be parsed as a float.
  */
-class QualityFactorMalformedException extends ConNegException
+class QualityFactorMalformedException extends QualityFactorException
 {
 }

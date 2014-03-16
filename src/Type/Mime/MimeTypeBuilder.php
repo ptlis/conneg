@@ -24,10 +24,6 @@ class MimeTypeBuilder extends AbstractTypeBuilder
 {
     public function get()
     {
-        if (gettype($this->type) !== 'string') {
-            throw new InvalidTypeException('Invalid type provided to builder.');
-        }
-
         switch (true) {
             // Absent Type
             case 0 === strlen($this->type):

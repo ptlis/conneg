@@ -14,8 +14,8 @@
 namespace ptlis\ConNeg\Exception;
 
 /**
- * Exception throw if a quality factor exceeds 1.
+ * Base Exception for invalid quality factors.
  */
-class QualityFactorTooLargeException extends QualityFactorException
+class QualityFactorException extends ConNegException
 {
 }
