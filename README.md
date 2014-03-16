@@ -8,6 +8,5 @@ A Content Negotiation library for PHP >= 5.3. The API provides support for negot
 TODO:
 ====
 
-* Wildcard types should not be allowed in provided application types
 * Re-order app/user type in TypePair constructor (consistancy)
 * Tests for partial invalid app/user parse (eg "bob,text/html", "$£$"W£$,en-gb")
