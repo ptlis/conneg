@@ -25,6 +25,6 @@ class LanguageTypeBuilder extends AbstractTypeBuilder
      */
     protected function getType()
     {
-        return new LanguageType($this->type, $this->qFactorFactory->get($this->qFactor));
+        return new LanguageType($this->type, $this->qFactorFactory->get($this->qFactor, $this->appType));
     }
 }

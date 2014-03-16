@@ -25,6 +25,6 @@ class CharsetTypeBuilder extends AbstractTypeBuilder
      */
     protected function getType()
     {
-        return new CharsetType($this->type, $this->qFactorFactory->get($this->qFactor));
+        return new CharsetType($this->type, $this->qFactorFactory->get($this->qFactor, $this->appType));
     }
 }

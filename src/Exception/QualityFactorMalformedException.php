@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Exception thrown on encountering an invalid type.
- *
  * PHP Version 5.3
  *
  * @copyright   (c) 2006-2014 brian ridley
@@ -16,9 +14,8 @@
 namespace ptlis\ConNeg\Exception;
 
 /**
- * Exception thrown on encountering an invalid type.
+ * Exception throw if a quality factor cannot be parsed as a float.
  */
-class InvalidTypeException extends ConNegException
+class QualityFactorMalformedException extends ConNegException
 {
-
 }

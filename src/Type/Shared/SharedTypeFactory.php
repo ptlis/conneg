@@ -64,7 +64,7 @@ class SharedTypeFactory implements TypeFactoryInterface
      */
     public function parseApp($field)
     {
-        return $this->parse($field);
+        return $this->parse($field, true);
     }
 
 
@@ -77,14 +77,7 @@ class SharedTypeFactory implements TypeFactoryInterface
      */
     public function parseUser($field)
     {
-        try {
-            $userTypes = $this->parse($field);
-
-        } catch (ConNegException $e) {
-            $userTypes = new TypeCollection();
-        }
-
-        return $userTypes;
+        return $this->parse($field, false);
     }
 
 
@@ -93,12 +86,14 @@ class SharedTypeFactory implements TypeFactoryInterface
      *
      * @param string $type
      * @param string $qualityFactor
+     * @param bool $appType
      *
      * @return TypeInterface
      */
-    public function get($type, $qualityFactor)
+    public function get($type, $qualityFactor, $appType = false)
     {
         return $this->typeBuilder
+            ->setAppType($appType)
             ->setType($type)
             ->setQualityFactor($qualityFactor)
             ->get();
@@ -110,19 +105,12 @@ class SharedTypeFactory implements TypeFactoryInterface
      *
      * @param TypeCollection $typeCollection
      * @param array          $typeList
+     * @param bool           $appType
      */
-    private function getFromArray(TypeCollection $typeCollection, array $typeList)
+    private function getFromArray(TypeCollection $typeCollection, array $typeList, $appType)
     {
         foreach (array_keys($typeList['qfactor']) as $key) {
-
-            $qFactor = filter_var($typeList['qfactor'][$key], FILTER_VALIDATE_FLOAT);
-
-            // TODO: Not really the correct behaviour; that depends upon application or user-agent types
-            if (false === $qFactor) {
-                $qFactor = 1;
-            }
-
-            $type = $this->get($typeList['type'][$key], $qFactor);
+            $type = $this->get($typeList['type'][$key], $typeList['qfactor'][$key], $appType);
 
             $typeCollection->addType($type);
         }
@@ -135,17 +123,18 @@ class SharedTypeFactory implements TypeFactoryInterface
      * @throws ConNegException
      *
      * @param string $field
+     * @param bool $appType
      *
      * @return TypeCollection
      */
-    private function parse($field)
+    private function parse($field, $appType)
     {
         $typeCollection = new TypeCollection();
 
         if (preg_match_all($this->regexProvider->getTypeRegex(), $field, $typeList)) {
-            $this->getFromArray($typeCollection, $typeList);
+            $this->getFromArray($typeCollection, $typeList, $appType);
 
-        } elseif (strlen($field)) {
+        } elseif (strlen($field) && $appType) {
             throw new ConNegException('Error parsing field');
         }
 

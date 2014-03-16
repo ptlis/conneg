@@ -26,6 +26,11 @@ use ptlis\ConNeg\Type\Shared\Interfaces\TypeInterface;
 abstract class AbstractTypeBuilder implements TypeBuilderInterface
 {
     /**
+     * @var bool
+     */
+    protected $appType;
+
+    /**
      * @var QualityFactorFactory
      */
     protected $qFactorFactory;
@@ -50,6 +55,21 @@ abstract class AbstractTypeBuilder implements TypeBuilderInterface
     {
         $this->qFactorFactory = $qFactorFactory;
         $this->setDefaults();
+    }
+
+
+    /**
+     * Set whether the build type is application-defined or user-defined.
+     *
+     * @param bool $appType
+     *
+     * @return TypeBuilderInterface
+     */
+    public function setAppType($appType)
+    {
+        $this->appType = $appType;
+
+        return $this;
     }
 
 
@@ -97,11 +117,11 @@ abstract class AbstractTypeBuilder implements TypeBuilderInterface
 
         switch ($this->type) {
             case '':
-                $type = new AbsentType($this->qFactorFactory->get(0));
+                $type = new AbsentType($this->qFactorFactory->get(0, $this->appType));
                 break;
 
             case '*':
-                $type = new WildcardType($this->qFactorFactory->get($this->qFactor));
+                $type = new WildcardType($this->qFactorFactory->get($this->qFactor, $this->appType));
                 break;
 
             default:
@@ -120,8 +140,9 @@ abstract class AbstractTypeBuilder implements TypeBuilderInterface
      */
     private function setDefaults()
     {
+        $this->appType = false;
         $this->type = '';
-        $this->qFactor = 0;
+        $this->qFactor = new QualityFactor(1);
     }
 
 

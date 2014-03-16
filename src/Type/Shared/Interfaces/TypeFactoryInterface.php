@@ -46,8 +46,9 @@ interface TypeFactoryInterface
     /**
      * @param string $type
      * @param string $qualityFactor
+     * @param bool   $appType
      *
      * @return TypeInterface
      */
-    public function get($type, $qualityFactor);
+    public function get($type, $qualityFactor, $appType);
 }

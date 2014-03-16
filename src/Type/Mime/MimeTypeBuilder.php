@@ -24,10 +24,11 @@ class MimeTypeBuilder extends AbstractTypeBuilder
 {
     public function get()
     {
+
         switch (true) {
             // Absent Type
             case 0 === strlen($this->type):
-                $type = new AbsentMimeType($this->qFactorFactory->get(0));
+                $type = new AbsentMimeType($this->qFactorFactory->get(0, $this->appType));
                 break;
 
             // Type & subtype present
@@ -69,16 +70,16 @@ class MimeTypeBuilder extends AbstractTypeBuilder
         switch (true) {
             // Full wildcard type
             case $mimeType === '*' && $subType === '*':
-                $type = new MimeWildcardType($this->qFactorFactory->get($this->qFactor));
+                $type = new MimeWildcardType($this->qFactorFactory->get($this->qFactor, $this->appType));
                 break;
 
             // Wildcard subtype
             case $mimeType !== '*' && $subType === '*':
-                $type = new MimeWildcardSubType($mimeType, $this->qFactorFactory->get($this->qFactor));
+                $type = new MimeWildcardSubType($mimeType, $this->qFactorFactory->get($this->qFactor, $this->appType));
                 break;
 
             default:
-                $type = new MimeType($mimeType, $subType, $this->qFactorFactory->get($this->qFactor));
+                $type = new MimeType($mimeType, $subType, $this->qFactorFactory->get($this->qFactor, $this->appType));
                 break;
         }
 

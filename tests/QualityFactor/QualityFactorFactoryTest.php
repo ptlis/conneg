@@ -26,38 +26,95 @@ class QualityFactorFactoryTest extends \PHPUnit_Framework_TestCase
 
         $qualityFactorFactory = new QualityFactorFactory();
 
-        $qFactor = $qualityFactorFactory->get(0.5);
+        $qFactor = $qualityFactorFactory->get(0.5, true);
 
         $this->assertEquals($expected, $qFactor);
     }
 
 
-    public function testInvalidTooLow()
+    public function testAppMalformed()
     {
-        $qFactor = -1;
+        $val = 'bob';
 
         $this->setExpectedException(
-            'ptlis\ConNeg\Exception\ConNegException',
-            'Invalid quality factor of "' . $qFactor . '" provided, must be between 0 and 1 (inclusive)'
+            'ptlis\ConNeg\Exception\QualityFactorMalformedException',
+            'Invalid quality factor of "' . $val . '" provided, must be between 0 and 1 (inclusive)'
         );
 
         $qualityFactorFactory = new QualityFactorFactory();
 
-        $qualityFactorFactory->get($qFactor);
+        $qualityFactorFactory->get($val, true);
     }
 
 
-    public function testInvalidTooHigh()
+    public function testAppTooLarge()
     {
-        $qFactor = 1.5;
+        $val = 10;
 
         $this->setExpectedException(
-            'ptlis\ConNeg\Exception\ConNegException',
-            'Invalid quality factor of "' . $qFactor . '" provided, must be between 0 and 1 (inclusive)'
+            'ptlis\ConNeg\Exception\QualityFactorTooLargeException',
+            'Invalid quality factor of "' . $val . '" provided, must be between 0 and 1 (inclusive)'
         );
 
         $qualityFactorFactory = new QualityFactorFactory();
 
-        $qualityFactorFactory->get($qFactor);
+        $qualityFactorFactory->get($val, true);
+    }
+
+
+    public function testAppNegative()
+    {
+        $val = -1;
+
+        $this->setExpectedException(
+            'ptlis\ConNeg\Exception\QualityFactorNegativeException',
+            'Invalid quality factor of "' . $val . '" provided, must be between 0 and 1 (inclusive)'
+        );
+
+        $qualityFactorFactory = new QualityFactorFactory();
+
+        $qualityFactorFactory->get($val, true);
+    }
+
+
+    public function testUserMalformed()
+    {
+        $val = 'bob';
+
+        $expected = new QualityFactor(1);
+
+        $qualityFactorFactory = new QualityFactorFactory();
+
+        $qualityFactor = $qualityFactorFactory->get($val, false);
+
+        $this->assertEquals($expected, $qualityFactor);
+    }
+
+
+    public function testUserTooLarge()
+    {
+        $val = 10;
+
+        $expected = new QualityFactor(1);
+
+        $qualityFactorFactory = new QualityFactorFactory();
+
+        $qualityFactor = $qualityFactorFactory->get($val, false);
+
+        $this->assertEquals($expected, $qualityFactor);
+    }
+
+
+    public function testUserNegative()
+    {
+        $val = -1;
+
+        $expected = new QualityFactor(0);
+
+        $qualityFactorFactory = new QualityFactorFactory();
+
+        $qualityFactor = $qualityFactorFactory->get($val, false);
+
+        $this->assertEquals($expected, $qualityFactor);
     }
 }

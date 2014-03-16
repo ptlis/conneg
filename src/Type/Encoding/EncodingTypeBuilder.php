@@ -25,6 +25,6 @@ class EncodingTypeBuilder extends AbstractTypeBuilder
      */
     protected function getType()
     {
-        return new EncodingType($this->type, $this->qFactorFactory->get($this->qFactor));
+        return new EncodingType($this->type, $this->qFactorFactory->get($this->qFactor, $this->appType));
     }
 }

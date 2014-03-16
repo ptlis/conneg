@@ -36,9 +36,9 @@ class MimeTypeRegexProvider implements TypeRegexProviderInterface, AcceptExtensR
                     (?<sub_type>[_a-z0-9\-\+\*\.\:]+)           # Mimes subtype
                 )
 
+                ;?\s*
                 (?<extens>                                      # Matching for accept-extens & quality factor
                     (?:
-                        ;?\s*
                         (?:[a-z]+)                              # Accept-extens key or quality factor
                         =*                                      # Optional value separator
                         (\")?(?:[0-9a-z\-\+\.\s]+)?\\3          # Value, optionally between quotation marks

@@ -29,6 +29,16 @@ interface TypeBuilderInterface
 
 
     /**
+     * Set whether the build type is application-defined or user-defined.
+     *
+     * @param bool $appType
+     *
+     * @return TypeBuilderInterface
+     */
+    public function setAppType($appType);
+
+
+    /**
      * Set the string representation of the type.
      *
      * @param string $type
