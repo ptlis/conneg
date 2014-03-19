@@ -232,7 +232,7 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    public function testParseAppInvalidType()
+    public function testParseAppInvalidTypeOne()
     {
         $this->setExpectedException(
             'ptlis\ConNeg\Exception\ConNegException',
@@ -248,6 +248,38 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
 
+    public function testParseAppInvalidTypeTwo()
+    {
+        $this->setExpectedException(
+            'ptlis\ConNeg\Exception\ConNegException',
+            'Error parsing field'
+        );
+
+        $factory = new MimeTypeFactory(
+            new MimeTypeRegexProvider(),
+            new MimeTypeBuilder(new QualityFactorFactory())
+        );
+
+        $factory->parseApp('text/html,$^(£$');
+    }
+
+
+    public function testParseAppInvalidTypeThree()
+    {
+        $this->setExpectedException(
+            'ptlis\ConNeg\Exception\ConNegException',
+            'Error parsing field'
+        );
+
+        $factory = new MimeTypeFactory(
+            new MimeTypeRegexProvider(),
+            new MimeTypeBuilder(new QualityFactorFactory())
+        );
+
+        $factory->parseApp('text/html,bob');
+    }
+
+
     public function testParseUserInvalidType()
     {
         $expectCollection = new TypeCollection();
@@ -258,6 +290,54 @@ class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser('$^(£$'));
+    }
+
+
+    public function testParseUserInvalidTypeTwo()
+    {
+        $expectType = new MimeType('text', 'html', new QualityFactor(1));
+        $expectCollection = new TypeCollection();
+        $expectCollection->addType($expectType);
+
+        $factory = new MimeTypeFactory(
+            new MimeTypeRegexProvider(),
+            new MimeTypeBuilder(new QualityFactorFactory())
+        );
+
+        $this->assertEquals($expectCollection, $factory->parseUser('text/html,$^(£$'));
+    }
+
+
+    public function testParseUserInvalidTypeThree()
+    {
+        $expectCollection = new TypeCollection();
+
+        $factory = new MimeTypeFactory(
+            new MimeTypeRegexProvider(),
+            new MimeTypeBuilder(new QualityFactorFactory())
+        );
+
+        $this->assertEquals($expectCollection, $factory->parseUser('*/html'));
+    }
+
+
+    public function testParseUserInvalidTypeFour()
+    {
+        $expectCollection = new TypeCollection();
+        $expectCollection
+            ->addType(
+                new MimeType('text', 'html', new QualityFactor(1))
+            )
+            ->addType(
+                new MimeType('application', 'xml', new QualityFactor(1))
+            );
+
+        $factory = new MimeTypeFactory(
+            new MimeTypeRegexProvider(),
+            new MimeTypeBuilder(new QualityFactorFactory())
+        );
+
+        $this->assertEquals($expectCollection, $factory->parseUser('text/html,bob, application/xml'));
     }
 
 

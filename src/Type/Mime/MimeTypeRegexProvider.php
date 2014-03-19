@@ -30,20 +30,22 @@ class MimeTypeRegexProvider implements TypeRegexProviderInterface, AcceptExtensR
     {
         return "
             /
-                (?<type>                                        # Full type
-                    (?<mime_type>[_a-z0-9\-\+\*\.\:]+)          # Mime type
-                    \/                                          # Separator
-                    (?<sub_type>[_a-z0-9\-\+\*\.\:]+)           # Mimes subtype
-                )
+                (
+                    (?<type>                                        # Full type
+                        (?<mime_type>[_a-z0-9\-\+\*\.\:]+)          # Mime type
+                        \/                                          # Separator
+                        (?<sub_type>[_a-z0-9\-\+\*\.\:]+)           # Mimes subtype
+                    )
 
-                ;?\s*
-                (?<extens>                                      # Matching for accept-extens & quality factor
-                    (?:
-                        (?:[a-z]+)                              # Accept-extens key or quality factor
-                        =*                                      # Optional value separator
-                        (\")?(?:[0-9a-z\-\+\.\s]+)?\\3          # Value, optionally between quotation marks
-                        ?\s*;?\s*                               # accept-params separator
-                    )*                                          # Match 0 or greater quality factors or accept-extension
+                    ;?\s*
+                    (?<extens>                                      # Matching for accept-extens & quality factor
+                        (?:
+                            (?:[a-z]+)                              # Accept-extens key or quality factor
+                            =*                                      # Optional value separator
+                            (\")?(?:[0-9a-z\-\+\.\s]+)?\\3          # Value, optionally between quotation marks
+                            ?\s*;?\s*                               # accept-params separator
+                        )*                                          # Match 0 or greater quality factors or accept-extension
+                    )
                 )
                 ,*                                              # media-range separator
             /ix

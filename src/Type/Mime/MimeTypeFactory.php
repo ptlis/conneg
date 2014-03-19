@@ -111,9 +111,17 @@ class MimeTypeFactory implements TypeFactoryInterface
                 $qFactor = 1;
             }
 
-            $type = $this->get($typeList['type'][$key], $qFactor, $appType);
+            try {
+                $type = $this->get($typeList['type'][$key], $qFactor, $appType);
 
-            $typeCollection->addType($type);
+                $typeCollection->addType($type);
+
+            } catch (InvalidTypeException $e) {
+                // Suppress the error for user-agent fields
+                if ($appType) {
+                    throw $e;
+                }
+            }
         }
     }
 
@@ -155,6 +163,11 @@ class MimeTypeFactory implements TypeFactoryInterface
         $typeCollection = new TypeCollection();
 
         if (preg_match_all($this->regexProvider->getTypeRegex(), $field, $typeList)) {
+
+            if (implode('', $typeList[0]) !== $field && $appType) {
+                throw new ConNegException('Error parsing field');
+            }
+
             $this->getFromArray($typeCollection, $typeList, $appType);
 
         } elseif (strlen($field) && $appType) {
