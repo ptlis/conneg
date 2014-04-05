@@ -16,15 +16,24 @@
 namespace ptlis\ConNeg\Test\Collection;
 
 use ptlis\ConNeg\Collection\SharedTypePairCollection;
+use ptlis\ConNeg\Collection\TypePairSort;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\Charset\CharsetType;
+use ptlis\ConNeg\Type\Shared\AbsentType;
 use ptlis\ConNeg\TypePair\SharedTypePair;
 
 class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
 {
     public function testSetList()
     {
-        $expectCollection = new SharedTypePairCollection();
+        $pairSort = new TypePairSort(
+            new SharedTypePair(
+                new AbsentType(new QualityFactor(0)),
+                new AbsentType(new QualityFactor(0))
+            )
+        );
+
+        $expectCollection = new SharedTypePairCollection($pairSort);
 
         $typePairList = array();
 
@@ -45,7 +54,14 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
 
     public function testAddPair()
     {
-        $expectCollection = new SharedTypePairCollection();
+        $pairSort = new TypePairSort(
+            new SharedTypePair(
+                new AbsentType(new QualityFactor(0)),
+                new AbsentType(new QualityFactor(0))
+            )
+        );
+
+        $expectCollection = new SharedTypePairCollection($pairSort);
 
         $expectCollection->addPair(
             new SharedTypePair(
@@ -66,7 +82,14 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
 
     public function testIterator()
     {
-        $expectCollection = new SharedTypePairCollection();
+        $pairSort = new TypePairSort(
+            new SharedTypePair(
+                new AbsentType(new QualityFactor(0)),
+                new AbsentType(new QualityFactor(0))
+            )
+        );
+
+        $expectCollection = new SharedTypePairCollection($pairSort);
 
         $expectCollection->addPair(
             new SharedTypePair(
@@ -90,7 +113,14 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
 
     public function testGetAscending()
     {
-        $collection = new SharedTypePairCollection();
+        $pairSort = new TypePairSort(
+            new SharedTypePair(
+                new AbsentType(new QualityFactor(0)),
+                new AbsentType(new QualityFactor(0))
+            )
+        );
+
+        $collection = new SharedTypePairCollection($pairSort);
 
         $collection->addPair(
             new SharedTypePair(
@@ -127,7 +157,14 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
 
     public function testGetDescending()
     {
-        $collection = new SharedTypePairCollection();
+        $pairSort = new TypePairSort(
+            new SharedTypePair(
+                new AbsentType(new QualityFactor(0)),
+                new AbsentType(new QualityFactor(0))
+            )
+        );
+
+        $collection = new SharedTypePairCollection($pairSort);
 
         $collection->addPair(
             new SharedTypePair(
@@ -164,7 +201,14 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
 
     public function testGetBest()
     {
-        $collection = new SharedTypePairCollection();
+        $pairSort = new TypePairSort(
+            new SharedTypePair(
+                new AbsentType(new QualityFactor(0)),
+                new AbsentType(new QualityFactor(0))
+            )
+        );
+
+        $collection = new SharedTypePairCollection($pairSort);
 
         $collection->addPair(
             new SharedTypePair(
@@ -192,7 +236,14 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
 
     public function testClone()
     {
-        $collection = new SharedTypePairCollection();
+        $pairSort = new TypePairSort(
+            new SharedTypePair(
+                new AbsentType(new QualityFactor(0)),
+                new AbsentType(new QualityFactor(0))
+            )
+        );
+
+        $collection = new SharedTypePairCollection($pairSort);
 
         $collection->addPair(
             new SharedTypePair(
@@ -216,7 +267,14 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
 
     public function testToString()
     {
-        $collection = new SharedTypePairCollection();
+        $pairSort = new TypePairSort(
+            new SharedTypePair(
+                new AbsentType(new QualityFactor(0)),
+                new AbsentType(new QualityFactor(0))
+            )
+        );
+
+        $collection = new SharedTypePairCollection($pairSort);
 
         $collection->addPair(
             new SharedTypePair(

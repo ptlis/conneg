@@ -28,16 +28,24 @@ use ptlis\ConNeg\Type\Shared\AbsentType;
 class SharedTypePairCollection implements CollectionInterface
 {
     /**
+     * @var TypePairSort
+     */
+    private $pairSort;
+
+    /**
      * @var TypePairInterface[]
      */
     private $typePairList;
 
 
     /**
-     * Constructor
+     * Constructor.
+     *
+     * @param TypePairSort $pairSort
      */
-    public function __construct()
+    public function __construct(TypePairSort $pairSort)
     {
+        $this->pairSort     = $pairSort;
         $this->typePairList = array();
     }
 
@@ -103,9 +111,8 @@ class SharedTypePairCollection implements CollectionInterface
      */
     public function getAscending()
     {
-        $newCollection = new SharedTypePairCollection();
-        $sort = new TypePairSort();
-        $sort->sortAscending($this->typePairList, $newCollection);
+        $newCollection = new SharedTypePairCollection($this->pairSort);
+        $this->pairSort->sortAscending($this->typePairList, $newCollection);
 
         return $newCollection;
     }
@@ -118,9 +125,8 @@ class SharedTypePairCollection implements CollectionInterface
      */
     public function getDescending()
     {
-        $newCollection = new SharedTypePairCollection();
-        $sort = new TypePairSort();
-        $sort->sortDescending($this->typePairList, $newCollection);
+        $newCollection = new SharedTypePairCollection($this->pairSort);
+        $this->pairSort->sortDescending($this->typePairList, $newCollection);
 
         return $newCollection;
     }
@@ -133,12 +139,7 @@ class SharedTypePairCollection implements CollectionInterface
      */
     public function getBest()
     {
-        $defaultPair = new SharedTypePair(
-            new AbsentType(new QualityFactor(0)),
-            new AbsentType(new QualityFactor(0))
-        );
-        $sort = new TypePairSort();
-        $bestPair = $sort->getBest($this->typePairList, $defaultPair);
+        $bestPair = $this->pairSort->getBest($this->typePairList);
 
         return $bestPair;
     }

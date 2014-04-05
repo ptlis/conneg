@@ -35,15 +35,22 @@ class SharedNegotiator implements NegotiatorInterface
      */
     private $typeFactory;
 
+    /**
+     * @var TypePairSort
+     */
+    private $pairSort;
+
 
     /**
      * Constructor
      *
      * @param TypeFactoryInterface $typeFactory
+     * @param TypePairSort         $pairSort
      */
-    public function __construct(TypeFactoryInterface $typeFactory)
+    public function __construct(TypeFactoryInterface $typeFactory, TypePairSort $pairSort)
     {
-        $this->typeFactory = $typeFactory;
+        $this->typeFactory  = $typeFactory;
+        $this->pairSort     = $pairSort;
     }
 
 
@@ -67,7 +74,7 @@ class SharedNegotiator implements NegotiatorInterface
 
         $matchingList = $this->matchUserToAppTypes($userTypeList, $matchingList);
 
-        $pairCollection = new SharedTypePairCollection();
+        $pairCollection = new SharedTypePairCollection($this->pairSort);
 
         foreach ($matchingList as $matching) {
             $pairCollection->addPair($matching);
@@ -111,9 +118,8 @@ class SharedNegotiator implements NegotiatorInterface
                     $matchingList[$userType->getType()]->getAppType(),
                     $userType
                 );
-                $sort = new TypePairSort();
 
-                if ($sort->compare($matchingList[$userType->getType()], $newPair) > 0) {
+                if ($this->pairSort->compare($matchingList[$userType->getType()], $newPair) > 0) {
                     $matchingList[$userType->getType()] = $newPair;
                 }
 

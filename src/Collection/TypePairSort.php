@@ -24,6 +24,23 @@ use ptlis\ConNeg\Type\Shared\Interfaces\TypeInterface;
 class TypePairSort
 {
     /**
+     * @var TypePairInterface
+     */
+    private $defaultPair;
+
+
+    /**
+     * Constructor.
+     *
+     * @param TypePairInterface $defaultPair    Default type pair used for 'best' negotiation where the collection is
+     *                                          empty.
+     */
+    public function __construct(TypePairInterface $defaultPair)
+    {
+        $this->defaultPair = $defaultPair;
+    }
+
+    /**
      * Sort the array of typePairs in ascending order.
      *
      * @param TypePairInterface[] $typePairList
@@ -63,7 +80,7 @@ class TypePairSort
     }
 
 
-    public function getBest(array $typePairList, TypePairInterface $defaultPair)
+    public function getBest(array $typePairList)
     {
         $that = $this;
         usort(
@@ -77,7 +94,7 @@ class TypePairSort
             $bestPair = $typePairList[0];
 
         } else {
-            $bestPair = $defaultPair;
+            $bestPair = $this->defaultPair;
         }
 
         return $bestPair;
@@ -116,6 +133,8 @@ class TypePairSort
 
 
     /**
+     * Compare the quality factor products of a type pair.
+     *
      * @param TypePairInterface $lTypePair
      * @param TypePairInterface $rTypePair
      *
@@ -134,6 +153,8 @@ class TypePairSort
 
 
     /**
+     * Compare quality factors of types.
+     *
      * @param TypeInterface $lType
      * @param TypeInterface $rType
      *

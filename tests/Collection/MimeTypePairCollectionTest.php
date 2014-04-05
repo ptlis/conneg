@@ -16,7 +16,9 @@
 namespace ptlis\ConNeg\Test\Collection;
 
 use ptlis\ConNeg\Collection\MimeTypePairCollection;
+use ptlis\ConNeg\Collection\TypePairSort;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
+use ptlis\ConNeg\Type\Mime\AbsentMimeType;
 use ptlis\ConNeg\Type\Mime\MimeType;
 use ptlis\ConNeg\TypePair\MimeTypePair;
 
@@ -24,7 +26,14 @@ class MimeTypePairCollectionTest extends \PHPUnit_Framework_TestCase
 {
     public function testSetList()
     {
-        $expectCollection = new MimeTypePairCollection();
+        $pairSort = new TypePairSort(
+            new MimeTypePair(
+                new AbsentMimeType(new QualityFactor(0)),
+                new AbsentMimeType(new QualityFactor(0))
+            )
+        );
+
+        $expectCollection = new MimeTypePairCollection($pairSort);
 
         $typePairList = array();
 
@@ -45,7 +54,14 @@ class MimeTypePairCollectionTest extends \PHPUnit_Framework_TestCase
 
     public function testAddPair()
     {
-        $expectCollection = new MimeTypePairCollection();
+        $pairSort = new TypePairSort(
+            new MimeTypePair(
+                new AbsentMimeType(new QualityFactor(0)),
+                new AbsentMimeType(new QualityFactor(0))
+            )
+        );
+
+        $expectCollection = new MimeTypePairCollection($pairSort);
 
         $expectCollection->addPair(
             new MimeTypePair(
@@ -66,7 +82,14 @@ class MimeTypePairCollectionTest extends \PHPUnit_Framework_TestCase
 
     public function testIterator()
     {
-        $expectCollection = new MimeTypePairCollection();
+        $pairSort = new TypePairSort(
+            new MimeTypePair(
+                new AbsentMimeType(new QualityFactor(0)),
+                new AbsentMimeType(new QualityFactor(0))
+            )
+        );
+
+        $expectCollection = new MimeTypePairCollection($pairSort);
 
         $expectCollection->addPair(
             new MimeTypePair(
@@ -90,7 +113,14 @@ class MimeTypePairCollectionTest extends \PHPUnit_Framework_TestCase
 
     public function testGetAscending()
     {
-        $collection = new MimeTypePairCollection();
+        $pairSort = new TypePairSort(
+            new MimeTypePair(
+                new AbsentMimeType(new QualityFactor(0)),
+                new AbsentMimeType(new QualityFactor(0))
+            )
+        );
+
+        $collection = new MimeTypePairCollection($pairSort);
 
         $collection->addPair(
             new MimeTypePair(
@@ -127,7 +157,14 @@ class MimeTypePairCollectionTest extends \PHPUnit_Framework_TestCase
 
     public function testGetDescending()
     {
-        $collection = new MimeTypePairCollection();
+        $pairSort = new TypePairSort(
+            new MimeTypePair(
+                new AbsentMimeType(new QualityFactor(0)),
+                new AbsentMimeType(new QualityFactor(0))
+            )
+        );
+
+        $collection = new MimeTypePairCollection($pairSort);
 
         $collection->addPair(
             new MimeTypePair(
@@ -164,7 +201,14 @@ class MimeTypePairCollectionTest extends \PHPUnit_Framework_TestCase
 
     public function testGetBest()
     {
-        $collection = new MimeTypePairCollection();
+        $pairSort = new TypePairSort(
+            new MimeTypePair(
+                new AbsentMimeType(new QualityFactor(0)),
+                new AbsentMimeType(new QualityFactor(0))
+            )
+        );
+
+        $collection = new MimeTypePairCollection($pairSort);
 
         $collection->addPair(
             new MimeTypePair(
@@ -192,7 +236,14 @@ class MimeTypePairCollectionTest extends \PHPUnit_Framework_TestCase
 
     public function testClone()
     {
-        $collection = new MimeTypePairCollection();
+        $pairSort = new TypePairSort(
+            new MimeTypePair(
+                new AbsentMimeType(new QualityFactor(0)),
+                new AbsentMimeType(new QualityFactor(0))
+            )
+        );
+
+        $collection = new MimeTypePairCollection($pairSort);
 
         $collection->addPair(
             new MimeTypePair(
@@ -216,7 +267,14 @@ class MimeTypePairCollectionTest extends \PHPUnit_Framework_TestCase
 
     public function testToString()
     {
-        $collection = new MimeTypePairCollection();
+        $pairSort = new TypePairSort(
+            new MimeTypePair(
+                new AbsentMimeType(new QualityFactor(0)),
+                new AbsentMimeType(new QualityFactor(0))
+            )
+        );
+
+        $collection = new MimeTypePairCollection($pairSort);
 
         $collection->addPair(
             new MimeTypePair(

@@ -16,6 +16,7 @@
 namespace ptlis\ConNeg\Test\BugReport;
 
 use ptlis\ConNeg\Collection\MimeTypePairCollection;
+use ptlis\ConNeg\Collection\TypePairSort;
 use ptlis\ConNeg\Negotiate;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\Mime\AbsentMimeType;
@@ -32,7 +33,14 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
         $httpField = 'application/rdf+xml;q=0.5,text/html;q=.3';
         $appPrefs = '';
 
-        $expectCollection = new MimeTypePairCollection();
+        $sort = new TypePairSort(
+            new MimeTypePair(
+                new AbsentMimeType(new QualityFactor(0)),
+                new AbsentMimeType(new QualityFactor(0))
+            )
+        );
+
+        $expectCollection = new MimeTypePairCollection($sort);
         $expectCollection
             ->addPair(
                 new MimeTypePair(
@@ -62,7 +70,14 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
         $httpField = 'application/xhtml+xml;q=0.5';
         $appPrefs = '';
 
-        $expectCollection = new MimeTypePairCollection();
+        $sort = new TypePairSort(
+            new MimeTypePair(
+                new AbsentMimeType(new QualityFactor(0)),
+                new AbsentMimeType(new QualityFactor(0))
+            )
+        );
+
+        $expectCollection = new MimeTypePairCollection($sort);
         $expectCollection
             ->addPair(
                 new MimeTypePair(
@@ -86,7 +101,14 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
         $httpField = 'application/rdf+xml;q=0.5,text/html;q=.5';
         $appPrefs = '';
 
-        $expectCollection = new MimeTypePairCollection();
+        $sort = new TypePairSort(
+            new MimeTypePair(
+                new AbsentMimeType(new QualityFactor(0)),
+                new AbsentMimeType(new QualityFactor(0))
+            )
+        );
+
+        $expectCollection = new MimeTypePairCollection($sort);
         $expectCollection
             ->addPair(
                 new MimeTypePair(

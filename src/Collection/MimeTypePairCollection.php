@@ -27,16 +27,24 @@ use ptlis\ConNeg\Type\Mime\AbsentMimeType;
 class MimeTypePairCollection implements CollectionInterface
 {
     /**
+     * @var TypePairSort
+     */
+    private $pairSort;
+
+    /**
      * @var MimeTypePair[]
      */
     private $typePairList;
 
 
     /**
-     * Constructor
+     * Constructor.
+     *
+     * @param TypePairSort $pairSort
      */
-    public function __construct()
+    public function __construct(TypePairSort $pairSort)
     {
+        $this->pairSort     = $pairSort;
         $this->typePairList = array();
     }
 
@@ -102,9 +110,8 @@ class MimeTypePairCollection implements CollectionInterface
      */
     public function getAscending()
     {
-        $newCollection = new MimeTypePairCollection();
-        $sort = new TypePairSort();
-        $sort->sortAscending($this->typePairList, $newCollection);
+        $newCollection = new MimeTypePairCollection($this->pairSort);
+        $this->pairSort->sortAscending($this->typePairList, $newCollection);
 
         return $newCollection;
     }
@@ -117,9 +124,8 @@ class MimeTypePairCollection implements CollectionInterface
      */
     public function getDescending()
     {
-        $newCollection = new MimeTypePairCollection();
-        $sort = new TypePairSort();
-        $sort->sortDescending($this->typePairList, $newCollection);
+        $newCollection = new MimeTypePairCollection($this->pairSort);
+        $this->pairSort->sortDescending($this->typePairList, $newCollection);
 
         return $newCollection;
     }
@@ -132,12 +138,7 @@ class MimeTypePairCollection implements CollectionInterface
      */
     public function getBest()
     {
-        $defaultPair = new MimeTypePair(
-            new AbsentMimeType(new QualityFactor(0)),
-            new AbsentMimeType(new QualityFactor(0))
-        );
-        $sort = new TypePairSort();
-        $bestPair = $sort->getBest($this->typePairList, $defaultPair);
+        $bestPair = $this->pairSort->getBest($this->typePairList);
 
         return $bestPair;
     }

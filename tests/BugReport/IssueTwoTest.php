@@ -16,6 +16,7 @@
 namespace ptlis\ConNeg\Test\BugReport;
 
 use ptlis\ConNeg\Collection\MimeTypePairCollection;
+use ptlis\ConNeg\Collection\TypePairSort;
 use ptlis\ConNeg\Negotiate;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\Mime\AbsentMimeType;
@@ -32,7 +33,14 @@ class IssueTwoTest extends \PHPUnit_Framework_TestCase
         $httpField = 'text/rdf+n3; q=0.8, application/rdf+json; q=0.8, text/turtle; q=1.0, text/n3; q=0.8, application/ld+json; q=0.5, application/rdf+xml; q=0.8';
         $appPrefs = '';
 
-        $expectCollection = new MimeTypePairCollection();
+        $sort = new TypePairSort(
+            new MimeTypePair(
+                new AbsentMimeType(new QualityFactor(0)),
+                new AbsentMimeType(new QualityFactor(0))
+            )
+        );
+
+        $expectCollection = new MimeTypePairCollection($sort);
         $expectCollection
             ->addPair(
                 new MimeTypePair(

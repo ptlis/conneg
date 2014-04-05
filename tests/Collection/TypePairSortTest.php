@@ -36,9 +36,14 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
             new LanguageType('fr', new QualityFactor(0.8))
         );
 
-        $sort = new TypePairSort();
+        $sort = new TypePairSort(
+            new SharedTypePair(
+                new AbsentType(new QualityFactor(0)),
+                new AbsentType(new QualityFactor(0))
+            )
+        );
 
-        $newCollection = new SharedTypePairCollection();
+        $newCollection = new SharedTypePairCollection($sort);
         $sort->sortAscending($typePairList, $newCollection);
 
         $expectAppType = array(
@@ -71,9 +76,14 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
             new LanguageType('fr', new QualityFactor(0.8))
         );
 
-        $sort = new TypePairSort();
+        $sort = new TypePairSort(
+            new SharedTypePair(
+                new AbsentType(new QualityFactor(0)),
+                new AbsentType(new QualityFactor(0))
+            )
+        );
 
-        $newCollection = new SharedTypePairCollection();
+        $newCollection = new SharedTypePairCollection($sort);
         $sort->sortAscending($typePairList, $newCollection);
 
         $expectAppType = array(
@@ -108,9 +118,14 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
             new LanguageType('fr', new QualityFactor(0.8))
         );
 
-        $sort = new TypePairSort();
+        $sort = new TypePairSort(
+            new SharedTypePair(
+                new AbsentType(new QualityFactor(0)),
+                new AbsentType(new QualityFactor(0))
+            )
+        );
 
-        $newCollection = new SharedTypePairCollection();
+        $newCollection = new SharedTypePairCollection($sort);
         $sort->sortAscending($typePairList, $newCollection);
 
         $expectAppType = array(
@@ -144,9 +159,14 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
             new LanguageType('fr', new QualityFactor(0.8))
         );
 
-        $sort = new TypePairSort();
+        $sort = new TypePairSort(
+            new SharedTypePair(
+                new AbsentType(new QualityFactor(0)),
+                new AbsentType(new QualityFactor(0))
+            )
+        );
 
-        $newCollection = new SharedTypePairCollection();
+        $newCollection = new SharedTypePairCollection($sort);
         $sort->sortAscending($typePairList, $newCollection);
 
         $expectAppType = array(
@@ -180,9 +200,14 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
             new LanguageType('fr', new QualityFactor(0.9))
         );
 
-        $sort = new TypePairSort();
+        $sort = new TypePairSort(
+            new SharedTypePair(
+                new AbsentType(new QualityFactor(0)),
+                new AbsentType(new QualityFactor(0))
+            )
+        );
 
-        $newCollection = new SharedTypePairCollection();
+        $newCollection = new SharedTypePairCollection($sort);
         $sort->sortAscending($typePairList, $newCollection);
 
         $expectAppType = array(
@@ -216,9 +241,14 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
             new AbsentType(new QualityFactor(0))
         );
 
-        $sort = new TypePairSort();
+        $sort = new TypePairSort(
+            new SharedTypePair(
+                new AbsentType(new QualityFactor(0)),
+                new AbsentType(new QualityFactor(0))
+            )
+        );
 
-        $newCollection = new SharedTypePairCollection();
+        $newCollection = new SharedTypePairCollection($sort);
         $sort->sortAscending($typePairList, $newCollection);
 
         $expectAppType = array(
@@ -252,9 +282,14 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
             new LanguageType('fr', new QualityFactor(0.8))
         );
 
-        $sort = new TypePairSort();
+        $sort = new TypePairSort(
+            new SharedTypePair(
+                new AbsentType(new QualityFactor(0)),
+                new AbsentType(new QualityFactor(0))
+            )
+        );
 
-        $newCollection = new SharedTypePairCollection();
+        $newCollection = new SharedTypePairCollection($sort);
         $sort->sortAscending($typePairList, $newCollection);
 
         $expectAppType = array(
@@ -288,9 +323,14 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
             new LanguageType('fr', new QualityFactor(0.9))
         );
 
-        $sort = new TypePairSort();
+        $sort = new TypePairSort(
+            new SharedTypePair(
+                new AbsentType(new QualityFactor(0)),
+                new AbsentType(new QualityFactor(0))
+            )
+        );
 
-        $newCollection = new SharedTypePairCollection();
+        $newCollection = new SharedTypePairCollection($sort);
         $sort->sortDescending($typePairList, $newCollection);
 
         $expectAppType = array(
@@ -314,7 +354,12 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
 
     public function testGetBestEmpty()
     {
-        $sort = new TypePairSort();
+        $sort = new TypePairSort(
+            new SharedTypePair(
+                new AbsentType(new QualityFactor(0)),
+                new AbsentType(new QualityFactor(0))
+            )
+        );
 
         $best = $sort->getBest(
             array(),
@@ -332,7 +377,13 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
 
     public function testGetBest()
     {
-        $sort = new TypePairSort();
+
+        $sort = new TypePairSort(
+            new SharedTypePair(
+                new AbsentType(new QualityFactor(0)),
+                new AbsentType(new QualityFactor(0))
+            )
+        );
 
         $typePairList = array();
         $typePairList[] = new SharedTypePair(

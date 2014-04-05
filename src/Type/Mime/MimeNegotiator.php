@@ -32,15 +32,22 @@ class MimeNegotiator implements NegotiatorInterface
      */
     private $typeFactory;
 
+    /**
+     * @var TypePairSort
+     */
+    private $pairSort;
+
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param MimeTypeFactory $typeFactory
+     * @param TypePairSort    $pairSort
      */
-    public function __construct(MimeTypeFactory $typeFactory)
+    public function __construct(MimeTypeFactory $typeFactory, TypePairSort $pairSort)
     {
-        $this->typeFactory = $typeFactory;
+        $this->typeFactory  = $typeFactory;
+        $this->pairSort     = $pairSort;
     }
 
 
@@ -64,7 +71,7 @@ class MimeNegotiator implements NegotiatorInterface
 
         $matchingList = $this->matchUserToAppTypes($userTypeList, $matchingList);
 
-        $pairCollection = new MimeTypePairCollection();
+        $pairCollection = new MimeTypePairCollection($this->pairSort);
 
         foreach ($matchingList as $matching) {
             $pairCollection->addPair($matching);
@@ -152,9 +159,8 @@ class MimeNegotiator implements NegotiatorInterface
             $matchingList[$userType->getType()]->getAppType(),
             $userType
         );
-        $sort = new TypePairSort();
 
-        if ($sort->compare($matchingList[$userType->getType()], $newPair) > 0) {
+        if ($this->pairSort->compare($matchingList[$userType->getType()], $newPair) > 0) {
             $matchingList[$userType->getType()] = $newPair;
         }
 

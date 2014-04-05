@@ -19,6 +19,7 @@ use ptlis\ConNeg\Collection\CollectionInterface;
 use ptlis\ConNeg\Collection\MimeTypePairCollection;
 use ptlis\ConNeg\Collection\SharedTypePairCollection;
 use ptlis\ConNeg\Collection\TypeCollection;
+use ptlis\ConNeg\Collection\TypePairSort;
 use ptlis\ConNeg\Exception\ConNegException;
 use ptlis\ConNeg\Type\Charset\CharsetNegotiator;
 use ptlis\ConNeg\Type\Charset\CharsetTypeBuilder;
@@ -35,6 +36,8 @@ use ptlis\ConNeg\Type\Mime\MimeTypeFactory;
 use ptlis\ConNeg\Type\Shared\SharedTypeRegexProvider;
 use ptlis\ConNeg\Type\Shared\SharedTypeFactory;
 use ptlis\ConNeg\Type\Shared\Interfaces\TypeFactoryInterface;
+use ptlis\ConNeg\TypePair\MimeTypePair;
+use ptlis\ConNeg\TypePair\SharedTypePair;
 use ptlis\Conneg\TypePair\TypePairInterface;
 
 /**
@@ -91,29 +94,61 @@ class Negotiate
         $sharedRegexProvider        = new SharedTypeRegexProvider();
         $qualityFactorFactory       = new QualityFactorFactory();
 
+        // Prepare factories
         $this->charsetFactory       = new SharedTypeFactory(
             $sharedRegexProvider,
             new CharsetTypeBuilder($qualityFactorFactory)
         );
-        $this->charsetNegotiator    = new CharsetNegotiator(new SharedNegotiator($this->charsetFactory));
-
         $this->encodingFactory      = new SharedTypeFactory(
             $sharedRegexProvider,
             new EncodingTypeBuilder($qualityFactorFactory)
         );
-        $this->encodingNegotiator   = new EncodingNegotiator(new SharedNegotiator($this->encodingFactory));
-
         $this->languageFactory      = new SharedTypeFactory(
             $sharedRegexProvider,
             new LanguageTypeBuilder($qualityFactorFactory)
         );
-        $this->languageNegotiator   = new LanguageNegotiator(new SharedNegotiator($this->languageFactory));
-
         $this->mimeFactory          = new MimeTypeFactory(
             new MimeTypeRegexProvider(),
             new MimeTypeBuilder($qualityFactorFactory)
         );
-        $this->mimeNegotiator       = new MimeNegotiator($this->mimeFactory);
+
+        // Prepare pair sorters
+        $sharedSort = new TypePairSort(
+            new SharedTypePair(
+                $this->charsetFactory->get('', '0', true),
+                $this->charsetFactory->get('', '0', false)
+            )
+        );
+        $mimeSort = new TypePairSort(
+            new MimeTypePair(
+                $this->mimeFactory->get('', '0', true),
+                $this->mimeFactory->get('', '0', false)
+            )
+        );
+
+        // Prepare negotiators
+        $this->charsetNegotiator    = new CharsetNegotiator(
+            new SharedNegotiator(
+                $this->charsetFactory,
+                $sharedSort
+            )
+        );
+        $this->encodingNegotiator   = new EncodingNegotiator(
+            new SharedNegotiator(
+                $this->encodingFactory,
+                $sharedSort
+            )
+        );
+        $this->languageNegotiator   = new LanguageNegotiator(
+            new SharedNegotiator(
+                $this->languageFactory,
+                $sharedSort
+            )
+        );
+        $this->mimeNegotiator       = new MimeNegotiator(
+            $this->mimeFactory,
+            $mimeSort
+        );
     }
 
 

@@ -16,6 +16,7 @@
 namespace ptlis\ConNeg\Test\Negotiate;
 
 use ptlis\ConNeg\Collection\SharedTypePairCollection;
+use ptlis\ConNeg\Collection\TypePairSort;
 use ptlis\ConNeg\Negotiate;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\Shared\AbsentType;
@@ -30,7 +31,14 @@ class languageAllTest extends \PHPUnit_Framework_TestCase
         $httpField  = '';
         $appPrefs   = '';
 
-        $expectCollection = new SharedTypePairCollection();
+        $pairSort = new TypePairSort(
+            new SharedTypePair(
+                new AbsentType(new QualityFactor(0)),
+                new AbsentType(new QualityFactor(0))
+            )
+        );
+
+        $expectCollection = new SharedTypePairCollection($pairSort);
 
         $negotiate = new Negotiate();
         $resultCollection = $negotiate->languageAll($httpField, $appPrefs);
@@ -44,7 +52,14 @@ class languageAllTest extends \PHPUnit_Framework_TestCase
         $httpField  = 'en-us,fr;q=0.75';
         $appPrefs   = '';
 
-        $expectCollection = new SharedTypePairCollection();
+        $pairSort = new TypePairSort(
+            new SharedTypePair(
+                new AbsentType(new QualityFactor(0)),
+                new AbsentType(new QualityFactor(0))
+            )
+        );
+
+        $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
             new SharedTypePair(
                 new AbsentType(new QualityFactor(0)),
@@ -70,7 +85,14 @@ class languageAllTest extends \PHPUnit_Framework_TestCase
         $httpField  = 'en-gb;q=0.75,en-us';
         $appPrefs   = '';
 
-        $expectCollection = new SharedTypePairCollection();
+        $pairSort = new TypePairSort(
+            new SharedTypePair(
+                new AbsentType(new QualityFactor(0)),
+                new AbsentType(new QualityFactor(0))
+            )
+        );
+
+        $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
             new SharedTypePair(
                 new AbsentType(new QualityFactor(0)),
@@ -96,7 +118,14 @@ class languageAllTest extends \PHPUnit_Framework_TestCase
         $httpField  = '';
         $appPrefs   = 'de;q=1,en-gb;q=0.5';
 
-        $expectCollection = new SharedTypePairCollection();
+        $pairSort = new TypePairSort(
+            new SharedTypePair(
+                new AbsentType(new QualityFactor(0)),
+                new AbsentType(new QualityFactor(0))
+            )
+        );
+
+        $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
             new SharedTypePair(
                 new LanguageType('de', new QualityFactor(1)),
@@ -122,7 +151,14 @@ class languageAllTest extends \PHPUnit_Framework_TestCase
         $httpField  = '';
         $appPrefs   = 'fr;q=0.5,en-gb;q=1';
 
-        $expectCollection = new SharedTypePairCollection();
+        $pairSort = new TypePairSort(
+            new SharedTypePair(
+                new AbsentType(new QualityFactor(0)),
+                new AbsentType(new QualityFactor(0))
+            )
+        );
+
+        $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
             new SharedTypePair(
                 new LanguageType('en-gb', new QualityFactor(1)),
@@ -148,7 +184,14 @@ class languageAllTest extends \PHPUnit_Framework_TestCase
         $httpField  = '';
         $appPrefs   = 'fr;q=0.5,en-us;q=0.5';
 
-        $expectCollection = new SharedTypePairCollection();
+        $pairSort = new TypePairSort(
+            new SharedTypePair(
+                new AbsentType(new QualityFactor(0)),
+                new AbsentType(new QualityFactor(0))
+            )
+        );
+
+        $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
             new SharedTypePair(
                 new LanguageType('en-us', new QualityFactor(0.5)),
@@ -174,7 +217,14 @@ class languageAllTest extends \PHPUnit_Framework_TestCase
         $httpField  = 'de;q=0.6,en-us;q=0.9';
         $appPrefs   = 'en-us;q=0.9,de;q=0.6';
 
-        $expectCollection = new SharedTypePairCollection();
+        $pairSort = new TypePairSort(
+            new SharedTypePair(
+                new AbsentType(new QualityFactor(0)),
+                new AbsentType(new QualityFactor(0))
+            )
+        );
+
+        $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
             new SharedTypePair(
                 new LanguageType('en-us', new QualityFactor(0.9)),
@@ -200,7 +250,14 @@ class languageAllTest extends \PHPUnit_Framework_TestCase
         $httpField  = 'fr;q=0.6,en-us;q=0.9,en-gb;q=0.3';
         $appPrefs   = 'es;q=0.8,fr;q=0.3,en-gb;q=0.5';
 
-        $expectCollection = new SharedTypePairCollection();
+        $pairSort = new TypePairSort(
+            new SharedTypePair(
+                new AbsentType(new QualityFactor(0)),
+                new AbsentType(new QualityFactor(0))
+            )
+        );
+
+        $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
             new SharedTypePair(
                 new LanguageType('fr', new QualityFactor(0.3)),
@@ -238,7 +295,14 @@ class languageAllTest extends \PHPUnit_Framework_TestCase
         $httpField  = 'en-gb;q=0.8,de;q=0.9,*;q=0.5';
         $appPrefs   = 'en-gb,de;q=0.7,fr;q=0.3';
 
-        $expectCollection = new SharedTypePairCollection();
+        $pairSort = new TypePairSort(
+            new SharedTypePair(
+                new AbsentType(new QualityFactor(0)),
+                new AbsentType(new QualityFactor(0))
+            )
+        );
+
+        $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
             new SharedTypePair(
                 new LanguageType('en-gb', new QualityFactor(1)),

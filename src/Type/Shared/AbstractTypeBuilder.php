@@ -94,6 +94,7 @@ abstract class AbstractTypeBuilder implements TypeBuilderInterface
         return $this;
     }
 
+
     /**
      * Set the quality factor.
      *
