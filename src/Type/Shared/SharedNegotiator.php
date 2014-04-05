@@ -67,8 +67,8 @@ class SharedNegotiator implements NegotiatorInterface
         $matchingList = array();
         foreach ($appTypeList as $appType) {
             $matchingList[$appType->getType()] = new SharedTypePair(
-                $appType,
-                $this->typeFactory->get('', 0, false)
+                $this->typeFactory->get('', 0, false),
+                $appType
             );
         }
 
@@ -115,8 +115,8 @@ class SharedNegotiator implements NegotiatorInterface
             // Type match
             if (array_key_exists($userType->getType(), $matchingList)) {
                 $newPair = new SharedTypePair(
-                    $matchingList[$userType->getType()]->getAppType(),
-                    $userType
+                    $userType,
+                    $matchingList[$userType->getType()]->getAppType()
                 );
 
                 if ($this->pairSort->compare($matchingList[$userType->getType()], $newPair) > 0) {
@@ -130,8 +130,8 @@ class SharedNegotiator implements NegotiatorInterface
             // No match
             } else {
                 $matchingList[$userType->getType()] = new SharedTypePair(
-                    $this->typeFactory->get('', 0, true),
-                    $userType
+                    $userType,
+                    $this->typeFactory->get('', 0, true)
                 );
             }
         }
@@ -153,8 +153,8 @@ class SharedNegotiator implements NegotiatorInterface
         foreach ($matchingList as $key => $matching) {
             if ($userType->getPrecedence() > $matching->getUserType()->getPrecedence()) {
                 $matchingList[$key] = new SharedTypePair(
-                    $matchingList[$key]->getAppType(),
-                    $userType
+                    $userType,
+                    $matchingList[$key]->getAppType()
                 );
             }
         }

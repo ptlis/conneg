@@ -80,8 +80,8 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = '';
 
         $expectPair = new MimeTypePair(
-            new AbsentMimeType(new QualityFactor(0)),
-            new MimeType('text', 'html', new QualityFactor(1))
+            new MimeType('text', 'html', new QualityFactor(1)),
+            new AbsentMimeType(new QualityFactor(0))
         );
 
         $negotiate = new Negotiate();
@@ -97,8 +97,8 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = '';
 
         $expectPair = new MimeTypePair(
-            new AbsentMimeType(new QualityFactor(0)),
-            new MimeType('text', 'html', new QualityFactor(1))
+            new MimeType('text', 'html', new QualityFactor(1)),
+            new AbsentMimeType(new QualityFactor(0))
         );
 
         $negotiate = new Negotiate();
@@ -114,8 +114,8 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'application/rdf+xml;q=1,text/n3;q=0.5';
 
         $expectPair = new MimeTypePair(
-            new MimeType('application', 'rdf+xml', new QualityFactor(1)),
-            new AbsentMimeType(new QualityFactor(0))
+            new AbsentMimeType(new QualityFactor(0)),
+            new MimeType('application', 'rdf+xml', new QualityFactor(1))
         );
 
         $negotiate = new Negotiate();
@@ -131,8 +131,8 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'text/n3;q=0.5,application/rdf+xml;q=1';
 
         $expectPair = new MimeTypePair(
-            new MimeType('application', 'rdf+xml', new QualityFactor(1)),
-            new AbsentMimeType(new QualityFactor(0))
+            new AbsentMimeType(new QualityFactor(0)),
+            new MimeType('application', 'rdf+xml', new QualityFactor(1))
         );
 
         $negotiate = new Negotiate();
@@ -148,8 +148,8 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'text/n3;q=0.5,text/html;q=0.5';
 
         $expectPair = new MimeTypePair(
-            new MimeType('text', 'html', new QualityFactor(0.5)),
-            new AbsentMimeType(new QualityFactor(0))
+            new AbsentMimeType(new QualityFactor(0)),
+            new MimeType('text', 'html', new QualityFactor(0.5))
         );
 
         $negotiate = new Negotiate();
@@ -182,8 +182,8 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'application/atom+xml;q=0.8,text/html;q=0.3,application/rss+xml;q=0.5';
 
         $expectPair = new MimeTypePair(
-            new MimeType('text', 'html', new QualityFactor(0.3)),
-            new MimeType('text', 'html', new QualityFactor(0.6))
+            new MimeType('text', 'html', new QualityFactor(0.6)),
+            new MimeType('text', 'html', new QualityFactor(0.3))
         );
 
         $negotiate = new Negotiate();
@@ -199,8 +199,8 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'text/html,application/xml;q=0.7,text/n3;q=0.3';
 
         $expectPair = new MimeTypePair(
-            new MimeType('text', 'html', new QualityFactor(1)),
-            new MimeWildcardSubType('text', new QualityFactor(0.8))
+            new MimeWildcardSubType('text', new QualityFactor(0.8)),
+            new MimeType('text', 'html', new QualityFactor(1))
         );
 
         $negotiate = new Negotiate();
@@ -216,8 +216,8 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'text/html,application/xml;q=0.7,text/n3;q=0.3';
 
         $expectPair = new MimeTypePair(
-            new MimeType('text', 'html', new QualityFactor(1)),
-            new MimeType('text', 'html', new QualityFactor(0.8))
+            new MimeType('text', 'html', new QualityFactor(0.8)),
+            new MimeType('text', 'html', new QualityFactor(1))
         );
 
         $negotiate = new Negotiate();
@@ -233,8 +233,8 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'text/html,application/xml;q=0.7,text/n3;q=0.3';
 
         $expectPair = new MimeTypePair(
-            new MimeType('text', 'html', new QualityFactor(1)),
-            new MimeType('text', 'html', new QualityFactor(0.9))
+            new MimeType('text', 'html', new QualityFactor(0.9)),
+            new MimeType('text', 'html', new QualityFactor(1))
         );
 
         $negotiate = new Negotiate();

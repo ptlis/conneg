@@ -64,8 +64,8 @@ class MimeNegotiator implements NegotiatorInterface
         $matchingList = array();
         foreach ($appTypeList as $appType) {
             $matchingList[$appType->getType()] = new MimeTypePair(
-                $appType,
-                $this->typeFactory->get('', 0)
+                $this->typeFactory->get('', 0),
+                $appType
             );
         }
 
@@ -110,8 +110,8 @@ class MimeNegotiator implements NegotiatorInterface
         foreach ($matchingList as $key => $matching) {
             if ($userType->getPrecedence() > $matching->getUserType()->getPrecedence()) {
                 $matchingList[$key] = new MimeTypePair(
-                    $matchingList[$key]->getAppType(),
-                    $userType
+                    $userType,
+                    $matchingList[$key]->getAppType()
                 );
             }
         }
@@ -135,8 +135,8 @@ class MimeNegotiator implements NegotiatorInterface
                     && $userType->getPrecedence() > $matching->getUserType()->getPrecedence()) {
 
                 $matchingList[$key] = new MimeTypePair(
-                    $matchingList[$key]->getAppType(),
-                    $userType
+                    $userType,
+                    $matchingList[$key]->getAppType()
                 );
             }
         }
@@ -156,8 +156,8 @@ class MimeNegotiator implements NegotiatorInterface
     private function matchExact(array $matchingList, MimeTypeInterface $userType)
     {
         $newPair = new MimeTypePair(
-            $matchingList[$userType->getType()]->getAppType(),
-            $userType
+            $userType,
+            $matchingList[$userType->getType()]->getAppType()
         );
 
         if ($this->pairSort->compare($matchingList[$userType->getType()], $newPair) > 0) {
@@ -195,8 +195,8 @@ class MimeNegotiator implements NegotiatorInterface
             // No match
             } else {
                 $matchingList[$userType->getType()] = new MimeTypePair(
-                    $this->typeFactory->get('', 0),
-                    $userType
+                    $userType,
+                    $this->typeFactory->get('', 0)
                 );
             }
         }

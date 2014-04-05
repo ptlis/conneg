@@ -44,14 +44,14 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
         $expectCollection
             ->addPair(
                 new MimeTypePair(
-                    new AbsentMimeType(new QualityFactor(0)),
-                    new MimeType('application', 'rdf+xml', new QualityFactor(0.5))
+                    new MimeType('application', 'rdf+xml', new QualityFactor(0.5)),
+                    new AbsentMimeType(new QualityFactor(0))
                 )
             )
             ->addPair(
                 new MimeTypePair(
-                    new AbsentMimeType(new QualityFactor(0)),
-                    new MimeType('text', 'html', new QualityFactor(0.3))
+                    new MimeType('text', 'html', new QualityFactor(0.3)),
+                    new AbsentMimeType(new QualityFactor(0))
                 )
             );
 
@@ -81,8 +81,8 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
         $expectCollection
             ->addPair(
                 new MimeTypePair(
-                    new AbsentMimeType(new QualityFactor(0)),
-                    new MimeType('application', 'xhtml+xml', new QualityFactor(0.5))
+                    new MimeType('application', 'xhtml+xml', new QualityFactor(0.5)),
+                    new AbsentMimeType(new QualityFactor(0))
                 )
             );
 
@@ -112,14 +112,14 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
         $expectCollection
             ->addPair(
                 new MimeTypePair(
-                    new AbsentMimeType(new QualityFactor(0)),
-                    new MimeType('application', 'rdf+xml', new QualityFactor(0.5))
+                    new MimeType('application', 'rdf+xml', new QualityFactor(0.5)),
+                    new AbsentMimeType(new QualityFactor(0))
                 )
             )
             ->addPair(
                 new MimeTypePair(
-                    new AbsentMimeType(new QualityFactor(0)),
-                    new MimeType('text', 'html', new QualityFactor(0.5))
+                    new MimeType('text', 'html', new QualityFactor(0.5)),
+                    new AbsentMimeType(new QualityFactor(0))
                 )
             );
 

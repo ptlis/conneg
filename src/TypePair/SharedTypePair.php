@@ -36,13 +36,13 @@ class SharedTypePair implements TypePairInterface
     /**
      * Constructor.
      *
-     * @param TypeInterface $userType
      * @param TypeInterface $appType
+     * @param TypeInterface $userType
      */
-    public function __construct(TypeInterface $appType, TypeInterface $userType)
+    public function __construct(TypeInterface $userType, TypeInterface $appType)
     {
         $this->userType = $userType;
-        $this->appType = $appType;
+        $this->appType  = $appType;
     }
 
 

@@ -24,7 +24,7 @@ use ptlis\ConNeg\Type\Language\LanguageType;
 use ptlis\ConNeg\Type\Shared\WildcardType;
 use ptlis\ConNeg\TypePair\SharedTypePair;
 
-class languageAllTest extends \PHPUnit_Framework_TestCase
+class LanguageAllTest extends \PHPUnit_Framework_TestCase
 {
     public function testUserAndAppEmpty()
     {
@@ -62,14 +62,14 @@ class languageAllTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
             new SharedTypePair(
-                new AbsentType(new QualityFactor(0)),
-                new LanguageType('en-us', new QualityFactor(1))
+                new LanguageType('en-us', new QualityFactor(1)),
+                new AbsentType(new QualityFactor(0))
             )
         );
         $expectCollection->addPair(
             new SharedTypePair(
-                new AbsentType(new QualityFactor(0)),
-                new LanguageType('fr', new QualityFactor(0.75))
+                new LanguageType('fr', new QualityFactor(0.75)),
+                new AbsentType(new QualityFactor(0))
             )
         );
 
@@ -95,14 +95,14 @@ class languageAllTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
             new SharedTypePair(
-                new AbsentType(new QualityFactor(0)),
-                new LanguageType('en-us', new QualityFactor(1))
+                new LanguageType('en-us', new QualityFactor(1)),
+                new AbsentType(new QualityFactor(0))
             )
         );
         $expectCollection->addPair(
             new SharedTypePair(
-                new AbsentType(new QualityFactor(0)),
-                new LanguageType('en-gb', new QualityFactor(0.75))
+                new LanguageType('en-gb', new QualityFactor(0.75)),
+                new AbsentType(new QualityFactor(0))
             )
         );
 
@@ -128,14 +128,14 @@ class languageAllTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
             new SharedTypePair(
-                new LanguageType('de', new QualityFactor(1)),
-                new AbsentType(new QualityFactor(0))
+                new AbsentType(new QualityFactor(0)),
+                new LanguageType('de', new QualityFactor(1))
             )
         );
         $expectCollection->addPair(
             new SharedTypePair(
-                new LanguageType('en-gb', new QualityFactor(0.5)),
-                new AbsentType(new QualityFactor(0))
+                new AbsentType(new QualityFactor(0)),
+                new LanguageType('en-gb', new QualityFactor(0.5))
             )
         );
 
@@ -161,14 +161,14 @@ class languageAllTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
             new SharedTypePair(
-                new LanguageType('en-gb', new QualityFactor(1)),
-                new AbsentType(new QualityFactor(0))
+                new AbsentType(new QualityFactor(0)),
+                new LanguageType('en-gb', new QualityFactor(1))
             )
         );
         $expectCollection->addPair(
             new SharedTypePair(
-                new LanguageType('fr', new QualityFactor(0.5)),
-                new AbsentType(new QualityFactor(0))
+                new AbsentType(new QualityFactor(0)),
+                new LanguageType('fr', new QualityFactor(0.5))
             )
         );
 
@@ -194,14 +194,14 @@ class languageAllTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
             new SharedTypePair(
-                new LanguageType('en-us', new QualityFactor(0.5)),
-                new AbsentType(new QualityFactor(0))
+                new AbsentType(new QualityFactor(0)),
+                new LanguageType('en-us', new QualityFactor(0.5))
             )
         );
         $expectCollection->addPair(
             new SharedTypePair(
-                new LanguageType('fr', new QualityFactor(0.5)),
-                new AbsentType(new QualityFactor(0))
+                new AbsentType(new QualityFactor(0)),
+                new LanguageType('fr', new QualityFactor(0.5))
             )
         );
 
@@ -260,26 +260,26 @@ class languageAllTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
             new SharedTypePair(
-                new LanguageType('fr', new QualityFactor(0.3)),
-                new LanguageType('fr', new QualityFactor(0.6))
+                new LanguageType('fr', new QualityFactor(0.6)),
+                new LanguageType('fr', new QualityFactor(0.3))
             )
         );
         $expectCollection->addPair(
             new SharedTypePair(
-                new LanguageType('en-gb', new QualityFactor(0.5)),
-                new LanguageType('en-gb', new QualityFactor(0.3))
+                new LanguageType('en-gb', new QualityFactor(0.3)),
+                new LanguageType('en-gb', new QualityFactor(0.5))
+            )
+        );
+        $expectCollection->addPair(
+            new SharedTypePair(
+                new LanguageType('en-us', new QualityFactor(0.9)),
+                new AbsentType(new QualityFactor(0))
             )
         );
         $expectCollection->addPair(
             new SharedTypePair(
                 new AbsentType(new QualityFactor(0)),
-                new LanguageType('en-us', new QualityFactor(0.9))
-            )
-        );
-        $expectCollection->addPair(
-            new SharedTypePair(
-                new LanguageType('es', new QualityFactor(0.8)),
-                new AbsentType(new QualityFactor(0))
+                new LanguageType('es', new QualityFactor(0.8))
             )
         );
 
@@ -305,20 +305,20 @@ class languageAllTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
             new SharedTypePair(
-                new LanguageType('en-gb', new QualityFactor(1)),
-                new LanguageType('en-gb', new QualityFactor(0.8))
+                new LanguageType('en-gb', new QualityFactor(0.8)),
+                new LanguageType('en-gb', new QualityFactor(1))
             )
         );
         $expectCollection->addPair(
             new SharedTypePair(
-                new LanguageType('de', new QualityFactor(0.7)),
-                new LanguageType('de', new QualityFactor(0.9))
+                new LanguageType('de', new QualityFactor(0.9)),
+                new LanguageType('de', new QualityFactor(0.7))
             )
         );
         $expectCollection->addPair(
             new SharedTypePair(
-                new LanguageType('fr', new QualityFactor(0.3)),
-                new WildcardType(new QualityFactor(0.5))
+                new WildcardType(new QualityFactor(0.5)),
+                new LanguageType('fr', new QualityFactor(0.3))
             )
         );
 

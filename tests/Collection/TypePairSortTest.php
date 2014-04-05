@@ -28,8 +28,8 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
     {
         $typePairList = array();
         $typePairList[] = new SharedTypePair(
-            new LanguageType('en-gb', new QualityFactor(1)),
-            new LanguageType('en-gb', new QualityFactor(0.9))
+            new LanguageType('en-gb', new QualityFactor(0.9)),
+            new LanguageType('en-gb', new QualityFactor(1))
         );
         $typePairList[] = new SharedTypePair(
             new LanguageType('fr', new QualityFactor(0.8)),
@@ -68,8 +68,8 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
     {
         $typePairList = array();
         $typePairList[] = new SharedTypePair(
-            new LanguageType('en-gb', new QualityFactor(0.5)),
-            new LanguageType('en-gb', new QualityFactor(0.9))
+            new LanguageType('en-gb', new QualityFactor(0.9)),
+            new LanguageType('en-gb', new QualityFactor(0.5))
         );
         $typePairList[] = new SharedTypePair(
             new LanguageType('fr', new QualityFactor(0.8)),
@@ -110,12 +110,12 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
     {
         $typePairList = array();
         $typePairList[] = new SharedTypePair(
-            new LanguageType('en-gb', new QualityFactor(0.9)),
-            new LanguageType('en-gb', new QualityFactor(0.8))
+            new LanguageType('en-gb', new QualityFactor(0.8)),
+            new LanguageType('en-gb', new QualityFactor(0.9))
         );
         $typePairList[] = new SharedTypePair(
-            new LanguageType('fr', new QualityFactor(0.9)),
-            new LanguageType('fr', new QualityFactor(0.8))
+            new LanguageType('fr', new QualityFactor(0.8)),
+            new LanguageType('fr', new QualityFactor(0.9))
         );
 
         $sort = new TypePairSort(
@@ -151,12 +151,12 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
     {
         $typePairList = array();
         $typePairList[] = new SharedTypePair(
-            new LanguageType('en-gb', new QualityFactor(0.8)),
-            new LanguageType('en-gb', new QualityFactor(0.9))
+            new LanguageType('en-gb', new QualityFactor(0.9)),
+            new LanguageType('en-gb', new QualityFactor(0.8))
         );
         $typePairList[] = new SharedTypePair(
-            new LanguageType('fr', new QualityFactor(0.9)),
-            new LanguageType('fr', new QualityFactor(0.8))
+            new LanguageType('fr', new QualityFactor(0.8)),
+            new LanguageType('fr', new QualityFactor(0.9))
         );
 
         $sort = new TypePairSort(
@@ -192,12 +192,12 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
     {
         $typePairList = array();
         $typePairList[] = new SharedTypePair(
-            new LanguageType('en-gb', new QualityFactor(0.9)),
-            new LanguageType('en-gb', new QualityFactor(0.8))
+            new LanguageType('en-gb', new QualityFactor(0.8)),
+            new LanguageType('en-gb', new QualityFactor(0.9))
         );
         $typePairList[] = new SharedTypePair(
-            new LanguageType('fr', new QualityFactor(0.8)),
-            new LanguageType('fr', new QualityFactor(0.9))
+            new LanguageType('fr', new QualityFactor(0.9)),
+            new LanguageType('fr', new QualityFactor(0.8))
         );
 
         $sort = new TypePairSort(
@@ -233,12 +233,12 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
     {
         $typePairList = array();
         $typePairList[] = new SharedTypePair(
-            new LanguageType('en-gb', new QualityFactor(0.9)),
-            new AbsentType(new QualityFactor(0))
+            new AbsentType(new QualityFactor(0)),
+            new LanguageType('en-gb', new QualityFactor(0.9))
         );
         $typePairList[] = new SharedTypePair(
-            new LanguageType('fr', new QualityFactor(0.8)),
-            new AbsentType(new QualityFactor(0))
+            new AbsentType(new QualityFactor(0)),
+            new LanguageType('fr', new QualityFactor(0.8))
         );
 
         $sort = new TypePairSort(
@@ -274,12 +274,12 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
     {
         $typePairList = array();
         $typePairList[] = new SharedTypePair(
-            new AbsentType(new QualityFactor(0)),
-            new LanguageType('en-gb', new QualityFactor(0.9))
+            new LanguageType('en-gb', new QualityFactor(0.9)),
+            new AbsentType(new QualityFactor(0))
         );
         $typePairList[] = new SharedTypePair(
-            new AbsentType(new QualityFactor(0)),
-            new LanguageType('fr', new QualityFactor(0.8))
+            new LanguageType('fr', new QualityFactor(0.8)),
+            new AbsentType(new QualityFactor(0))
         );
 
         $sort = new TypePairSort(
@@ -315,12 +315,12 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
     {
         $typePairList = array();
         $typePairList[] = new SharedTypePair(
-            new LanguageType('en-gb', new QualityFactor(0.9)),
-            new LanguageType('en-gb', new QualityFactor(0.8))
+            new LanguageType('en-gb', new QualityFactor(0.8)),
+            new LanguageType('en-gb', new QualityFactor(0.9))
         );
         $typePairList[] = new SharedTypePair(
-            new LanguageType('fr', new QualityFactor(0.8)),
-            new LanguageType('fr', new QualityFactor(0.9))
+            new LanguageType('fr', new QualityFactor(0.9)),
+            new LanguageType('fr', new QualityFactor(0.8))
         );
 
         $sort = new TypePairSort(
@@ -377,7 +377,6 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
 
     public function testGetBest()
     {
-
         $sort = new TypePairSort(
             new SharedTypePair(
                 new AbsentType(new QualityFactor(0)),
@@ -387,12 +386,12 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
 
         $typePairList = array();
         $typePairList[] = new SharedTypePair(
-            new LanguageType('en-gb', new QualityFactor(0.9)),
-            new LanguageType('en-gb', new QualityFactor(0.8))
+            new LanguageType('en-gb', new QualityFactor(0.8)),
+            new LanguageType('en-gb', new QualityFactor(0.9))
         );
         $typePairList[] = new SharedTypePair(
-            new LanguageType('fr', new QualityFactor(0.8)),
-            new LanguageType('fr', new QualityFactor(0.9))
+            new LanguageType('fr', new QualityFactor(0.9)),
+            new LanguageType('fr', new QualityFactor(0.8))
         );
 
         $best = $sort->getBest(
@@ -404,8 +403,8 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
         );
 
         $expect = new SharedTypePair(
-            new LanguageType('fr', new QualityFactor(0.8)),
-            new LanguageType('fr', new QualityFactor(0.9))
+            new LanguageType('fr', new QualityFactor(0.9)),
+            new LanguageType('fr', new QualityFactor(0.8))
         );
 
         $this->assertEquals($expect, $best);

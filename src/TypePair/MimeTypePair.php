@@ -31,12 +31,12 @@ class MimeTypePair implements TypePairInterface
     /**
      * Constructor.
      *
-     * @param MimeTypeInterface $userType
      * @param MimeTypeInterface $appType
+     * @param MimeTypeInterface $userType
      */
-    public function __construct(MimeTypeInterface $appType, MimeTypeInterface $userType)
+    public function __construct(MimeTypeInterface $userType, MimeTypeInterface $appType)
     {
-        $this->sharedTypePair = new SharedTypePair($appType, $userType);
+        $this->sharedTypePair = new SharedTypePair($userType, $appType);
     }
 
 

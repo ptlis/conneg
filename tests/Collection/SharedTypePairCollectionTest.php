@@ -38,8 +38,8 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
         $typePairList = array();
 
         $typePairList[] = new SharedTypePair(
-            new CharsetType('utf-8', new QualityFactor(1)),
-            new CharsetType('utf-8', new QualityFactor(0.9))
+            new CharsetType('utf-8', new QualityFactor(0.9)),
+            new CharsetType('utf-8', new QualityFactor(1))
         );
         $typePairList[] = new SharedTypePair(
             new CharsetType('iso-8859-5', new QualityFactor(0.8)),
@@ -65,8 +65,8 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
 
         $expectCollection->addPair(
             new SharedTypePair(
-                new CharsetType('utf-8', new QualityFactor(1)),
-                new CharsetType('utf-8', new QualityFactor(0.9))
+                new CharsetType('utf-8', new QualityFactor(0.9)),
+                new CharsetType('utf-8', new QualityFactor(1))
             )
         );
         $expectCollection->addPair(
@@ -93,8 +93,8 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
 
         $expectCollection->addPair(
             new SharedTypePair(
-                new CharsetType('utf-8', new QualityFactor(1)),
-                new CharsetType('utf-8', new QualityFactor(0.9))
+                new CharsetType('utf-8', new QualityFactor(0.9)),
+                new CharsetType('utf-8', new QualityFactor(1))
             )
         );
         $expectCollection->addPair(
@@ -124,8 +124,8 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
 
         $collection->addPair(
             new SharedTypePair(
-                new CharsetType('utf-8', new QualityFactor(1)),
-                new CharsetType('utf-8', new QualityFactor(0.9))
+                new CharsetType('utf-8', new QualityFactor(0.9)),
+                new CharsetType('utf-8', new QualityFactor(1))
             )
         );
         $collection->addPair(
@@ -174,8 +174,8 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
         );
         $collection->addPair(
             new SharedTypePair(
-                new CharsetType('utf-8', new QualityFactor(1)),
-                new CharsetType('utf-8', new QualityFactor(0.9))
+                new CharsetType('utf-8', new QualityFactor(0.9)),
+                new CharsetType('utf-8', new QualityFactor(1))
             )
         );
 
@@ -218,14 +218,14 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
         );
         $collection->addPair(
             new SharedTypePair(
-                new CharsetType('utf-8', new QualityFactor(1)),
-                new CharsetType('utf-8', new QualityFactor(0.9))
+                new CharsetType('utf-8', new QualityFactor(0.9)),
+                new CharsetType('utf-8', new QualityFactor(1))
             )
         );
 
         $expectPair = new SharedTypePair(
-            new CharsetType('utf-8', new QualityFactor(1)),
-            new CharsetType('utf-8', new QualityFactor(0.9))
+            new CharsetType('utf-8', new QualityFactor(0.9)),
+            new CharsetType('utf-8', new QualityFactor(1))
         );
 
         $bestPair = $collection->getBest();
@@ -253,8 +253,8 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
         );
         $collection->addPair(
             new SharedTypePair(
-                new CharsetType('utf-8', new QualityFactor(1)),
-                new CharsetType('utf-8', new QualityFactor(0.9))
+                new CharsetType('utf-8', new QualityFactor(0.9)),
+                new CharsetType('utf-8', new QualityFactor(1))
             )
         );
 
@@ -284,8 +284,8 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
         );
         $collection->addPair(
             new SharedTypePair(
-                new CharsetType('utf-8', new QualityFactor(1)),
-                new CharsetType('utf-8', new QualityFactor(0.9))
+                new CharsetType('utf-8', new QualityFactor(0.9)),
+                new CharsetType('utf-8', new QualityFactor(1))
             )
         );
 

@@ -44,38 +44,38 @@ class IssueTwoTest extends \PHPUnit_Framework_TestCase
         $expectCollection
             ->addPair(
                 new MimeTypePair(
-                    new AbsentMimeType(new QualityFactor(0)),
-                    new MimeType('text', 'turtle', new QualityFactor(1))
+                    new MimeType('text', 'turtle', new QualityFactor(1)),
+                    new AbsentMimeType(new QualityFactor(0))
                 )
             )
             ->addPair(
                 new MimeTypePair(
-                    new AbsentMimeType(new QualityFactor(0)),
-                    new MimeType('application', 'rdf+json', new QualityFactor(0.8))
+                    new MimeType('application', 'rdf+json', new QualityFactor(0.8)),
+                    new AbsentMimeType(new QualityFactor(0))
                 )
             )
             ->addPair(
                 new MimeTypePair(
-                    new AbsentMimeType(new QualityFactor(0)),
-                    new MimeType('application', 'rdf+xml', new QualityFactor(0.8))
+                    new MimeType('application', 'rdf+xml', new QualityFactor(0.8)),
+                    new AbsentMimeType(new QualityFactor(0))
                 )
             )
             ->addPair(
                 new MimeTypePair(
-                    new AbsentMimeType(new QualityFactor(0)),
-                    new MimeType('text', 'n3', new QualityFactor(0.8))
+                    new MimeType('text', 'n3', new QualityFactor(0.8)),
+                    new AbsentMimeType(new QualityFactor(0))
                 )
             )
             ->addPair(
                 new MimeTypePair(
-                    new AbsentMimeType(new QualityFactor(0)),
-                    new MimeType('text', 'rdf+n3', new QualityFactor(0.8))
+                    new MimeType('text', 'rdf+n3', new QualityFactor(0.8)),
+                    new AbsentMimeType(new QualityFactor(0))
                 )
             )
             ->addPair(
                 new MimeTypePair(
-                    new AbsentMimeType(new QualityFactor(0)),
-                    new MimeType('application', 'ld+json', new QualityFactor(0.5))
+                    new MimeType('application', 'ld+json', new QualityFactor(0.5)),
+                    new AbsentMimeType(new QualityFactor(0))
                 )
             );
 

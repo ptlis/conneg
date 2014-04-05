@@ -46,8 +46,8 @@ class EncodingBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = '';
 
         $expectPair = new SharedTypePair(
-            new AbsentType(new QualityFactor(0)),
-            new EncodingType('7zip', new QualityFactor(1))
+            new EncodingType('7zip', new QualityFactor(1)),
+            new AbsentType(new QualityFactor(0))
         );
 
         $negotiate = new Negotiate();
@@ -63,8 +63,8 @@ class EncodingBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'compress;q=1,7zip;q=0.5';
 
         $expectPair = new SharedTypePair(
-            new EncodingType('compress', new QualityFactor(1)),
-            new AbsentType(new QualityFactor(0))
+            new AbsentType(new QualityFactor(0)),
+            new EncodingType('compress', new QualityFactor(1))
         );
 
         $negotiate = new Negotiate();
@@ -80,8 +80,8 @@ class EncodingBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = '7zip;q=0.5,compress;q=0.5';
 
         $expectPair = new SharedTypePair(
-            new EncodingType('7zip', new QualityFactor(0.5)),
-            new AbsentType(new QualityFactor(0))
+            new AbsentType(new QualityFactor(0)),
+            new EncodingType('7zip', new QualityFactor(0.5))
         );
 
         $negotiate = new Negotiate();
@@ -114,8 +114,8 @@ class EncodingBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'deflate;q=0.8,7zip;q=0.3,compress;q=0.5';
 
         $expectPair = new SharedTypePair(
-            new EncodingType('7zip', new QualityFactor(0.3)),
-            new EncodingType('7zip', new QualityFactor(0.6))
+            new EncodingType('7zip', new QualityFactor(0.6)),
+            new EncodingType('7zip', new QualityFactor(0.3))
         );
 
         $negotiate = new Negotiate();
@@ -131,8 +131,8 @@ class EncodingBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'gzip,7zip;q=0.7,deflate;q=0.3';
 
         $expectPair = new SharedTypePair(
-            new EncodingType('gzip', new QualityFactor(1)),
-            new EncodingType('gzip', new QualityFactor(0.8))
+            new EncodingType('gzip', new QualityFactor(0.8)),
+            new EncodingType('gzip', new QualityFactor(1))
         );
 
         $negotiate = new Negotiate();

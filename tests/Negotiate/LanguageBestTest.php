@@ -46,8 +46,8 @@ class LanguageBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = '';
 
         $expectPair = new SharedTypePair(
-            new AbsentType(new QualityFactor(0)),
-            new LanguageType('en-us', new QualityFactor(1))
+            new LanguageType('en-us', new QualityFactor(1)),
+            new AbsentType(new QualityFactor(0))
         );
 
         $negotiate = new Negotiate();
@@ -63,8 +63,8 @@ class LanguageBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'en-gb;q=1,en-us;q=0.5';
 
         $expectPair = new SharedTypePair(
-            new LanguageType('en-gb', new QualityFactor(1)),
-            new AbsentType(new QualityFactor(0))
+            new AbsentType(new QualityFactor(0)),
+            new LanguageType('en-gb', new QualityFactor(1))
         );
 
         $negotiate = new Negotiate();
@@ -80,8 +80,8 @@ class LanguageBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'en-us;q=0.5,en-gb;q=0.5';
 
         $expectPair = new SharedTypePair(
-            new LanguageType('en-gb', new QualityFactor(0.5)),
-            new AbsentType(new QualityFactor(0))
+            new AbsentType(new QualityFactor(0)),
+            new LanguageType('en-gb', new QualityFactor(0.5))
         );
 
         $negotiate = new Negotiate();
@@ -114,8 +114,8 @@ class LanguageBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'es;q=0.8,en-us;q=0.3,en-gb;q=0.5';
 
         $expectPair = new SharedTypePair(
-            new LanguageType('en-us', new QualityFactor(0.3)),
-            new LanguageType('en-us', new QualityFactor(0.6))
+            new LanguageType('en-us', new QualityFactor(0.6)),
+            new LanguageType('en-us', new QualityFactor(0.3))
         );
 
         $negotiate = new Negotiate();
@@ -131,8 +131,8 @@ class LanguageBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'fr,en-us;q=0.7,es;q=0.3';
 
         $expectPair = new SharedTypePair(
-            new LanguageType('fr', new QualityFactor(1)),
-            new LanguageType('fr', new QualityFactor(0.8))
+            new LanguageType('fr', new QualityFactor(0.8)),
+            new LanguageType('fr', new QualityFactor(1))
         );
 
         $negotiate = new Negotiate();

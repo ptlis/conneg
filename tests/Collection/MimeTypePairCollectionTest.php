@@ -124,8 +124,8 @@ class MimeTypePairCollectionTest extends \PHPUnit_Framework_TestCase
 
         $collection->addPair(
             new MimeTypePair(
-                new MimeType('text', 'html', new QualityFactor(1)),
-                new MimeType('text', 'html', new QualityFactor(0.9))
+                new MimeType('text', 'html', new QualityFactor(0.9)),
+                new MimeType('text', 'html', new QualityFactor(1))
             )
         );
         $collection->addPair(
@@ -174,8 +174,8 @@ class MimeTypePairCollectionTest extends \PHPUnit_Framework_TestCase
         );
         $collection->addPair(
             new MimeTypePair(
-                new MimeType('text', 'html', new QualityFactor(1)),
-                new MimeType('text', 'html', new QualityFactor(0.9))
+                new MimeType('text', 'html', new QualityFactor(0.9)),
+                new MimeType('text', 'html', new QualityFactor(1))
             )
         );
 

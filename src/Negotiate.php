@@ -115,14 +115,14 @@ class Negotiate
         // Prepare pair sorters
         $sharedSort = new TypePairSort(
             new SharedTypePair(
-                $this->charsetFactory->get('', '0', true),
-                $this->charsetFactory->get('', '0', false)
+                $this->charsetFactory->get('', '0', false),
+                $this->charsetFactory->get('', '0', true)
             )
         );
         $mimeSort = new TypePairSort(
             new MimeTypePair(
-                $this->mimeFactory->get('', '0', true),
-                $this->mimeFactory->get('', '0', false)
+                $this->mimeFactory->get('', '0', false),
+                $this->mimeFactory->get('', '0', true)
             )
         );
 
