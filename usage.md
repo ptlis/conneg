@@ -105,3 +105,21 @@ To get a collection containing all processed types use the ```mimeAll``` method 
         application/json;q=0.9
     */
 ```
+
+### HTTP Response
+
+When negotiation is performed on a resource your application must do one of two things; if the application has one URI for each representation of a resource you must perform a 303 Redirect to that URI:
+
+```php
+    header('HTTP/1.1 303 See Other');
+    header('Location: /path/to/resource/');
+```
+
+If your application serves all representations of the resource from the same URI then you must set the Vary field (as well as changing the fields indicating the type of resource returned). In the case that negotiation has been performed on the Accept and Accept Charset field this would look something like:
+
+```php
+    header('Vary: Accept, Accept-Charset');
+    header('Content-Type: ' . $mimeBest . '; charset=' . $charsetBest);
+```
+
+
