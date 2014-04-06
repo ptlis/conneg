@@ -7,24 +7,24 @@ name: installation
 
 Either from the console:
 
-```shell
-$ composer require ptlis/conneg-bundle:@dev
-```
+~~~ shell
+    $ composer require ptlis/conneg-bundle:@dev
+~~~
 
 Or by Editing composer.json:
 
-```json
-{
-    "require": {
-        ...
-        "ptlis/conneg-bundle": "@dev",
-        ...
+~~~json
+    {
+        "require": {
+            ...
+            "ptlis/conneg-bundle": "@dev",
+            ...
+        }
     }
-}
-```
+~~~
 
 Followed by a composer update:
 
-```shell
-$ composer update
-```
+~~~ shell
+    $ composer update
+~~~
