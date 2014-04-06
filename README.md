@@ -6,10 +6,28 @@ A Content Negotiation library for PHP >= 5.3. The API provides support for negot
 
 ## Install
 
-Require package:
+Either from the console::
 
 ```shell
-    $ composer require ptlis/conneg-bundle:@dev
+    $ composer require ptlis/conneg:@dev
+```
+
+Or by Editing composer.json:
+
+```javascript
+    {
+        "require": {
+            ...
+            "ptlis/conneg": "@dev",
+            ...
+        }
+    }
+```
+
+Followed by a composer update:
+
+```shell
+    $ composer update
 ```
 
 Use negotiator:
