@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="chrome=1">
+        <title>ConNeg by ptlis</title>
+
+        <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="lib/bootstrap/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/style.css">
+
+        <link rel="stylesheet" href="lib/highlightjs/styles/github.css">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <!--[if lt IE 9]>
+            <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+
+        <nav class="navbar navbar-inverse" role="navigation">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">ConNeg</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li{% if page.name == 'installation' %} class="active"{% endif %}><a href="installation.html">Installation</a></li>
+                        <li{% if page.name == 'usage' %} class="active"{% endif %}><a href="usage.html">Usage</a></li>
+                        <li{% if page.name == 'licence' %} class="active"{% endif %}><a href="licence.html">Licence</a></li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="visible-xs"><a href="https://github.com/ptlis/conneg">Github</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Download <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="https://github.com/ptlis/conneg/zipball/master">zip</a></li>
+                                <li><a href="https://github.com/ptlis/conneg/tarball/master">tar.gz</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <a class="hidden-xs" href="https://github.com/ptlis/conneg"><img style="position: absolute; top: 52px; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+
