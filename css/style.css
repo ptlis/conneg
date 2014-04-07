@@ -1,4 +1,12 @@
 
+#main_navigation.navbar a {
+    color: #ababab;
+}
+
+#main_navigation.navbar .active a {
+    color: #dedede;
+}
+
 .container h2 {
     margin-top: 10px;
     border-top: 2px solid #333;
