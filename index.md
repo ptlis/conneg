@@ -11,6 +11,7 @@ A Content Negotiation library for PHP >= 5.3. The API provides support for negot
 ## Documentation
 
 * [Installation](installation.html)
+* [Basics](basics.html)
 * [Usage](usage.html)
 * [Licence](license.html)
 
