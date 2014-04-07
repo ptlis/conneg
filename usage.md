@@ -7,28 +7,8 @@ name: usage
 
 These examples assume that your project uses a PSR-4 compliant autoloader; if this is not the case then loading the classes is left as an exercise for the reader.
 
-## Quality Factors
 
-Quality factors describe how preferred a representation of a resource is, from [RFC2295 Sec 5.3](http://tools.ietf.org/html/rfc2295#section-5.3):
-
-~~~ plain
-    1.000  perfect representation
-    0.900  threshold of noticeable loss of quality
-    0.800  noticeable, but acceptable quality reduction
-    0.500  barely acceptable quality
-    0.300  severely degraded quality
-    0.000  completely degraded quality
-~~~
-
-## Encoding Application Preferences
-
-Types are encoded comma-separated and consist of the type alongside a quality factor that indicates our application's relative preference for that type. Higher quality factors are more favoured, but note that the absence of an explicit quality factor is equivalent to setting it to one.
-
-This means that ```application/json``` has a higher preference than ```application/xml;q=0.8``` as the quality factor for the former is implicitly 1.
-
-The resultant application preference string for negotiation in our API is ```application/json,application/xml;q=0.8,text/n3;q=0.5``` (preferences may be provided in any order).
-
-## Examples
+## API Examples
 
 For both examples we create a negotiator instance.
 
@@ -119,16 +99,22 @@ To get a collection containing all processed types use the ```mimeAll``` method 
     */
 ~~~
 
-### HTTP Response
 
-When negotiation is performed on a resource your application must do one of two things; if the application has one URI for each representation of a resource you must perform a 303 Redirect to that URI:
+## Negotiation Strategies
+
+There are three strategies that can be used when building an application that supports content negotiation; Server-Driven ([RFC 2616 Sec. 12.1](http://tools.ietf.org/html/rfc2616#section-12.1)), Agent-Driven ([RFC 2616 Sec. 12.2](tools.ietf.org/html/rfc2616#section-12.2)) and Transparent ([RFC 2295](http://tools.ietf.org/html/rfc2295)).
+
+### Server-Driven Negotiation
+
+Your application must do one of two things when server-driven negotiation is used; when the application has one URI for each representation of a resource you must perform a 303 Redirect to that URI, setting the Vary field. For example, if negotiation is performed on the Accept-Language field then the response would look like:
 
 ~~~ php
+    header('Vary: Accept-Language');
     header('HTTP/1.1 303 See Other');
     header('Location: /path/to/resource/');
 ~~~
 
-If your application serves all representations of the resource from the same URI then you must set the Vary field (as well as changing the fields indicating the type of resource returned). In the case that negotiation has been performed on the Accept and Accept Charset field this would look something like:
+When your application serves all representations of the resource from the same URI then you must set the Vary field (as well as changing the fields indicating the type of resource returned). For example, if negotiation has been performed on the Accept and Accept Charset field the response would look something like:
 
 ~~~ php
     header('Vary: Accept, Accept-Charset');

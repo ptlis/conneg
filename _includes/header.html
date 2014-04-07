@@ -18,7 +18,7 @@
     </head>
     <body>
 
-        <nav class="navbar navbar-inverse" role="navigation">
+        <nav class="navbar navbar-inverse" role="navigation" id="main_navigation">
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
@@ -35,6 +35,7 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li{% if page.name == 'installation' %} class="active"{% endif %}><a href="installation.html">Installation</a></li>
+                        <li{% if page.name == 'basics' %} class="active"{% endif %}><a href="basics.html">Basics</a></li>
                         <li{% if page.name == 'usage' %} class="active"{% endif %}><a href="usage.html">Usage</a></li>
                         <li{% if page.name == 'licence' %} class="active"{% endif %}><a href="licence.html">Licence</a></li>
                     </ul>
