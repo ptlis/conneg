@@ -84,6 +84,8 @@ class MimeTypeFactory implements TypeFactoryInterface
     /**
      * Extracts type data from $typeList and populates typeCollection with CharsetTypes.
      *
+     * @throws InvalidTypeException
+     *
      * @param TypeCollection $typeCollection
      * @param array          $typeList
      * @param bool           $appType
