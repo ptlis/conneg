@@ -44,8 +44,14 @@ Use negotiator:
 
 * Symfony2 via the [ptlis/conneg-bundle](https://github.com/ptlis/conneg-bundle) Bundle.
 
+## Contributing
+
+You can contribute by submitting an Issue to the [issue tracker](https://github.com/ptlis/conneg/issues), improving the [documentation](https://github.com/ptlis/conneg/tree/gh-pages), integrating the library into your framework of choice or submitting a pull request. For pull requests i'd prefer that the code style and test coverage is maintained, but I am happy to work through any minor issues that may arise so that the request can be merged.
+
+
 ## TODO
 
 * Handle accept-extens
 * Time based negotiation? See RFC 7089
 * Collections should not sort selves? Perhaps seperate class... perhaps builder?
+* Error if matching application quality factor is found.
