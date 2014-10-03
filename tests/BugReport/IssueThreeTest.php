@@ -15,13 +15,13 @@
 
 namespace ptlis\ConNeg\Test\BugReport;
 
-use ptlis\ConNeg\Collection\MimeTypePairCollection;
+use ptlis\ConNeg\Collection\SharedTypePairCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
 use ptlis\ConNeg\Negotiate;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\Mime\AbsentMimeType;
 use ptlis\ConNeg\Type\Mime\MimeType;
-use ptlis\ConNeg\TypePair\MimeTypePair;
+use ptlis\ConNeg\TypePair\SharedTypePair;
 
 class IssueThreeTest extends \PHPUnit_Framework_TestCase
 {
@@ -34,22 +34,22 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
         $appPrefs = '';
 
         $sort = new TypePairSort(
-            new MimeTypePair(
+            new SharedTypePair(
                 new AbsentMimeType(new QualityFactor(0)),
                 new AbsentMimeType(new QualityFactor(0))
             )
         );
 
-        $expectCollection = new MimeTypePairCollection($sort);
+        $expectCollection = new SharedTypePairCollection($sort);
         $expectCollection
             ->addPair(
-                new MimeTypePair(
+                new SharedTypePair(
                     new MimeType('application', 'rdf+xml', new QualityFactor(0.5)),
                     new AbsentMimeType(new QualityFactor(0))
                 )
             )
             ->addPair(
-                new MimeTypePair(
+                new SharedTypePair(
                     new MimeType('text', 'html', new QualityFactor(0.3)),
                     new AbsentMimeType(new QualityFactor(0))
                 )
@@ -71,16 +71,16 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
         $appPrefs = '';
 
         $sort = new TypePairSort(
-            new MimeTypePair(
+            new SharedTypePair(
                 new AbsentMimeType(new QualityFactor(0)),
                 new AbsentMimeType(new QualityFactor(0))
             )
         );
 
-        $expectCollection = new MimeTypePairCollection($sort);
+        $expectCollection = new SharedTypePairCollection($sort);
         $expectCollection
             ->addPair(
-                new MimeTypePair(
+                new SharedTypePair(
                     new MimeType('application', 'xhtml+xml', new QualityFactor(0.5)),
                     new AbsentMimeType(new QualityFactor(0))
                 )
@@ -102,22 +102,22 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
         $appPrefs = '';
 
         $sort = new TypePairSort(
-            new MimeTypePair(
+            new SharedTypePair(
                 new AbsentMimeType(new QualityFactor(0)),
                 new AbsentMimeType(new QualityFactor(0))
             )
         );
 
-        $expectCollection = new MimeTypePairCollection($sort);
+        $expectCollection = new SharedTypePairCollection($sort);
         $expectCollection
             ->addPair(
-                new MimeTypePair(
+                new SharedTypePair(
                     new MimeType('application', 'rdf+xml', new QualityFactor(0.5)),
                     new AbsentMimeType(new QualityFactor(0))
                 )
             )
             ->addPair(
-                new MimeTypePair(
+                new SharedTypePair(
                     new MimeType('text', 'html', new QualityFactor(0.5)),
                     new AbsentMimeType(new QualityFactor(0))
                 )

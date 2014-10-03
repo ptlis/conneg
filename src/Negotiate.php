@@ -16,7 +16,6 @@
 namespace ptlis\ConNeg;
 
 use ptlis\ConNeg\Collection\CollectionInterface;
-use ptlis\ConNeg\Collection\MimeTypePairCollection;
 use ptlis\ConNeg\Collection\SharedTypePairCollection;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
@@ -33,7 +32,6 @@ use ptlis\ConNeg\Type\Mime\MimeTypeFactory;
 use ptlis\ConNeg\Type\Shared\SharedTypeRegexProvider;
 use ptlis\ConNeg\Type\Shared\SharedTypeFactory;
 use ptlis\ConNeg\Type\Shared\Interfaces\TypeFactoryInterface;
-use ptlis\ConNeg\TypePair\MimeTypePair;
 use ptlis\ConNeg\TypePair\SharedTypePair;
 use ptlis\Conneg\TypePair\TypePairInterface;
 
@@ -117,7 +115,7 @@ class Negotiate
             )
         );
         $mimeSort = new TypePairSort(
-            new MimeTypePair(
+            new SharedTypePair(
                 $this->mimeFactory->get('', '0', false),
                 $this->mimeFactory->get('', '0', true)
             )
@@ -279,7 +277,7 @@ class Negotiate
      *
      * @throws ConNegException
      *
-     * @return MimeTypePairCollection containing MimeType, MimeWildcardType, MimeWildcardSubType & AbsentType instances.
+     * @return SharedTypePairCollection containing MimeType, MimeWildcardType, MimeWildcardSubType & AbsentType instances.
      */
     public function mimeAll($userField, $appPrefs)
     {

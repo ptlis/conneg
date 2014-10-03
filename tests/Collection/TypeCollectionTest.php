@@ -18,7 +18,6 @@ namespace ptlis\ConNeg\Test\Collection;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\Mime\MimeType;
-use ptlis\ConNeg\TypePair\MimeTypePair;
 
 class TypeCollectionTest extends \PHPUnit_Framework_TestCase
 {

@@ -16,7 +16,7 @@
 namespace ptlis\ConNeg\Test\Negotiate;
 
 use ptlis\ConNeg\Collection\TypeCollection;
-use ptlis\ConNeg\Collection\MimeTypePairCollection;
+use ptlis\ConNeg\Collection\SharedTypePairCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
 use ptlis\ConNeg\Negotiate;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
@@ -24,7 +24,7 @@ use ptlis\ConNeg\Type\Mime\AbsentMimeType;
 use ptlis\ConNeg\Type\Mime\MimeType;
 use ptlis\ConNeg\Type\Mime\MimeWildcardSubType;
 use ptlis\ConNeg\Type\Mime\MimeWildcardType;
-use ptlis\ConNeg\TypePair\MimeTypePair;
+use ptlis\ConNeg\TypePair\SharedTypePair;
 
 class MimeAllTest extends \PHPUnit_Framework_TestCase
 {
@@ -34,13 +34,13 @@ class MimeAllTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = '';
 
         $pairSort = new TypePairSort(
-            new MimeTypePair(
+            new SharedTypePair(
                 new AbsentMimeType(new QualityFactor(0)),
                 new AbsentMimeType(new QualityFactor(0))
             )
         );
 
-        $expectCollection = new MimeTypePairCollection($pairSort);
+        $expectCollection = new SharedTypePairCollection($pairSort);
 
         $negotiate = new Negotiate();
         $resultCollection = $negotiate->mimeAll($httpField, $appPrefs);
@@ -55,13 +55,13 @@ class MimeAllTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = new TypeCollection();
 
         $pairSort = new TypePairSort(
-            new MimeTypePair(
+            new SharedTypePair(
                 new AbsentMimeType(new QualityFactor(0)),
                 new AbsentMimeType(new QualityFactor(0))
             )
         );
 
-        $expectCollection = new MimeTypePairCollection($pairSort);
+        $expectCollection = new SharedTypePairCollection($pairSort);
 
         $negotiate = new Negotiate();
         $resultCollection = $negotiate->mimeAll($httpField, $appPrefs);
@@ -76,21 +76,21 @@ class MimeAllTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = '';
 
         $pairSort = new TypePairSort(
-            new MimeTypePair(
+            new SharedTypePair(
                 new AbsentMimeType(new QualityFactor(0)),
                 new AbsentMimeType(new QualityFactor(0))
             )
         );
 
-        $expectCollection = new MimeTypePairCollection($pairSort);
+        $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
-            new MimeTypePair(
+            new SharedTypePair(
                 new MimeType('text', 'html', new QualityFactor(1)),
                 new AbsentMimeType(new QualityFactor(0))
             )
         );
         $expectCollection->addPair(
-            new MimeTypePair(
+            new SharedTypePair(
                 new MimeType('application', 'xml', new QualityFactor(0.75)),
                 new AbsentMimeType(new QualityFactor(0))
             )
@@ -109,21 +109,21 @@ class MimeAllTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = '';
 
         $pairSort = new TypePairSort(
-            new MimeTypePair(
+            new SharedTypePair(
                 new AbsentMimeType(new QualityFactor(0)),
                 new AbsentMimeType(new QualityFactor(0))
             )
         );
 
-        $expectCollection = new MimeTypePairCollection($pairSort);
+        $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
-            new MimeTypePair(
+            new SharedTypePair(
                 new MimeType('text', 'html', new QualityFactor(1)),
                 new AbsentMimeType(new QualityFactor(0))
             )
         );
         $expectCollection->addPair(
-            new MimeTypePair(
+            new SharedTypePair(
                 new MimeType('application', 'xml', new QualityFactor(0.75)),
                 new AbsentMimeType(new QualityFactor(0))
             )
@@ -142,21 +142,21 @@ class MimeAllTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'application/rdf+xml;q=1,text/n3;q=0.5';
 
         $pairSort = new TypePairSort(
-            new MimeTypePair(
+            new SharedTypePair(
                 new AbsentMimeType(new QualityFactor(0)),
                 new AbsentMimeType(new QualityFactor(0))
             )
         );
 
-        $expectCollection = new MimeTypePairCollection($pairSort);
+        $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
-            new MimeTypePair(
+            new SharedTypePair(
                 new AbsentMimeType(new QualityFactor(0)),
                 new MimeType('application', 'rdf+xml', new QualityFactor(1))
             )
         );
         $expectCollection->addPair(
-            new MimeTypePair(
+            new SharedTypePair(
                 new AbsentMimeType(new QualityFactor(0)),
                 new MimeType('text', 'n3', new QualityFactor(0.5))
             )
@@ -175,21 +175,21 @@ class MimeAllTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'text/n3;q=0.5,application/rdf+xml;q=1';
 
         $pairSort = new TypePairSort(
-            new MimeTypePair(
+            new SharedTypePair(
                 new AbsentMimeType(new QualityFactor(0)),
                 new AbsentMimeType(new QualityFactor(0))
             )
         );
 
-        $expectCollection = new MimeTypePairCollection($pairSort);
+        $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
-            new MimeTypePair(
+            new SharedTypePair(
                 new AbsentMimeType(new QualityFactor(0)),
                 new MimeType('application', 'rdf+xml', new QualityFactor(1))
             )
         );
         $expectCollection->addPair(
-            new MimeTypePair(
+            new SharedTypePair(
                 new AbsentMimeType(new QualityFactor(0)),
                 new MimeType('text', 'n3', new QualityFactor(0.5))
             )
@@ -208,21 +208,21 @@ class MimeAllTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'text/n3;q=0.5,text/html;q=0.5';
 
         $pairSort = new TypePairSort(
-            new MimeTypePair(
+            new SharedTypePair(
                 new AbsentMimeType(new QualityFactor(0)),
                 new AbsentMimeType(new QualityFactor(0))
             )
         );
 
-        $expectCollection = new MimeTypePairCollection($pairSort);
+        $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
-            new MimeTypePair(
+            new SharedTypePair(
                 new AbsentMimeType(new QualityFactor(0)),
                 new MimeType('text', 'html', new QualityFactor(0.5))
             )
         );
         $expectCollection->addPair(
-            new MimeTypePair(
+            new SharedTypePair(
                 new AbsentMimeType(new QualityFactor(0)),
                 new MimeType('text', 'n3', new QualityFactor(0.5))
             )
@@ -241,28 +241,28 @@ class MimeAllTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'text/n3;q=0.9,application/rdf+xml;q=0.6';
 
         $pairSort = new TypePairSort(
-            new MimeTypePair(
+            new SharedTypePair(
                 new AbsentMimeType(new QualityFactor(0)),
                 new AbsentMimeType(new QualityFactor(0))
             )
         );
 
         $pairSort = new TypePairSort(
-            new MimeTypePair(
+            new SharedTypePair(
                 new AbsentMimeType(new QualityFactor(0)),
                 new AbsentMimeType(new QualityFactor(0))
             )
         );
 
-        $expectCollection = new MimeTypePairCollection($pairSort);
+        $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
-            new MimeTypePair(
+            new SharedTypePair(
                 new MimeType('text', 'n3', new QualityFactor(0.9)),
                 new MimeType('text', 'n3', new QualityFactor(0.9))
             )
         );
         $expectCollection->addPair(
-            new MimeTypePair(
+            new SharedTypePair(
                 new MimeType('application', 'rdf+xml', new QualityFactor(0.6)),
                 new MimeType('application', 'rdf+xml', new QualityFactor(0.6))
             )
@@ -281,33 +281,33 @@ class MimeAllTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'application/atom+xml;q=0.8,text/html;q=0.3,application/rss+xml;q=0.5';
 
         $pairSort = new TypePairSort(
-            new MimeTypePair(
+            new SharedTypePair(
                 new AbsentMimeType(new QualityFactor(0)),
                 new AbsentMimeType(new QualityFactor(0))
             )
         );
 
-        $expectCollection = new MimeTypePairCollection($pairSort);
+        $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
-            new MimeTypePair(
+            new SharedTypePair(
                 new MimeType('text', 'html', new QualityFactor(0.6)),
                 new MimeType('text', 'html', new QualityFactor(0.3))
             )
         );
         $expectCollection->addPair(
-            new MimeTypePair(
+            new SharedTypePair(
                 new MimeType('application', 'rss+xml', new QualityFactor(0.3)),
                 new MimeType('application', 'rss+xml', new QualityFactor(0.5))
             )
         );
         $expectCollection->addPair(
-            new MimeTypePair(
+            new SharedTypePair(
                 new MimeType('application', 'xml', new QualityFactor(0.9)),
                 new AbsentMimeType(new QualityFactor(0))
             )
         );
         $expectCollection->addPair(
-            new MimeTypePair(
+            new SharedTypePair(
                 new AbsentMimeType(new QualityFactor(0)),
                 new MimeType('application', 'atom+xml', new QualityFactor(0.8))
             )
@@ -326,27 +326,27 @@ class MimeAllTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'text/html,application/xml;q=0.7,text/n3;q=0.3';
 
         $pairSort = new TypePairSort(
-            new MimeTypePair(
+            new SharedTypePair(
                 new AbsentMimeType(new QualityFactor(0)),
                 new AbsentMimeType(new QualityFactor(0))
             )
         );
 
-        $expectCollection = new MimeTypePairCollection($pairSort);
+        $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
-            new MimeTypePair(
+            new SharedTypePair(
                 new MimeWildcardSubType('text', new QualityFactor(0.8)),
                 new MimeType('text', 'html', new QualityFactor(1))
             )
         );
         $expectCollection->addPair(
-            new MimeTypePair(
+            new SharedTypePair(
                 new MimeType('application', 'xml', new QualityFactor(0.9)),
                 new MimeType('application', 'xml', new QualityFactor(0.7))
             )
         );
         $expectCollection->addPair(
-            new MimeTypePair(
+            new SharedTypePair(
                 new MimeWildcardSubType('text', new QualityFactor(0.8)),
                 new MimeType('text', 'n3', new QualityFactor(0.3))
             )
@@ -365,27 +365,27 @@ class MimeAllTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'text/html,application/xml;q=0.7,text/n3;q=0.3';
 
         $pairSort = new TypePairSort(
-            new MimeTypePair(
+            new SharedTypePair(
                 new AbsentMimeType(new QualityFactor(0)),
                 new AbsentMimeType(new QualityFactor(0))
             )
         );
 
-        $expectCollection = new MimeTypePairCollection($pairSort);
+        $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
-            new MimeTypePair(
+            new SharedTypePair(
                 new MimeType('text', 'html', new QualityFactor(0.8)),
                 new MimeType('text', 'html', new QualityFactor(1))
             )
         );
         $expectCollection->addPair(
-            new MimeTypePair(
+            new SharedTypePair(
                 new MimeType('application', 'xml', new QualityFactor(0.9)),
                 new MimeType('application', 'xml', new QualityFactor(0.7))
             )
         );
         $expectCollection->addPair(
-            new MimeTypePair(
+            new SharedTypePair(
                 new MimeWildcardType(new QualityFactor(0.5)),
                 new MimeType('text', 'n3', new QualityFactor(0.3))
             )
@@ -404,27 +404,27 @@ class MimeAllTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'text/html,application/xml;q=0.7,text/n3;q=0.3';
 
         $pairSort = new TypePairSort(
-            new MimeTypePair(
+            new SharedTypePair(
                 new AbsentMimeType(new QualityFactor(0)),
                 new AbsentMimeType(new QualityFactor(0))
             )
         );
 
-        $expectCollection = new MimeTypePairCollection($pairSort);
+        $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
-            new MimeTypePair(
+            new SharedTypePair(
                 new MimeType('text', 'html', new QualityFactor(0.9)),
                 new MimeType('text', 'html', new QualityFactor(1))
             )
         );
         $expectCollection->addPair(
-            new MimeTypePair(
+            new SharedTypePair(
                 new MimeWildcardSubType('text', new QualityFactor(0.7)),
                 new MimeType('text', 'n3', new QualityFactor(0.3))
             )
         );
         $expectCollection->addPair(
-            new MimeTypePair(
+            new SharedTypePair(
                 new MimeWildcardType(new QualityFactor(0.1)),
                 new MimeType('application', 'xml', new QualityFactor(0.7))
             )
