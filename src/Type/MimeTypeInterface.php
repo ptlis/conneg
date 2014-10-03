@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Interface for MIME types.
- *
  * PHP Version 5.3
  *
  * @copyright   (c) 2006-2014 brian ridley
@@ -26,7 +24,6 @@ interface MimeTypeInterface extends TypeInterface
      * @return string
      */
     public function getMimeType();
-
 
     /**
      * Returns the subtype portion of the media range.

@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Class representing a quality factor.
- *
  * PHP Version 5.3
  *
  * @copyright   (c) 2006-2014 brian ridley
@@ -15,14 +13,15 @@
 
 namespace ptlis\ConNeg\QualityFactor;
 
-
+/**
+ * Value class representing a quality factor.
+ */
 class QualityFactor implements QualityFactorInterface
 {
     /**
      * @var float
      */
     private $qFactor;
-
 
 
     /**
@@ -35,7 +34,6 @@ class QualityFactor implements QualityFactorInterface
         $this->qFactor = $qFactor;
     }
 
-
     /**
      * Returns the quality factor.
      *
@@ -45,7 +43,6 @@ class QualityFactor implements QualityFactorInterface
     {
         return $this->qFactor;
     }
-
 
     /**
      * Returns a string representation of the quality factor.

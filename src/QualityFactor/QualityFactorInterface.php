@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Interface for quality factors.
- *
  * PHP Version 5.3
  *
  * @copyright   (c) 2006-2014 brian ridley
@@ -26,7 +24,6 @@ interface QualityFactorInterface
      * @return float
      */
     public function getFactor();
-
 
     /**
      * Returns a string representation of the quality factor.

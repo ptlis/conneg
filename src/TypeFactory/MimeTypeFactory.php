@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Factory class to parse Accept fields & create MimeType instances.
- *
  * PHP Version 5.3
  *
  * @copyright   (c) 2006-2014 brian ridley
@@ -53,7 +51,6 @@ class MimeTypeFactory implements TypeFactoryInterface
         $this->typeBuilder = $typeBuilder;
     }
 
-
     /**
      * Parse application types as http field & return a collection of types.
      *
@@ -68,7 +65,6 @@ class MimeTypeFactory implements TypeFactoryInterface
         return $this->parse($field, true);
     }
 
-
     /**
      * Parse user-agent types from http field & return a collection of types.
      *
@@ -80,7 +76,6 @@ class MimeTypeFactory implements TypeFactoryInterface
     {
         return $this->parse($field, false);
     }
-
 
     /**
      * Extracts type data from $typeList and populates typeCollection with CharsetTypes.
@@ -127,7 +122,6 @@ class MimeTypeFactory implements TypeFactoryInterface
         }
     }
 
-
     /**
      * Build & return LanguageType from params.
      *
@@ -147,7 +141,6 @@ class MimeTypeFactory implements TypeFactoryInterface
             ->setQualityFactor($qualityFactor)
             ->get();
     }
-
 
     /**
      * Parse the provided Accept field & return a TypeCollection containing MimeType, MimeWildcardType &

@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Class for type pairs, used for encoding, charset & language negotiation.
- *
  * PHP Version 5.3
  *
  * @copyright   (c) 2006-2014 brian ridley
@@ -47,7 +45,6 @@ class TypePair implements TypePairInterface
         $this->appType  = $appType;
     }
 
-
     /**
      * Returns the user-agent's type or an instance of AbsentType.
      *
@@ -58,7 +55,6 @@ class TypePair implements TypePairInterface
         return $this->userType;
     }
 
-
     /**
      * Returns the application's type or an instance of AbsentType.
      *
@@ -68,7 +64,6 @@ class TypePair implements TypePairInterface
     {
         return $this->appType;
     }
-
 
     /**
      * Get the shared type for this pair.
@@ -84,7 +79,6 @@ class TypePair implements TypePairInterface
         }
     }
 
-
     /**
      * Returns the product of the application & user-agent quality factors.
      *
@@ -97,7 +91,6 @@ class TypePair implements TypePairInterface
         );
     }
 
-
     /**
      * Returns the combined precedence.
      *
@@ -108,7 +101,6 @@ class TypePair implements TypePairInterface
         return $this->getAppType()->getPrecedence() + $this->getUserType()->getPrecedence();
     }
 
-
     /**
      * Deep clone.
      */
@@ -117,7 +109,6 @@ class TypePair implements TypePairInterface
         $this->userType = clone $this->userType;
         $this->appType = clone $this->appType;
     }
-
 
     /**
      * Create string representation of type.

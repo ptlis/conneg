@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Interface for types.
- *
  * PHP Version 5.3
  *
  * @copyright   (c) 2006-2014 brian ridley
@@ -29,7 +27,6 @@ interface TypeInterface
      */
     public function getType();
 
-
     /**
      * Return the precedence of the type (wildcards are superseded by full matches etc).
      *
@@ -37,14 +34,12 @@ interface TypeInterface
      */
     public function getPrecedence();
 
-
     /**
      * Returns the quality factor for the type.
      *
      * @return QualityFactorInterface
      */
     public function getQualityFactor();
-
 
     /**
      * Create string representation of type.

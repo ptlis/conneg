@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Class for negotiating on mime types.
- *
  * PHP Version 5.3
  *
  * @copyright   (c) 2006-2014 brian ridley
@@ -53,7 +51,6 @@ class MimeNegotiator implements NegotiatorInterface
         $this->pairSort     = $pairSort;
     }
 
-
     /**
      * Return a collection of types sorted by preference.
      *
@@ -83,7 +80,6 @@ class MimeNegotiator implements NegotiatorInterface
         return $pairCollection->getDescending();
     }
 
-
     /**
      * Return the preferred type & product of application & user-agent quality factors.
      *
@@ -98,7 +94,6 @@ class MimeNegotiator implements NegotiatorInterface
 
         return $pairCollection->getBest();
     }
-
 
     /**
      * Attempt to match wildcard type against each item in matching list.
@@ -121,7 +116,6 @@ class MimeNegotiator implements NegotiatorInterface
 
         return $matchingList;
     }
-
 
     /**
      * Attempt to match wildcard subtypes against each item in matching list with an identical type.
@@ -149,7 +143,6 @@ class MimeNegotiator implements NegotiatorInterface
         return $matchingList;
     }
 
-
     /**
      * Attempt to match the given type to an existing type in typeList.
      *
@@ -171,7 +164,6 @@ class MimeNegotiator implements NegotiatorInterface
 
         return $matchingList;
     }
-
 
     /**
      * Match user types to app types.

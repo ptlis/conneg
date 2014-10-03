@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Interface for types.
- *
  * PHP Version 5.3
  *
  * @copyright   (c) 2006-2014 brian ridley
@@ -28,7 +26,6 @@ interface TypePairInterface extends TypeInterface
      * @return TypeInterface
      */
     public function getUserType();
-
 
     /**
      * Returns the application's preferred type or an instance of AbsentType.

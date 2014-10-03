@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Helper class encoding the rules governing the sorting of TypePairCollections.
- *
  * PHP Version 5.3
  *
  * @copyright   (c) 2006-2014 brian ridley
@@ -59,7 +57,6 @@ class TypePairSort
         $newCollection->setList($typePairList);
     }
 
-
     /**
      * Sort the array of typePairs in descending order.
      *
@@ -79,7 +76,13 @@ class TypePairSort
         $newCollection->setList($typePairList);
     }
 
-
+    /**
+     * Get the best matching type pair.
+     *
+     * @param array $typePairList
+     *
+     * @return TypePairInterface
+     */
     public function getBest(array $typePairList)
     {
         $that = $this;
@@ -99,7 +102,6 @@ class TypePairSort
 
         return $bestPair;
     }
-
 
     /**
      * Comparison function used for ordering type pairs.
@@ -131,7 +133,6 @@ class TypePairSort
         }
     }
 
-
     /**
      * Compare the quality factor products of a type pair.
      *
@@ -151,7 +152,6 @@ class TypePairSort
         }
     }
 
-
     /**
      * Compare quality factors of types.
      *
@@ -170,7 +170,6 @@ class TypePairSort
             return 0;
         }
     }
-
 
     /**
      * Compare types alphabetically

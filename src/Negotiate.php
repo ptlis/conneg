@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Class providing a simple API through which content negotiation is performed.
- *
  * PHP Version 5.3
  *
  * @copyright   (c) 2006-2014 brian ridley
@@ -138,7 +136,6 @@ class Negotiate
         );
     }
 
-
     /**
      * Parse the Accept-Charset field & negotiate against application types, return the preferred type.
      *
@@ -154,7 +151,6 @@ class Negotiate
 
         return $this->charsetNegotiator->negotiateBest($userTypeList, $appTypeList);
     }
-
 
     /**
      * Parse the Accept-Charset field & negotiate against application types, return an array of types sorted by
@@ -175,7 +171,6 @@ class Negotiate
         return $this->charsetNegotiator->negotiateAll($userTypeList, $appTypeList);
     }
 
-
     /**
      * Parse the Accept-Encoding field & negotiate against application types, return the preferred type.
      *
@@ -191,7 +186,6 @@ class Negotiate
 
         return $this->encodingNegotiator->negotiateBest($userTypeList, $appTypeList);
     }
-
 
     /**
      * Parse the Accept-Encoding field & negotiate against application types, return an array of types sorted by
@@ -212,7 +206,6 @@ class Negotiate
         return $this->encodingNegotiator->negotiateAll($userTypeList, $appTypeList);
     }
 
-
     /**
      * Parse the Accept-Language field & negotiate against application types, return the preferred type.
      *
@@ -228,7 +221,6 @@ class Negotiate
 
         return $this->languageNegotiator->negotiateBest($userTypeList, $appTypeList);
     }
-
 
     /**
      * Parse the Accept-Language field & negotiate against application types, return an array of types sorted by
@@ -249,7 +241,6 @@ class Negotiate
         return $this->languageNegotiator->negotiateAll($userTypeList, $appTypeList);
     }
 
-
     /**
      * Parse the Accept field & negotiate against application types, return the preferred type.
      *
@@ -265,7 +256,6 @@ class Negotiate
 
         return $this->mimeNegotiator->negotiateBest($userTypeList, $appTypeList);
     }
-
 
     /**
      * Parse the Accept field & negotiate against application types, return an array of types sorted by preference.
@@ -284,7 +274,6 @@ class Negotiate
 
         return $this->mimeNegotiator->negotiateAll($userTypeList, $appTypeList);
     }
-
 
     /**
      * Convert application type preferences to a TypeCollection.

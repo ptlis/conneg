@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Class for absence of a MIME type.
- *
  * PHP Version 5.3
  *
  * @copyright   (c) 2006-2014 brian ridley

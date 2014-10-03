@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Interface that collections must implement.
- *
  * PHP Version 5.3
  *
  * @copyright   (c) 2006-2014 brian ridley
@@ -33,7 +31,6 @@ interface CollectionInterface extends Countable, IteratorAggregate
      */
     public function setList(array $list);
 
-
     /**
      * Return count of elements.
      *
@@ -42,7 +39,6 @@ interface CollectionInterface extends Countable, IteratorAggregate
      * @return int
      */
     public function count();
-
 
     /**
      * Retrieve an external iterator.
@@ -61,14 +57,12 @@ interface CollectionInterface extends Countable, IteratorAggregate
      */
     public function getAscending();
 
-
     /**
      * Returns a new sorted collection.
      *
      * @return CollectionInterface with elements in descending order
      */
     public function getDescending();
-
 
     /**
      * Returns a string representation of the collection.

@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Interface class for negotiators.
- *
  * PHP Version 5.3
  *
  * @copyright   (c) 2006-2014 brian ridley
@@ -33,7 +31,6 @@ interface NegotiatorInterface
      * @return CollectionInterface
      */
     public function negotiateAll(TypeCollection $userTypeList, TypeCollection $appTypeList);
-
 
     /**
      * Return the preferred type & product of application & user-agent quality factors.

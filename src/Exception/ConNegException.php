@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Base exception type for library.
- *
  * PHP Version 5.3
  *
  * @copyright   (c) 2006-2014 brian ridley
@@ -15,6 +13,9 @@
 
 namespace ptlis\ConNeg\Exception;
 
+/**
+ * Base exception used in library.
+ */
 class ConNegException extends \RuntimeException
 {
     /**

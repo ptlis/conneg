@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Interface for factories that parse & create Types.
- *
  * PHP Version 5.3
  *
  * @copyright   (c) 2006-2014 brian ridley
@@ -32,7 +30,6 @@ interface TypeFactoryInterface
      */
     public function parseApp($field);
 
-
     /**
      * Parse user-agent types from http field & return a collection of types.
      *
@@ -41,7 +38,6 @@ interface TypeFactoryInterface
      * @return TypeCollection
      */
     public function parseUser($field);
-
 
     /**
      * @param string $type

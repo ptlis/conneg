@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Collection for Type instances, provides sort capabilities.
- *
  * PHP Version 5.3
  *
  * @copyright   (c) 2006-2014 brian ridley
@@ -38,7 +36,6 @@ class TypeCollection implements CollectionInterface
         $this->typeList = array();
     }
 
-
     /**
      * Set the internal store to the provided values.
      *
@@ -55,7 +52,6 @@ class TypeCollection implements CollectionInterface
         return $this;
     }
 
-
     /**
      * Add a type to the collection.
      *
@@ -70,7 +66,6 @@ class TypeCollection implements CollectionInterface
         return $this;
     }
 
-
     /**
      * Return count of elements.
      *
@@ -81,7 +76,6 @@ class TypeCollection implements CollectionInterface
         return count($this->typeList);
     }
 
-
     /**
      * Retrieve an external iterator.
      *
@@ -91,7 +85,6 @@ class TypeCollection implements CollectionInterface
     {
         return new ArrayIterator($this->typeList);
     }
-
 
     /**
      * Returns a new sorted collection.
@@ -123,7 +116,6 @@ class TypeCollection implements CollectionInterface
         return $newCollection;
     }
 
-
     /**
      * Returns a new sorted collection.
      *
@@ -153,7 +145,6 @@ class TypeCollection implements CollectionInterface
 
         return $newCollection;
     }
-
 
     /**
      * Return a string representation of the collection.

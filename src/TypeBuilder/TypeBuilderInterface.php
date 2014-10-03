@@ -29,7 +29,6 @@ interface TypeBuilderInterface
      */
     public function setAppType($appType);
 
-
     /**
      * Set the string representation of the type.
      *
@@ -39,7 +38,6 @@ interface TypeBuilderInterface
      */
     public function setType($type);
 
-
     /**
      * Set the quality factor.
      *
@@ -48,7 +46,6 @@ interface TypeBuilderInterface
      * @return TypeBuilderInterface
      */
     public function setQualityFactor($qFactor);
-
 
     /**
      * Get the hydrated type object.

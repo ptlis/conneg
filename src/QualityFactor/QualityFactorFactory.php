@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Factory class creating QualityFactor instances.
- *
  * PHP Version 5.3
  *
  * @copyright   (c) 2006-2014 brian ridley
@@ -48,7 +46,6 @@ class QualityFactorFactory
         return new QualityFactor($qualityFactor);
     }
 
-
     /**
      * Check to see if the quality factor is a valid float.
      *
@@ -76,7 +73,6 @@ class QualityFactorFactory
         return $normalisedQFactor;
     }
 
-
     /**
      * Check to see if the quality factor is greater than 1.
      *
@@ -101,7 +97,6 @@ class QualityFactorFactory
 
         return $qualityFactor;
     }
-
 
     /**
      * Check to see if the quality factor is less than 0.

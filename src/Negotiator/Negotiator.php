@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Class for negotiating on charset, encoding & language types.
- *
  * PHP Version 5.3
  *
  * @copyright   (c) 2006-2014 brian ridley
@@ -52,7 +50,6 @@ class Negotiator implements NegotiatorInterface
         $this->pairSort     = $pairSort;
     }
 
-
     /**
      * Return a collection of types sorted by preference.
      *
@@ -82,7 +79,6 @@ class Negotiator implements NegotiatorInterface
         return $pairCollection->getDescending();
     }
 
-
     /**
      * Return the preferred type & product of application & user-agent quality factors.
      *
@@ -97,7 +93,6 @@ class Negotiator implements NegotiatorInterface
 
         return $pairCollection->getBest();
     }
-
 
     /**
      * Match user types to app types.
@@ -137,7 +132,6 @@ class Negotiator implements NegotiatorInterface
 
         return $matchingList;
     }
-
 
     /**
      * Attempt to match wildcard type against each item in matching list.

@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Collection for TypePair instances, provides sort capabilities.
- *
  * PHP Version 5.3
  *
  * @copyright   (c) 2006-2014 brian ridley
@@ -46,7 +44,6 @@ class SharedTypePairCollection implements CollectionInterface
         $this->typePairList = array();
     }
 
-
     /**
      * Set the internal store to the provided values.
      *
@@ -63,7 +60,6 @@ class SharedTypePairCollection implements CollectionInterface
         return $this;
     }
 
-
     /**
      * Add a type pair to the collection.
      *
@@ -78,7 +74,6 @@ class SharedTypePairCollection implements CollectionInterface
         return $this;
     }
 
-
     /**
      * Return count of elements.
      *
@@ -89,7 +84,6 @@ class SharedTypePairCollection implements CollectionInterface
         return count($this->typePairList);
     }
 
-
     /**
      * Retrieve an external iterator.
      *
@@ -99,7 +93,6 @@ class SharedTypePairCollection implements CollectionInterface
     {
         return new ArrayIterator($this->typePairList);
     }
-
 
     /**
      * Returns a new sorted collection.
@@ -114,7 +107,6 @@ class SharedTypePairCollection implements CollectionInterface
         return $newCollection;
     }
 
-
     /**
      * Returns a new sorted collection.
      *
@@ -128,7 +120,6 @@ class SharedTypePairCollection implements CollectionInterface
         return $newCollection;
     }
 
-
     /**
      * Get the preferred pair.
      *
@@ -140,7 +131,6 @@ class SharedTypePairCollection implements CollectionInterface
 
         return $bestPair;
     }
-
 
     /**
      * Deep clone
@@ -155,7 +145,6 @@ class SharedTypePairCollection implements CollectionInterface
 
         $this->typePairList = $newTypePairList;
     }
-
 
     /**
      * Return a string representation of the collection.

@@ -51,7 +51,6 @@ class TypeFactory implements TypeFactoryInterface
         $this->typeBuilder = $typeBuilder;
     }
 
-
     /**
      * Parse application types as http field & return a collection of types.
      *
@@ -66,7 +65,6 @@ class TypeFactory implements TypeFactoryInterface
         return $this->parse($field, true);
     }
 
-
     /**
      * Parse user-agent types from http field & return a collection of types.
      *
@@ -78,7 +76,6 @@ class TypeFactory implements TypeFactoryInterface
     {
         return $this->parse($field, false);
     }
-
 
     /**
      * Get a type from the provided parameters.
@@ -98,7 +95,6 @@ class TypeFactory implements TypeFactoryInterface
             ->get();
     }
 
-
     /**
      * Extracts type data from $typeList and populates typeCollection with CharsetType & WildcardType instances..
      *
@@ -114,7 +110,6 @@ class TypeFactory implements TypeFactoryInterface
             $typeCollection->addType($type);
         }
     }
-
 
     /**
      * Parse a http field & return a collection of types.

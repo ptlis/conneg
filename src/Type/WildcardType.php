@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Class for representing a wildcard type.
- *
  * PHP Version 5.3
  *
  * @copyright   (c) 2006-2014 brian ridley
