@@ -108,11 +108,10 @@ class MimeTypeFactory implements TypeFactoryInterface
                 $normalisedExtensList[$extensList['key'][$extensKey]] = $extensList['value'][$extensKey];
             }
 
+            $qFactor = 1;
             if (array_key_exists('q', $normalisedExtensList)) {
                 $qFactor = $normalisedExtensList['q'];
                 unset($normalisedExtensList['q']);
-            } else {
-                $qFactor = 1;
             }
 
             try {
