@@ -91,3 +91,11 @@ Changelog:
        types will also have that key with a value of null.
      - Fix to sorting when both the user-agent and application provide quality
        factors including accept-extensions.
+
+2014-10-03 - Version 3.0.0
+     - Re-write of library to be PSR compliant & to improve implementation by
+       using modern techniques.
+     - Component-based library - usable independantly or through the Negotiate
+       utility class.
+     - Comprehensive test suite.
+     - Installable with composer/packagist.
