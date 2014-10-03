@@ -91,12 +91,12 @@ class MimeTypeBuilder extends AbstractTypeBuilder
 
         switch (true) {
             // Full wildcard type
-            case $mimeType === '*' && $subType === '*':
+            case $mimeType === '*':
                 $type = new MimeWildcardType($this->qFactor);
                 break;
 
             // Wildcard subtype
-            case $mimeType !== '*' && $subType === '*':
+            case $subType === '*':
                 $type = new MimeWildcardSubType($mimeType, $this->qFactor);
                 break;
 
