@@ -20,9 +20,9 @@ use ptlis\ConNeg\Collection\SharedTypePairCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
 use ptlis\ConNeg\Negotiate;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
-use ptlis\ConNeg\Type\Shared\AbsentType;
-use ptlis\ConNeg\Type\Charset\CharsetType;
-use ptlis\ConNeg\Type\Shared\WildcardType;
+use ptlis\ConNeg\Type\AbsentType;
+use ptlis\ConNeg\Type\CharsetType;
+use ptlis\ConNeg\Type\WildcardType;
 use ptlis\ConNeg\TypePair\SharedTypePair;
 
 class CharsetAllTest extends \PHPUnit_Framework_TestCase

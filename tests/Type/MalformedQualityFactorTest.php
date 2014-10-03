@@ -16,14 +16,14 @@ namespace ptlis\ConNeg\Test\Type;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
-use ptlis\ConNeg\Type\Charset\CharsetType;
-use ptlis\ConNeg\Type\Charset\CharsetTypeBuilder;
-use ptlis\ConNeg\Type\Mime\MimeType;
-use ptlis\ConNeg\Type\Mime\MimeTypeBuilder;
-use ptlis\ConNeg\Type\Mime\MimeTypeFactory;
-use ptlis\ConNeg\Type\Mime\MimeTypeRegexProvider;
-use ptlis\ConNeg\Type\Shared\SharedTypeFactory;
-use ptlis\ConNeg\Type\Shared\SharedTypeRegexProvider;
+use ptlis\ConNeg\RegexProvider\MimeTypeRegexProvider;
+use ptlis\ConNeg\RegexProvider\SharedTypeRegexProvider;
+use ptlis\ConNeg\Type\CharsetType;
+use ptlis\ConNeg\TypeBuilder\CharsetTypeBuilder;
+use ptlis\ConNeg\Type\MimeType;
+use ptlis\ConNeg\TypeBuilder\MimeTypeBuilder;
+use ptlis\ConNeg\TypeFactory\MimeTypeFactory;
+use ptlis\ConNeg\TypeFactory\SharedTypeFactory;
 
 /**
  * Test to verify correct handling of malformed client types.

@@ -17,7 +17,7 @@ namespace ptlis\ConNeg\TypePair;
 
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
-use ptlis\ConNeg\Type\Shared\Interfaces\TypeInterface;
+use ptlis\ConNeg\Type\TypeInterface;
 
 /**
  * Class for type pairs.

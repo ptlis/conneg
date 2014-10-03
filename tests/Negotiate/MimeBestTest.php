@@ -18,9 +18,9 @@ namespace ptlis\ConNeg\Test\Negotiate;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Negotiate;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
-use ptlis\ConNeg\Type\Mime\AbsentMimeType;
-use ptlis\ConNeg\Type\Mime\MimeType;
-use ptlis\ConNeg\Type\Mime\MimeWildcardSubType;
+use ptlis\ConNeg\Type\MimeAbsentType;
+use ptlis\ConNeg\Type\MimeType;
+use ptlis\ConNeg\Type\MimeWildcardSubType;
 use ptlis\ConNeg\TypePair\SharedTypePair;
 
 class MimeBestTest extends \PHPUnit_Framework_TestCase
@@ -31,8 +31,8 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = '';
 
         $expectPair = new SharedTypePair(
-            new AbsentMimeType(new QualityFactor(0)),
-            new AbsentMimeType(new QualityFactor(0))
+            new MimeAbsentType(new QualityFactor(0)),
+            new MimeAbsentType(new QualityFactor(0))
         );
 
         $negotiate = new Negotiate();
@@ -48,8 +48,8 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = new TypeCollection();
 
         $expectPair = new SharedTypePair(
-            new AbsentMimeType(new QualityFactor(0)),
-            new AbsentMimeType(new QualityFactor(0))
+            new MimeAbsentType(new QualityFactor(0)),
+            new MimeAbsentType(new QualityFactor(0))
         );
 
         $negotiate = new Negotiate();
@@ -81,7 +81,7 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
 
         $expectPair = new SharedTypePair(
             new MimeType('text', 'html', new QualityFactor(1)),
-            new AbsentMimeType(new QualityFactor(0))
+            new MimeAbsentType(new QualityFactor(0))
         );
 
         $negotiate = new Negotiate();
@@ -98,7 +98,7 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
 
         $expectPair = new SharedTypePair(
             new MimeType('text', 'html', new QualityFactor(1)),
-            new AbsentMimeType(new QualityFactor(0))
+            new MimeAbsentType(new QualityFactor(0))
         );
 
         $negotiate = new Negotiate();
@@ -114,7 +114,7 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'application/rdf+xml;q=1,text/n3;q=0.5';
 
         $expectPair = new SharedTypePair(
-            new AbsentMimeType(new QualityFactor(0)),
+            new MimeAbsentType(new QualityFactor(0)),
             new MimeType('application', 'rdf+xml', new QualityFactor(1))
         );
 
@@ -131,7 +131,7 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'text/n3;q=0.5,application/rdf+xml;q=1';
 
         $expectPair = new SharedTypePair(
-            new AbsentMimeType(new QualityFactor(0)),
+            new MimeAbsentType(new QualityFactor(0)),
             new MimeType('application', 'rdf+xml', new QualityFactor(1))
         );
 
@@ -148,7 +148,7 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'text/n3;q=0.5,text/html;q=0.5';
 
         $expectPair = new SharedTypePair(
-            new AbsentMimeType(new QualityFactor(0)),
+            new MimeAbsentType(new QualityFactor(0)),
             new MimeType('text', 'html', new QualityFactor(0.5))
         );
 

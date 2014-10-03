@@ -17,8 +17,8 @@ namespace ptlis\ConNeg\Test\Negotiate;
 
 use ptlis\ConNeg\Negotiate;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
-use ptlis\ConNeg\Type\Shared\AbsentType;
-use ptlis\ConNeg\Type\Charset\CharsetType;
+use ptlis\ConNeg\Type\AbsentType;
+use ptlis\ConNeg\Type\CharsetType;
 use ptlis\ConNeg\TypePair\SharedTypePair;
 
 class CharsetBestTest extends \PHPUnit_Framework_TestCase

@@ -18,13 +18,12 @@ namespace ptlis\ConNeg\Test\Type\Mime;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
-use ptlis\ConNeg\Type\Mime\MimeType;
-use ptlis\ConNeg\Type\Mime\MimeTypeBuilder;
-use ptlis\ConNeg\Type\Mime\MimeTypeFactory;
-use ptlis\ConNeg\Type\Mime\MimeTypeMimeTypeRegexProvider;
-use ptlis\ConNeg\Type\Mime\MimeTypeRegexProvider;
-use ptlis\ConNeg\Type\Mime\MimeWildcardSubType;
-use ptlis\ConNeg\Type\Mime\MimeWildcardType;
+use ptlis\ConNeg\RegexProvider\MimeTypeRegexProvider;
+use ptlis\ConNeg\Type\MimeType;
+use ptlis\ConNeg\TypeBuilder\MimeTypeBuilder;
+use ptlis\ConNeg\TypeFactory\MimeTypeFactory;
+use ptlis\ConNeg\Type\MimeWildcardSubType;
+use ptlis\ConNeg\Type\MimeWildcardType;
 
 class MimeTypeFactoryTest extends \PHPUnit_Framework_TestCase
 {

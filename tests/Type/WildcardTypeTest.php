@@ -16,7 +16,7 @@
 namespace ptlis\ConNeg\Test\Type;
 
 use ptlis\ConNeg\QualityFactor\QualityFactor;
-use ptlis\ConNeg\Type\Shared\WildcardType;
+use ptlis\ConNeg\Type\WildcardType;
 
 class WildcardTypeTest extends \PHPUnit_Framework_TestCase
 {

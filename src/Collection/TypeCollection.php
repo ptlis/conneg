@@ -17,7 +17,7 @@ namespace ptlis\ConNeg\Collection;
 
 use ArrayIterator;
 use Traversable;
-use ptlis\ConNeg\Type\Shared\Interfaces\TypeInterface;
+use ptlis\ConNeg\Type\TypeInterface;
 
 /**
  * Collection for Type instances, provides sort capabilities.

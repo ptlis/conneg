@@ -16,7 +16,7 @@
 namespace ptlis\ConNeg\Test\Type\Mime;
 
 use ptlis\ConNeg\QualityFactor\QualityFactor;
-use ptlis\ConNeg\Type\Mime\MimeType;
+use ptlis\ConNeg\Type\MimeType;
 
 class MimeTypeTest extends \PHPUnit_Framework_TestCase
 {

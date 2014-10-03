@@ -18,11 +18,11 @@ namespace ptlis\ConNeg\Test\Type\Charset;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
-use ptlis\ConNeg\Type\Charset\CharsetType;
-use ptlis\ConNeg\Type\Charset\CharsetTypeBuilder;
-use ptlis\ConNeg\Type\Shared\SharedTypeFactory;
-use ptlis\ConNeg\Type\Shared\SharedTypeRegexProvider;
-use ptlis\ConNeg\Type\Shared\WildcardType;
+use ptlis\ConNeg\Type\CharsetType;
+use ptlis\ConNeg\TypeBuilder\CharsetTypeBuilder;
+use ptlis\ConNeg\TypeFactory\SharedTypeFactory;
+use ptlis\ConNeg\RegexProvider\SharedTypeRegexProvider;
+use ptlis\ConNeg\Type\WildcardType;
 
 class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
 {

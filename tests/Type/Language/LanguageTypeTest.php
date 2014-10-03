@@ -16,7 +16,7 @@
 namespace ptlis\ConNeg\Test\Type\Language;
 
 use ptlis\ConNeg\QualityFactor\QualityFactor;
-use ptlis\ConNeg\Type\Language\LanguageType;
+use ptlis\ConNeg\Type\LanguageType;
 
 class LanguageTypeTest extends \PHPUnit_Framework_TestCase
 {

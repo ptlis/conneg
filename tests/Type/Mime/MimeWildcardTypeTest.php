@@ -16,7 +16,7 @@
 namespace ptlis\ConNeg\Test\Type\Mime;
 
 use ptlis\ConNeg\QualityFactor\QualityFactor;
-use ptlis\ConNeg\Type\Mime\MimeWildcardType;
+use ptlis\ConNeg\Type\MimeWildcardType;
 
 class MimeWildcardTypeTest extends \PHPUnit_Framework_TestCase
 {

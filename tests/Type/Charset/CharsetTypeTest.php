@@ -16,7 +16,7 @@
 namespace ptlis\ConNeg\Test\Type\Charset;
 
 use ptlis\ConNeg\QualityFactor\QualityFactor;
-use ptlis\ConNeg\Type\Charset\CharsetType;
+use ptlis\ConNeg\Type\CharsetType;
 
 class CharsetTypeTest extends \PHPUnit_Framework_TestCase
 {

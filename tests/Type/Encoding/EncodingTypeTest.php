@@ -16,7 +16,7 @@
 namespace ptlis\ConNeg\Test\Type\Encoding;
 
 use ptlis\ConNeg\QualityFactor\QualityFactor;
-use ptlis\ConNeg\Type\Encoding\EncodingType;
+use ptlis\ConNeg\Type\EncodingType;
 
 class EncodingTypeTest extends \PHPUnit_Framework_TestCase
 {

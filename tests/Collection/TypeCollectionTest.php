@@ -17,7 +17,7 @@ namespace ptlis\ConNeg\Test\Collection;
 
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
-use ptlis\ConNeg\Type\Mime\MimeType;
+use ptlis\ConNeg\Type\MimeType;
 
 class TypeCollectionTest extends \PHPUnit_Framework_TestCase
 {
@@ -55,7 +55,7 @@ class TypeCollectionTest extends \PHPUnit_Framework_TestCase
 
         $ascendingCollection = $expectCollection->getAscending();
         foreach ($ascendingCollection as $type) {
-            $this->assertInstanceOf('ptlis\ConNeg\Type\Shared\Interfaces\TypeInterface', $type);
+            $this->assertInstanceOf('ptlis\ConNeg\Type\TypeInterface', $type);
         }
     }
 

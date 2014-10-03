@@ -15,7 +15,7 @@
 
 namespace ptlis\ConNeg\TypePair;
 
-use ptlis\ConNeg\Type\Shared\Interfaces\TypeInterface;
+use ptlis\ConNeg\Type\TypeInterface;
 
 /**
  * Interface for types.

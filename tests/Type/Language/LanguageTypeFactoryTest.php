@@ -18,11 +18,11 @@ namespace ptlis\ConNeg\Test\Type\Language;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
-use ptlis\ConNeg\Type\Language\LanguageType;
-use ptlis\ConNeg\Type\Language\LanguageTypeBuilder;
-use ptlis\ConNeg\Type\Shared\SharedTypeFactory;
-use ptlis\ConNeg\Type\Shared\SharedTypeRegexProvider;
-use ptlis\ConNeg\Type\Shared\WildcardType;
+use ptlis\ConNeg\Type\LanguageType;
+use ptlis\ConNeg\TypeBuilder\LanguageTypeBuilder;
+use ptlis\ConNeg\TypeFactory\SharedTypeFactory;
+use ptlis\ConNeg\RegexProvider\SharedTypeRegexProvider;
+use ptlis\ConNeg\Type\WildcardType;
 
 class LanguageTypeFactoryTest extends \PHPUnit_Framework_TestCase
 {

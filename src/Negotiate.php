@@ -20,20 +20,20 @@ use ptlis\ConNeg\Collection\SharedTypePairCollection;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
 use ptlis\ConNeg\Exception\ConNegException;
-use ptlis\ConNeg\Type\Charset\CharsetTypeBuilder;
-use ptlis\ConNeg\Type\Encoding\EncodingTypeBuilder;
-use ptlis\ConNeg\Type\Language\LanguageTypeBuilder;
-use ptlis\ConNeg\Type\Mime\MimeNegotiator;
-use ptlis\ConNeg\Type\Mime\MimeTypeBuilder;
-use ptlis\ConNeg\Type\Mime\MimeTypeRegexProvider;
-use ptlis\ConNeg\Type\Shared\SharedNegotiator;
-use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
-use ptlis\ConNeg\Type\Mime\MimeTypeFactory;
-use ptlis\ConNeg\Type\Shared\SharedTypeRegexProvider;
-use ptlis\ConNeg\Type\Shared\SharedTypeFactory;
-use ptlis\ConNeg\Type\Shared\Interfaces\TypeFactoryInterface;
+use ptlis\ConNeg\Negotiator\MimeNegotiator;
+use ptlis\ConNeg\Negotiator\SharedNegotiator;
+use ptlis\ConNeg\RegexProvider\MimeTypeRegexProvider;
+use ptlis\ConNeg\RegexProvider\SharedTypeRegexProvider;
+use ptlis\ConNeg\TypeBuilder\CharsetTypeBuilder;
+use ptlis\ConNeg\TypeBuilder\EncodingTypeBuilder;
+use ptlis\ConNeg\TypeBuilder\LanguageTypeBuilder;
+use ptlis\ConNeg\TypeBuilder\MimeTypeBuilder;
+use ptlis\ConNeg\TypeFactory\MimeTypeFactory;
+use ptlis\ConNeg\TypeFactory\SharedTypeFactory;
+use ptlis\ConNeg\TypeFactory\TypeFactoryInterface;
 use ptlis\ConNeg\TypePair\SharedTypePair;
 use ptlis\Conneg\TypePair\TypePairInterface;
+use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
 
 /**
  * Class providing a simple API through which content negotiation is performed.
