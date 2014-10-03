@@ -21,11 +21,8 @@ use ptlis\ConNeg\Collection\SharedTypePairCollection;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
 use ptlis\ConNeg\Exception\ConNegException;
-use ptlis\ConNeg\Type\Charset\CharsetNegotiator;
 use ptlis\ConNeg\Type\Charset\CharsetTypeBuilder;
-use ptlis\ConNeg\Type\Encoding\EncodingNegotiator;
 use ptlis\ConNeg\Type\Encoding\EncodingTypeBuilder;
-use ptlis\ConNeg\Type\Language\LanguageNegotiator;
 use ptlis\ConNeg\Type\Language\LanguageTypeBuilder;
 use ptlis\ConNeg\Type\Mime\MimeNegotiator;
 use ptlis\ConNeg\Type\Mime\MimeTypeBuilder;
@@ -51,7 +48,7 @@ class Negotiate
     private $charsetFactory;
 
     /**
-     * @var CharsetNegotiator
+     * @var SharedNegotiator
      */
     private $charsetNegotiator;
 
@@ -61,7 +58,7 @@ class Negotiate
     private $encodingFactory;
 
     /**
-     * @var EncodingNegotiator
+     * @var SharedNegotiator
      */
     private $encodingNegotiator;
 
@@ -71,7 +68,7 @@ class Negotiate
     private $languageFactory;
 
     /**
-     * @var LanguageNegotiator
+     * @var SharedNegotiator
      */
     private $languageNegotiator;
 
@@ -127,23 +124,17 @@ class Negotiate
         );
 
         // Prepare negotiators
-        $this->charsetNegotiator    = new CharsetNegotiator(
-            new SharedNegotiator(
-                $this->charsetFactory,
-                $sharedSort
-            )
+        $this->charsetNegotiator    = new SharedNegotiator(
+            $this->charsetFactory,
+            $sharedSort
         );
-        $this->encodingNegotiator   = new EncodingNegotiator(
-            new SharedNegotiator(
-                $this->encodingFactory,
-                $sharedSort
-            )
+        $this->encodingNegotiator   = new SharedNegotiator(
+            $this->encodingFactory,
+            $sharedSort
         );
-        $this->languageNegotiator   = new LanguageNegotiator(
-            new SharedNegotiator(
-                $this->languageFactory,
-                $sharedSort
-            )
+        $this->languageNegotiator   = new SharedNegotiator(
+            $this->languageFactory,
+            $sharedSort
         );
         $this->mimeNegotiator       = new MimeNegotiator(
             $this->mimeFactory,
