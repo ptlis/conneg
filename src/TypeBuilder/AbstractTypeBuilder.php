@@ -116,7 +116,7 @@ abstract class AbstractTypeBuilder implements TypeBuilderInterface
     /**
      * Validate the builder state, if valid then return the hydrated type object.
      *
-     * @throws ConNegException
+     * @throws InvalidTypeException
      *
      * @return TypeInterface
      */
@@ -128,13 +128,9 @@ abstract class AbstractTypeBuilder implements TypeBuilderInterface
                 break;
 
             case '*':
-                if ($this->appType) {
-                    throw new InvalidTypeException(
-                        'Wildcards are not valid in application-provided types.'
-                    );
-                }
-                $type = new WildcardType($this->qFactor);
+                $type = $this->getWildcard();
                 break;
+
 
             default:
                 $type = $this->getType();
@@ -144,6 +140,25 @@ abstract class AbstractTypeBuilder implements TypeBuilderInterface
         $this->setDefaults();
 
         return $type;
+    }
+
+
+    /**
+     * Attempt to get a wildcard type, throws exception if type was provided by the application.
+     *
+     * @throws InvalidTypeException
+     *
+     * @return WildcardType
+     */
+    private function getWildcard()
+    {
+        if ($this->appType) {
+            throw new InvalidTypeException(
+                'Wildcards are not valid in application-provided types.'
+            );
+        }
+
+        return new WildcardType($this->qFactor);
     }
 
 
