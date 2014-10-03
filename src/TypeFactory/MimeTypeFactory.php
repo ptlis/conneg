@@ -20,9 +20,8 @@ use ptlis\ConNeg\Exception\ConNegException;
 use ptlis\ConNeg\Exception\InvalidTypeException;
 use ptlis\ConNeg\RegexProvider\MimeTypeRegexProvider;
 use ptlis\ConNeg\RegexProvider\TypeRegexProviderInterface;
-use ptlis\ConNeg\Type\MimeTypeInterface;
-use ptlis\ConNeg\Type\TypeInterface;
 use ptlis\ConNeg\TypeBuilder\MimeTypeBuilder;
+use ptlis\ConNeg\Type\MimeTypeInterface;
 
 /**
  * Factory class to parse Accept fields & create MimeType instances.
@@ -88,7 +87,7 @@ class MimeTypeFactory implements TypeFactoryInterface
      *
      * @throws InvalidTypeException
      *
-     * @param TypeCollection|TypeInterface[] $typeCollection
+     * @param TypeCollection|MimeTypeInterface[] $typeCollection
      * @param array          $typeList
      * @param bool           $appType
      */

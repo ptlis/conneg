@@ -13,7 +13,6 @@
 
 namespace ptlis\ConNeg\TypeBuilder;
 
-use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
 use ptlis\ConNeg\Type\TypeInterface;
 
 /**
@@ -21,14 +20,6 @@ use ptlis\ConNeg\Type\TypeInterface;
  */
 interface TypeBuilderInterface
 {
-    /**
-     * Constructor
-     *
-     * @param QualityFactorFactory $qFactorFactory
-     */
-    public function __construct(QualityFactorFactory $qFactorFactory);
-
-
     /**
      * Set whether the build type is application-defined or user-defined.
      *

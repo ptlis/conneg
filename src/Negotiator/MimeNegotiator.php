@@ -24,7 +24,6 @@ use ptlis\ConNeg\TypePair\TypePairInterface;
 use ptlis\ConNeg\Type\MimeTypeInterface;
 use ptlis\ConNeg\Type\MimeWildcardSubType;
 use ptlis\ConNeg\Type\MimeWildcardType;
-use ptlis\ConNeg\Type\TypeInterface;
 
 /**
  * Class for negotiating on mime types.
@@ -58,8 +57,8 @@ class MimeNegotiator implements NegotiatorInterface
     /**
      * Return a collection of types sorted by preference.
      *
-     * @param TypeCollection|TypeInterface[] $userTypeList
-     * @param TypeCollection|TypeInterface[] $appTypeList
+     * @param TypeCollection|MimeTypeInterface[] $userTypeList
+     * @param TypeCollection|MimeTypeInterface[] $appTypeList
      *
      * @return SharedTypePairCollection
      */
@@ -88,8 +87,8 @@ class MimeNegotiator implements NegotiatorInterface
     /**
      * Return the preferred type & product of application & user-agent quality factors.
      *
-     * @param TypeCollection|TypeInterface[] $userTypeList
-     * @param TypeCollection|TypeInterface[] $appTypeList
+     * @param TypeCollection|MimeTypeInterface[] $userTypeList
+     * @param TypeCollection|MimeTypeInterface[] $appTypeList
      *
      * @return SharedTypePair
      */

@@ -18,9 +18,9 @@ namespace ptlis\ConNeg\Negotiator;
 use ptlis\ConNeg\Collection\SharedTypePairCollection;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
+use ptlis\ConNeg\TypeFactory\TypeFactoryInterface;
 use ptlis\ConNeg\TypePair\SharedTypePair;
 use ptlis\ConNeg\TypePair\TypePairInterface;
-use ptlis\ConNeg\TypeFactory\TypeFactoryInterface;
 use ptlis\ConNeg\Type\TypeInterface;
 use ptlis\ConNeg\Type\WildcardType;
 

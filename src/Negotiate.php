@@ -24,6 +24,7 @@ use ptlis\ConNeg\Negotiator\MimeNegotiator;
 use ptlis\ConNeg\Negotiator\SharedNegotiator;
 use ptlis\ConNeg\RegexProvider\MimeTypeRegexProvider;
 use ptlis\ConNeg\RegexProvider\SharedTypeRegexProvider;
+use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
 use ptlis\ConNeg\TypeBuilder\CharsetTypeBuilder;
 use ptlis\ConNeg\TypeBuilder\EncodingTypeBuilder;
 use ptlis\ConNeg\TypeBuilder\LanguageTypeBuilder;
@@ -33,7 +34,6 @@ use ptlis\ConNeg\TypeFactory\SharedTypeFactory;
 use ptlis\ConNeg\TypeFactory\TypeFactoryInterface;
 use ptlis\ConNeg\TypePair\SharedTypePair;
 use ptlis\Conneg\TypePair\TypePairInterface;
-use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
 
 /**
  * Class providing a simple API through which content negotiation is performed.

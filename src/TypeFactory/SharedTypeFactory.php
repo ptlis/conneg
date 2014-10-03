@@ -16,8 +16,8 @@ namespace ptlis\ConNeg\TypeFactory;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Exception\ConNegException;
 use ptlis\ConNeg\RegexProvider\TypeRegexProviderInterface;
-use ptlis\ConNeg\Type\TypeInterface;
 use ptlis\ConNeg\TypeBuilder\TypeBuilderInterface;
+use ptlis\ConNeg\Type\TypeInterface;
 
 /**
  * Factory for creation of Charset, Encoding and Language types.

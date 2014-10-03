@@ -13,7 +13,6 @@
 
 namespace ptlis\ConNeg\TypeBuilder;
 
-use ptlis\ConNeg\Exception\ConNegException;
 use ptlis\ConNeg\Exception\InvalidTypeException;
 use ptlis\ConNeg\Exception\QualityFactorException;
 use ptlis\ConNeg\QualityFactor\QualityFactorFactory;

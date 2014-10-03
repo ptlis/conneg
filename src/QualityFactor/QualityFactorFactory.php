@@ -17,8 +17,8 @@ namespace ptlis\ConNeg\QualityFactor;
 
 use ptlis\ConNeg\Exception\ConNegException;
 use ptlis\ConNeg\Exception\QualityFactorMalformedException;
-use ptlis\ConNeg\Exception\QualityFactorTooLargeException;
 use ptlis\ConNeg\Exception\QualityFactorNegativeException;
+use ptlis\ConNeg\Exception\QualityFactorTooLargeException;
 
 /**
  * Factory class creating QualityFactor instances.
