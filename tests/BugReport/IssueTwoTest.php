@@ -21,7 +21,7 @@ use ptlis\ConNeg\Negotiate;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\MimeAbsentType;
 use ptlis\ConNeg\Type\MimeType;
-use ptlis\ConNeg\TypePair\SharedTypePair;
+use ptlis\ConNeg\TypePair\TypePair;
 
 class IssueTwoTest extends \PHPUnit_Framework_TestCase
 {
@@ -34,7 +34,7 @@ class IssueTwoTest extends \PHPUnit_Framework_TestCase
         $appPrefs = '';
 
         $sort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new MimeAbsentType(new QualityFactor(0)),
                 new MimeAbsentType(new QualityFactor(0))
             )
@@ -43,37 +43,37 @@ class IssueTwoTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new SharedTypePairCollection($sort);
         $expectCollection
             ->addPair(
-                new SharedTypePair(
+                new TypePair(
                     new MimeType('text', 'turtle', new QualityFactor(1)),
                     new MimeAbsentType(new QualityFactor(0))
                 )
             )
             ->addPair(
-                new SharedTypePair(
+                new TypePair(
                     new MimeType('application', 'rdf+json', new QualityFactor(0.8)),
                     new MimeAbsentType(new QualityFactor(0))
                 )
             )
             ->addPair(
-                new SharedTypePair(
+                new TypePair(
                     new MimeType('application', 'rdf+xml', new QualityFactor(0.8)),
                     new MimeAbsentType(new QualityFactor(0))
                 )
             )
             ->addPair(
-                new SharedTypePair(
+                new TypePair(
                     new MimeType('text', 'n3', new QualityFactor(0.8)),
                     new MimeAbsentType(new QualityFactor(0))
                 )
             )
             ->addPair(
-                new SharedTypePair(
+                new TypePair(
                     new MimeType('text', 'rdf+n3', new QualityFactor(0.8)),
                     new MimeAbsentType(new QualityFactor(0))
                 )
             )
             ->addPair(
-                new SharedTypePair(
+                new TypePair(
                     new MimeType('application', 'ld+json', new QualityFactor(0.5)),
                     new MimeAbsentType(new QualityFactor(0))
                 )

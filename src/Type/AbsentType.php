@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Class for representing the absence of a type.
- *
  * PHP Version 5.3
  *
  * @copyright   (c) 2006-2014 brian ridley
@@ -20,14 +18,8 @@ use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
 /**
  * Class for representing the absence of a type.
  */
-class AbsentType implements TypeInterface
+class AbsentType extends Type
 {
-    /**
-     * @var QualityFactorInterface
-     */
-    private $qFactor;
-
-
     /**
      * Constructor
      *
@@ -35,42 +27,9 @@ class AbsentType implements TypeInterface
      */
     public function __construct(QualityFactorInterface $qFactor)
     {
-        $this->qFactor = $qFactor;
+        parent::__construct('', $qFactor);
+        $this->precedence = -1;
     }
-
-
-    /**
-     * Return an empty string.
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return '';
-    }
-
-
-    /**
-     * Return the precedence of the type, non-matching types have the lowest precedence.
-     *
-     * @return int
-     */
-    public function getPrecedence()
-    {
-        return -1;
-    }
-
-
-    /**
-     * Returns the quality factor for the type.
-     *
-     * @return QualityFactorInterface
-     */
-    public function getQualityFactor()
-    {
-        return $this->qFactor;
-    }
-
 
     /**
      * Returns an empty string.

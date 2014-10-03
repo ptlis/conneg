@@ -30,6 +30,11 @@ class Type implements TypeInterface
      */
     private $qFactor;
 
+    /**
+     * @var int
+     */
+    protected $precedence;
+
 
     /**
      * Constructor
@@ -41,6 +46,7 @@ class Type implements TypeInterface
     {
         $this->type = $type;
         $this->qFactor = $qFactor;
+        $this->precedence = 1;
     }
 
     /**
@@ -60,7 +66,7 @@ class Type implements TypeInterface
      */
     public function getPrecedence()
     {
-        return 1;
+        return $this->precedence;
     }
 
     /**

@@ -19,7 +19,7 @@ use ptlis\ConNeg\Collection\SharedTypePairCollection;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
 use ptlis\ConNeg\TypeFactory\MimeTypeFactory;
-use ptlis\ConNeg\TypePair\SharedTypePair;
+use ptlis\ConNeg\TypePair\TypePair;
 use ptlis\ConNeg\TypePair\TypePairInterface;
 use ptlis\ConNeg\Type\MimeTypeInterface;
 use ptlis\ConNeg\Type\MimeWildcardSubType;
@@ -66,7 +66,7 @@ class MimeNegotiator implements NegotiatorInterface
     {
         $matchingList = array();
         foreach ($appTypeList as $appType) {
-            $matchingList[$appType->getType()] = new SharedTypePair(
+            $matchingList[$appType->getType()] = new TypePair(
                 $this->typeFactory->get('', 0),
                 $appType
             );
@@ -90,7 +90,7 @@ class MimeNegotiator implements NegotiatorInterface
      * @param TypeCollection|MimeTypeInterface[] $userTypeList
      * @param TypeCollection|MimeTypeInterface[] $appTypeList
      *
-     * @return SharedTypePair
+     * @return TypePair
      */
     public function negotiateBest(TypeCollection $userTypeList, TypeCollection $appTypeList)
     {
@@ -103,16 +103,16 @@ class MimeNegotiator implements NegotiatorInterface
     /**
      * Attempt to match wildcard type against each item in matching list.
      *
-     * @param SharedTypePair[]  $matchingList
+     * @param TypePair[]  $matchingList
      * @param MimeTypeInterface $userType
      *
-     * @return SharedTypePair[]
+     * @return TypePair[]
      */
     private function matchFullWildcard(array $matchingList, MimeTypeInterface $userType)
     {
         foreach ($matchingList as $key => $matching) {
             if ($userType->getPrecedence() > $matching->getUserType()->getPrecedence()) {
-                $matchingList[$key] = new SharedTypePair(
+                $matchingList[$key] = new TypePair(
                     $userType,
                     $matchingList[$key]->getAppType()
                 );
@@ -129,7 +129,7 @@ class MimeNegotiator implements NegotiatorInterface
      * @param TypePairInterface[]   $matchingList
      * @param MimeTypeInterface     $userType
      *
-     * @return SharedTypePair[]
+     * @return TypePair[]
      */
     private function matchSubTypeWildcard(array $matchingList, MimeTypeInterface $userType)
     {
@@ -139,7 +139,7 @@ class MimeNegotiator implements NegotiatorInterface
             if ($userType->getMimeType() == $appType->getMimeType()
                     && $userType->getPrecedence() > $matching->getUserType()->getPrecedence()) {
 
-                $matchingList[$key] = new SharedTypePair(
+                $matchingList[$key] = new TypePair(
                     $userType,
                     $matchingList[$key]->getAppType()
                 );
@@ -160,7 +160,7 @@ class MimeNegotiator implements NegotiatorInterface
      */
     private function matchExact(array $matchingList, MimeTypeInterface $userType)
     {
-        $newPair = new SharedTypePair(
+        $newPair = new TypePair(
             $userType,
             $matchingList[$userType->getType()]->getAppType()
         );
@@ -177,9 +177,9 @@ class MimeNegotiator implements NegotiatorInterface
      * Match user types to app types.
      *
      * @param TypeCollection|MimeTypeInterface[]   $userTypeList
-     * @param SharedTypePair[]  $matchingList
+     * @param TypePair[]  $matchingList
      *
-     * @return SharedTypePair[]
+     * @return TypePair[]
      */
     private function matchUserToAppTypes(TypeCollection $userTypeList, array $matchingList)
     {
@@ -199,7 +199,7 @@ class MimeNegotiator implements NegotiatorInterface
 
             // No match
             } else {
-                $matchingList[$userType->getType()] = new SharedTypePair(
+                $matchingList[$userType->getType()] = new TypePair(
                     $userType,
                     $this->typeFactory->get('', 0)
                 );

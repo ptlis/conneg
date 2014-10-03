@@ -21,16 +21,16 @@ use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
 use ptlis\ConNeg\Exception\ConNegException;
 use ptlis\ConNeg\Negotiator\MimeNegotiator;
-use ptlis\ConNeg\Negotiator\SharedNegotiator;
+use ptlis\ConNeg\Negotiator\Negotiator;
 use ptlis\ConNeg\RegexProvider\MimeTypeRegexProvider;
-use ptlis\ConNeg\RegexProvider\SharedTypeRegexProvider;
+use ptlis\ConNeg\RegexProvider\TypeRegexProvider;
 use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
 use ptlis\ConNeg\TypeBuilder\MimeTypeBuilder;
 use ptlis\ConNeg\TypeBuilder\TypeBuilder;
 use ptlis\ConNeg\TypeFactory\MimeTypeFactory;
-use ptlis\ConNeg\TypeFactory\SharedTypeFactory;
+use ptlis\ConNeg\TypeFactory\TypeFactory;
 use ptlis\ConNeg\TypeFactory\TypeFactoryInterface;
-use ptlis\ConNeg\TypePair\SharedTypePair;
+use ptlis\ConNeg\TypePair\TypePair;
 use ptlis\Conneg\TypePair\TypePairInterface;
 
 /**
@@ -39,32 +39,32 @@ use ptlis\Conneg\TypePair\TypePairInterface;
 class Negotiate
 {
     /**
-     * @var SharedTypeFactory
+     * @var TypeFactory
      */
     private $charsetFactory;
 
     /**
-     * @var SharedNegotiator
+     * @var Negotiator
      */
     private $charsetNegotiator;
 
     /**
-     * @var SharedTypeFactory
+     * @var TypeFactory
      */
     private $encodingFactory;
 
     /**
-     * @var SharedNegotiator
+     * @var Negotiator
      */
     private $encodingNegotiator;
 
     /**
-     * @var SharedTypeFactory
+     * @var TypeFactory
      */
     private $languageFactory;
 
     /**
-     * @var SharedNegotiator
+     * @var Negotiator
      */
     private $languageNegotiator;
 
@@ -84,19 +84,19 @@ class Negotiate
      */
     public function __construct()
     {
-        $sharedRegexProvider        = new SharedTypeRegexProvider();
+        $sharedRegexProvider        = new TypeRegexProvider();
         $qualityFactorFactory       = new QualityFactorFactory();
 
         // Prepare factories
-        $this->charsetFactory       = new SharedTypeFactory(
+        $this->charsetFactory       = new TypeFactory(
             $sharedRegexProvider,
             new TypeBuilder($qualityFactorFactory)
         );
-        $this->encodingFactory      = new SharedTypeFactory(
+        $this->encodingFactory      = new TypeFactory(
             $sharedRegexProvider,
             new TypeBuilder($qualityFactorFactory)
         );
-        $this->languageFactory      = new SharedTypeFactory(
+        $this->languageFactory      = new TypeFactory(
             $sharedRegexProvider,
             new TypeBuilder($qualityFactorFactory)
         );
@@ -107,28 +107,28 @@ class Negotiate
 
         // Prepare pair sorters
         $sharedSort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 $this->charsetFactory->get('', '0', false),
                 $this->charsetFactory->get('', '0', true)
             )
         );
         $mimeSort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 $this->mimeFactory->get('', '0', false),
                 $this->mimeFactory->get('', '0', true)
             )
         );
 
         // Prepare negotiators
-        $this->charsetNegotiator    = new SharedNegotiator(
+        $this->charsetNegotiator    = new Negotiator(
             $this->charsetFactory,
             $sharedSort
         );
-        $this->encodingNegotiator   = new SharedNegotiator(
+        $this->encodingNegotiator   = new Negotiator(
             $this->encodingFactory,
             $sharedSort
         );
-        $this->languageNegotiator   = new SharedNegotiator(
+        $this->languageNegotiator   = new Negotiator(
             $this->languageFactory,
             $sharedSort
         );

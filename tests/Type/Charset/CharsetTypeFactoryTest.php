@@ -20,8 +20,8 @@ use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
 use ptlis\ConNeg\Type\Type;
 use ptlis\ConNeg\TypeBuilder\TypeBuilder;
-use ptlis\ConNeg\TypeFactory\SharedTypeFactory;
-use ptlis\ConNeg\RegexProvider\SharedTypeRegexProvider;
+use ptlis\ConNeg\TypeFactory\TypeFactory;
+use ptlis\ConNeg\RegexProvider\TypeRegexProvider;
 use ptlis\ConNeg\Type\WildcardType;
 
 class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
@@ -33,8 +33,8 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $expectType = new Type($type, new QualityFactor($qFactor));
 
-        $factory = new SharedTypeFactory(
-            new SharedTypeRegexProvider(),
+        $factory = new TypeFactory(
+            new TypeRegexProvider(),
             new TypeBuilder(new QualityFactorFactory())
         );
 
@@ -48,8 +48,8 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $expectCollection = new TypeCollection();
 
-        $factory = new SharedTypeFactory(
-            new SharedTypeRegexProvider(),
+        $factory = new TypeFactory(
+            new TypeRegexProvider(),
             new TypeBuilder(new QualityFactorFactory())
         );
 
@@ -65,8 +65,8 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new TypeCollection();
         $expectCollection->addType($expectType);
 
-        $factory = new SharedTypeFactory(
-            new SharedTypeRegexProvider(),
+        $factory = new TypeFactory(
+            new TypeRegexProvider(),
             new TypeBuilder(new QualityFactorFactory())
         );
 
@@ -82,8 +82,8 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new TypeCollection();
         $expectCollection->addType($expectType);
 
-        $factory = new SharedTypeFactory(
-            new SharedTypeRegexProvider(),
+        $factory = new TypeFactory(
+            new TypeRegexProvider(),
             new TypeBuilder(new QualityFactorFactory())
         );
 
@@ -99,8 +99,8 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new TypeCollection();
         $expectCollection->addType($expectType);
 
-        $factory = new SharedTypeFactory(
-            new SharedTypeRegexProvider(),
+        $factory = new TypeFactory(
+            new TypeRegexProvider(),
             new TypeBuilder(new QualityFactorFactory())
         );
 
@@ -116,8 +116,8 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new TypeCollection();
         $expectCollection->addType($expectType);
 
-        $factory = new SharedTypeFactory(
-            new SharedTypeRegexProvider(),
+        $factory = new TypeFactory(
+            new TypeRegexProvider(),
             new TypeBuilder(new QualityFactorFactory())
         );
 
@@ -133,8 +133,8 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $expectCollection->addType(new Type('utf-8', new QualityFactor(0.5)));
         $expectCollection->addType(new Type('iso-8859-5', new QualityFactor(1)));
 
-        $factory = new SharedTypeFactory(
-            new SharedTypeRegexProvider(),
+        $factory = new TypeFactory(
+            new TypeRegexProvider(),
             new TypeBuilder(new QualityFactorFactory())
         );
 
@@ -151,8 +151,8 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $expectCollection->addType(new Type('iso-8859-5', new QualityFactor(1)));
         $expectCollection->addType(new WildcardType(new QualityFactor(0.35)));
 
-        $factory = new SharedTypeFactory(
-            new SharedTypeRegexProvider(),
+        $factory = new TypeFactory(
+            new TypeRegexProvider(),
             new TypeBuilder(new QualityFactorFactory())
         );
 
@@ -168,8 +168,8 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $expectCollection->addType(new Type('iso-8859-5', new QualityFactor(1)));
         $expectCollection->addType(new Type('unicode-1-1', new QualityFactor(0.8)));
 
-        $factory = new SharedTypeFactory(
-            new SharedTypeRegexProvider(),
+        $factory = new TypeFactory(
+            new TypeRegexProvider(),
             new TypeBuilder(new QualityFactorFactory())
         );
 
@@ -184,8 +184,8 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
             'Error parsing field'
         );
 
-        $factory = new SharedTypeFactory(
-            new SharedTypeRegexProvider(),
+        $factory = new TypeFactory(
+            new TypeRegexProvider(),
             new TypeBuilder(new QualityFactorFactory())
         );
 
@@ -202,8 +202,8 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
             'Invalid type provided to builder.'
         );
 
-        $factory = new SharedTypeFactory(
-            new SharedTypeRegexProvider(),
+        $factory = new TypeFactory(
+            new TypeRegexProvider(),
             new TypeBuilder(new QualityFactorFactory())
         );
 
@@ -215,8 +215,8 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $expectCollection = new TypeCollection();
 
-        $factory = new SharedTypeFactory(
-            new SharedTypeRegexProvider(),
+        $factory = new TypeFactory(
+            new TypeRegexProvider(),
             new TypeBuilder(new QualityFactorFactory())
         );
 
@@ -231,8 +231,8 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
             'Wildcards are not valid in application-provided types.'
         );
 
-        $factory = new SharedTypeFactory(
-            new SharedTypeRegexProvider(),
+        $factory = new TypeFactory(
+            new TypeRegexProvider(),
             new TypeBuilder(new QualityFactorFactory())
         );
 

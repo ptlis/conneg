@@ -20,14 +20,14 @@ use ptlis\ConNeg\Collection\TypePairSort;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\Type;
 use ptlis\ConNeg\Type\AbsentType;
-use ptlis\ConNeg\TypePair\SharedTypePair;
+use ptlis\ConNeg\TypePair\TypePair;
 
 class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
 {
     public function testSetList()
     {
         $pairSort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -37,11 +37,11 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
 
         $typePairList = array();
 
-        $typePairList[] = new SharedTypePair(
+        $typePairList[] = new TypePair(
             new Type('utf-8', new QualityFactor(0.9)),
             new Type('utf-8', new QualityFactor(1))
         );
-        $typePairList[] = new SharedTypePair(
+        $typePairList[] = new TypePair(
             new Type('iso-8859-5', new QualityFactor(0.8)),
             new Type('iso-8859-5', new QualityFactor(0.8))
         );
@@ -55,7 +55,7 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
     public function testAddPair()
     {
         $pairSort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -64,13 +64,13 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new SharedTypePairCollection($pairSort);
 
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('utf-8', new QualityFactor(0.9)),
                 new Type('utf-8', new QualityFactor(1))
             )
         );
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('iso-8859-5', new QualityFactor(0.8)),
                 new Type('iso-8859-5', new QualityFactor(0.8))
             )
@@ -83,7 +83,7 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
     public function testIterator()
     {
         $pairSort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -92,13 +92,13 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new SharedTypePairCollection($pairSort);
 
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('utf-8', new QualityFactor(0.9)),
                 new Type('utf-8', new QualityFactor(1))
             )
         );
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('iso-8859-5', new QualityFactor(0.8)),
                 new Type('iso-8859-5', new QualityFactor(0.8))
             )
@@ -106,7 +106,7 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
 
         $ascendingCollection = $expectCollection->getAscending();
         foreach ($ascendingCollection as $typePair) {
-            $this->assertInstanceOf('ptlis\ConNeg\TypePair\SharedTypePair', $typePair);
+            $this->assertInstanceOf('ptlis\ConNeg\TypePair\TypePair', $typePair);
         }
     }
 
@@ -114,7 +114,7 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
     public function testGetAscending()
     {
         $pairSort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -123,13 +123,13 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
         $collection = new SharedTypePairCollection($pairSort);
 
         $collection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('utf-8', new QualityFactor(0.9)),
                 new Type('utf-8', new QualityFactor(1))
             )
         );
         $collection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('iso-8859-5', new QualityFactor(0.8)),
                 new Type('iso-8859-5', new QualityFactor(0.8))
             )
@@ -158,7 +158,7 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
     public function testGetDescending()
     {
         $pairSort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -167,13 +167,13 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
         $collection = new SharedTypePairCollection($pairSort);
 
         $collection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('iso-8859-5', new QualityFactor(0.8)),
                 new Type('iso-8859-5', new QualityFactor(0.8))
             )
         );
         $collection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('utf-8', new QualityFactor(0.9)),
                 new Type('utf-8', new QualityFactor(1))
             )
@@ -202,7 +202,7 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
     public function testGetBest()
     {
         $pairSort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -211,19 +211,19 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
         $collection = new SharedTypePairCollection($pairSort);
 
         $collection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('iso-8859-5', new QualityFactor(0.8)),
                 new Type('iso-8859-5', new QualityFactor(0.8))
             )
         );
         $collection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('utf-8', new QualityFactor(0.9)),
                 new Type('utf-8', new QualityFactor(1))
             )
         );
 
-        $expectPair = new SharedTypePair(
+        $expectPair = new TypePair(
             new Type('utf-8', new QualityFactor(0.9)),
             new Type('utf-8', new QualityFactor(1))
         );
@@ -237,7 +237,7 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
     public function testClone()
     {
         $pairSort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -246,13 +246,13 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
         $collection = new SharedTypePairCollection($pairSort);
 
         $collection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('iso-8859-5', new QualityFactor(0.8)),
                 new Type('iso-8859-5', new QualityFactor(0.8))
             )
         );
         $collection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('utf-8', new QualityFactor(0.9)),
                 new Type('utf-8', new QualityFactor(1))
             )
@@ -268,7 +268,7 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
     public function testToString()
     {
         $pairSort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -277,13 +277,13 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
         $collection = new SharedTypePairCollection($pairSort);
 
         $collection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('iso-8859-5', new QualityFactor(0.8)),
                 new Type('iso-8859-5', new QualityFactor(0.8))
             )
         );
         $collection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('utf-8', new QualityFactor(0.9)),
                 new Type('utf-8', new QualityFactor(1))
             )

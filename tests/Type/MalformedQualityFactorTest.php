@@ -17,13 +17,13 @@ use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
 use ptlis\ConNeg\RegexProvider\MimeTypeRegexProvider;
-use ptlis\ConNeg\RegexProvider\SharedTypeRegexProvider;
+use ptlis\ConNeg\RegexProvider\TypeRegexProvider;
 use ptlis\ConNeg\Type\Type;
 use ptlis\ConNeg\Type\MimeType;
 use ptlis\ConNeg\TypeBuilder\MimeTypeBuilder;
 use ptlis\ConNeg\TypeBuilder\TypeBuilder;
 use ptlis\ConNeg\TypeFactory\MimeTypeFactory;
-use ptlis\ConNeg\TypeFactory\SharedTypeFactory;
+use ptlis\ConNeg\TypeFactory\TypeFactory;
 
 /**
  * Test to verify correct handling of malformed client types.
@@ -49,8 +49,8 @@ class MalformedQualityFactorTest extends \PHPUnit_Framework_TestCase
                 )
             );
 
-        $factory = new SharedTypeFactory(
-            new SharedTypeRegexProvider(),
+        $factory = new TypeFactory(
+            new TypeRegexProvider(),
             new TypeBuilder(new QualityFactorFactory())
         );
 
@@ -77,8 +77,8 @@ class MalformedQualityFactorTest extends \PHPUnit_Framework_TestCase
                 )
             );
 
-        $factory = new SharedTypeFactory(
-            new SharedTypeRegexProvider(),
+        $factory = new TypeFactory(
+            new TypeRegexProvider(),
             new TypeBuilder(new QualityFactorFactory())
         );
 
@@ -110,8 +110,8 @@ class MalformedQualityFactorTest extends \PHPUnit_Framework_TestCase
                 )
             );
 
-        $factory = new SharedTypeFactory(
-            new SharedTypeRegexProvider(),
+        $factory = new TypeFactory(
+            new TypeRegexProvider(),
             new TypeBuilder(new QualityFactorFactory())
         );
 
@@ -143,8 +143,8 @@ class MalformedQualityFactorTest extends \PHPUnit_Framework_TestCase
                 )
             );
 
-        $factory = new SharedTypeFactory(
-            new SharedTypeRegexProvider(),
+        $factory = new TypeFactory(
+            new TypeRegexProvider(),
             new TypeBuilder(new QualityFactorFactory())
         );
 

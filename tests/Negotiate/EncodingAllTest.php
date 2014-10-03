@@ -22,7 +22,7 @@ use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\AbsentType;
 use ptlis\ConNeg\Type\Type;
 use ptlis\ConNeg\Type\WildcardType;
-use ptlis\ConNeg\TypePair\SharedTypePair;
+use ptlis\ConNeg\TypePair\TypePair;
 
 class EncodingAllTest extends \PHPUnit_Framework_TestCase
 {
@@ -32,7 +32,7 @@ class EncodingAllTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = '';
 
         $pairSort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -53,7 +53,7 @@ class EncodingAllTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = '';
 
         $pairSort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -61,13 +61,13 @@ class EncodingAllTest extends \PHPUnit_Framework_TestCase
 
         $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('deflate', new QualityFactor(1)),
                 new AbsentType(new QualityFactor(0))
             )
         );
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('7zip', new QualityFactor(0.75)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -86,7 +86,7 @@ class EncodingAllTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = '';
 
         $pairSort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -94,13 +94,13 @@ class EncodingAllTest extends \PHPUnit_Framework_TestCase
 
         $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('deflate', new QualityFactor(1)),
                 new AbsentType(new QualityFactor(0))
             )
         );
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('gzip', new QualityFactor(0.75)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -119,7 +119,7 @@ class EncodingAllTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'compress;q=1,gzip;q=0.5';
 
         $pairSort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -127,13 +127,13 @@ class EncodingAllTest extends \PHPUnit_Framework_TestCase
 
         $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new Type('compress', new QualityFactor(1))
             )
         );
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new Type('gzip', new QualityFactor(0.5))
             )
@@ -152,7 +152,7 @@ class EncodingAllTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = '7zip;q=0.5,gzip;q=1';
 
         $pairSort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -160,13 +160,13 @@ class EncodingAllTest extends \PHPUnit_Framework_TestCase
 
         $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new Type('gzip', new QualityFactor(1))
             )
         );
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new Type('7zip', new QualityFactor(0.5))
             )
@@ -185,7 +185,7 @@ class EncodingAllTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = '7zip;q=0.5,deflate;q=0.5';
 
         $pairSort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -193,13 +193,13 @@ class EncodingAllTest extends \PHPUnit_Framework_TestCase
 
         $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new Type('7zip', new QualityFactor(0.5))
             )
         );
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new Type('deflate', new QualityFactor(0.5))
             )
@@ -218,7 +218,7 @@ class EncodingAllTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'deflate;q=0.9,compress;q=0.6';
 
         $pairSort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -226,13 +226,13 @@ class EncodingAllTest extends \PHPUnit_Framework_TestCase
 
         $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('deflate', new QualityFactor(0.9)),
                 new Type('deflate', new QualityFactor(0.9))
             )
         );
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('compress', new QualityFactor(0.6)),
                 new Type('compress', new QualityFactor(0.6))
             )
@@ -251,7 +251,7 @@ class EncodingAllTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'bz;q=0.8,7zip;q=0.3,gzip;q=0.5';
 
         $pairSort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -259,25 +259,25 @@ class EncodingAllTest extends \PHPUnit_Framework_TestCase
 
         $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('7zip', new QualityFactor(0.6)),
                 new Type('7zip', new QualityFactor(0.3))
             )
         );
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('gzip', new QualityFactor(0.3)),
                 new Type('gzip', new QualityFactor(0.5))
             )
         );
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('deflate', new QualityFactor(0.9)),
                 new AbsentType(new QualityFactor(0))
             )
         );
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new Type('bz', new QualityFactor(0.8))
             )
@@ -296,7 +296,7 @@ class EncodingAllTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'gzip,compress;q=0.7,7zip;q=0.3';
 
         $pairSort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -304,19 +304,19 @@ class EncodingAllTest extends \PHPUnit_Framework_TestCase
 
         $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('gzip', new QualityFactor(0.8)),
                 new Type('gzip', new QualityFactor(1))
             )
         );
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('compress', new QualityFactor(0.9)),
                 new Type('compress', new QualityFactor(0.7))
             )
         );
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new WildcardType(new QualityFactor(0.5)),
                 new Type('7zip', new QualityFactor(0.3))
             )

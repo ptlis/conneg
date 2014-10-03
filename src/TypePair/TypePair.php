@@ -22,7 +22,7 @@ use ptlis\ConNeg\Type\TypeInterface;
 /**
  * Class for type pairs.
  */
-class SharedTypePair implements TypePairInterface
+class TypePair implements TypePairInterface
 {
     /**
      * @var TypeInterface

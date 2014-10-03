@@ -21,7 +21,7 @@ use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\MimeAbsentType;
 use ptlis\ConNeg\Type\MimeType;
 use ptlis\ConNeg\Type\MimeWildcardSubType;
-use ptlis\ConNeg\TypePair\SharedTypePair;
+use ptlis\ConNeg\TypePair\TypePair;
 
 class MimeBestTest extends \PHPUnit_Framework_TestCase
 {
@@ -30,7 +30,7 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
         $httpField  = '';
         $appPrefs   = '';
 
-        $expectPair = new SharedTypePair(
+        $expectPair = new TypePair(
             new MimeAbsentType(new QualityFactor(0)),
             new MimeAbsentType(new QualityFactor(0))
         );
@@ -47,7 +47,7 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
         $httpField  = '';
         $appPrefs   = new TypeCollection();
 
-        $expectPair = new SharedTypePair(
+        $expectPair = new TypePair(
             new MimeAbsentType(new QualityFactor(0)),
             new MimeAbsentType(new QualityFactor(0))
         );
@@ -79,7 +79,7 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
         $httpField  = 'text/html,application/xml;q=0.75';
         $appPrefs   = '';
 
-        $expectPair = new SharedTypePair(
+        $expectPair = new TypePair(
             new MimeType('text', 'html', new QualityFactor(1)),
             new MimeAbsentType(new QualityFactor(0))
         );
@@ -96,7 +96,7 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
         $httpField  = 'application/xml;q=0.75, text/html';
         $appPrefs   = '';
 
-        $expectPair = new SharedTypePair(
+        $expectPair = new TypePair(
             new MimeType('text', 'html', new QualityFactor(1)),
             new MimeAbsentType(new QualityFactor(0))
         );
@@ -113,7 +113,7 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
         $httpField  = '';
         $appPrefs   = 'application/rdf+xml;q=1,text/n3;q=0.5';
 
-        $expectPair = new SharedTypePair(
+        $expectPair = new TypePair(
             new MimeAbsentType(new QualityFactor(0)),
             new MimeType('application', 'rdf+xml', new QualityFactor(1))
         );
@@ -130,7 +130,7 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
         $httpField  = '';
         $appPrefs   = 'text/n3;q=0.5,application/rdf+xml;q=1';
 
-        $expectPair = new SharedTypePair(
+        $expectPair = new TypePair(
             new MimeAbsentType(new QualityFactor(0)),
             new MimeType('application', 'rdf+xml', new QualityFactor(1))
         );
@@ -147,7 +147,7 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
         $httpField  = '';
         $appPrefs   = 'text/n3;q=0.5,text/html;q=0.5';
 
-        $expectPair = new SharedTypePair(
+        $expectPair = new TypePair(
             new MimeAbsentType(new QualityFactor(0)),
             new MimeType('text', 'html', new QualityFactor(0.5))
         );
@@ -164,7 +164,7 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
         $httpField  = 'application/rdf+xml;q=0.6,text/n3;q=0.9';
         $appPrefs   = 'text/n3;q=0.9,application/rdf+xml;q=0.6';
 
-        $expectPair = new SharedTypePair(
+        $expectPair = new TypePair(
             new MimeType('text', 'n3', new QualityFactor(0.9)),
             new MimeType('text', 'n3', new QualityFactor(0.9))
         );
@@ -181,7 +181,7 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
         $httpField  = 'text/html;q=0.6,application/xml;q=0.9,application/rss+xml;q=0.3';
         $appPrefs   = 'application/atom+xml;q=0.8,text/html;q=0.3,application/rss+xml;q=0.5';
 
-        $expectPair = new SharedTypePair(
+        $expectPair = new TypePair(
             new MimeType('text', 'html', new QualityFactor(0.6)),
             new MimeType('text', 'html', new QualityFactor(0.3))
         );
@@ -198,7 +198,7 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
         $httpField  = 'text/*;q=0.8,application/xml;q=0.9';
         $appPrefs   = 'text/html,application/xml;q=0.7,text/n3;q=0.3';
 
-        $expectPair = new SharedTypePair(
+        $expectPair = new TypePair(
             new MimeWildcardSubType('text', new QualityFactor(0.8)),
             new MimeType('text', 'html', new QualityFactor(1))
         );
@@ -215,7 +215,7 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
         $httpField  = 'text/html;q=0.8,application/xml;q=0.9,*/*;q=0.5';
         $appPrefs   = 'text/html,application/xml;q=0.7,text/n3;q=0.3';
 
-        $expectPair = new SharedTypePair(
+        $expectPair = new TypePair(
             new MimeType('text', 'html', new QualityFactor(0.8)),
             new MimeType('text', 'html', new QualityFactor(1))
         );
@@ -232,7 +232,7 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
         $httpField  = '*/*;q=0.1,text/*;q=0.7,text/html;q=0.9';
         $appPrefs   = 'text/html,application/xml;q=0.7,text/n3;q=0.3';
 
-        $expectPair = new SharedTypePair(
+        $expectPair = new TypePair(
             new MimeType('text', 'html', new QualityFactor(0.9)),
             new MimeType('text', 'html', new QualityFactor(1))
         );

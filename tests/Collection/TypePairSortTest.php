@@ -20,24 +20,24 @@ use ptlis\ConNeg\Collection\TypePairSort;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\AbsentType;
 use ptlis\ConNeg\Type\Type;
-use ptlis\ConNeg\TypePair\SharedTypePair;
+use ptlis\ConNeg\TypePair\TypePair;
 
 class TypePairSortTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetAscendingOne()
     {
         $typePairList = array();
-        $typePairList[] = new SharedTypePair(
+        $typePairList[] = new TypePair(
             new Type('en-gb', new QualityFactor(0.9)),
             new Type('en-gb', new QualityFactor(1))
         );
-        $typePairList[] = new SharedTypePair(
+        $typePairList[] = new TypePair(
             new Type('fr', new QualityFactor(0.8)),
             new Type('fr', new QualityFactor(0.8))
         );
 
         $sort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -67,17 +67,17 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
     public function testGetAscendingTwo()
     {
         $typePairList = array();
-        $typePairList[] = new SharedTypePair(
+        $typePairList[] = new TypePair(
             new Type('en-gb', new QualityFactor(0.9)),
             new Type('en-gb', new QualityFactor(0.5))
         );
-        $typePairList[] = new SharedTypePair(
+        $typePairList[] = new TypePair(
             new Type('fr', new QualityFactor(0.8)),
             new Type('fr', new QualityFactor(0.8))
         );
 
         $sort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -109,17 +109,17 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
     public function testGetAscendingThree()
     {
         $typePairList = array();
-        $typePairList[] = new SharedTypePair(
+        $typePairList[] = new TypePair(
             new Type('en-gb', new QualityFactor(0.8)),
             new Type('en-gb', new QualityFactor(0.9))
         );
-        $typePairList[] = new SharedTypePair(
+        $typePairList[] = new TypePair(
             new Type('fr', new QualityFactor(0.8)),
             new Type('fr', new QualityFactor(0.9))
         );
 
         $sort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -150,17 +150,17 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
     public function testGetAscendingFour()
     {
         $typePairList = array();
-        $typePairList[] = new SharedTypePair(
+        $typePairList[] = new TypePair(
             new Type('en-gb', new QualityFactor(0.9)),
             new Type('en-gb', new QualityFactor(0.8))
         );
-        $typePairList[] = new SharedTypePair(
+        $typePairList[] = new TypePair(
             new Type('fr', new QualityFactor(0.8)),
             new Type('fr', new QualityFactor(0.9))
         );
 
         $sort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -191,17 +191,17 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
     public function testGetAscendingFive()
     {
         $typePairList = array();
-        $typePairList[] = new SharedTypePair(
+        $typePairList[] = new TypePair(
             new Type('en-gb', new QualityFactor(0.8)),
             new Type('en-gb', new QualityFactor(0.9))
         );
-        $typePairList[] = new SharedTypePair(
+        $typePairList[] = new TypePair(
             new Type('fr', new QualityFactor(0.9)),
             new Type('fr', new QualityFactor(0.8))
         );
 
         $sort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -232,17 +232,17 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
     public function testGetAscendingSix()
     {
         $typePairList = array();
-        $typePairList[] = new SharedTypePair(
+        $typePairList[] = new TypePair(
             new AbsentType(new QualityFactor(0)),
             new Type('en-gb', new QualityFactor(0.9))
         );
-        $typePairList[] = new SharedTypePair(
+        $typePairList[] = new TypePair(
             new AbsentType(new QualityFactor(0)),
             new Type('fr', new QualityFactor(0.8))
         );
 
         $sort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -273,17 +273,17 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
     public function testGetAscendingSeven()
     {
         $typePairList = array();
-        $typePairList[] = new SharedTypePair(
+        $typePairList[] = new TypePair(
             new Type('en-gb', new QualityFactor(0.9)),
             new AbsentType(new QualityFactor(0))
         );
-        $typePairList[] = new SharedTypePair(
+        $typePairList[] = new TypePair(
             new Type('fr', new QualityFactor(0.8)),
             new AbsentType(new QualityFactor(0))
         );
 
         $sort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -314,17 +314,17 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
     public function testGetDescending()
     {
         $typePairList = array();
-        $typePairList[] = new SharedTypePair(
+        $typePairList[] = new TypePair(
             new Type('en-gb', new QualityFactor(0.8)),
             new Type('en-gb', new QualityFactor(0.9))
         );
-        $typePairList[] = new SharedTypePair(
+        $typePairList[] = new TypePair(
             new Type('fr', new QualityFactor(0.9)),
             new Type('fr', new QualityFactor(0.8))
         );
 
         $sort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -355,7 +355,7 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
     public function testGetBestEmpty()
     {
         $sort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -363,13 +363,13 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
 
         $best = $sort->getBest(
             array(),
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
         );
 
-        $expect = new SharedTypePair(new AbsentType(new QualityFactor(0)), new AbsentType(new QualityFactor(0)));
+        $expect = new TypePair(new AbsentType(new QualityFactor(0)), new AbsentType(new QualityFactor(0)));
 
         $this->assertEquals($expect, $best);
     }
@@ -378,31 +378,31 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
     public function testGetBest()
     {
         $sort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
         );
 
         $typePairList = array();
-        $typePairList[] = new SharedTypePair(
+        $typePairList[] = new TypePair(
             new Type('en-gb', new QualityFactor(0.8)),
             new Type('en-gb', new QualityFactor(0.9))
         );
-        $typePairList[] = new SharedTypePair(
+        $typePairList[] = new TypePair(
             new Type('fr', new QualityFactor(0.9)),
             new Type('fr', new QualityFactor(0.8))
         );
 
         $best = $sort->getBest(
             $typePairList,
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
         );
 
-        $expect = new SharedTypePair(
+        $expect = new TypePair(
             new Type('fr', new QualityFactor(0.9)),
             new Type('fr', new QualityFactor(0.8))
         );

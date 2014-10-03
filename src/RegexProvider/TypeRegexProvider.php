@@ -16,7 +16,7 @@ namespace ptlis\ConNeg\RegexProvider;
 /**
  * Provider of generic regex used to parse Accept-Charset, Accept-Encoding & Accept-Language HTTP fields.
  */
-class SharedTypeRegexProvider implements TypeRegexProviderInterface
+class TypeRegexProvider implements TypeRegexProviderInterface
 {
     /**
      * Return a regex to parse the required HTTP field.

@@ -23,7 +23,7 @@ use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\AbsentType;
 use ptlis\ConNeg\Type\Type;
 use ptlis\ConNeg\Type\WildcardType;
-use ptlis\ConNeg\TypePair\SharedTypePair;
+use ptlis\ConNeg\TypePair\TypePair;
 
 class CharsetAllTest extends \PHPUnit_Framework_TestCase
 {
@@ -33,7 +33,7 @@ class CharsetAllTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = '';
 
         $pairSort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -54,7 +54,7 @@ class CharsetAllTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = '';
 
         $pairSort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -62,13 +62,13 @@ class CharsetAllTest extends \PHPUnit_Framework_TestCase
 
         $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('utf-8', new QualityFactor(1)),
                 new AbsentType(new QualityFactor(0))
             )
         );
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('iso-8859-5', new QualityFactor(0.75)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -87,7 +87,7 @@ class CharsetAllTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = '';
 
         $pairSort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -95,13 +95,13 @@ class CharsetAllTest extends \PHPUnit_Framework_TestCase
 
         $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('utf-8', new QualityFactor(1)),
                 new AbsentType(new QualityFactor(0))
             )
         );
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('iso-8859-5', new QualityFactor(0.75)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -120,7 +120,7 @@ class CharsetAllTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'iso-8859-1;q=1,utf-8;q=0.5';
 
         $pairSort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -128,13 +128,13 @@ class CharsetAllTest extends \PHPUnit_Framework_TestCase
 
         $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new Type('iso-8859-1', new QualityFactor(1))
             )
         );
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new Type('utf-8', new QualityFactor(0.5))
             )
@@ -153,7 +153,7 @@ class CharsetAllTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'utf-8;q=0.5,iso-8859-1;q=1';
 
         $pairSort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -161,13 +161,13 @@ class CharsetAllTest extends \PHPUnit_Framework_TestCase
 
         $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new Type('iso-8859-1', new QualityFactor(1))
             )
         );
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new Type('utf-8', new QualityFactor(0.5))
             )
@@ -186,7 +186,7 @@ class CharsetAllTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'utf-8;q=0.5,iso-8859-1;q=0.5';
 
         $pairSort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -194,13 +194,13 @@ class CharsetAllTest extends \PHPUnit_Framework_TestCase
 
         $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new Type('iso-8859-1', new QualityFactor(0.5))
             )
         );
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new Type('utf-8', new QualityFactor(0.5))
             )
@@ -219,7 +219,7 @@ class CharsetAllTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'iso-8859-5;q=0.9,utf-8;q=0.6';
 
         $pairSort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -227,13 +227,13 @@ class CharsetAllTest extends \PHPUnit_Framework_TestCase
 
         $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('iso-8859-5', new QualityFactor(0.9)),
                 new Type('iso-8859-5', new QualityFactor(0.9))
             )
         );
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('utf-8', new QualityFactor(0.6)),
                 new Type('utf-8', new QualityFactor(0.6))
             )
@@ -252,7 +252,7 @@ class CharsetAllTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'windows-1250;q=0.8,utf-8;q=0.3,iso-8859-1;q=0.5';
 
         $pairSort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -260,25 +260,25 @@ class CharsetAllTest extends \PHPUnit_Framework_TestCase
 
         $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('utf-8', new QualityFactor(0.6)),
                 new Type('utf-8', new QualityFactor(0.3))
             )
         );
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('iso-8859-1', new QualityFactor(0.3)),
                 new Type('iso-8859-1', new QualityFactor(0.5))
             )
         );
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('iso-8859-5', new QualityFactor(0.9)),
                 new AbsentType(new QualityFactor(0))
             )
         );
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new Type('windows-1250', new QualityFactor(0.8))
             )
@@ -297,7 +297,7 @@ class CharsetAllTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'iso-8859-5,utf-8;q=0.7,windows-1250;q=0.3';
 
         $pairSort = new TypePairSort(
-            new SharedTypePair(
+            new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new AbsentType(new QualityFactor(0))
             )
@@ -305,19 +305,19 @@ class CharsetAllTest extends \PHPUnit_Framework_TestCase
 
         $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('iso-8859-5', new QualityFactor(0.8)),
                 new Type('iso-8859-5', new QualityFactor(1))
             )
         );
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new Type('utf-8', new QualityFactor(0.9)),
                 new Type('utf-8', new QualityFactor(0.7))
             )
         );
         $expectCollection->addPair(
-            new SharedTypePair(
+            new TypePair(
                 new WildcardType(new QualityFactor(0.5)),
                 new Type('windows-1250', new QualityFactor(0.3))
             )

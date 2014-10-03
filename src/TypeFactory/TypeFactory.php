@@ -22,7 +22,7 @@ use ptlis\ConNeg\Type\TypeInterface;
 /**
  * Factory for creation of Charset, Encoding and Language types.
  */
-class SharedTypeFactory implements TypeFactoryInterface
+class TypeFactory implements TypeFactoryInterface
 {
     /**
      * @var TypeRegexProviderInterface

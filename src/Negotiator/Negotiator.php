@@ -19,7 +19,7 @@ use ptlis\ConNeg\Collection\SharedTypePairCollection;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
 use ptlis\ConNeg\TypeFactory\TypeFactoryInterface;
-use ptlis\ConNeg\TypePair\SharedTypePair;
+use ptlis\ConNeg\TypePair\TypePair;
 use ptlis\ConNeg\TypePair\TypePairInterface;
 use ptlis\ConNeg\Type\TypeInterface;
 use ptlis\ConNeg\Type\WildcardType;
@@ -27,7 +27,7 @@ use ptlis\ConNeg\Type\WildcardType;
 /**
  * Class for negotiating on charset, encoding & language types.
  */
-class SharedNegotiator implements NegotiatorInterface
+class Negotiator implements NegotiatorInterface
 {
     /**
      * @var TypeFactoryInterface
@@ -65,7 +65,7 @@ class SharedNegotiator implements NegotiatorInterface
     {
         $matchingList = array();
         foreach ($appTypeList as $appType) {
-            $matchingList[$appType->getType()] = new SharedTypePair(
+            $matchingList[$appType->getType()] = new TypePair(
                 $this->typeFactory->get('', 0, false),
                 $appType
             );
@@ -103,9 +103,9 @@ class SharedNegotiator implements NegotiatorInterface
      * Match user types to app types.
      *
      * @param TypeCollection|TypeInterface[]    $userTypeList
-     * @param SharedTypePair[]                  $matchingList
+     * @param TypePair[]                  $matchingList
      *
-     * @return SharedTypePair[]
+     * @return TypePair[]
      */
     private function matchUserToAppTypes(TypeCollection $userTypeList, array $matchingList)
     {
@@ -113,7 +113,7 @@ class SharedNegotiator implements NegotiatorInterface
 
             // Type match
             if (array_key_exists($userType->getType(), $matchingList)) {
-                $newPair = new SharedTypePair(
+                $newPair = new TypePair(
                     $userType,
                     $matchingList[$userType->getType()]->getAppType()
                 );
@@ -128,7 +128,7 @@ class SharedNegotiator implements NegotiatorInterface
 
             // No match
             } else {
-                $matchingList[$userType->getType()] = new SharedTypePair(
+                $matchingList[$userType->getType()] = new TypePair(
                     $userType,
                     $this->typeFactory->get('', 0, true)
                 );
@@ -142,16 +142,16 @@ class SharedNegotiator implements NegotiatorInterface
     /**
      * Attempt to match wildcard type against each item in matching list.
      *
-     * @param SharedTypePair[]    $matchingList
+     * @param TypePair[]    $matchingList
      * @param TypeInterface $userType
      *
-     * @return SharedTypePair[]
+     * @return TypePair[]
      */
     private function matchFullWildcard(array $matchingList, TypeInterface $userType)
     {
         foreach ($matchingList as $key => $matching) {
             if ($userType->getPrecedence() > $matching->getUserType()->getPrecedence()) {
-                $matchingList[$key] = new SharedTypePair(
+                $matchingList[$key] = new TypePair(
                     $userType,
                     $matchingList[$key]->getAppType()
                 );
