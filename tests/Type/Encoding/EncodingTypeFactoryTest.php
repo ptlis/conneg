@@ -18,24 +18,24 @@ namespace ptlis\ConNeg\Test\Type\Charset;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
-use ptlis\ConNeg\Type\EncodingType;
-use ptlis\ConNeg\TypeBuilder\EncodingTypeBuilder;
+use ptlis\ConNeg\Type\Type;
+use ptlis\ConNeg\TypeBuilder\TypeBuilder;
 use ptlis\ConNeg\TypeFactory\SharedTypeFactory;
 use ptlis\ConNeg\RegexProvider\SharedTypeRegexProvider;
 use ptlis\ConNeg\Type\WildcardType;
 
-class EncodingTypeFactoryTest extends \PHPUnit_Framework_TestCase
+class TypeFactoryTest extends \PHPUnit_Framework_TestCase
 {
     public function testGet()
     {
         $type = 'gzip,';
         $qFactor = 1;
 
-        $expectType = new EncodingType($type, new QualityFactor($qFactor));
+        $expectType = new Type($type, new QualityFactor($qFactor));
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new EncodingTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $this->assertEquals($expectType, $factory->get($type, $qFactor));
@@ -50,7 +50,7 @@ class EncodingTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new EncodingTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -61,13 +61,13 @@ class EncodingTypeFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $field = 'gzip;q=0.9';
 
-        $expectType = new EncodingType('gzip', new QualityFactor(0.9));
+        $expectType = new Type('gzip', new QualityFactor(0.9));
         $expectCollection = new TypeCollection();
         $expectCollection->addType($expectType);
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new EncodingTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -78,13 +78,13 @@ class EncodingTypeFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $field = 'compress';
 
-        $expectType = new EncodingType('compress', new QualityFactor(1));
+        $expectType = new Type('compress', new QualityFactor(1));
         $expectCollection = new TypeCollection();
         $expectCollection->addType($expectType);
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new EncodingTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -101,7 +101,7 @@ class EncodingTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new EncodingTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -118,7 +118,7 @@ class EncodingTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new EncodingTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -130,12 +130,12 @@ class EncodingTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $field = 'gzip,compress;q=0.7';
 
         $expectCollection = new TypeCollection();
-        $expectCollection->addType(new EncodingType('gzip', new QualityFactor(1)));
-        $expectCollection->addType(new EncodingType('compress', new QualityFactor(0.7)));
+        $expectCollection->addType(new Type('gzip', new QualityFactor(1)));
+        $expectCollection->addType(new Type('compress', new QualityFactor(0.7)));
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new EncodingTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -147,13 +147,13 @@ class EncodingTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $field = 'compress;q=0.5,gzip,*;q=0.35';
 
         $expectCollection = new TypeCollection();
-        $expectCollection->addType(new EncodingType('compress', new QualityFactor(0.5)));
-        $expectCollection->addType(new EncodingType('gzip', new QualityFactor(1)));
+        $expectCollection->addType(new Type('compress', new QualityFactor(0.5)));
+        $expectCollection->addType(new Type('gzip', new QualityFactor(1)));
         $expectCollection->addType(new WildcardType(new QualityFactor(0.35)));
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new EncodingTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -165,12 +165,12 @@ class EncodingTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $field = 'compress, gzip';
 
         $expectCollection = new TypeCollection();
-        $expectCollection->addType(new EncodingType('compress', new QualityFactor(1)));
-        $expectCollection->addType(new EncodingType('gzip', new QualityFactor(1)));
+        $expectCollection->addType(new Type('compress', new QualityFactor(1)));
+        $expectCollection->addType(new Type('gzip', new QualityFactor(1)));
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new EncodingTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -182,12 +182,12 @@ class EncodingTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $field = 'compress;q=0.5, gzip;q=1.0';
 
         $expectCollection = new TypeCollection();
-        $expectCollection->addType(new EncodingType('compress', new QualityFactor(0.5)));
-        $expectCollection->addType(new EncodingType('gzip', new QualityFactor(1)));
+        $expectCollection->addType(new Type('compress', new QualityFactor(0.5)));
+        $expectCollection->addType(new Type('gzip', new QualityFactor(1)));
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new EncodingTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -199,13 +199,13 @@ class EncodingTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $field = 'gzip;q=1.0, identity; q=0.5, *;q=0';
 
         $expectCollection = new TypeCollection();
-        $expectCollection->addType(new EncodingType('gzip', new QualityFactor(1)));
-        $expectCollection->addType(new EncodingType('identity', new QualityFactor(0.5)));
+        $expectCollection->addType(new Type('gzip', new QualityFactor(1)));
+        $expectCollection->addType(new Type('identity', new QualityFactor(0.5)));
         $expectCollection->addType(new WildcardType(new QualityFactor(0)));
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new EncodingTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -221,7 +221,7 @@ class EncodingTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new EncodingTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $factory->parseApp('$^(£$');
@@ -239,7 +239,7 @@ class EncodingTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new EncodingTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $factory->get($type, 0.5);
@@ -252,7 +252,7 @@ class EncodingTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new EncodingTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser('$^(£$'));
@@ -268,7 +268,7 @@ class EncodingTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new EncodingTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $factory->parseApp('*');

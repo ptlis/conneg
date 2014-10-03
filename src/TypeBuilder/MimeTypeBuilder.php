@@ -23,7 +23,7 @@ use ptlis\ConNeg\Type\TypeInterface;
 /**
  * Concrete builder for Mime type.
  */
-class MimeTypeBuilder extends AbstractTypeBuilder
+class MimeTypeBuilder extends TypeBuilder
 {
     public function get()
     {

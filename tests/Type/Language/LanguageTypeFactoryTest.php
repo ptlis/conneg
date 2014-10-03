@@ -18,8 +18,8 @@ namespace ptlis\ConNeg\Test\Type\Language;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
-use ptlis\ConNeg\Type\LanguageType;
-use ptlis\ConNeg\TypeBuilder\LanguageTypeBuilder;
+use ptlis\ConNeg\Type\Type;
+use ptlis\ConNeg\TypeBuilder\TypeBuilder;
 use ptlis\ConNeg\TypeFactory\SharedTypeFactory;
 use ptlis\ConNeg\RegexProvider\SharedTypeRegexProvider;
 use ptlis\ConNeg\Type\WildcardType;
@@ -31,11 +31,11 @@ class LanguageTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $type = 'en-gb,';
         $qFactor = 1;
 
-        $expectType = new LanguageType($type, new QualityFactor($qFactor));
+        $expectType = new Type($type, new QualityFactor($qFactor));
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new LanguageTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $this->assertEquals($expectType, $factory->get($type, $qFactor));
@@ -50,7 +50,7 @@ class LanguageTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new LanguageTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -61,13 +61,13 @@ class LanguageTypeFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $field = 'fr;q=0.9';
 
-        $expectType = new LanguageType('fr', new QualityFactor(0.9));
+        $expectType = new Type('fr', new QualityFactor(0.9));
         $expectCollection = new TypeCollection();
         $expectCollection->addType($expectType);
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new LanguageTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -78,13 +78,13 @@ class LanguageTypeFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $field = 'en-us';
 
-        $expectType = new LanguageType('en-us', new QualityFactor(1));
+        $expectType = new Type('en-us', new QualityFactor(1));
         $expectCollection = new TypeCollection();
         $expectCollection->addType($expectType);
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new LanguageTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -101,7 +101,7 @@ class LanguageTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new LanguageTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -118,7 +118,7 @@ class LanguageTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new LanguageTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -130,12 +130,12 @@ class LanguageTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $field = 'en-gb,en;q=0.7';
 
         $expectCollection = new TypeCollection();
-        $expectCollection->addType(new LanguageType('en-gb', new QualityFactor(1)));
-        $expectCollection->addType(new LanguageType('en', new QualityFactor(0.7)));
+        $expectCollection->addType(new Type('en-gb', new QualityFactor(1)));
+        $expectCollection->addType(new Type('en', new QualityFactor(0.7)));
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new LanguageTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -147,13 +147,13 @@ class LanguageTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $field = 'fr;q=0.5,de,*;q=0.35';
 
         $expectCollection = new TypeCollection();
-        $expectCollection->addType(new LanguageType('fr', new QualityFactor(0.5)));
-        $expectCollection->addType(new LanguageType('de', new QualityFactor(1)));
+        $expectCollection->addType(new Type('fr', new QualityFactor(0.5)));
+        $expectCollection->addType(new Type('de', new QualityFactor(1)));
         $expectCollection->addType(new WildcardType(new QualityFactor(0.35)));
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new LanguageTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -165,13 +165,13 @@ class LanguageTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $field = 'da, en-gb;q=0.8, en;q=0.7';
 
         $expectCollection = new TypeCollection();
-        $expectCollection->addType(new LanguageType('da', new QualityFactor(1)));
-        $expectCollection->addType(new LanguageType('en-gb', new QualityFactor(0.8)));
-        $expectCollection->addType(new LanguageType('en', new QualityFactor(0.7)));
+        $expectCollection->addType(new Type('da', new QualityFactor(1)));
+        $expectCollection->addType(new Type('en-gb', new QualityFactor(0.8)));
+        $expectCollection->addType(new Type('en', new QualityFactor(0.7)));
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new LanguageTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -187,7 +187,7 @@ class LanguageTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new LanguageTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $factory->parseApp('$^(£$');
@@ -205,7 +205,7 @@ class LanguageTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new LanguageTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $factory->get($type, 0.5);
@@ -218,7 +218,7 @@ class LanguageTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new LanguageTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser('$^(£$'));
@@ -234,7 +234,7 @@ class LanguageTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new LanguageTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $factory->parseApp('*');

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Test to verify the correctness of EncodingType entities.
+ * Test to verify the correctness of Type entities.
  *
  * PHP Version 5.3
  *
@@ -16,13 +16,13 @@
 namespace ptlis\ConNeg\Test\Type\Encoding;
 
 use ptlis\ConNeg\QualityFactor\QualityFactor;
-use ptlis\ConNeg\Type\EncodingType;
+use ptlis\ConNeg\Type\Type;
 
-class EncodingTypeTest extends \PHPUnit_Framework_TestCase
+class TypeTest extends \PHPUnit_Framework_TestCase
 {
     public function testNewCharsetType()
     {
-        $type = new EncodingType('gzip', new QualityFactor(0.8));
+        $type = new Type('gzip', new QualityFactor(0.8));
 
         $this->assertSame('gzip', $type->getType());
         $this->assertSame(0.8, $type->getQualityFactor()->getFactor());
@@ -33,7 +33,7 @@ class EncodingTypeTest extends \PHPUnit_Framework_TestCase
 
     public function testNewCharsetTypeOmitQualityFactor()
     {
-        $type = new EncodingType('deflate', new QualityFactor(1));
+        $type = new Type('deflate', new QualityFactor(1));
 
         $this->assertSame('deflate', $type->getType());
         $this->assertSame(1, $type->getQualityFactor()->getFactor());
@@ -44,7 +44,7 @@ class EncodingTypeTest extends \PHPUnit_Framework_TestCase
 
     public function testCloneCharsetType()
     {
-        $type = new EncodingType('gzip', new QualityFactor(1));
+        $type = new Type('gzip', new QualityFactor(1));
 
         $cloneType = clone $type;
 

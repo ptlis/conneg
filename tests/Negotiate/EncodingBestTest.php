@@ -18,7 +18,7 @@ namespace ptlis\ConNeg\Test\Negotiate;
 use ptlis\ConNeg\Negotiate;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\AbsentType;
-use ptlis\ConNeg\Type\EncodingType;
+use ptlis\ConNeg\Type\Type;
 use ptlis\ConNeg\TypePair\SharedTypePair;
 
 class EncodingBestTest extends \PHPUnit_Framework_TestCase
@@ -46,7 +46,7 @@ class EncodingBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = '';
 
         $expectPair = new SharedTypePair(
-            new EncodingType('7zip', new QualityFactor(1)),
+            new Type('7zip', new QualityFactor(1)),
             new AbsentType(new QualityFactor(0))
         );
 
@@ -64,7 +64,7 @@ class EncodingBestTest extends \PHPUnit_Framework_TestCase
 
         $expectPair = new SharedTypePair(
             new AbsentType(new QualityFactor(0)),
-            new EncodingType('compress', new QualityFactor(1))
+            new Type('compress', new QualityFactor(1))
         );
 
         $negotiate = new Negotiate();
@@ -81,7 +81,7 @@ class EncodingBestTest extends \PHPUnit_Framework_TestCase
 
         $expectPair = new SharedTypePair(
             new AbsentType(new QualityFactor(0)),
-            new EncodingType('7zip', new QualityFactor(0.5))
+            new Type('7zip', new QualityFactor(0.5))
         );
 
         $negotiate = new Negotiate();
@@ -97,8 +97,8 @@ class EncodingBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'gzip;q=0.9,7zip;q=0.6';
 
         $expectPair = new SharedTypePair(
-            new EncodingType('gzip', new QualityFactor(0.9)),
-            new EncodingType('gzip', new QualityFactor(0.9))
+            new Type('gzip', new QualityFactor(0.9)),
+            new Type('gzip', new QualityFactor(0.9))
         );
 
         $negotiate = new Negotiate();
@@ -114,8 +114,8 @@ class EncodingBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'deflate;q=0.8,7zip;q=0.3,compress;q=0.5';
 
         $expectPair = new SharedTypePair(
-            new EncodingType('7zip', new QualityFactor(0.6)),
-            new EncodingType('7zip', new QualityFactor(0.3))
+            new Type('7zip', new QualityFactor(0.6)),
+            new Type('7zip', new QualityFactor(0.3))
         );
 
         $negotiate = new Negotiate();
@@ -131,8 +131,8 @@ class EncodingBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'gzip,7zip;q=0.7,deflate;q=0.3';
 
         $expectPair = new SharedTypePair(
-            new EncodingType('gzip', new QualityFactor(0.8)),
-            new EncodingType('gzip', new QualityFactor(1))
+            new Type('gzip', new QualityFactor(0.8)),
+            new Type('gzip', new QualityFactor(1))
         );
 
         $negotiate = new Negotiate();

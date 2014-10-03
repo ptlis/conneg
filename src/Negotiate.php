@@ -25,10 +25,8 @@ use ptlis\ConNeg\Negotiator\SharedNegotiator;
 use ptlis\ConNeg\RegexProvider\MimeTypeRegexProvider;
 use ptlis\ConNeg\RegexProvider\SharedTypeRegexProvider;
 use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
-use ptlis\ConNeg\TypeBuilder\CharsetTypeBuilder;
-use ptlis\ConNeg\TypeBuilder\EncodingTypeBuilder;
-use ptlis\ConNeg\TypeBuilder\LanguageTypeBuilder;
 use ptlis\ConNeg\TypeBuilder\MimeTypeBuilder;
+use ptlis\ConNeg\TypeBuilder\TypeBuilder;
 use ptlis\ConNeg\TypeFactory\MimeTypeFactory;
 use ptlis\ConNeg\TypeFactory\SharedTypeFactory;
 use ptlis\ConNeg\TypeFactory\TypeFactoryInterface;
@@ -92,15 +90,15 @@ class Negotiate
         // Prepare factories
         $this->charsetFactory       = new SharedTypeFactory(
             $sharedRegexProvider,
-            new CharsetTypeBuilder($qualityFactorFactory)
+            new TypeBuilder($qualityFactorFactory)
         );
         $this->encodingFactory      = new SharedTypeFactory(
             $sharedRegexProvider,
-            new EncodingTypeBuilder($qualityFactorFactory)
+            new TypeBuilder($qualityFactorFactory)
         );
         $this->languageFactory      = new SharedTypeFactory(
             $sharedRegexProvider,
-            new LanguageTypeBuilder($qualityFactorFactory)
+            new TypeBuilder($qualityFactorFactory)
         );
         $this->mimeFactory          = new MimeTypeFactory(
             new MimeTypeRegexProvider(),

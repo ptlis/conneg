@@ -18,13 +18,14 @@ use ptlis\ConNeg\Exception\QualityFactorException;
 use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
 use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
 use ptlis\ConNeg\Type\AbsentType;
+use ptlis\ConNeg\Type\Type;
 use ptlis\ConNeg\Type\TypeInterface;
 use ptlis\ConNeg\Type\WildcardType;
 
 /**
- * Abstract type builder for shared functionality.
+ * Type builder for shared functionality.
  */
-abstract class AbstractTypeBuilder implements TypeBuilderInterface
+class TypeBuilder implements TypeBuilderInterface
 {
     /**
      * @var bool
@@ -58,7 +59,6 @@ abstract class AbstractTypeBuilder implements TypeBuilderInterface
         $this->setDefaults();
     }
 
-
     /**
      * Set whether the build type is application-defined or user-defined.
      *
@@ -72,7 +72,6 @@ abstract class AbstractTypeBuilder implements TypeBuilderInterface
 
         return $this;
     }
-
 
     /**
      * Set the string representation of the type.
@@ -94,7 +93,6 @@ abstract class AbstractTypeBuilder implements TypeBuilderInterface
         return $this;
     }
 
-
     /**
      * Set the quality factor.
      *
@@ -110,7 +108,6 @@ abstract class AbstractTypeBuilder implements TypeBuilderInterface
 
         return $this;
     }
-
 
     /**
      * Validate the builder state, if valid then return the hydrated type object.
@@ -141,7 +138,6 @@ abstract class AbstractTypeBuilder implements TypeBuilderInterface
         return $type;
     }
 
-
     /**
      * Attempt to get a wildcard type, throws exception if type was provided by the application.
      *
@@ -160,7 +156,6 @@ abstract class AbstractTypeBuilder implements TypeBuilderInterface
         return new WildcardType($this->qFactor);
     }
 
-
     /**
      * Set the default state of the builder.
      */
@@ -171,11 +166,11 @@ abstract class AbstractTypeBuilder implements TypeBuilderInterface
         $this->qFactor = $this->qFactorFactory->get(0, $this->appType);
     }
 
-
     /**
-     * Get the type object from the provided specification.
-     *
-     * @return TypeInterface
+     * @return Type
      */
-    abstract protected function getType();
+    protected function getType()
+    {
+        return new Type($this->type, $this->qFactor);
+    }
 }

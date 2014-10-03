@@ -21,7 +21,7 @@ use ptlis\ConNeg\Collection\TypePairSort;
 use ptlis\ConNeg\Negotiate;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\AbsentType;
-use ptlis\ConNeg\Type\CharsetType;
+use ptlis\ConNeg\Type\Type;
 use ptlis\ConNeg\Type\WildcardType;
 use ptlis\ConNeg\TypePair\SharedTypePair;
 
@@ -63,13 +63,13 @@ class CharsetAllTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
             new SharedTypePair(
-                new CharsetType('utf-8', new QualityFactor(1)),
+                new Type('utf-8', new QualityFactor(1)),
                 new AbsentType(new QualityFactor(0))
             )
         );
         $expectCollection->addPair(
             new SharedTypePair(
-                new CharsetType('iso-8859-5', new QualityFactor(0.75)),
+                new Type('iso-8859-5', new QualityFactor(0.75)),
                 new AbsentType(new QualityFactor(0))
             )
         );
@@ -96,13 +96,13 @@ class CharsetAllTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
             new SharedTypePair(
-                new CharsetType('utf-8', new QualityFactor(1)),
+                new Type('utf-8', new QualityFactor(1)),
                 new AbsentType(new QualityFactor(0))
             )
         );
         $expectCollection->addPair(
             new SharedTypePair(
-                new CharsetType('iso-8859-5', new QualityFactor(0.75)),
+                new Type('iso-8859-5', new QualityFactor(0.75)),
                 new AbsentType(new QualityFactor(0))
             )
         );
@@ -130,13 +130,13 @@ class CharsetAllTest extends \PHPUnit_Framework_TestCase
         $expectCollection->addPair(
             new SharedTypePair(
                 new AbsentType(new QualityFactor(0)),
-                new CharsetType('iso-8859-1', new QualityFactor(1))
+                new Type('iso-8859-1', new QualityFactor(1))
             )
         );
         $expectCollection->addPair(
             new SharedTypePair(
                 new AbsentType(new QualityFactor(0)),
-                new CharsetType('utf-8', new QualityFactor(0.5))
+                new Type('utf-8', new QualityFactor(0.5))
             )
         );
 
@@ -163,13 +163,13 @@ class CharsetAllTest extends \PHPUnit_Framework_TestCase
         $expectCollection->addPair(
             new SharedTypePair(
                 new AbsentType(new QualityFactor(0)),
-                new CharsetType('iso-8859-1', new QualityFactor(1))
+                new Type('iso-8859-1', new QualityFactor(1))
             )
         );
         $expectCollection->addPair(
             new SharedTypePair(
                 new AbsentType(new QualityFactor(0)),
-                new CharsetType('utf-8', new QualityFactor(0.5))
+                new Type('utf-8', new QualityFactor(0.5))
             )
         );
 
@@ -196,13 +196,13 @@ class CharsetAllTest extends \PHPUnit_Framework_TestCase
         $expectCollection->addPair(
             new SharedTypePair(
                 new AbsentType(new QualityFactor(0)),
-                new CharsetType('iso-8859-1', new QualityFactor(0.5))
+                new Type('iso-8859-1', new QualityFactor(0.5))
             )
         );
         $expectCollection->addPair(
             new SharedTypePair(
                 new AbsentType(new QualityFactor(0)),
-                new CharsetType('utf-8', new QualityFactor(0.5))
+                new Type('utf-8', new QualityFactor(0.5))
             )
         );
 
@@ -228,14 +228,14 @@ class CharsetAllTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
             new SharedTypePair(
-                new CharsetType('iso-8859-5', new QualityFactor(0.9)),
-                new CharsetType('iso-8859-5', new QualityFactor(0.9))
+                new Type('iso-8859-5', new QualityFactor(0.9)),
+                new Type('iso-8859-5', new QualityFactor(0.9))
             )
         );
         $expectCollection->addPair(
             new SharedTypePair(
-                new CharsetType('utf-8', new QualityFactor(0.6)),
-                new CharsetType('utf-8', new QualityFactor(0.6))
+                new Type('utf-8', new QualityFactor(0.6)),
+                new Type('utf-8', new QualityFactor(0.6))
             )
         );
 
@@ -261,26 +261,26 @@ class CharsetAllTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
             new SharedTypePair(
-                new CharsetType('utf-8', new QualityFactor(0.6)),
-                new CharsetType('utf-8', new QualityFactor(0.3))
+                new Type('utf-8', new QualityFactor(0.6)),
+                new Type('utf-8', new QualityFactor(0.3))
             )
         );
         $expectCollection->addPair(
             new SharedTypePair(
-                new CharsetType('iso-8859-1', new QualityFactor(0.3)),
-                new CharsetType('iso-8859-1', new QualityFactor(0.5))
+                new Type('iso-8859-1', new QualityFactor(0.3)),
+                new Type('iso-8859-1', new QualityFactor(0.5))
             )
         );
         $expectCollection->addPair(
             new SharedTypePair(
-                new CharsetType('iso-8859-5', new QualityFactor(0.9)),
+                new Type('iso-8859-5', new QualityFactor(0.9)),
                 new AbsentType(new QualityFactor(0))
             )
         );
         $expectCollection->addPair(
             new SharedTypePair(
                 new AbsentType(new QualityFactor(0)),
-                new CharsetType('windows-1250', new QualityFactor(0.8))
+                new Type('windows-1250', new QualityFactor(0.8))
             )
         );
 
@@ -306,20 +306,20 @@ class CharsetAllTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new SharedTypePairCollection($pairSort);
         $expectCollection->addPair(
             new SharedTypePair(
-                new CharsetType('iso-8859-5', new QualityFactor(0.8)),
-                new CharsetType('iso-8859-5', new QualityFactor(1))
+                new Type('iso-8859-5', new QualityFactor(0.8)),
+                new Type('iso-8859-5', new QualityFactor(1))
             )
         );
         $expectCollection->addPair(
             new SharedTypePair(
-                new CharsetType('utf-8', new QualityFactor(0.9)),
-                new CharsetType('utf-8', new QualityFactor(0.7))
+                new Type('utf-8', new QualityFactor(0.9)),
+                new Type('utf-8', new QualityFactor(0.7))
             )
         );
         $expectCollection->addPair(
             new SharedTypePair(
                 new WildcardType(new QualityFactor(0.5)),
-                new CharsetType('windows-1250', new QualityFactor(0.3))
+                new Type('windows-1250', new QualityFactor(0.3))
             )
         );
 

@@ -18,10 +18,10 @@ use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
 use ptlis\ConNeg\RegexProvider\MimeTypeRegexProvider;
 use ptlis\ConNeg\RegexProvider\SharedTypeRegexProvider;
-use ptlis\ConNeg\Type\CharsetType;
-use ptlis\ConNeg\TypeBuilder\CharsetTypeBuilder;
+use ptlis\ConNeg\Type\Type;
 use ptlis\ConNeg\Type\MimeType;
 use ptlis\ConNeg\TypeBuilder\MimeTypeBuilder;
+use ptlis\ConNeg\TypeBuilder\TypeBuilder;
 use ptlis\ConNeg\TypeFactory\MimeTypeFactory;
 use ptlis\ConNeg\TypeFactory\SharedTypeFactory;
 
@@ -37,13 +37,13 @@ class MalformedQualityFactorTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new TypeCollection();
         $expectCollection
             ->addType(
-                new CharsetType(
+                new Type(
                     'utf-8',
                     new QualityFactor(1)
                 )
             )
             ->addType(
-                new CharsetType(
+                new Type(
                     'iso-8859-5',
                     new QualityFactor(0.5)
                 )
@@ -51,7 +51,7 @@ class MalformedQualityFactorTest extends \PHPUnit_Framework_TestCase
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new CharsetTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -65,13 +65,13 @@ class MalformedQualityFactorTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new TypeCollection();
         $expectCollection
             ->addType(
-                new CharsetType(
+                new Type(
                     'utf-8',
                     new QualityFactor(1)
                 )
             )
             ->addType(
-                new CharsetType(
+                new Type(
                     'iso-8859-5',
                     new QualityFactor(0.5)
                 )
@@ -79,7 +79,7 @@ class MalformedQualityFactorTest extends \PHPUnit_Framework_TestCase
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new CharsetTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -98,13 +98,13 @@ class MalformedQualityFactorTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new TypeCollection();
         $expectCollection
             ->addType(
-                new CharsetType(
+                new Type(
                     'utf-8',
                     new QualityFactor(1)
                 )
             )
             ->addType(
-                new CharsetType(
+                new Type(
                     'iso-8859-5',
                     new QualityFactor(0.5)
                 )
@@ -112,7 +112,7 @@ class MalformedQualityFactorTest extends \PHPUnit_Framework_TestCase
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new CharsetTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $factory->parseApp($field);
@@ -131,13 +131,13 @@ class MalformedQualityFactorTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new TypeCollection();
         $expectCollection
             ->addType(
-                new CharsetType(
+                new Type(
                     'utf-8',
                     new QualityFactor(1)
                 )
             )
             ->addType(
-                new CharsetType(
+                new Type(
                     'iso-8859-5',
                     new QualityFactor(0.5)
                 )
@@ -145,7 +145,7 @@ class MalformedQualityFactorTest extends \PHPUnit_Framework_TestCase
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new CharsetTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $factory->parseApp($field);

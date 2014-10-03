@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Class for representing a Charset type.
- *
  * PHP Version 5.3
  *
  * @copyright   (c) 2006-2014 brian ridley
@@ -18,9 +16,9 @@ namespace ptlis\ConNeg\Type;
 use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
 
 /**
- * Class for representing a Charset type.
+ * Class representing a type.
  */
-class CharsetType implements TypeInterface
+class Type implements TypeInterface
 {
     /**
      * @var string
@@ -45,7 +43,6 @@ class CharsetType implements TypeInterface
         $this->qFactor = $qFactor;
     }
 
-
     /**
      * Return the full type as a string.
      *
@@ -55,7 +52,6 @@ class CharsetType implements TypeInterface
     {
         return $this->type;
     }
-
 
     /**
      * Return the precedence of the type, non-wildcard type have the highest precedence.
@@ -67,7 +63,6 @@ class CharsetType implements TypeInterface
         return 1;
     }
 
-
     /**
      * Returns the quality factor for the type.
      *
@@ -77,7 +72,6 @@ class CharsetType implements TypeInterface
     {
         return $this->qFactor;
     }
-
 
     /**
      * Create string representation of type.

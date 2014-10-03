@@ -16,13 +16,13 @@
 namespace ptlis\ConNeg\Test\Type\Language;
 
 use ptlis\ConNeg\QualityFactor\QualityFactor;
-use ptlis\ConNeg\Type\LanguageType;
+use ptlis\ConNeg\Type\Type;
 
 class LanguageTypeTest extends \PHPUnit_Framework_TestCase
 {
     public function testNewCharsetType()
     {
-        $type = new LanguageType('en-gb', new QualityFactor(0.8));
+        $type = new Type('en-gb', new QualityFactor(0.8));
 
         $this->assertSame('en-gb', $type->getType());
         $this->assertSame(0.8, $type->getQualityFactor()->getFactor());
@@ -33,7 +33,7 @@ class LanguageTypeTest extends \PHPUnit_Framework_TestCase
 
     public function testNewCharsetTypeOmitQualityFactor()
     {
-        $type = new LanguageType('en-us', new QualityFactor(1));
+        $type = new Type('en-us', new QualityFactor(1));
 
         $this->assertSame('en-us', $type->getType());
         $this->assertSame(1, $type->getQualityFactor()->getFactor());
@@ -44,7 +44,7 @@ class LanguageTypeTest extends \PHPUnit_Framework_TestCase
 
     public function testCloneCharsetType()
     {
-        $type = new LanguageType('en-gb', new QualityFactor(1));
+        $type = new Type('en-gb', new QualityFactor(1));
 
         $cloneType = clone $type;
 

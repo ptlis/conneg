@@ -18,7 +18,7 @@ namespace ptlis\ConNeg\Test\Negotiate;
 use ptlis\ConNeg\Negotiate;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\AbsentType;
-use ptlis\ConNeg\Type\LanguageType;
+use ptlis\ConNeg\Type\Type;
 use ptlis\ConNeg\TypePair\SharedTypePair;
 
 class LanguageBestTest extends \PHPUnit_Framework_TestCase
@@ -46,7 +46,7 @@ class LanguageBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = '';
 
         $expectPair = new SharedTypePair(
-            new LanguageType('en-us', new QualityFactor(1)),
+            new Type('en-us', new QualityFactor(1)),
             new AbsentType(new QualityFactor(0))
         );
 
@@ -64,7 +64,7 @@ class LanguageBestTest extends \PHPUnit_Framework_TestCase
 
         $expectPair = new SharedTypePair(
             new AbsentType(new QualityFactor(0)),
-            new LanguageType('en-gb', new QualityFactor(1))
+            new Type('en-gb', new QualityFactor(1))
         );
 
         $negotiate = new Negotiate();
@@ -81,7 +81,7 @@ class LanguageBestTest extends \PHPUnit_Framework_TestCase
 
         $expectPair = new SharedTypePair(
             new AbsentType(new QualityFactor(0)),
-            new LanguageType('en-gb', new QualityFactor(0.5))
+            new Type('en-gb', new QualityFactor(0.5))
         );
 
         $negotiate = new Negotiate();
@@ -97,8 +97,8 @@ class LanguageBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'fr;q=0.9,en-us;q=0.6';
 
         $expectPair = new SharedTypePair(
-            new LanguageType('fr', new QualityFactor(0.9)),
-            new LanguageType('fr', new QualityFactor(0.9))
+            new Type('fr', new QualityFactor(0.9)),
+            new Type('fr', new QualityFactor(0.9))
         );
 
         $negotiate = new Negotiate();
@@ -114,8 +114,8 @@ class LanguageBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'es;q=0.8,en-us;q=0.3,en-gb;q=0.5';
 
         $expectPair = new SharedTypePair(
-            new LanguageType('en-us', new QualityFactor(0.6)),
-            new LanguageType('en-us', new QualityFactor(0.3))
+            new Type('en-us', new QualityFactor(0.6)),
+            new Type('en-us', new QualityFactor(0.3))
         );
 
         $negotiate = new Negotiate();
@@ -131,8 +131,8 @@ class LanguageBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'fr,en-us;q=0.7,es;q=0.3';
 
         $expectPair = new SharedTypePair(
-            new LanguageType('fr', new QualityFactor(0.8)),
-            new LanguageType('fr', new QualityFactor(1))
+            new Type('fr', new QualityFactor(0.8)),
+            new Type('fr', new QualityFactor(1))
         );
 
         $negotiate = new Negotiate();

@@ -18,8 +18,8 @@ namespace ptlis\ConNeg\Test\Type\Charset;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
-use ptlis\ConNeg\Type\CharsetType;
-use ptlis\ConNeg\TypeBuilder\CharsetTypeBuilder;
+use ptlis\ConNeg\Type\Type;
+use ptlis\ConNeg\TypeBuilder\TypeBuilder;
 use ptlis\ConNeg\TypeFactory\SharedTypeFactory;
 use ptlis\ConNeg\RegexProvider\SharedTypeRegexProvider;
 use ptlis\ConNeg\Type\WildcardType;
@@ -31,11 +31,11 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $type = 'utf-8,';
         $qFactor = 1;
 
-        $expectType = new CharsetType($type, new QualityFactor($qFactor));
+        $expectType = new Type($type, new QualityFactor($qFactor));
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new CharsetTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $this->assertEquals($expectType, $factory->get($type, $qFactor));
@@ -50,7 +50,7 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new CharsetTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -61,13 +61,13 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $field = 'utf-8;q=0.9';
 
-        $expectType = new CharsetType('utf-8', new QualityFactor(0.9));
+        $expectType = new Type('utf-8', new QualityFactor(0.9));
         $expectCollection = new TypeCollection();
         $expectCollection->addType($expectType);
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new CharsetTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -78,13 +78,13 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $field = 'utf-8';
 
-        $expectType = new CharsetType('utf-8', new QualityFactor(1));
+        $expectType = new Type('utf-8', new QualityFactor(1));
         $expectCollection = new TypeCollection();
         $expectCollection->addType($expectType);
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new CharsetTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -101,7 +101,7 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new CharsetTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -118,7 +118,7 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new CharsetTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -130,12 +130,12 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $field = 'utf-8;q=0.5;iso-8859-5';
 
         $expectCollection = new TypeCollection();
-        $expectCollection->addType(new CharsetType('utf-8', new QualityFactor(0.5)));
-        $expectCollection->addType(new CharsetType('iso-8859-5', new QualityFactor(1)));
+        $expectCollection->addType(new Type('utf-8', new QualityFactor(0.5)));
+        $expectCollection->addType(new Type('iso-8859-5', new QualityFactor(1)));
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new CharsetTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -147,13 +147,13 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $field = 'utf-8;q=0.5;iso-8859-5;*;q=0.35';
 
         $expectCollection = new TypeCollection();
-        $expectCollection->addType(new CharsetType('utf-8', new QualityFactor(0.5)));
-        $expectCollection->addType(new CharsetType('iso-8859-5', new QualityFactor(1)));
+        $expectCollection->addType(new Type('utf-8', new QualityFactor(0.5)));
+        $expectCollection->addType(new Type('iso-8859-5', new QualityFactor(1)));
         $expectCollection->addType(new WildcardType(new QualityFactor(0.35)));
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new CharsetTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -165,12 +165,12 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $field = 'iso-8859-5, unicode-1-1;q=0.8';
 
         $expectCollection = new TypeCollection();
-        $expectCollection->addType(new CharsetType('iso-8859-5', new QualityFactor(1)));
-        $expectCollection->addType(new CharsetType('unicode-1-1', new QualityFactor(0.8)));
+        $expectCollection->addType(new Type('iso-8859-5', new QualityFactor(1)));
+        $expectCollection->addType(new Type('unicode-1-1', new QualityFactor(0.8)));
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new CharsetTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser($field));
@@ -186,7 +186,7 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new CharsetTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $factory->parseApp('$^(£$');
@@ -204,7 +204,7 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new CharsetTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $factory->get($type, 0.5);
@@ -217,7 +217,7 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new CharsetTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $this->assertEquals($expectCollection, $factory->parseUser('$^(£$'));
@@ -233,7 +233,7 @@ class CharsetTypeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory = new SharedTypeFactory(
             new SharedTypeRegexProvider(),
-            new CharsetTypeBuilder(new QualityFactorFactory())
+            new TypeBuilder(new QualityFactorFactory())
         );
 
         $factory->parseApp('*');

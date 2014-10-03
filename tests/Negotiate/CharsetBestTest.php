@@ -18,7 +18,7 @@ namespace ptlis\ConNeg\Test\Negotiate;
 use ptlis\ConNeg\Negotiate;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\AbsentType;
-use ptlis\ConNeg\Type\CharsetType;
+use ptlis\ConNeg\Type\Type;
 use ptlis\ConNeg\TypePair\SharedTypePair;
 
 class CharsetBestTest extends \PHPUnit_Framework_TestCase
@@ -46,7 +46,7 @@ class CharsetBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = '';
 
         $expectPair = new SharedTypePair(
-            new CharsetType('utf-8', new QualityFactor(1)),
+            new Type('utf-8', new QualityFactor(1)),
             new AbsentType(new QualityFactor(0))
         );
 
@@ -64,7 +64,7 @@ class CharsetBestTest extends \PHPUnit_Framework_TestCase
 
         $expectPair = new SharedTypePair(
             new AbsentType(new QualityFactor(0)),
-            new CharsetType('iso-8859-1', new QualityFactor(1))
+            new Type('iso-8859-1', new QualityFactor(1))
         );
 
         $negotiate = new Negotiate();
@@ -81,7 +81,7 @@ class CharsetBestTest extends \PHPUnit_Framework_TestCase
 
         $expectPair = new SharedTypePair(
             new AbsentType(new QualityFactor(0)),
-            new CharsetType('iso-8859-1', new QualityFactor(0.5))
+            new Type('iso-8859-1', new QualityFactor(0.5))
         );
 
         $negotiate = new Negotiate();
@@ -97,8 +97,8 @@ class CharsetBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'iso-8859-5;q=0.9,utf-8;q=0.6';
 
         $expectPair = new SharedTypePair(
-            new CharsetType('iso-8859-5', new QualityFactor(0.9)),
-            new CharsetType('iso-8859-5', new QualityFactor(0.9))
+            new Type('iso-8859-5', new QualityFactor(0.9)),
+            new Type('iso-8859-5', new QualityFactor(0.9))
         );
 
         $negotiate = new Negotiate();
@@ -114,8 +114,8 @@ class CharsetBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'windows-1250;q=0.8,utf-8;q=0.3,iso-8859-1;q=0.5';
 
         $expectPair = new SharedTypePair(
-            new CharsetType('utf-8', new QualityFactor(0.6)),
-            new CharsetType('utf-8', new QualityFactor(0.3))
+            new Type('utf-8', new QualityFactor(0.6)),
+            new Type('utf-8', new QualityFactor(0.3))
         );
 
         $negotiate = new Negotiate();
@@ -131,8 +131,8 @@ class CharsetBestTest extends \PHPUnit_Framework_TestCase
         $appPrefs   = 'iso-8859-5,utf-8;q=0.7,windows-1250;q=0.3';
 
         $expectPair = new SharedTypePair(
-            new CharsetType('iso-8859-5', new QualityFactor(0.8)),
-            new CharsetType('iso-8859-5', new QualityFactor(1))
+            new Type('iso-8859-5', new QualityFactor(0.8)),
+            new Type('iso-8859-5', new QualityFactor(1))
         );
 
         $negotiate = new Negotiate();
