@@ -20,14 +20,8 @@ use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
 /**
  * Class for absence of a MIME type.
  */
-class MimeAbsentType implements MimeTypeInterface
+class MimeAbsentType extends MimeType
 {
-    /**
-     * @var QualityFactorInterface
-     */
-    private $qFactor;
-
-
     /**
      * Constructor
      *
@@ -35,31 +29,9 @@ class MimeAbsentType implements MimeTypeInterface
      */
     public function __construct(QualityFactorInterface $qFactor)
     {
-        $this->qFactor = $qFactor;
+        parent::__construct('', '', $qFactor);
+        $this->precedence = -1;
     }
-
-
-    /**
-     * Returns an empty string.
-     *
-     * @return string
-     */
-    public function getMimeType()
-    {
-        return '';
-    }
-
-
-    /**
-     * Returns an empty string.
-     *
-     * @return string
-     */
-    public function getMimeSubType()
-    {
-        return '';
-    }
-
 
     /**
      * Returns an empty string.
@@ -70,29 +42,6 @@ class MimeAbsentType implements MimeTypeInterface
     {
         return '';
     }
-
-
-    /**
-     * Return the precedence of the type, non-matching types have the lowest precedence.
-     *
-     * @return int
-     */
-    public function getPrecedence()
-    {
-        return -1;
-    }
-
-
-    /**
-     * Returns the quality factor for the type.
-     *
-     * @return QualityFactorInterface
-     */
-    public function getQualityFactor()
-    {
-        return $this->qFactor;
-    }
-
 
     /**
      * Returns an empty string.

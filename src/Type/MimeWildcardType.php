@@ -20,14 +20,8 @@ use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
 /**
  * Class for MIME with wildcard type & subtype.
  */
-class MimeWildcardType implements MimeTypeInterface
+class MimeWildcardType extends MimeType
 {
-    /**
-     * @var QualityFactorInterface
-     */
-    private $qFactor;
-
-
     /**
      * Constructor.
      *
@@ -35,72 +29,7 @@ class MimeWildcardType implements MimeTypeInterface
      */
     public function __construct(QualityFactorInterface $qFactor)
     {
-        $this->qFactor = $qFactor;
-    }
-
-
-    /**
-     * Returns the type portion of the media range.
-     *
-     * @return string
-     */
-    public function getMimeType()
-    {
-        return '*';
-    }
-
-
-    /**
-     * Returns the subtype portion of the media range.
-     *
-     * @return string
-     */
-    public function getMimeSubType()
-    {
-        return '*';
-    }
-
-
-    /**
-     * Return the full type as a string.
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->getMimeType() . '/' . $this->getMimeSubType();
-    }
-
-
-    /**
-     * Return the precedence of the type, wildcard matches have the lowest precedence of matching types.
-     *
-     * @return int
-     */
-    public function getPrecedence()
-    {
-        return 0;
-    }
-
-
-    /**
-     * Returns the quality factor for the type.
-     *
-     * @return QualityFactorInterface
-     */
-    public function getQualityFactor()
-    {
-        return $this->qFactor;
-    }
-
-
-    /**
-     * Create string representation of type.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->getType() . ';q=' . $this->getQualityFactor();
+        parent::__construct('*', '*', $qFactor);
+        $this->precedence = 0;
     }
 }

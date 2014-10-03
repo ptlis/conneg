@@ -37,6 +37,11 @@ class MimeType implements MimeTypeInterface
      */
     private $qFactor;
 
+    /**
+     * @var int
+     */
+    protected $precedence;
+
 
     /**
      * Constructor
@@ -50,8 +55,8 @@ class MimeType implements MimeTypeInterface
         $this->type = $type;
         $this->subType = $subType;
         $this->qFactor = $qFactor;
+        $this->precedence = 2;
     }
-
 
     /**
      * Returns the type portion of the media range.
@@ -63,7 +68,6 @@ class MimeType implements MimeTypeInterface
         return $this->type;
     }
 
-
     /**
      * Returns the subtype portion of the media range.
      *
@@ -73,7 +77,6 @@ class MimeType implements MimeTypeInterface
     {
         return $this->subType;
     }
-
 
     /**
      * Return the full type as a string.
@@ -85,7 +88,6 @@ class MimeType implements MimeTypeInterface
         return $this->getMimeType() . '/' . $this->getMimeSubType();
     }
 
-
     /**
      * Return the precedence of the type, non-wildcard type have the highest precedence when you ignore accept-extens.
      *
@@ -93,9 +95,8 @@ class MimeType implements MimeTypeInterface
      */
     public function getPrecedence()
     {
-        return 2;
+        return $this->precedence;
     }
-
 
     /**
      * Returns the quality factor for the type.
@@ -106,7 +107,6 @@ class MimeType implements MimeTypeInterface
     {
         return $this->qFactor;
     }
-
 
     /**
      * Create string representation of type.
