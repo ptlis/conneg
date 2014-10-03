@@ -53,5 +53,3 @@ You can contribute by submitting an Issue to the [issue tracker](https://github.
 
 * Handle accept-extens
 * Time based negotiation? See RFC 7089
-* Collections should not sort selves? Perhaps seperate class... perhaps builder?
-* Error if matching application quality factor is found.
