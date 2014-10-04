@@ -17,7 +17,6 @@ use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Exception\ConNegException;
 use ptlis\ConNeg\Exception\InvalidTypeException;
 use ptlis\ConNeg\RegexProvider\MimeTypeRegexProvider;
-use ptlis\ConNeg\RegexProvider\TypeRegexProviderInterface;
 use ptlis\ConNeg\TypeBuilder\MimeTypeBuilder;
 use ptlis\ConNeg\Type\MimeTypeInterface;
 
@@ -29,7 +28,7 @@ class MimeTypeFactory implements TypeFactoryInterface
     /**
      * Class providing the regex when parsing types.
      *
-     * @var TypeRegexProviderInterface
+     * @var MimeTypeRegexProvider
      */
     private $regexProvider;
 

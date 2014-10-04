@@ -102,10 +102,10 @@ class MimeNegotiator implements NegotiatorInterface
     /**
      * Attempt to match wildcard type against each item in matching list.
      *
-     * @param TypePair[]  $matchingList
+     * @param TypePairInterface[]  $matchingList
      * @param MimeTypeInterface $userType
      *
-     * @return TypePair[]
+     * @return TypePairInterface[]
      */
     private function matchFullWildcard(array $matchingList, MimeTypeInterface $userType)
     {
@@ -127,7 +127,7 @@ class MimeNegotiator implements NegotiatorInterface
      * @param TypePairInterface[]   $matchingList
      * @param MimeTypeInterface     $userType
      *
-     * @return TypePair[]
+     * @return TypePairInterface[]
      */
     private function matchSubTypeWildcard(array $matchingList, MimeTypeInterface $userType)
     {
@@ -153,7 +153,7 @@ class MimeNegotiator implements NegotiatorInterface
      * @param TypePairInterface[]   $matchingList
      * @param MimeTypeInterface     $userType
      *
-     * @return array
+     * @return TypePairInterface[]
      */
     private function matchExact(array $matchingList, MimeTypeInterface $userType)
     {
@@ -173,9 +173,9 @@ class MimeNegotiator implements NegotiatorInterface
      * Match user types to app types.
      *
      * @param TypeCollection|MimeTypeInterface[]   $userTypeList
-     * @param TypePair[]  $matchingList
+     * @param TypePairInterface[]  $matchingList
      *
-     * @return TypePair[]
+     * @return TypePairInterface[]
      */
     private function matchUserToAppTypes(TypeCollection $userTypeList, array $matchingList)
     {

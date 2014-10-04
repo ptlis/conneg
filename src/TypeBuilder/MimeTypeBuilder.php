@@ -25,6 +25,13 @@ use ptlis\ConNeg\Type\TypeInterface;
  */
 class MimeTypeBuilder extends TypeBuilder
 {
+    /**
+     * Get the built type from the specification previously provided.
+     *
+     * @throws InvalidTypeException
+     *
+     * @return TypeInterface
+     */
     public function get()
     {
         switch (true) {

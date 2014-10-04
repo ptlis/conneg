@@ -175,7 +175,7 @@ class TypeBuilder implements TypeBuilderInterface
     }
 
     /**
-     * @return Type
+     * @return TypeInterface
      */
     protected function getType()
     {
