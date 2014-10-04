@@ -73,7 +73,7 @@ class MimeNegotiator implements NegotiatorInterface
             );
         }
 
-        $matchingList = $this->matchUserToAppTypes($userTypeList, $matchingList);
+        $matchingList = $this->matchUserListToAppTypes($userTypeList, $matchingList);
 
         $pairCollection = new SharedTypePairCollection($this->pairSort);
 
@@ -177,29 +177,49 @@ class MimeNegotiator implements NegotiatorInterface
      *
      * @return TypePairInterface[]
      */
-    private function matchUserToAppTypes(TypeCollection $userTypeList, array $matchingList)
+    private function matchUserListToAppTypes(TypeCollection $userTypeList, array $matchingList)
     {
         foreach ($userTypeList as $userType) {
 
+            $matchingList = $this->matchUserToAppTypes($userType, $matchingList);
+        }
+
+        return $matchingList;
+    }
+
+    /**
+     * Match a single user type to the application types.
+     *
+     * @param MimeTypeInterface     $userType
+     * @param TypePairInterface[]   $matchingList
+     *
+     * @return TypePairInterface[]
+     */
+    private function matchUserToAppTypes(MimeTypeInterface $userType, array $matchingList)
+    {
+        switch (true) {
             // Full Wildcard Match
-            if ($userType instanceof MimeWildcardType) {
+            case $userType instanceof MimeWildcardType:
                 $matchingList = $this->matchFullWildcard($matchingList, $userType);
+                break;
 
             // Wildcard SubType Match
-            } elseif ($userType instanceof MimeWildcardSubType) {
+            case $userType instanceof MimeWildcardSubType:
                 $matchingList = $this->matchSubTypeWildcard($matchingList, $userType);
+                break;
 
             // Exact Match
-            } elseif (array_key_exists($userType->getType(), $matchingList)) {
+            case array_key_exists($userType->getType(), $matchingList):
                 $matchingList = $this->matchExact($matchingList, $userType);
+                break;
 
             // No match
-            } else {
+            default:
                 $matchingList[$userType->getType()] = new TypePair(
                     $userType,
                     $this->typeFactory->get('', 0)
                 );
-            }
+                break;
         }
 
         return $matchingList;
