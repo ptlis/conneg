@@ -69,8 +69,11 @@ class MimeTypeBuilder extends TypeBuilder
      */
     private function validateType($mimeType, $subType)
     {
-        $this->noAppWildcards($mimeType, $subType);
-        $this->validWildcard($mimeType, $subType);
+        if ($this->appType) {
+            $this->noAppWildcards($mimeType, $subType);
+        } else {
+            $this->validUserWildcard($mimeType, $subType);
+        }
     }
 
     /**
@@ -83,7 +86,7 @@ class MimeTypeBuilder extends TypeBuilder
      */
     private function noAppWildcards($mimeType, $subType)
     {
-        if ($this->appType && ($mimeType === '*' || $subType === '*')) {
+        if (($mimeType === '*' || $subType === '*')) {
             throw new InvalidTypeException(
                 'Wildcards are not valid in application-provided types.'
             );
@@ -91,14 +94,14 @@ class MimeTypeBuilder extends TypeBuilder
     }
 
     /**
-     * Ensure that wildcards are valid (you may not have a wildcard type but a concrete subtype).
+     * Ensure that user-agent provided wildcards are valid (you may not have a wildcard type but a concrete subtype).
      *
      * @throws InvalidTypeException
      *
      * @param string $mimeType
      * @param string $subType
      */
-    private function validWildcard($mimeType, $subType)
+    private function validUserWildcard($mimeType, $subType)
     {
         if ($mimeType === '*' && $subType !== '*') {
             throw new InvalidTypeException(
