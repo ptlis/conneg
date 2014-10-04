@@ -53,7 +53,6 @@ class MimeTypeBuilder extends TypeBuilder
                 throw new InvalidTypeException(
                     '"' . $this->type . '" is not a valid mime type'
                 );
-                break;
         }
 
         return $type;
@@ -70,15 +69,40 @@ class MimeTypeBuilder extends TypeBuilder
      */
     private function validateType($mimeType, $subType)
     {
-        if (($mimeType === '*' || $subType === '*') && $this->appType) {
+        $this->noAppWildcards($mimeType, $subType);
+        $this->validWildcard($mimeType, $subType);
+    }
+
+    /**
+     * Ensure that application-provided types do not include wildcards.
+     *
+     * @throws InvalidTypeException
+     *
+     * @param string $mimeType
+     * @param string $subType
+     */
+    private function noAppWildcards($mimeType, $subType)
+    {
+        if ($this->appType && ($mimeType === '*' || $subType === '*')) {
             throw new InvalidTypeException(
                 'Wildcards are not valid in application-provided types.'
             );
         }
+    }
 
+    /**
+     * Ensure that wildcards are valid (you may not have a wildcard type but a concrete subtype).
+     *
+     * @throws InvalidTypeException
+     *
+     * @param string $mimeType
+     * @param string $subType
+     */
+    private function validWildcard($mimeType, $subType)
+    {
         if ($mimeType === '*' && $subType !== '*') {
             throw new InvalidTypeException(
-                '"' . $this->type . '" is not a valid mime type'
+                '"' . $this->type . '" is not a valid mime type.'
             );
         }
     }
