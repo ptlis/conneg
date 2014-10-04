@@ -37,41 +37,57 @@ use ptlis\Conneg\TypePair\TypePairInterface;
 class Negotiate
 {
     /**
+     * Type factory creating charset types.
+     *
      * @var TypeFactory
      */
     private $charsetFactory;
 
     /**
+     * Negotiator for charset types.
+     *
      * @var Negotiator
      */
     private $charsetNegotiator;
 
     /**
+     * Type factory creating encoding types.
+     *
      * @var TypeFactory
      */
     private $encodingFactory;
 
     /**
+     * Negotiator for encoding types.
+     *
      * @var Negotiator
      */
     private $encodingNegotiator;
 
     /**
+     * Type factory creating language types.
+     *
      * @var TypeFactory
      */
     private $languageFactory;
 
     /**
+     * Negotiator for language types.
+     *
      * @var Negotiator
      */
     private $languageNegotiator;
 
     /**
+     * Type factory creating mime types.
+     *
      * @var MimeTypeFactory
      */
     private $mimeFactory;
 
     /**
+     * Negotiator for mime types.
+     *
      * @var MimeNegotiator
      */
     private $mimeNegotiator;

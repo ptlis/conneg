@@ -23,11 +23,15 @@ use ptlis\ConNeg\TypePair\TypePairInterface;
 class SharedTypePairCollection implements CollectionInterface
 {
     /**
+     * Instance of sorter than can reorder pairs.
+     *
      * @var TypePairSort
      */
     private $pairSort;
 
     /**
+     * Type Pairs contained within this collection.
+     *
      * @var TypePairInterface[]
      */
     private $typePairList;

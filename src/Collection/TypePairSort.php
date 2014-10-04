@@ -22,6 +22,8 @@ use ptlis\ConNeg\Type\TypeInterface;
 class TypePairSort
 {
     /**
+     * Default type pair returned by 'best' negotiation when a collection is empty.
+     *
      * @var TypePairInterface
      */
     private $defaultPair;

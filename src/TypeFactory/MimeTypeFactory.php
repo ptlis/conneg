@@ -27,13 +27,15 @@ use ptlis\ConNeg\Type\MimeTypeInterface;
 class MimeTypeFactory implements TypeFactoryInterface
 {
     /**
-     * Class providing regex to use for parsing the Accept-Charset field.
+     * Class providing the regex when parsing types.
      *
      * @var TypeRegexProviderInterface
      */
     private $regexProvider;
 
     /**
+     * Builder used to construct new types.
+     *
      * @var MimeTypeBuilder
      */
     private $typeBuilder;

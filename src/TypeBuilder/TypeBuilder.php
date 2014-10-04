@@ -28,21 +28,29 @@ use ptlis\ConNeg\Type\WildcardType;
 class TypeBuilder implements TypeBuilderInterface
 {
     /**
+     * Whether the type was provided by teh application or user-agent.
+     *
      * @var bool
      */
     protected $appType;
 
     /**
+     * Factory for creating quality factor value objects from floats.
+     *
      * @var QualityFactorFactory
      */
     protected $qFactorFactory;
 
     /**
+     * The name of the type.
+     *
      * @var string
      */
     protected $type;
 
     /**
+     * The quality factor associated with the type.
+     *
      * @var QualityFactorInterface
      */
     protected $qFactor;

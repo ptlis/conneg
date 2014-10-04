@@ -25,11 +25,15 @@ use ptlis\ConNeg\Type\TypeInterface;
 class TypeFactory implements TypeFactoryInterface
 {
     /**
+     * Class providing the regex when parsing types.
+     *
      * @var TypeRegexProviderInterface
      */
     private $regexProvider;
 
     /**
+     * Builder used to construct new types.
+     *
      * @var TypeBuilderInterface
      */
     private $typeBuilder;

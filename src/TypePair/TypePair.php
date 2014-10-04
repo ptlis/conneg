@@ -23,11 +23,15 @@ use ptlis\ConNeg\Type\TypeInterface;
 class TypePair implements TypePairInterface
 {
     /**
+     * The type from the User-Agent.
+     *
      * @var TypeInterface
      */
     private $userType;
 
     /**
+     * The type from the Application.
+     *
      * @var TypeInterface
      */
     private $appType;

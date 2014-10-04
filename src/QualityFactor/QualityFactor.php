@@ -19,6 +19,8 @@ namespace ptlis\ConNeg\QualityFactor;
 class QualityFactor implements QualityFactorInterface
 {
     /**
+     * The quality factor value range of 0-1.
+     *
      * @var float
      */
     private $qFactor;

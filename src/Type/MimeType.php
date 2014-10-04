@@ -21,21 +21,29 @@ use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
 class MimeType implements MimeTypeInterface
 {
     /**
+     * The main type (eg text, application, image).
+     *
      * @var string
      */
     private $type;
 
     /**
+     * The subtype (eg html, xml, json).
+     *
      * @var string
      */
     private $subType;
 
     /**
+     * The quality factor associated with this type.
+     *
      * @var QualityFactorInterface
      */
     private $qFactor;
 
     /**
+     * Type precedence of the type (named > subtype wildcard > wildcard > absent).
+     *
      * @var int
      */
     protected $precedence;

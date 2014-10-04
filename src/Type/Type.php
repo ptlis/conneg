@@ -21,16 +21,22 @@ use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
 class Type implements TypeInterface
 {
     /**
+     * The name of the type.
+     *
      * @var string
      */
     private $type;
 
     /**
+     * The quality factor associated with this type.
+     *
      * @var QualityFactorInterface
      */
     private $qFactor;
 
     /**
+     * Type precedence of the type (named > wildcard > absent).
+     *
      * @var int
      */
     protected $precedence;

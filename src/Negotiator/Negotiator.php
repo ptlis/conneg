@@ -28,11 +28,15 @@ use ptlis\ConNeg\Type\WildcardType;
 class Negotiator implements NegotiatorInterface
 {
     /**
+     * Factory used to build Types.
+     *
      * @var TypeFactoryInterface
      */
     private $typeFactory;
 
     /**
+     * Instance of sorter than can reorder pairs.
+     *
      * @var TypePairSort
      */
     private $pairSort;

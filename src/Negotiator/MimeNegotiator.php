@@ -29,11 +29,15 @@ use ptlis\ConNeg\Type\MimeWildcardType;
 class MimeNegotiator implements NegotiatorInterface
 {
     /**
+     * Factory used to build Types.
+     *
      * @var MimeTypeFactory
      */
     private $typeFactory;
 
     /**
+     * Instance of sorter than can reorder pairs.
+     *
      * @var TypePairSort
      */
     private $pairSort;

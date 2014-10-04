@@ -23,6 +23,8 @@ use ptlis\ConNeg\Type\TypeInterface;
 class TypeCollection implements CollectionInterface
 {
     /**
+     * Types contained within this collection.
+     *
      * @var TypeInterface[]
      */
     private $typeList;
