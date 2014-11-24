@@ -11,9 +11,9 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Test\Tokenizer;
+namespace ptlis\ConNeg\Test\Parse;
 
-use ptlis\ConNeg\Tokenizer\FieldTokenizer;
+use ptlis\ConNeg\Parse\FieldTokenizer;
 
 /**
  * Tests to ensure that the tokenizer behaves correctly.

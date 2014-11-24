@@ -11,7 +11,7 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Tokenizer;
+namespace ptlis\ConNeg\Parse;
 
 /**
  * Simple tokenizer
