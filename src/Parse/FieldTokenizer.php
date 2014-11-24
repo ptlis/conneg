@@ -108,7 +108,7 @@ class FieldTokenizer
      * Returns true if $chr is a valid separator for this field type.
      *
      * @param string $chr
-     * @param string $mimeField
+     * @param bool $mimeField
      *
      * @return bool
      */
