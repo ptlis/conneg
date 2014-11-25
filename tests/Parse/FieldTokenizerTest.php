@@ -23,7 +23,7 @@ class FieldTokenizerTest extends \PHPUnit_Framework_TestCase
     public function testTokenizeAcceptCharset()
     {
         $httpField = 'iso-8859-5,utf-8;q=0.9,*;q=0.5';
-        $expected = [
+        $expected = array(
             'iso-8859-5',
             ',',
             'utf-8',
@@ -37,7 +37,7 @@ class FieldTokenizerTest extends \PHPUnit_Framework_TestCase
             'q',
             '=',
             '0.5'
-        ];
+        );
 
         $tokenizer = new FieldTokenizer();
         $real = $tokenizer->tokenize($httpField);
@@ -49,7 +49,7 @@ class FieldTokenizerTest extends \PHPUnit_Framework_TestCase
     {
         $httpField =
             'application/atom+xml;q=0.8;woop="wibble/wobble;,",text/html;q=0.3,application/rss+xml;q=0.5;foo;bar=baz';
-        $expected = [
+        $expected = array(
             'application',
             '/',
             'atom+xml',
@@ -83,7 +83,7 @@ class FieldTokenizerTest extends \PHPUnit_Framework_TestCase
             'bar',
             '=',
             'baz'
-        ];
+        );
 
         $tokenizer = new FieldTokenizer();
         $real = $tokenizer->tokenize($httpField, true);
