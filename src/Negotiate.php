@@ -115,15 +115,15 @@ class Negotiate
      * Parse the Accept-Charset field & negotiate against application types, return the preferred type.
      *
      * @param string $userField
-     * @param string|TypeCollection $appPrefs
+     * @param string|TypeCollection $appField
      *
      * @return TypePairInterface
      */
-    public function charsetBest($userField, $appPrefs)
+    public function charsetBest($userField, $appField)
     {
         $tokenList = $this->tokenizer->tokenize($userField, false);
         $userTypeList = $this->stdParser->parse($tokenList, false);
-        $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, false);
+        $appTypeList = $this->sharedAppPrefsToTypes($appField, false);
 
         return $this->stdNegotiator->negotiateBest($userTypeList, $appTypeList);
     }
@@ -133,17 +133,17 @@ class Negotiate
      * preference.
      *
      * @param string $userField
-     * @param string|TypeCollection $appPrefs
+     * @param string|TypeCollection $appField
      *
      * @throws ConNegException
      *
      * @return SharedTypePairCollection containing CharsetType, WildcardType & AbsentType instances.
      */
-    public function charsetAll($userField, $appPrefs)
+    public function charsetAll($userField, $appField)
     {
         $tokenList = $this->tokenizer->tokenize($userField, false);
         $userTypeList = $this->stdParser->parse($tokenList, false);
-        $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, false);
+        $appTypeList = $this->sharedAppPrefsToTypes($appField, false);
 
         return $this->stdNegotiator->negotiateAll($userTypeList, $appTypeList);
     }
@@ -152,15 +152,15 @@ class Negotiate
      * Parse the Accept-Encoding field & negotiate against application types, return the preferred type.
      *
      * @param string $userField
-     * @param string|TypeCollection $appPrefs
+     * @param string|TypeCollection $appField
      *
      * @return TypePairInterface
      */
-    public function encodingBest($userField, $appPrefs)
+    public function encodingBest($userField, $appField)
     {
         $tokenList = $this->tokenizer->tokenize($userField, false);
         $userTypeList = $this->stdParser->parse($tokenList, false);
-        $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, false);
+        $appTypeList = $this->sharedAppPrefsToTypes($appField, false);
 
         return $this->stdNegotiator->negotiateBest($userTypeList, $appTypeList);
     }
@@ -170,17 +170,17 @@ class Negotiate
      * preference.
      *
      * @param string $userField
-     * @param string|TypeCollection $appPrefs
+     * @param string|TypeCollection $appField
      *
      * @throws ConNegException
      *
      * @return SharedTypePairCollection containing EncodingType, WildcardType & AbsentType instances.
      */
-    public function encodingAll($userField, $appPrefs)
+    public function encodingAll($userField, $appField)
     {
         $tokenList = $this->tokenizer->tokenize($userField, false);
         $userTypeList = $this->stdParser->parse($tokenList, false);
-        $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, false);
+        $appTypeList = $this->sharedAppPrefsToTypes($appField, false);
 
         return $this->stdNegotiator->negotiateAll($userTypeList, $appTypeList);
     }
@@ -189,15 +189,15 @@ class Negotiate
      * Parse the Accept-Language field & negotiate against application types, return the preferred type.
      *
      * @param string $userField
-     * @param string|TypeCollection $appPrefs
+     * @param string|TypeCollection $appField
      *
      * @return TypePairInterface
      */
-    public function languageBest($userField, $appPrefs)
+    public function languageBest($userField, $appField)
     {
         $tokenList = $this->tokenizer->tokenize($userField, false);
         $userTypeList = $this->stdParser->parse($tokenList, false);
-        $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, false);
+        $appTypeList = $this->sharedAppPrefsToTypes($appField, false);
 
         return $this->stdNegotiator->negotiateBest($userTypeList, $appTypeList);
     }
@@ -207,17 +207,17 @@ class Negotiate
      * preference.
      *
      * @param string $userField
-     * @param string|TypeCollection $appPrefs
+     * @param string|TypeCollection $appField
      *
      * @throws ConNegException
      *
      * @return SharedTypePairCollection containing LanguageType, WildcardType & AbsentType instances.
      */
-    public function languageAll($userField, $appPrefs)
+    public function languageAll($userField, $appField)
     {
         $tokenList = $this->tokenizer->tokenize($userField, false);
         $userTypeList = $this->stdParser->parse($tokenList, false);
-        $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, false);
+        $appTypeList = $this->sharedAppPrefsToTypes($appField, false);
 
         return $this->stdNegotiator->negotiateAll($userTypeList, $appTypeList);
     }
@@ -226,15 +226,15 @@ class Negotiate
      * Parse the Accept field & negotiate against application types, return the preferred type.
      *
      * @param string $userField
-     * @param string|TypeCollection $appPrefs
+     * @param string|TypeCollection $appField
      *
      * @return TypePairInterface
      */
-    public function mimeBest($userField, $appPrefs)
+    public function mimeBest($userField, $appField)
     {
         $tokenList = $this->tokenizer->tokenize($userField, true);
         $userTypeList = $this->mimeParser->parse($tokenList, false);
-        $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, true);
+        $appTypeList = $this->sharedAppPrefsToTypes($appField, true);
 
         return $this->mimeNegotiator->negotiateBest($userTypeList, $appTypeList);
     }
@@ -243,18 +243,18 @@ class Negotiate
      * Parse the Accept field & negotiate against application types, return an array of types sorted by preference.
      *
      * @param string $userField
-     * @param string|TypeCollection $appPrefs
+     * @param string|TypeCollection $appField
      *
      * @throws ConNegException
      *
      * @return SharedTypePairCollection containing MimeType, MimeWildcardType, MimeWildcardSubType & AbsentType
      *          instances.
      */
-    public function mimeAll($userField, $appPrefs)
+    public function mimeAll($userField, $appField)
     {
         $tokenList = $this->tokenizer->tokenize($userField, true);
         $userTypeList = $this->mimeParser->parse($tokenList, false);
-        $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, true);
+        $appTypeList = $this->sharedAppPrefsToTypes($appField, true);
 
         return $this->mimeNegotiator->negotiateAll($userTypeList, $appTypeList);
     }
@@ -264,23 +264,23 @@ class Negotiate
      *
      * @throws ConNegException
      *
-     * @param string|CollectionInterface $appPrefs
+     * @param string|CollectionInterface $appField
      * @param bool $mimeField
      *
      * @return TypeCollection
      */
-    private function sharedAppPrefsToTypes($appPrefs, $mimeField)
+    private function sharedAppPrefsToTypes($appField, $mimeField)
     {
-        if (gettype($appPrefs) === 'string') {
-            $tokenList = $this->tokenizer->tokenize($appPrefs, $mimeField);
+        if (gettype($appField) === 'string') {
+            $tokenList = $this->tokenizer->tokenize($appField, $mimeField);
             if ($mimeField) {
                 $appTypeList = $this->mimeParser->parse($tokenList, true);
             } else {
                 $appTypeList = $this->stdParser->parse($tokenList, true);
             }
 
-        } elseif ($appPrefs instanceof CollectionInterface) {
-            $appTypeList = $appPrefs;
+        } elseif ($appField instanceof CollectionInterface) {
+            $appTypeList = $appField;
 
         } else {
             throw new ConNegException('invalid application preferences passed to ' . __CLASS__ . '::' . __METHOD__);
