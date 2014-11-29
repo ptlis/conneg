@@ -137,7 +137,7 @@ class FieldTokenizer
     }
 
     /**
-     * Returns true if $chr is a key/value seperator.
+     * Returns true if $chr is a key/value separator.
      *
      * @param string $chr
      *
