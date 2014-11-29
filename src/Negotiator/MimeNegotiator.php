@@ -16,7 +16,6 @@ namespace ptlis\ConNeg\Negotiator;
 use ptlis\ConNeg\Collection\SharedTypePairCollection;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
-use ptlis\ConNeg\TypeFactory\MimeTypeFactory;
 use ptlis\ConNeg\TypePair\TypePair;
 use ptlis\ConNeg\TypePair\TypePairInterface;
 use ptlis\ConNeg\Type\MimeTypeInterface;
@@ -29,11 +28,11 @@ use ptlis\ConNeg\Type\MimeWildcardType;
 class MimeNegotiator implements NegotiatorInterface
 {
     /**
-     * Factory used to build Types.
+     * Empty type instance, used when only user & app types are asymmetric.
      *
-     * @var MimeTypeFactory
+     * @var MimeTypeInterface
      */
-    private $typeFactory;
+    private $emptyType;
 
     /**
      * Instance of sorter than can reorder pairs.
@@ -46,12 +45,12 @@ class MimeNegotiator implements NegotiatorInterface
     /**
      * Constructor.
      *
-     * @param MimeTypeFactory $typeFactory
-     * @param TypePairSort    $pairSort
+     * @param MimeTypeInterface $emptyType
+     * @param TypePairSort $pairSort
      */
-    public function __construct(MimeTypeFactory $typeFactory, TypePairSort $pairSort)
+    public function __construct(MimeTypeInterface $emptyType, TypePairSort $pairSort)
     {
-        $this->typeFactory  = $typeFactory;
+        $this->emptyType  = $emptyType;
         $this->pairSort     = $pairSort;
     }
 
@@ -68,7 +67,7 @@ class MimeNegotiator implements NegotiatorInterface
         $matchingList = array();
         foreach ($appTypeList as $appType) {
             $matchingList[$appType->getType()] = new TypePair(
-                $this->typeFactory->get('', 0),
+                $this->emptyType,
                 $appType
             );
         }
@@ -217,7 +216,7 @@ class MimeNegotiator implements NegotiatorInterface
             default:
                 $matchingList[$userType->getType()] = new TypePair(
                     $userType,
-                    $this->typeFactory->get('', 0)
+                    $this->emptyType
                 );
                 break;
         }

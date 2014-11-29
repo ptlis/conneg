@@ -147,6 +147,20 @@ class TypeBuilder implements TypeBuilderInterface
     }
 
     /**
+     * Build & return an type object representing an empty type.
+     *
+     * @return TypeInterface
+     */
+    public function getEmpty()
+    {
+        return $this
+            ->setAppType(false)
+            ->setType('')
+            ->setQualityFactor('0')
+            ->get();
+    }
+
+    /**
      * Attempt to get a wildcard type, throws exception if type was provided by the application.
      *
      * @throws InvalidTypeException

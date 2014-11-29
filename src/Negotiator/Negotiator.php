@@ -16,7 +16,6 @@ namespace ptlis\ConNeg\Negotiator;
 use ptlis\ConNeg\Collection\SharedTypePairCollection;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
-use ptlis\ConNeg\TypeFactory\TypeFactoryInterface;
 use ptlis\ConNeg\TypePair\TypePair;
 use ptlis\ConNeg\TypePair\TypePairInterface;
 use ptlis\ConNeg\Type\TypeInterface;
@@ -28,11 +27,11 @@ use ptlis\ConNeg\Type\WildcardType;
 class Negotiator implements NegotiatorInterface
 {
     /**
-     * Factory used to build Types.
+     * Empty type instance, used when only user & app types are asymmetric.
      *
-     * @var TypeFactoryInterface
+     * @var TypeInterface
      */
-    private $typeFactory;
+    private $emptyType;
 
     /**
      * Instance of sorter than can reorder pairs.
@@ -45,12 +44,12 @@ class Negotiator implements NegotiatorInterface
     /**
      * Constructor
      *
-     * @param TypeFactoryInterface $typeFactory
-     * @param TypePairSort         $pairSort
+     * @param TypeInterface $emptyType
+     * @param TypePairSort $pairSort
      */
-    public function __construct(TypeFactoryInterface $typeFactory, TypePairSort $pairSort)
+    public function __construct(TypeInterface $emptyType, TypePairSort $pairSort)
     {
-        $this->typeFactory  = $typeFactory;
+        $this->emptyType  = $emptyType;
         $this->pairSort     = $pairSort;
     }
 
@@ -67,7 +66,7 @@ class Negotiator implements NegotiatorInterface
         $matchingList = array();
         foreach ($appTypeList as $appType) {
             $matchingList[$appType->getType()] = new TypePair(
-                $this->typeFactory->get('', 0, false),
+                $this->emptyType,
                 $appType
             );
         }
@@ -129,7 +128,7 @@ class Negotiator implements NegotiatorInterface
             } else {
                 $matchingList[$userType->getType()] = new TypePair(
                     $userType,
-                    $this->typeFactory->get('', 0, true)
+                    $this->emptyType
                 );
             }
         }

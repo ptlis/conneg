@@ -13,6 +13,7 @@
 
 namespace ptlis\ConNeg\Test\Parse;
 
+use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Parse\FieldParser;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
@@ -50,11 +51,12 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             'rss+xml',
         );
 
-        $expected = array(
+        $expected = new TypeCollection();
+        $expected->setList(array(
             new MimeType('application', 'atom+xml', new QualityFactor('0.8')),
             new MimeType('text', 'html', new QualityFactor('0.3')),
             new MimeType('application', 'rss+xml', new QualityFactor('1'))
-        );
+        ));
 
         $builder = new MimeTypeBuilder(new QualityFactorFactory());
         $parser = new FieldParser($builder, true);
@@ -126,9 +128,6 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         $parser->parse($mimeTokens, true);
     }
 
-    // TODO: wrong separator?
-    // TODO: Valid (only one param)
-
     public function testParseCharset()
     {
         $stdTokens = array(
@@ -141,10 +140,11 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             '0.9'
         );
 
-        $expected = array(
+        $expected = new TypeCollection();
+        $expected->setList(array(
             new Type('iso-8859-5', new QualityFactor('1')),
             new Type('utf-8', new QualityFactor('0.9')),
-        );
+        ));
 
         $builder = new TypeBuilder(new QualityFactorFactory());
         $parser = new FieldParser($builder, false);
@@ -167,10 +167,11 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             '0.9'
         );
 
-        $expected = array(
+        $expected = new TypeCollection();
+        $expected->setList(array(
             new Type('iso-8859-5', new QualityFactor('1')),
             new Type('utf-8', new QualityFactor('0.9')),
-        );
+        ));
 
         $builder = new TypeBuilder(new QualityFactorFactory());
         $parser = new FieldParser($builder, false);
@@ -193,10 +194,11 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             '0.9'
         );
 
-        $expected = array(
+        $expected = new TypeCollection();
+        $expected->setList(array(
             new Type('iso-8859-5', new QualityFactor('1')),
             new Type('utf-8', new QualityFactor('0.9')),
-        );
+        ));
 
         $builder = new TypeBuilder(new QualityFactorFactory());
         $parser = new FieldParser($builder, false);

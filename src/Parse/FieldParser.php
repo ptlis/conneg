@@ -13,6 +13,7 @@
 
 namespace ptlis\ConNeg\Parse;
 
+use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Exception\InvalidTypeException;
 use ptlis\ConNeg\Type\TypeInterface;
 use ptlis\ConNeg\TypeBuilder\TypeBuilderInterface;
@@ -55,7 +56,7 @@ class FieldParser
      * @param bool $appField        If true the field came from the application & we error on malformed data otherwise
      *                              we suppress errors for user-agent types.
      *
-     * @return TypeInterface[]
+     * @return TypeCollection
      */
     public function parse(array $tokenList, $appField)
     {
@@ -67,7 +68,10 @@ class FieldParser
             $typeList[] = $this->parseBundle($bundle, $appField);
         }
 
-        return $typeList;
+        $collection = new TypeCollection();
+        $collection->setList($typeList);
+
+        return $collection;
     }
 
     /**

@@ -20,14 +20,11 @@ use ptlis\ConNeg\Collection\TypePairSort;
 use ptlis\ConNeg\Exception\ConNegException;
 use ptlis\ConNeg\Negotiator\MimeNegotiator;
 use ptlis\ConNeg\Negotiator\Negotiator;
-use ptlis\ConNeg\RegexProvider\MimeTypeRegexProvider;
-use ptlis\ConNeg\RegexProvider\TypeRegexProvider;
+use ptlis\ConNeg\Parse\FieldParser;
+use ptlis\ConNeg\Parse\FieldTokenizer;
 use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
 use ptlis\ConNeg\TypeBuilder\MimeTypeBuilder;
 use ptlis\ConNeg\TypeBuilder\TypeBuilder;
-use ptlis\ConNeg\TypeFactory\MimeTypeFactory;
-use ptlis\ConNeg\TypeFactory\TypeFactory;
-use ptlis\ConNeg\TypeFactory\TypeFactoryInterface;
 use ptlis\ConNeg\TypePair\TypePair;
 use ptlis\Conneg\TypePair\TypePairInterface;
 
@@ -37,53 +34,11 @@ use ptlis\Conneg\TypePair\TypePairInterface;
 class Negotiate
 {
     /**
-     * Type factory creating charset types.
-     *
-     * @var TypeFactory
-     */
-    private $charsetFactory;
-
-    /**
-     * Negotiator for charset types.
+     * Negotiator for non-mime types.
      *
      * @var Negotiator
      */
-    private $charsetNegotiator;
-
-    /**
-     * Type factory creating encoding types.
-     *
-     * @var TypeFactory
-     */
-    private $encodingFactory;
-
-    /**
-     * Negotiator for encoding types.
-     *
-     * @var Negotiator
-     */
-    private $encodingNegotiator;
-
-    /**
-     * Type factory creating language types.
-     *
-     * @var TypeFactory
-     */
-    private $languageFactory;
-
-    /**
-     * Negotiator for language types.
-     *
-     * @var Negotiator
-     */
-    private $languageNegotiator;
-
-    /**
-     * Type factory creating mime types.
-     *
-     * @var MimeTypeFactory
-     */
-    private $mimeFactory;
+    private $stdNegotiator;
 
     /**
      * Negotiator for mime types.
@@ -92,62 +47,66 @@ class Negotiate
      */
     private $mimeNegotiator;
 
+    /**
+     * Tokenizer.
+     *
+     * @var FieldTokenizer
+     */
+    private $tokenizer;
+
+    /**
+     * Parser for non-mime types.
+     *
+     * @var FieldParser
+     */
+    private $stdParser;
+
+    /**
+     * Parser for mime types.
+     *
+     * @var FieldParser
+     */
+    private $mimeParser;
+
 
     /**
      * Constructor, initialise factories.
      */
     public function __construct()
     {
-        $sharedRegexProvider        = new TypeRegexProvider();
-        $qualityFactorFactory       = new QualityFactorFactory();
+        // Prepare dependencies
+        $qualityFactorFactory = new QualityFactorFactory();
 
-        // Prepare factories
-        $this->charsetFactory       = new TypeFactory(
-            $sharedRegexProvider,
-            new TypeBuilder($qualityFactorFactory)
-        );
-        $this->encodingFactory      = new TypeFactory(
-            $sharedRegexProvider,
-            new TypeBuilder($qualityFactorFactory)
-        );
-        $this->languageFactory      = new TypeFactory(
-            $sharedRegexProvider,
-            new TypeBuilder($qualityFactorFactory)
-        );
-        $this->mimeFactory          = new MimeTypeFactory(
-            new MimeTypeRegexProvider(),
-            new MimeTypeBuilder($qualityFactorFactory)
-        );
+        $stdTypeBuilder = new TypeBuilder($qualityFactorFactory);
+        $mimeTypeBuilder = new MimeTypeBuilder($qualityFactorFactory);
+
+        $this->tokenizer = new FieldTokenizer();
+
+        $this->stdParser = new FieldParser($stdTypeBuilder, false);
+        $this->mimeParser = new FieldParser($mimeTypeBuilder, true);
+
 
         // Prepare pair sorters
         $sharedSort = new TypePairSort(
             new TypePair(
-                $this->charsetFactory->get('', '0', false),
-                $this->charsetFactory->get('', '0', true)
-            )
-        );
-        $mimeSort = new TypePairSort(
-            new TypePair(
-                $this->mimeFactory->get('', '0', false),
-                $this->mimeFactory->get('', '0', true)
+                $stdTypeBuilder->getEmpty(),
+                $stdTypeBuilder->getEmpty()
             )
         );
 
-        // Prepare negotiators
-        $this->charsetNegotiator    = new Negotiator(
-            $this->charsetFactory,
-            $sharedSort
+        $mimeSort = new TypePairSort(
+            new TypePair(
+                $mimeTypeBuilder->getEmpty(),
+                $mimeTypeBuilder->getEmpty()
+            )
         );
-        $this->encodingNegotiator   = new Negotiator(
-            $this->encodingFactory,
-            $sharedSort
-        );
-        $this->languageNegotiator   = new Negotiator(
-            $this->languageFactory,
+
+        $this->stdNegotiator = new Negotiator(
+            $stdTypeBuilder->getEmpty(),
             $sharedSort
         );
         $this->mimeNegotiator       = new MimeNegotiator(
-            $this->mimeFactory,
+            $mimeTypeBuilder->getEmpty(),
             $mimeSort
         );
     }
@@ -162,10 +121,11 @@ class Negotiate
      */
     public function charsetBest($userField, $appPrefs)
     {
-        $userTypeList = $this->charsetFactory->parseUser($userField);
-        $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, $this->charsetFactory);
+        $tokenList = $this->tokenizer->tokenize($userField, false);
+        $userTypeList = $this->stdParser->parse($tokenList, false);
+        $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, false);
 
-        return $this->charsetNegotiator->negotiateBest($userTypeList, $appTypeList);
+        return $this->stdNegotiator->negotiateBest($userTypeList, $appTypeList);
     }
 
     /**
@@ -181,10 +141,11 @@ class Negotiate
      */
     public function charsetAll($userField, $appPrefs)
     {
-        $userTypeList = $this->charsetFactory->parseUser($userField);
-        $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, $this->charsetFactory);
+        $tokenList = $this->tokenizer->tokenize($userField, false);
+        $userTypeList = $this->stdParser->parse($tokenList, false);
+        $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, false);
 
-        return $this->charsetNegotiator->negotiateAll($userTypeList, $appTypeList);
+        return $this->stdNegotiator->negotiateAll($userTypeList, $appTypeList);
     }
 
     /**
@@ -197,10 +158,11 @@ class Negotiate
      */
     public function encodingBest($userField, $appPrefs)
     {
-        $userTypeList = $this->encodingFactory->parseUser($userField);
-        $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, $this->encodingFactory);
+        $tokenList = $this->tokenizer->tokenize($userField, false);
+        $userTypeList = $this->stdParser->parse($tokenList, false);
+        $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, false);
 
-        return $this->encodingNegotiator->negotiateBest($userTypeList, $appTypeList);
+        return $this->stdNegotiator->negotiateBest($userTypeList, $appTypeList);
     }
 
     /**
@@ -216,10 +178,11 @@ class Negotiate
      */
     public function encodingAll($userField, $appPrefs)
     {
-        $userTypeList = $this->encodingFactory->parseUser($userField);
-        $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, $this->encodingFactory);
+        $tokenList = $this->tokenizer->tokenize($userField, false);
+        $userTypeList = $this->stdParser->parse($tokenList, false);
+        $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, false);
 
-        return $this->encodingNegotiator->negotiateAll($userTypeList, $appTypeList);
+        return $this->stdNegotiator->negotiateAll($userTypeList, $appTypeList);
     }
 
     /**
@@ -232,10 +195,11 @@ class Negotiate
      */
     public function languageBest($userField, $appPrefs)
     {
-        $userTypeList = $this->languageFactory->parseUser($userField);
-        $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, $this->languageFactory);
+        $tokenList = $this->tokenizer->tokenize($userField, false);
+        $userTypeList = $this->stdParser->parse($tokenList, false);
+        $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, false);
 
-        return $this->languageNegotiator->negotiateBest($userTypeList, $appTypeList);
+        return $this->stdNegotiator->negotiateBest($userTypeList, $appTypeList);
     }
 
     /**
@@ -251,10 +215,11 @@ class Negotiate
      */
     public function languageAll($userField, $appPrefs)
     {
-        $userTypeList = $this->languageFactory->parseUser($userField);
-        $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, $this->languageFactory);
+        $tokenList = $this->tokenizer->tokenize($userField, false);
+        $userTypeList = $this->stdParser->parse($tokenList, false);
+        $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, false);
 
-        return $this->languageNegotiator->negotiateAll($userTypeList, $appTypeList);
+        return $this->stdNegotiator->negotiateAll($userTypeList, $appTypeList);
     }
 
     /**
@@ -267,8 +232,9 @@ class Negotiate
      */
     public function mimeBest($userField, $appPrefs)
     {
-        $userTypeList = $this->mimeFactory->parseUser($userField);
-        $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, $this->mimeFactory);
+        $tokenList = $this->tokenizer->tokenize($userField, true);
+        $userTypeList = $this->mimeParser->parse($tokenList, false);
+        $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, true);
 
         return $this->mimeNegotiator->negotiateBest($userTypeList, $appTypeList);
     }
@@ -281,12 +247,14 @@ class Negotiate
      *
      * @throws ConNegException
      *
-     * @return SharedTypePairCollection containing MimeType, MimeWildcardType, MimeWildcardSubType & AbsentType instances.
+     * @return SharedTypePairCollection containing MimeType, MimeWildcardType, MimeWildcardSubType & AbsentType
+     *          instances.
      */
     public function mimeAll($userField, $appPrefs)
     {
-        $userTypeList = $this->mimeFactory->parseUser($userField);
-        $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, $this->mimeFactory);
+        $tokenList = $this->tokenizer->tokenize($userField, true);
+        $userTypeList = $this->mimeParser->parse($tokenList, false);
+        $appTypeList = $this->sharedAppPrefsToTypes($appPrefs, true);
 
         return $this->mimeNegotiator->negotiateAll($userTypeList, $appTypeList);
     }
@@ -297,14 +265,19 @@ class Negotiate
      * @throws ConNegException
      *
      * @param string|CollectionInterface $appPrefs
-     * @param TypeFactoryInterface  $factory
+     * @param bool $mimeField
      *
      * @return TypeCollection
      */
-    private function sharedAppPrefsToTypes($appPrefs, TypeFactoryInterface $factory)
+    private function sharedAppPrefsToTypes($appPrefs, $mimeField)
     {
         if (gettype($appPrefs) === 'string') {
-            $appTypeList = $factory->parseApp($appPrefs);
+            $tokenList = $this->tokenizer->tokenize($appPrefs, $mimeField);
+            if ($mimeField) {
+                $appTypeList = $this->mimeParser->parse($tokenList, true);
+            } else {
+                $appTypeList = $this->stdParser->parse($tokenList, true);
+            }
 
         } elseif ($appPrefs instanceof CollectionInterface) {
             $appTypeList = $appPrefs;
