@@ -31,6 +31,18 @@ class QualityFactorFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $qFactor);
     }
 
+    public function testAbsentQualityFactor()
+    {
+        $val = '';
+
+        $expected = new QualityFactor(1);
+
+        $qualityFactorFactory = new QualityFactorFactory();
+
+        $qFactor = $qualityFactorFactory->get($val, false);
+
+        $this->assertEquals($expected, $qFactor);
+    }
 
     public function testAppMalformed()
     {
