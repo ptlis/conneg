@@ -19,27 +19,6 @@ namespace ptlis\ConNeg\Parse;
 class FieldTokenizer
 {
     /**
-     * Token that indicates the boundary between type data
-     */
-    const TYPE_SEPARATOR = ',';
-
-    /**
-     * Token that indicates the boundary between the type & any params attached to it.
-     */
-    const PARAMS_SEPARATOR = ';';
-
-    /**
-     * Token that splits the mime type & subtypes.
-     */
-    const MIME_SEPARATOR = '/';
-
-    /**
-     * Token that splits params into keys and values (where applicable)
-     */
-    const PARAMS_KV_SEPARATOR = '=';
-
-
-    /**
      * Tokenize the HTTP field for subsequent processing.
      *
      * Note: we don't need to worry about multi-byte characters; HTTP fields must be ISO-8859-1 encoded.
@@ -129,7 +108,7 @@ class FieldTokenizer
      */
     private function isTypeSeparator($chr)
     {
-        return self::TYPE_SEPARATOR === $chr;
+        return Tokens::TYPE_SEPARATOR === $chr;
     }
 
     /**
@@ -141,7 +120,7 @@ class FieldTokenizer
      */
     private function isParamsSeparator($chr)
     {
-        return self::PARAMS_SEPARATOR === $chr;
+        return Tokens::PARAMS_SEPARATOR === $chr;
     }
 
     /**
@@ -154,7 +133,7 @@ class FieldTokenizer
      */
     private function inMimeSeparator($chr, $mimeField)
     {
-        return $mimeField && self::MIME_SEPARATOR === $chr;
+        return $mimeField && Tokens::MIME_SEPARATOR === $chr;
     }
 
     /**
@@ -166,6 +145,6 @@ class FieldTokenizer
      */
     private function isParamsKvSeparator($chr)
     {
-        return self::PARAMS_KV_SEPARATOR === $chr;
+        return Tokens::PARAMS_KV_SEPARATOR === $chr;
     }
 }
