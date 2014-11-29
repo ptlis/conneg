@@ -130,16 +130,26 @@ class FieldParser
         foreach ($paramBundleList as $paramBundle) {
 
             // Correct format for quality factor
-            if (
-                3 == count($paramBundle)
-                && 'q' === $paramBundle[0]
-                && Tokens::PARAMS_KV_SEPARATOR === $paramBundle[1]
-            ) {
+            if ($this->isQualityFactor($paramBundle)) {
                 $this->typeBuilder->setQualityFactor($paramBundle[2]);
             }
         }
 
         return $this->typeBuilder->get();
+    }
+
+    /**
+     * Returns true if the provided parameter bundle is a quality factor.
+     *
+     * @param string[] $paramBundle
+     *
+     * @return bool
+     */
+    private function isQualityFactor(array $paramBundle)
+    {
+        return 3 == count($paramBundle)
+            && 'q' === $paramBundle[0]
+            && Tokens::PARAMS_KV_SEPARATOR === $paramBundle[1];
     }
 
     /**
