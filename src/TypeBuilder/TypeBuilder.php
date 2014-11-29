@@ -171,7 +171,7 @@ class TypeBuilder implements TypeBuilderInterface
     {
         $this->appType = false;
         $this->type = '';
-        $this->qFactor = $this->qFactorFactory->get(0, $this->appType);
+        $this->qFactor = $this->qFactorFactory->get(1, $this->appType);
     }
 
     /**
