@@ -128,7 +128,7 @@ class TypeBuilder implements TypeBuilderInterface
     {
         switch ($this->type) {
             case '':
-                $type = new AbsentType($this->qFactor);
+                $type = new AbsentType($this->qFactorFactory->get(0, $this->appType));
                 break;
 
             case '*':
