@@ -167,7 +167,7 @@ class TypeBuilder implements TypeBuilderInterface
     /**
      * Set the default state of the builder.
      */
-    private function setDefaults()
+    protected function setDefaults()
     {
         $this->appType = false;
         $this->type = '';

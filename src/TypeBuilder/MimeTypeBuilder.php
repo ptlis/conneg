@@ -55,6 +55,8 @@ class MimeTypeBuilder extends TypeBuilder
                 );
         }
 
+        $this->setDefaults();
+
         return $type;
     }
 
