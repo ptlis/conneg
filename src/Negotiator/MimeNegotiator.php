@@ -16,6 +16,7 @@ namespace ptlis\ConNeg\Negotiator;
 use ptlis\ConNeg\Collection\SharedTypePairCollection;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
+use ptlis\ConNeg\Type\TypeInterface;
 use ptlis\ConNeg\TypePair\TypePair;
 use ptlis\ConNeg\TypePair\TypePairInterface;
 use ptlis\ConNeg\Type\MimeTypeInterface;
@@ -30,7 +31,7 @@ class MimeNegotiator implements NegotiatorInterface
     /**
      * Empty type instance, used when only user & app types are asymmetric.
      *
-     * @var MimeTypeInterface
+     * @var TypeInterface
      */
     private $emptyType;
 
@@ -45,10 +46,10 @@ class MimeNegotiator implements NegotiatorInterface
     /**
      * Constructor.
      *
-     * @param MimeTypeInterface $emptyType
+     * @param TypeInterface $emptyType
      * @param TypePairSort $pairSort
      */
-    public function __construct(MimeTypeInterface $emptyType, TypePairSort $pairSort)
+    public function __construct(TypeInterface $emptyType, TypePairSort $pairSort)
     {
         $this->emptyType  = $emptyType;
         $this->pairSort     = $pairSort;

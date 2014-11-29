@@ -112,7 +112,7 @@ class Negotiate
     }
 
     /**
-     * Parse the Accept-Charset field & negotiate against application types, return the preferred type.
+     * Parse the Accept-Charset field & negotiate against application types, returns the preferred type.
      *
      * @param string $userField
      * @param string|TypeCollection $appField
@@ -121,15 +121,11 @@ class Negotiate
      */
     public function charsetBest($userField, $appField)
     {
-        $tokenList = $this->tokenizer->tokenize($userField, false);
-        $userTypeList = $this->stdParser->parse($tokenList, false);
-        $appTypeList = $this->sharedAppPrefsToTypes($appField, false);
-
-        return $this->stdNegotiator->negotiateBest($userTypeList, $appTypeList);
+        return $this->genericBest($userField, $appField, false);
     }
 
     /**
-     * Parse the Accept-Charset field & negotiate against application types, return an array of types sorted by
+     * Parse the Accept-Charset field & negotiate against application types, returns an array of types sorted by
      * preference.
      *
      * @param string $userField
@@ -141,15 +137,11 @@ class Negotiate
      */
     public function charsetAll($userField, $appField)
     {
-        $tokenList = $this->tokenizer->tokenize($userField, false);
-        $userTypeList = $this->stdParser->parse($tokenList, false);
-        $appTypeList = $this->sharedAppPrefsToTypes($appField, false);
-
-        return $this->stdNegotiator->negotiateAll($userTypeList, $appTypeList);
+        return $this->genericAll($userField, $appField, false);
     }
 
     /**
-     * Parse the Accept-Encoding field & negotiate against application types, return the preferred type.
+     * Parse the Accept-Encoding field & negotiate against application types, returns the preferred type.
      *
      * @param string $userField
      * @param string|TypeCollection $appField
@@ -158,15 +150,11 @@ class Negotiate
      */
     public function encodingBest($userField, $appField)
     {
-        $tokenList = $this->tokenizer->tokenize($userField, false);
-        $userTypeList = $this->stdParser->parse($tokenList, false);
-        $appTypeList = $this->sharedAppPrefsToTypes($appField, false);
-
-        return $this->stdNegotiator->negotiateBest($userTypeList, $appTypeList);
+        return $this->genericBest($userField, $appField, false);
     }
 
     /**
-     * Parse the Accept-Encoding field & negotiate against application types, return an array of types sorted by
+     * Parse the Accept-Encoding field & negotiate against application types, returns an array of types sorted by
      * preference.
      *
      * @param string $userField
@@ -178,15 +166,11 @@ class Negotiate
      */
     public function encodingAll($userField, $appField)
     {
-        $tokenList = $this->tokenizer->tokenize($userField, false);
-        $userTypeList = $this->stdParser->parse($tokenList, false);
-        $appTypeList = $this->sharedAppPrefsToTypes($appField, false);
-
-        return $this->stdNegotiator->negotiateAll($userTypeList, $appTypeList);
+        return $this->genericAll($userField, $appField, false);
     }
 
     /**
-     * Parse the Accept-Language field & negotiate against application types, return the preferred type.
+     * Parse the Accept-Language field & negotiate against application types, returns the preferred type.
      *
      * @param string $userField
      * @param string|TypeCollection $appField
@@ -195,15 +179,11 @@ class Negotiate
      */
     public function languageBest($userField, $appField)
     {
-        $tokenList = $this->tokenizer->tokenize($userField, false);
-        $userTypeList = $this->stdParser->parse($tokenList, false);
-        $appTypeList = $this->sharedAppPrefsToTypes($appField, false);
-
-        return $this->stdNegotiator->negotiateBest($userTypeList, $appTypeList);
+        return $this->genericBest($userField, $appField, false);
     }
 
     /**
-     * Parse the Accept-Language field & negotiate against application types, return an array of types sorted by
+     * Parse the Accept-Language field & negotiate against application types, returns an array of types sorted by
      * preference.
      *
      * @param string $userField
@@ -215,15 +195,11 @@ class Negotiate
      */
     public function languageAll($userField, $appField)
     {
-        $tokenList = $this->tokenizer->tokenize($userField, false);
-        $userTypeList = $this->stdParser->parse($tokenList, false);
-        $appTypeList = $this->sharedAppPrefsToTypes($appField, false);
-
-        return $this->stdNegotiator->negotiateAll($userTypeList, $appTypeList);
+        return $this->genericAll($userField, $appField, false);
     }
 
     /**
-     * Parse the Accept field & negotiate against application types, return the preferred type.
+     * Parse the Accept field & negotiate against application types, returns the preferred type.
      *
      * @param string $userField
      * @param string|TypeCollection $appField
@@ -232,15 +208,11 @@ class Negotiate
      */
     public function mimeBest($userField, $appField)
     {
-        $tokenList = $this->tokenizer->tokenize($userField, true);
-        $userTypeList = $this->mimeParser->parse($tokenList, false);
-        $appTypeList = $this->sharedAppPrefsToTypes($appField, true);
-
-        return $this->mimeNegotiator->negotiateBest($userTypeList, $appTypeList);
+        return $this->genericBest($userField, $appField, true);
     }
 
     /**
-     * Parse the Accept field & negotiate against application types, return an array of types sorted by preference.
+     * Parse the Accept field & negotiate against application types, returns an array of types sorted by preference.
      *
      * @param string $userField
      * @param string|TypeCollection $appField
@@ -252,11 +224,67 @@ class Negotiate
      */
     public function mimeAll($userField, $appField)
     {
-        $tokenList = $this->tokenizer->tokenize($userField, true);
-        $userTypeList = $this->mimeParser->parse($tokenList, false);
-        $appTypeList = $this->sharedAppPrefsToTypes($appField, true);
+        return $this->genericAll($userField, $appField, true);
+    }
 
-        return $this->mimeNegotiator->negotiateAll($userTypeList, $appTypeList);
+    /**
+     * Shared code to parse an Accept* field & negotiate against application types, returns the preferred type.
+     *
+     * @param string $userField
+     * @param string|TypeCollection $appField
+     * @param bool $mimeField
+     *
+     * @return TypePair|TypePairInterface
+     */
+    private function genericBest($userField, $appField, $mimeField)
+    {
+        $userTypeList = $this->sharedUserPrefsToTypes($userField, $mimeField);
+        $appTypeList = $this->sharedAppPrefsToTypes($appField, $mimeField);
+
+        if ($mimeField) {
+            $best = $this->mimeNegotiator->negotiateBest($userTypeList, $appTypeList);
+        } else {
+            $best = $this->stdNegotiator->negotiateBest($userTypeList, $appTypeList);
+        }
+
+        return $best;
+    }
+
+    /**
+     * Shared code to parse an Accept* field & negotiate against application types, returns an array of types sorted by
+     * preference.
+     *
+     * @param string $userField
+     * @param string|TypeCollection $appField
+     * @param bool $mimeField
+     *
+     * @return SharedTypePairCollection
+     */
+    private function genericAll($userField, $appField, $mimeField)
+    {
+        $userTypeList = $this->sharedUserPrefsToTypes($userField, $mimeField);
+        $appTypeList = $this->sharedAppPrefsToTypes($appField, $mimeField);
+
+        if ($mimeField) {
+            $all = $this->mimeNegotiator->negotiateAll($userTypeList, $appTypeList);
+        } else {
+            $all = $this->stdNegotiator->negotiateAll($userTypeList, $appTypeList);
+        }
+
+        return $all;
+    }
+
+    private function sharedUserPrefsToTypes($userField, $mimeField)
+    {
+        $tokenList = $this->tokenizer->tokenize($userField, $mimeField);
+
+        if ($mimeField) {
+            $typeList = $this->mimeParser->parse($tokenList, false);
+        } else {
+            $typeList = $this->stdParser->parse($tokenList, false);
+        }
+
+        return $typeList;
     }
 
     /**
