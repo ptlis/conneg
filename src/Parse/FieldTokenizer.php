@@ -61,7 +61,7 @@ class FieldTokenizer
                 // Separators found, add previously accumulated string & separator to token list
                 case $this->isSeparator($chr, $mimeField):
                     if (strlen($stringAccumulator)) {
-                        $tokenList[] = $stringAccumulator;
+                        $tokenList[] = trim($stringAccumulator);
                         $stringAccumulator = '';
                     }
 
