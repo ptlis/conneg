@@ -37,4 +37,28 @@ class Tokens
      * Token that splits params into keys and values (where applicable)
      */
     const PARAMS_KV_SEPARATOR = '=';
+
+
+    /**
+     * Return true if the provided string is one of the separator tokens defined in this class.
+     *
+     * @param string $string
+     *
+     * @return bool
+     */
+    public static function isToken($string)
+    {
+        $isToken = false;
+
+        switch ($string) {
+            case self::TYPE_SEPARATOR:
+            case self::PARAMS_SEPARATOR:
+            case self::MIME_SEPARATOR:
+            case self::PARAMS_KV_SEPARATOR:
+                $isToken = true;
+                break;
+        }
+
+        return $isToken;
+    }
 }
