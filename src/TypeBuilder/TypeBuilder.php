@@ -58,6 +58,8 @@ class TypeBuilder implements TypeBuilderInterface
     protected $qFactor;
 
     /**
+     * An array of accept-extens fragments for the type.
+     *
      * @var AcceptExtensInterface[]
      */
     protected $acceptExtensList = array();
@@ -129,7 +131,7 @@ class TypeBuilder implements TypeBuilderInterface
      *
      * @throws InvalidTypeException
      *
-     * @param array[][]string $acceptExtensList
+     * @param array<array<string>> $acceptExtensList
      *
      * @return TypeBuilderInterface
      */
@@ -197,7 +199,7 @@ class TypeBuilder implements TypeBuilderInterface
      *
      * @throws InvalidTypeException
      *
-     * @param string[] $rawAcceptExtens
+     * @param array<string> $rawAcceptExtens
      *
      * @return AcceptExtens
      */
@@ -251,6 +253,8 @@ class TypeBuilder implements TypeBuilderInterface
     }
 
     /**
+     * Returns a Type instances from the provided configuration.
+     *
      * @return TypeInterface
      */
     protected function getType()

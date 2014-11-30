@@ -56,14 +56,15 @@ class Negotiator implements NegotiatorInterface
     /**
      * Return a collection of types sorted by preference.
      *
-     * @param TypeCollection|TypeInterface[] $userTypeList
-     * @param TypeCollection|TypeInterface[] $appTypeList
+     * @param TypeCollection $userTypeList
+     * @param TypeCollection $appTypeList
      *
      * @return TypePairCollection
      */
     public function negotiateAll(TypeCollection $userTypeList, TypeCollection $appTypeList)
     {
         $matchingList = array();
+        /** @var TypeInterface $appType */
         foreach ($appTypeList as $appType) {
             $matchingList[$appType->getType()] = new TypePair(
                 $this->emptyType,
@@ -85,8 +86,8 @@ class Negotiator implements NegotiatorInterface
     /**
      * Return the preferred type & product of application & user-agent quality factors.
      *
-     * @param TypeCollection|TypeInterface[] $userTypeList
-     * @param TypeCollection|TypeInterface[] $appTypeList
+     * @param TypeCollection $userTypeList
+     * @param TypeCollection $appTypeList
      *
      * @return TypePairInterface
      */
@@ -100,13 +101,14 @@ class Negotiator implements NegotiatorInterface
     /**
      * Match user types to app types.
      *
-     * @param TypeCollection|TypeInterface[]    $userTypeList
+     * @param TypeCollection    $userTypeList
      * @param TypePair[]                  $matchingList
      *
      * @return TypePair[]
      */
     private function matchUserToAppTypes(TypeCollection $userTypeList, array $matchingList)
     {
+        /** @var TypeInterface $userType */
         foreach ($userTypeList as $userType) {
 
             // Type match

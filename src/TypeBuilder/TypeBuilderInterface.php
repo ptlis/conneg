@@ -13,7 +13,6 @@
 
 namespace ptlis\ConNeg\TypeBuilder;
 
-use ptlis\ConNeg\Type\Extens\AcceptExtensInterface;
 use ptlis\ConNeg\Type\TypeInterface;
 
 /**
@@ -51,7 +50,7 @@ interface TypeBuilderInterface
     /**
      * Set accept-extens for the type.
      *
-     * @param array[][]string $acceptExtensList
+     * @param array<array<string>> $acceptExtensList
      *
      * @return TypeBuilderInterface
      */

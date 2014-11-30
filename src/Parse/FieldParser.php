@@ -51,8 +51,8 @@ class FieldParser
      *
      * @throws InvalidTypeException
      *
-     * @param string[] $tokenList   An array of types from a User-Agent; needed as we must be more tolerant of malformed
-     *                              fields with incoming data than from the application.
+     * @param array<string> $tokenList   An array of types from a User-Agent; needed as we must be more tolerant of
+     *                              malformed fields with incoming data than from the application.
      * @param bool $appField        If true the field came from the application & we error on malformed data otherwise
      *                              we suppress errors for user-agent types.
      *
@@ -78,7 +78,7 @@ class FieldParser
      *
      * @throws InvalidTypeException
      *
-     * @param string[] $tokenBundle
+     * @param array<string> $tokenBundle
      * @param bool $appField
      *
      * @return null|TypeInterface
@@ -113,8 +113,8 @@ class FieldParser
     /**
      * Accepts the bundled tokens for type & parameter data and builds the Type value object.
      *
-     * @param string[] $typeTokenList
-     * @param string[] $paramBundleList
+     * @param array<string> $typeTokenList
+     * @param array<array<string>> $paramBundleList
      * @param bool $appField
      *
      * @return TypeInterface
@@ -147,7 +147,7 @@ class FieldParser
     /**
      * Returns true if the provided parameter bundle is a quality factor.
      *
-     * @param string[] $paramBundle
+     * @param array<string> $paramBundle
      *
      * @return bool
      */
@@ -161,10 +161,10 @@ class FieldParser
     /**
      * Splits token list up into one bundle per type for later processing.
      *
-     * @param string[] $tokenList
+     * @param array<string> $tokenList
      * @param string $targetToken The token to split the list up by.
      *
-     * @return string[] an array of arrays - the child array contains the tokens for a single type.
+     * @return array<array<string>> an array of arrays - the child array contains the tokens for a single type.
      */
     private function bundleTokens(array $tokenList, $targetToken)
     {
@@ -197,7 +197,7 @@ class FieldParser
      *
      * @throws InvalidTypeException
      *
-     * @param string[] $bundle
+     * @param array<string> $bundle
      */
     private function validateBundleMimeType(array $bundle)
     {
@@ -221,7 +221,7 @@ class FieldParser
      *
      * @throws InvalidTypeException
      *
-     * @param string[] $paramBundleList
+     * @param array<array<string>> $paramBundleList
      * @param bool $appField        If true the field came from the application & we error on malformed data otherwise
      *                              we suppress errors for user-agent types.
      */

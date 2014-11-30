@@ -25,8 +25,8 @@ interface NegotiatorInterface
     /**
      * Return a collection of types sorted by preference.
      *
-     * @param TypeCollection|TypeInterface[] $userTypeList
-     * @param TypeCollection|TypeInterface[] $appTypeList
+     * @param TypeCollection $userTypeList
+     * @param TypeCollection $appTypeList
      *
      * @return CollectionInterface
      */
@@ -35,8 +35,8 @@ interface NegotiatorInterface
     /**
      * Return the preferred type & product of application & user-agent quality factors.
      *
-     * @param TypeCollection|TypeInterface[] $userTypeList
-     * @param TypeCollection|TypeInterface[] $appTypeList
+     * @param TypeCollection $userTypeList
+     * @param TypeCollection $appTypeList
      *
      * @return TypeInterface
      */

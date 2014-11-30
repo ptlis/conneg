@@ -26,7 +26,7 @@ class FieldTokenizer
      * @param string $httpField
      * @param bool $mimeField
      *
-     * @return string[]
+     * @return array<string>
      */
     public function tokenize($httpField, $mimeField = false)
     {

@@ -58,14 +58,15 @@ class MimeNegotiator implements NegotiatorInterface
     /**
      * Return a collection of types sorted by preference.
      *
-     * @param TypeCollection|MimeTypeInterface[] $userTypeList
-     * @param TypeCollection|MimeTypeInterface[] $appTypeList
+     * @param TypeCollection $userTypeList
+     * @param TypeCollection $appTypeList
      *
      * @return TypePairCollection
      */
     public function negotiateAll(TypeCollection $userTypeList, TypeCollection $appTypeList)
     {
         $matchingList = array();
+        /** @var MimeTypeInterface $appType */
         foreach ($appTypeList as $appType) {
             $matchingList[$appType->getType()] = new TypePair(
                 $this->emptyType,
@@ -87,8 +88,8 @@ class MimeNegotiator implements NegotiatorInterface
     /**
      * Return the preferred type & product of application & user-agent quality factors.
      *
-     * @param TypeCollection|MimeTypeInterface[] $userTypeList
-     * @param TypeCollection|MimeTypeInterface[] $appTypeList
+     * @param TypeCollection $userTypeList
+     * @param TypeCollection $appTypeList
      *
      * @return TypePair
      */
@@ -172,7 +173,7 @@ class MimeNegotiator implements NegotiatorInterface
     /**
      * Match user types to app types.
      *
-     * @param TypeCollection|MimeTypeInterface[]   $userTypeList
+     * @param TypeCollection   $userTypeList
      * @param TypePairInterface[]  $matchingList
      *
      * @return TypePairInterface[]
@@ -180,7 +181,6 @@ class MimeNegotiator implements NegotiatorInterface
     private function matchUserListToAppTypes(TypeCollection $userTypeList, array $matchingList)
     {
         foreach ($userTypeList as $userType) {
-
             $matchingList = $this->matchUserToAppTypes($userType, $matchingList);
         }
 
