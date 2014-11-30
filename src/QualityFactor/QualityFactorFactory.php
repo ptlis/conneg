@@ -28,7 +28,7 @@ class QualityFactorFactory
      *
      * @throws ConNegException
      *
-     * @param float $qualityFactor
+     * @param int|double $qualityFactor
      * @param bool $appType
      *
      * @return QualityFactor
@@ -51,10 +51,10 @@ class QualityFactorFactory
      *
      * @throws QualityFactorMalformedException
      *
-     * @param float $qualityFactor
+     * @param int|double $qualityFactor
      * @param bool $appType
      *
-     * @return float
+     * @return int|double
      */
     private function validateFloat($qualityFactor, $appType)
     {
@@ -78,10 +78,10 @@ class QualityFactorFactory
      *
      * @throws QualityFactorTooLargeException
      *
-     * @param float $qualityFactor
+     * @param int|double $qualityFactor
      * @param bool $appType
      *
-     * @return float
+     * @return int|double
      */
     private function validateUpper($qualityFactor, $appType)
     {
@@ -103,10 +103,10 @@ class QualityFactorFactory
      *
      * @throws QualityFactorNegativeException
      *
-     * @param float $qualityFactor
+     * @param int|double $qualityFactor
      * @param bool $appType
      *
-     * @return float
+     * @return int|double
      */
     private function validateLower($qualityFactor, $appType)
     {
