@@ -47,7 +47,7 @@ class FieldTokenizerTest extends \PHPUnit_Framework_TestCase
 
     public function testTokenizeAcceptCharsetWithSpaces()
     {
-        $httpField = 'iso-8859-5 ,utf-8; q= 0.9 , *; q= 0.5';
+        $httpField = 'iso-8859-5 ,utf-8; q= 0.9 , *; q= 0.5 ';
         $expected = array(
             'iso-8859-5',
             ',',

@@ -61,7 +61,7 @@ class FieldTokenizer
                 // Separators found, add previously accumulated string & separator to token list
                 case $this->isSeparator($chr, $mimeField):
                     if (strlen($stringAccumulator)) {
-                        $tokenList[] = trim($stringAccumulator);
+                        $tokenList[] = $stringAccumulator;
                         $stringAccumulator = '';
                     }
 
@@ -79,6 +79,9 @@ class FieldTokenizer
         if (strlen($stringAccumulator)) {
             $tokenList[] = $stringAccumulator;
         }
+
+        // Remove any padding whitespace from token list
+        $tokenList = array_map('trim', $tokenList);
 
         return $tokenList;
     }
