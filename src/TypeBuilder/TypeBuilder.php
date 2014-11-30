@@ -18,6 +18,8 @@ use ptlis\ConNeg\Exception\QualityFactorException;
 use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
 use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
 use ptlis\ConNeg\Type\AbsentType;
+use ptlis\ConNeg\Type\Extens\AcceptExtens;
+use ptlis\ConNeg\Type\Extens\AcceptExtensInterface;
 use ptlis\ConNeg\Type\Type;
 use ptlis\ConNeg\Type\TypeInterface;
 use ptlis\ConNeg\Type\WildcardType;
@@ -54,6 +56,11 @@ class TypeBuilder implements TypeBuilderInterface
      * @var QualityFactorInterface
      */
     protected $qFactor;
+
+    /**
+     * @var AcceptExtensInterface[]
+     */
+    protected $acceptExtensList = array();
 
 
     /**
@@ -118,6 +125,31 @@ class TypeBuilder implements TypeBuilderInterface
     }
 
     /**
+     * Set accept-extens for the type.
+     *
+     * @throws InvalidTypeException
+     *
+     * @param array[][]string $acceptExtensList
+     *
+     * @return TypeBuilderInterface
+     */
+    public function setAcceptExtens(array $acceptExtensList)
+    {
+        foreach ($acceptExtensList as $rawAcceptExtens) {
+            try {
+                $this->acceptExtensList[] = $this->buildAcceptExtens($rawAcceptExtens);
+
+            } catch (InvalidTypeException $e) {
+                if ($this->appType) {
+                    throw $e;
+                }
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * Validate the builder state, if valid then return the hydrated type object.
      *
      * @throws InvalidTypeException
@@ -161,6 +193,35 @@ class TypeBuilder implements TypeBuilderInterface
     }
 
     /**
+     * Build an accept-extens value object from it's array definition.
+     *
+     * @throws InvalidTypeException
+     *
+     * @param string[] $rawAcceptExtens
+     *
+     * @return AcceptExtens
+     */
+    private function buildAcceptExtens(array $rawAcceptExtens)
+    {
+        // Simple value
+        if (1 === count($rawAcceptExtens)) {
+            $acceptExtens = new AcceptExtens($rawAcceptExtens[0]);
+
+            // Key-value pair
+        } elseif (3 === count($rawAcceptExtens)) {
+            $acceptExtens = new AcceptExtens($rawAcceptExtens[2], $rawAcceptExtens[0]);
+
+            // Invalid extens in application type
+        } else {
+            throw new InvalidTypeException(
+                'Malformed accept-extens "' . implode($rawAcceptExtens) . '" found'
+            );
+        }
+
+        return $acceptExtens;
+    }
+
+    /**
      * Attempt to get a wildcard type, throws exception if type was provided by the application.
      *
      * @throws InvalidTypeException
@@ -186,6 +247,7 @@ class TypeBuilder implements TypeBuilderInterface
         $this->appType = false;
         $this->type = '';
         $this->qFactor = $this->qFactorFactory->get(1, $this->appType);
+        $this->acceptExtensList = array();
     }
 
     /**

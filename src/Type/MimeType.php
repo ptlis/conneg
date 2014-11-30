@@ -14,6 +14,7 @@
 namespace ptlis\ConNeg\Type;
 
 use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
+use ptlis\ConNeg\Type\Extens\AcceptExtensInterface;
 
 /**
  * Class for MIME type.
@@ -42,6 +43,13 @@ class MimeType implements MimeTypeInterface
     private $qFactor;
 
     /**
+     * An array of accept-extens fragments.
+     *
+     * @var AcceptExtensInterface[]
+     */
+    private $acceptExtensList;
+
+    /**
      * Type precedence of the type (named > subtype wildcard > wildcard > absent).
      *
      * @var int
@@ -55,12 +63,14 @@ class MimeType implements MimeTypeInterface
      * @param string $type
      * @param string $subType
      * @param QualityFactorInterface $qFactor
+     * @param AcceptExtensInterface[] $acceptExtensList
      */
-    public function __construct($type, $subType, QualityFactorInterface $qFactor)
+    public function __construct($type, $subType, QualityFactorInterface $qFactor, array $acceptExtensList = array())
     {
         $this->type = $type;
         $this->subType = $subType;
         $this->qFactor = $qFactor;
+        $this->acceptExtensList = $acceptExtensList;
         $this->precedence = 2;
     }
 
@@ -115,12 +125,22 @@ class MimeType implements MimeTypeInterface
     }
 
     /**
+     * Return an array of accept-extens fragments.
+     *
+     * @return AcceptExtensInterface[]
+     */
+    public function getExtens()
+    {
+        return $this->acceptExtensList;
+    }
+
+    /**
      * Create string representation of type.
      *
      * @return string
      */
     public function __toString()
     {
-        return $this->getType() . ';q=' . $this->getQualityFactor();
+        return $this->getType() . ';q=' . $this->getQualityFactor() . implode(';', $this->acceptExtensList);
     }
 }

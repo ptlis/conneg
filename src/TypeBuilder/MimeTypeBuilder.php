@@ -60,7 +60,6 @@ class MimeTypeBuilder extends TypeBuilder
         return $type;
     }
 
-
     /**
      * Validate the provided type data.
      *
@@ -112,7 +111,6 @@ class MimeTypeBuilder extends TypeBuilder
         }
     }
 
-
     /**
      * Get the type object from the provided specification.
      *
@@ -137,7 +135,7 @@ class MimeTypeBuilder extends TypeBuilder
                 break;
 
             default:
-                $type = new MimeType($mimeType, $subType, $this->qFactor);
+                $type = new MimeType($mimeType, $subType, $this->qFactor, $this->acceptExtensList);
                 break;
         }
 

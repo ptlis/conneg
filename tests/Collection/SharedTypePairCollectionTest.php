@@ -219,4 +219,29 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('iso-8859-5;q=0.64,utf-8;q=0.9', $collection->__toString());
     }
+
+
+    public function testCount()
+    {
+        $pairSort = new TypePairSort(
+            new TypePair(
+                new AbsentType(new QualityFactor(0)),
+                new AbsentType(new QualityFactor(0))
+            )
+        );
+
+        $pairList = array(
+            new TypePair(
+                new Type('iso-8859-5', new QualityFactor(0.8)),
+                new Type('iso-8859-5', new QualityFactor(0.8))
+            ),
+            new TypePair(
+                new Type('utf-8', new QualityFactor(0.9)),
+                new Type('utf-8', new QualityFactor(1))
+            )
+        );
+        $collection = new TypePairCollection($pairSort, $pairList);
+
+        $this->assertEquals(2, count($collection));
+    }
 }

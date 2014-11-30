@@ -125,13 +125,20 @@ class FieldParser
             ->setAppType($appField)
             ->setType(implode('', $typeTokenList));
 
-        // Look for quality factor
+        // Look for quality factor and accept-extens
+        $acceptExtensList = array();
         foreach ($paramBundleList as $paramBundle) {
 
             // Correct format for quality factor
             if ($this->isQualityFactor($paramBundle)) {
                 $this->typeBuilder->setQualityFactor($paramBundle[2]);
+            } else {
+                $acceptExtensList[] = $paramBundle;
             }
+        }
+
+        if ($this->mimeField) {
+            $this->typeBuilder->setAcceptExtens($acceptExtensList);
         }
 
         return $this->typeBuilder->get();

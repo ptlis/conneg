@@ -15,6 +15,7 @@ namespace ptlis\ConNeg\Test\TypeBuilder;
 
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
+use ptlis\ConNeg\Type\Extens\AcceptExtens;
 use ptlis\ConNeg\Type\MimeType;
 use ptlis\ConNeg\TypeBuilder\MimeTypeBuilder;
 
@@ -28,7 +29,8 @@ class MimeTypeBuilderTest extends \PHPUnit_Framework_TestCase
         $expected = new MimeType(
             'text',
             'html',
-            new QualityFactor(1)
+            new QualityFactor(1),
+            array(new AcceptExtens('4', 'level'))
         );
 
         $builder = new MimeTypeBuilder(new QualityFactorFactory());
@@ -37,6 +39,7 @@ class MimeTypeBuilderTest extends \PHPUnit_Framework_TestCase
             ->setAppType(true)
             ->setType('text/html')
             ->setQualityFactor(1)
+            ->setAcceptExtens(array(array('level', '=', '4')))
             ->get();
 
         $this->assertEquals($expected, $real);
@@ -74,7 +77,7 @@ class MimeTypeBuilderTest extends \PHPUnit_Framework_TestCase
             ->get();
     }
 
-    public function testBuildAppWildcardTypeOnlyInvalid()
+    public function testBuildUserWildcardTypeOnlyInvalid()
     {
         $this->setExpectedException(
             '\ptlis\ConNeg\Exception\InvalidTypeException',
@@ -88,5 +91,42 @@ class MimeTypeBuilderTest extends \PHPUnit_Framework_TestCase
             ->setType('*/html')
             ->setQualityFactor(1)
             ->get();
+    }
+
+    public function testBuildAppExtensInvalid()
+    {
+        $this->setExpectedException(
+            '\ptlis\ConNeg\Exception\InvalidTypeException',
+            'Malformed accept-extens "foo=" found'
+        );
+
+        $builder = new MimeTypeBuilder(new QualityFactorFactory());
+
+        $builder
+            ->setAppType(true)
+            ->setType('text/html')
+            ->setQualityFactor(1)
+            ->setAcceptExtens(array(array('foo', '=')))
+            ->get();
+    }
+
+    public function testBuildUserExtensInvalid()
+    {
+        $expected = new MimeType(
+            'text',
+            'html',
+            new QualityFactor(1)
+        );
+
+        $builder = new MimeTypeBuilder(new QualityFactorFactory());
+
+        $real = $builder
+            ->setAppType(false)
+            ->setType('text/html')
+            ->setQualityFactor(1)
+            ->setAcceptExtens(array(array('foo', '=')))
+            ->get();
+
+        $this->assertEquals($expected, $real);
     }
 }

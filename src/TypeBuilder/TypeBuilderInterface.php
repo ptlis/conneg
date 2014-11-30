@@ -13,6 +13,7 @@
 
 namespace ptlis\ConNeg\TypeBuilder;
 
+use ptlis\ConNeg\Type\Extens\AcceptExtensInterface;
 use ptlis\ConNeg\Type\TypeInterface;
 
 /**
@@ -46,6 +47,15 @@ interface TypeBuilderInterface
      * @return TypeBuilderInterface
      */
     public function setQualityFactor($qFactor);
+
+    /**
+     * Set accept-extens for the type.
+     *
+     * @param array[][]string $acceptExtensList
+     *
+     * @return TypeBuilderInterface
+     */
+    public function setAcceptExtens(array $acceptExtensList);
 
     /**
      * Get the hydrated type object.

@@ -30,6 +30,7 @@ class MimeTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(0.8, $type->getQualityFactor()->getFactor());
         $this->assertSame('text/html;q=0.8', $type->__toString());
         $this->assertSame(2, $type->getPrecedence());
+        $this->assertSame(array(), $type->getExtens());
     }
 
 
@@ -43,6 +44,7 @@ class MimeTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, $type->getQualityFactor()->getFactor());
         $this->assertSame('application/xml;q=1', $type->__toString());
         $this->assertSame(2, $type->getPrecedence());
+        $this->assertSame(array(), $type->getExtens());
     }
 
 
@@ -55,5 +57,6 @@ class MimeTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($type, $cloneType);
         $this->assertTrue($type == $cloneType);
         $this->assertFalse($type === $cloneType);
+        $this->assertSame(array(), $type->getExtens());
     }
 }

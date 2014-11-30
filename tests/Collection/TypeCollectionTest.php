@@ -205,4 +205,16 @@ class TypeCollectionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('text/n3;q=0.8,text/html;q=1', $collection->__toString());
     }
+
+    public function testCount()
+    {
+        $expectList = array(
+            new MimeType('text', 'n3', new QualityFactor(0.8)),
+            new MimeType('text', 'html', new QualityFactor(1))
+        );
+
+        $collection = new TypeCollection($expectList);
+
+        $this->assertEquals(2, count($collection));
+    }
 }

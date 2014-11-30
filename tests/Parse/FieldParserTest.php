@@ -17,6 +17,7 @@ use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Parse\FieldParser;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
+use ptlis\ConNeg\Type\Extens\AcceptExtens;
 use ptlis\ConNeg\Type\MimeType;
 use ptlis\ConNeg\Type\Type;
 use ptlis\ConNeg\TypeBuilder\MimeTypeBuilder;
@@ -61,6 +62,244 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         $parser = new FieldParser($builder, true);
 
         $real = $parser->parse($mimeTokens, true);
+
+        $this->assertEquals($expected, $real);
+    }
+
+    public function testParseAcceptWithKvpExtens()
+    {
+        $mimeTokens = array(
+            'application',
+            '/',
+            'atom+xml',
+            ';',
+            'q',
+            '=',
+            '0.8',
+            ',',
+            'text',
+            '/',
+            'html',
+            ';',
+            'q',
+            '=',
+            '0.3',
+            ';',
+            'level',
+            '=',
+            '1',
+            ',',
+            'application',
+            '/',
+            'rss+xml',
+        );
+
+        $expected = new TypeCollection(array(
+            new MimeType('application', 'atom+xml', new QualityFactor('0.8')),
+            new MimeType('text', 'html', new QualityFactor('0.3'), array(new AcceptExtens('1', 'level'))),
+            new MimeType('application', 'rss+xml', new QualityFactor('1'))
+        ));
+
+        $builder = new MimeTypeBuilder(new QualityFactorFactory());
+        $parser = new FieldParser($builder, true);
+
+        $real = $parser->parse($mimeTokens, true);
+
+        $this->assertEquals($expected, $real);
+    }
+
+    public function testParseAcceptWithValueExtens()
+    {
+        $mimeTokens = array(
+            'application',
+            '/',
+            'atom+xml',
+            ';',
+            'q',
+            '=',
+            '0.8',
+            ',',
+            'text',
+            '/',
+            'html',
+            ';',
+            'q',
+            '=',
+            '0.3',
+            ';',
+            'level',
+            '=',
+            '1',
+            ';',
+            'foo',
+            ',',
+            'application',
+            '/',
+            'rss+xml',
+        );
+
+        $extensList = array(
+            new AcceptExtens('1', 'level'),
+            new AcceptExtens('foo')
+        );
+
+        $expected = new TypeCollection(array(
+            new MimeType('application', 'atom+xml', new QualityFactor('0.8')),
+            new MimeType('text', 'html', new QualityFactor('0.3'), $extensList),
+            new MimeType('application', 'rss+xml', new QualityFactor('1'))
+        ));
+
+        $builder = new MimeTypeBuilder(new QualityFactorFactory());
+        $parser = new FieldParser($builder, true);
+
+        $real = $parser->parse($mimeTokens, true);
+
+        $this->assertEquals($expected, $real);
+    }
+
+    public function testParseAcceptWithQuotedValueExtens()
+    {
+        $mimeTokens = array(
+            'application',
+            '/',
+            'atom+xml',
+            ';',
+            'q',
+            '=',
+            '0.8',
+            ',',
+            'text',
+            '/',
+            'html',
+            ';',
+            'q',
+            '=',
+            '0.3',
+            ';',
+            'level',
+            '=',
+            '1',
+            ';',
+            'foo',
+            '=',
+            '"bar,;/="',
+            ',',
+            'application',
+            '/',
+            'rss+xml',
+        );
+
+        $extensList = array(
+            new AcceptExtens('1', 'level'),
+            new AcceptExtens('"bar,;/="', 'foo')
+        );
+
+        $expected = new TypeCollection(array(
+            new MimeType('application', 'atom+xml', new QualityFactor('0.8')),
+            new MimeType('text', 'html', new QualityFactor('0.3'), $extensList),
+            new MimeType('application', 'rss+xml', new QualityFactor('1'))
+        ));
+
+        $builder = new MimeTypeBuilder(new QualityFactorFactory());
+        $parser = new FieldParser($builder, true);
+
+        $real = $parser->parse($mimeTokens, true);
+
+        $this->assertEquals($expected, $real);
+    }
+
+    public function testParseAppAcceptWithInvalidExtens()
+    {
+        $this->setExpectedException(
+            '\ptlis\ConNeg\Exception\InvalidTypeException',
+            'Invalid count for parameters; expecting 1 or 3, got "2"'
+        );
+
+        $mimeTokens = array(
+            'application',
+            '/',
+            'atom+xml',
+            ';',
+            'q',
+            '=',
+            '0.8',
+            ',',
+            'text',
+            '/',
+            'html',
+            ';',
+            'q',
+            '=',
+            '0.3',
+            ';',
+            'level',
+            '=',
+            '1',
+            ';',
+            'foo',
+            '=',
+            ',',
+            'application',
+            '/',
+            'rss+xml',
+        );
+
+        $extensList = array(
+            new AcceptExtens('1', 'level'),
+            new AcceptExtens('"bar,;/="', 'foo')
+        );
+
+        $builder = new MimeTypeBuilder(new QualityFactorFactory());
+        $parser = new FieldParser($builder, true);
+
+        $parser->parse($mimeTokens, true);
+    }
+
+    public function testParseUserAcceptWithInvalidExtens()
+    {
+        $mimeTokens = array(
+            'application',
+            '/',
+            'atom+xml',
+            ';',
+            'q',
+            '=',
+            '0.8',
+            ',',
+            'text',
+            '/',
+            'html',
+            ';',
+            'q',
+            '=',
+            '0.3',
+            ';',
+            'level',
+            '=',
+            '1',
+            ';',
+            'foo',
+            '=',
+            ',',
+            'application',
+            '/',
+            'rss+xml',
+        );
+
+        $extensList = array(
+            new AcceptExtens('1', 'level')
+        );
+
+        $expected = new TypeCollection(array(
+            new MimeType('application', 'atom+xml', new QualityFactor('0.8')),
+            new MimeType('text', 'html', new QualityFactor('0.3'), $extensList),
+            new MimeType('application', 'rss+xml', new QualityFactor('1'))
+        ));
+
+        $builder = new MimeTypeBuilder(new QualityFactorFactory());
+        $parser = new FieldParser($builder, true);
+
+        $real = $parser->parse($mimeTokens, false);
 
         $this->assertEquals($expected, $real);
     }
