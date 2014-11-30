@@ -274,6 +274,14 @@ class Negotiate
         return $all;
     }
 
+    /**
+     * Takes string serialization of user-agent type preferences and returns a collection of type objects.
+     *
+     * @param string $userField
+     * @param bool $isMimeField
+     *
+     * @return TypeCollection
+     */
     private function sharedUserPrefsToTypes($userField, $isMimeField)
     {
         $tokenList = $this->tokenizer->tokenize($userField, $isMimeField);
