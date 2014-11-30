@@ -40,44 +40,33 @@ class IssueTwoTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $expectCollection = new SharedTypePairCollection($sort);
-        $expectCollection
-            ->addPair(
-                new TypePair(
-                    new MimeType('text', 'turtle', new QualityFactor(1)),
-                    new MimeAbsentType(new QualityFactor(0))
-                )
+        $pairList = array(
+            new TypePair(
+                new MimeType('text', 'turtle', new QualityFactor(1)),
+                new MimeAbsentType(new QualityFactor(0))
+            ),
+            new TypePair(
+                new MimeType('application', 'rdf+json', new QualityFactor(0.8)),
+                new MimeAbsentType(new QualityFactor(0))
+            ),
+            new TypePair(
+                new MimeType('application', 'rdf+xml', new QualityFactor(0.8)),
+                new MimeAbsentType(new QualityFactor(0))
+            ),
+            new TypePair(
+                new MimeType('text', 'n3', new QualityFactor(0.8)),
+                new MimeAbsentType(new QualityFactor(0))
+            ),
+            new TypePair(
+                new MimeType('text', 'rdf+n3', new QualityFactor(0.8)),
+                new MimeAbsentType(new QualityFactor(0))
+            ),
+            new TypePair(
+                new MimeType('application', 'ld+json', new QualityFactor(0.5)),
+                new MimeAbsentType(new QualityFactor(0))
             )
-            ->addPair(
-                new TypePair(
-                    new MimeType('application', 'rdf+json', new QualityFactor(0.8)),
-                    new MimeAbsentType(new QualityFactor(0))
-                )
-            )
-            ->addPair(
-                new TypePair(
-                    new MimeType('application', 'rdf+xml', new QualityFactor(0.8)),
-                    new MimeAbsentType(new QualityFactor(0))
-                )
-            )
-            ->addPair(
-                new TypePair(
-                    new MimeType('text', 'n3', new QualityFactor(0.8)),
-                    new MimeAbsentType(new QualityFactor(0))
-                )
-            )
-            ->addPair(
-                new TypePair(
-                    new MimeType('text', 'rdf+n3', new QualityFactor(0.8)),
-                    new MimeAbsentType(new QualityFactor(0))
-                )
-            )
-            ->addPair(
-                new TypePair(
-                    new MimeType('application', 'ld+json', new QualityFactor(0.5)),
-                    new MimeAbsentType(new QualityFactor(0))
-                )
-            );
+        );
+        $expectCollection = new SharedTypePairCollection($sort, $pairList);
 
         $negotiate = new Negotiate();
         $resultCollection = $negotiate->mimeAll($httpField, $appPrefs);

@@ -32,40 +32,12 @@ class TypeCollection implements CollectionInterface
 
     /**
      * Constructor.
-     */
-    public function __construct()
-    {
-        $this->typeList = array();
-    }
-
-    /**
-     * Set the internal store to the provided values.
      *
      * @param TypeInterface[] $typeList
-     *
-     * @return CollectionInterface
      */
-    public function setList(array $typeList)
+    public function __construct(array $typeList)
     {
-        foreach ($typeList as $type) {
-            $this->addType($type);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Add a type to the collection.
-     *
-     * @param TypeInterface $type
-     *
-     * @return $this
-     */
-    public function addType(TypeInterface $type)
-    {
-        $this->typeList[] = $type;
-
-        return $this;
+        $this->typeList = $typeList;
     }
 
     /**
@@ -112,8 +84,7 @@ class TypeCollection implements CollectionInterface
             $descSort
         );
 
-        $newCollection = new TypeCollection();
-        $newCollection->setList($newTypeList);
+        $newCollection = new TypeCollection($newTypeList);
 
         return $newCollection;
     }
@@ -142,8 +113,7 @@ class TypeCollection implements CollectionInterface
             $descSort
         );
 
-        $newCollection = new TypeCollection();
-        $newCollection->setList($newTypePairList);
+        $newCollection = new TypeCollection($newTypePairList);
 
         return $newCollection;
     }

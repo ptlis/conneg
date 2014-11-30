@@ -51,8 +51,7 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             'rss+xml',
         );
 
-        $expected = new TypeCollection();
-        $expected->setList(array(
+        $expected = new TypeCollection(array(
             new MimeType('application', 'atom+xml', new QualityFactor('0.8')),
             new MimeType('text', 'html', new QualityFactor('0.3')),
             new MimeType('application', 'rss+xml', new QualityFactor('1'))
@@ -140,8 +139,7 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             '0.9'
         );
 
-        $expected = new TypeCollection();
-        $expected->setList(array(
+        $expected = new TypeCollection(array(
             new Type('iso-8859-5', new QualityFactor('1')),
             new Type('utf-8', new QualityFactor('0.9')),
         ));
@@ -167,8 +165,7 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             '0.9'
         );
 
-        $expected = new TypeCollection();
-        $expected->setList(array(
+        $expected = new TypeCollection(array(
             new Type('iso-8859-5', new QualityFactor('1')),
             new Type('utf-8', new QualityFactor('0.9')),
         ));
@@ -194,8 +191,7 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             '0.9'
         );
 
-        $expected = new TypeCollection();
-        $expected->setList(array(
+        $expected = new TypeCollection(array(
             new Type('iso-8859-5', new QualityFactor('1')),
             new Type('utf-8', new QualityFactor('0.9')),
         ));

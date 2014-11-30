@@ -43,8 +43,7 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $newCollection = new SharedTypePairCollection($sort);
-        $sort->sortAscending($typePairList, $newCollection);
+        $newCollection = $sort->sortAscending($typePairList);
 
         $expectAppType = array(
             'fr;q=0.8',
@@ -83,8 +82,7 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $newCollection = new SharedTypePairCollection($sort);
-        $sort->sortAscending($typePairList, $newCollection);
+        $newCollection = $sort->sortAscending($typePairList);
 
         $expectAppType = array(
             'en-gb;q=0.5',
@@ -125,8 +123,7 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $newCollection = new SharedTypePairCollection($sort);
-        $sort->sortAscending($typePairList, $newCollection);
+        $newCollection = $sort->sortAscending($typePairList);
 
         $expectAppType = array(
             'fr;q=0.9',
@@ -166,8 +163,7 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $newCollection = new SharedTypePairCollection($sort);
-        $sort->sortAscending($typePairList, $newCollection);
+        $newCollection = $sort->sortAscending($typePairList);
 
         $expectAppType = array(
             'fr;q=0.9',
@@ -207,8 +203,7 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $newCollection = new SharedTypePairCollection($sort);
-        $sort->sortAscending($typePairList, $newCollection);
+        $newCollection = $sort->sortAscending($typePairList);
 
         $expectAppType = array(
             'en-gb;q=0.9',
@@ -248,8 +243,7 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $newCollection = new SharedTypePairCollection($sort);
-        $sort->sortAscending($typePairList, $newCollection);
+        $newCollection = $sort->sortAscending($typePairList);
 
         $expectAppType = array(
             'fr;q=0.8',
@@ -289,8 +283,7 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $newCollection = new SharedTypePairCollection($sort);
-        $sort->sortAscending($typePairList, $newCollection);
+        $newCollection = $sort->sortAscending($typePairList);
 
         $expectAppType = array(
             '',

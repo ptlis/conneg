@@ -41,41 +41,12 @@ class SharedTypePairCollection implements CollectionInterface
      * Constructor.
      *
      * @param TypePairSort $pairSort
+     * @param TypePairInterface[] $typePairList
      */
-    public function __construct(TypePairSort $pairSort)
+    public function __construct(TypePairSort $pairSort, array $typePairList)
     {
         $this->pairSort     = $pairSort;
-        $this->typePairList = array();
-    }
-
-    /**
-     * Set the internal store to the provided values.
-     *
-     * @param TypePairInterface[] $typePairList
-     *
-     * @return CollectionInterface
-     */
-    public function setList(array $typePairList)
-    {
-        foreach ($typePairList as $typePair) {
-            $this->addPair($typePair);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Add a type pair to the collection.
-     *
-     * @param TypePairInterface $pair
-     *
-     * @return SharedTypePairCollection
-     */
-    public function addPair(TypePairInterface $pair)
-    {
-        $this->typePairList[] = $pair;
-
-        return $this;
+        $this->typePairList = $typePairList;
     }
 
     /**

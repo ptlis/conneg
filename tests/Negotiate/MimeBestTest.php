@@ -45,7 +45,7 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
     public function testUserAndAppEmptyCollection()
     {
         $httpField  = '';
-        $appPrefs   = new TypeCollection();
+        $appPrefs   = new TypeCollection(array());
 
         $expectPair = new TypePair(
             new MimeAbsentType(new QualityFactor(0)),

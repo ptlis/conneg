@@ -39,7 +39,7 @@ class CharsetAllTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $expectCollection = new SharedTypePairCollection($pairSort);
+        $expectCollection = new SharedTypePairCollection($pairSort, array());
 
         $negotiate = new Negotiate();
         $resultCollection = $negotiate->charsetAll($httpField, $appPrefs);
@@ -60,19 +60,17 @@ class CharsetAllTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $expectCollection = new SharedTypePairCollection($pairSort);
-        $expectCollection->addPair(
+        $pairList = array(
             new TypePair(
                 new Type('utf-8', new QualityFactor(1)),
                 new AbsentType(new QualityFactor(0))
-            )
-        );
-        $expectCollection->addPair(
+            ),
             new TypePair(
                 new Type('iso-8859-5', new QualityFactor(0.75)),
                 new AbsentType(new QualityFactor(0))
             )
         );
+        $expectCollection = new SharedTypePairCollection($pairSort, $pairList);
 
         $negotiate = new Negotiate();
         $resultCollection = $negotiate->charsetAll($httpField, $appPrefs);
@@ -93,19 +91,17 @@ class CharsetAllTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $expectCollection = new SharedTypePairCollection($pairSort);
-        $expectCollection->addPair(
+        $pairList = array(
             new TypePair(
                 new Type('utf-8', new QualityFactor(1)),
                 new AbsentType(new QualityFactor(0))
-            )
-        );
-        $expectCollection->addPair(
+            ),
             new TypePair(
                 new Type('iso-8859-5', new QualityFactor(0.75)),
                 new AbsentType(new QualityFactor(0))
             )
         );
+        $expectCollection = new SharedTypePairCollection($pairSort, $pairList);
 
         $negotiate = new Negotiate();
         $resultCollection = $negotiate->charsetAll($httpField, $appPrefs);
@@ -126,19 +122,17 @@ class CharsetAllTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $expectCollection = new SharedTypePairCollection($pairSort);
-        $expectCollection->addPair(
+        $pairList = array(
             new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new Type('iso-8859-1', new QualityFactor(1))
-            )
-        );
-        $expectCollection->addPair(
+            ),
             new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new Type('utf-8', new QualityFactor(0.5))
             )
         );
+        $expectCollection = new SharedTypePairCollection($pairSort, $pairList);
 
         $negotiate = new Negotiate();
         $resultCollection = $negotiate->charsetAll($httpField, $appPrefs);
@@ -159,19 +153,17 @@ class CharsetAllTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $expectCollection = new SharedTypePairCollection($pairSort);
-        $expectCollection->addPair(
+        $pairList = array(
             new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new Type('iso-8859-1', new QualityFactor(1))
-            )
-        );
-        $expectCollection->addPair(
+            ),
             new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new Type('utf-8', new QualityFactor(0.5))
             )
         );
+        $expectCollection = new SharedTypePairCollection($pairSort, $pairList);
 
         $negotiate = new Negotiate();
         $resultCollection = $negotiate->charsetAll($httpField, $appPrefs);
@@ -192,19 +184,17 @@ class CharsetAllTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $expectCollection = new SharedTypePairCollection($pairSort);
-        $expectCollection->addPair(
+        $pairList = array(
             new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new Type('iso-8859-1', new QualityFactor(0.5))
-            )
-        );
-        $expectCollection->addPair(
+            ),
             new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new Type('utf-8', new QualityFactor(0.5))
             )
         );
+        $expectCollection = new SharedTypePairCollection($pairSort, $pairList);
 
         $negotiate = new Negotiate();
         $resultCollection = $negotiate->charsetAll($httpField, $appPrefs);
@@ -225,19 +215,17 @@ class CharsetAllTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $expectCollection = new SharedTypePairCollection($pairSort);
-        $expectCollection->addPair(
+        $pairList = array(
             new TypePair(
                 new Type('iso-8859-5', new QualityFactor(0.9)),
                 new Type('iso-8859-5', new QualityFactor(0.9))
-            )
-        );
-        $expectCollection->addPair(
+            ),
             new TypePair(
                 new Type('utf-8', new QualityFactor(0.6)),
                 new Type('utf-8', new QualityFactor(0.6))
             )
         );
+        $expectCollection = new SharedTypePairCollection($pairSort, $pairList);
 
         $negotiate = new Negotiate();
         $resultCollection = $negotiate->charsetAll($httpField, $appPrefs);
@@ -258,31 +246,25 @@ class CharsetAllTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $expectCollection = new SharedTypePairCollection($pairSort);
-        $expectCollection->addPair(
+        $pairList = array(
             new TypePair(
                 new Type('utf-8', new QualityFactor(0.6)),
                 new Type('utf-8', new QualityFactor(0.3))
-            )
-        );
-        $expectCollection->addPair(
+            ),
             new TypePair(
                 new Type('iso-8859-1', new QualityFactor(0.3)),
                 new Type('iso-8859-1', new QualityFactor(0.5))
-            )
-        );
-        $expectCollection->addPair(
+            ),
             new TypePair(
                 new Type('iso-8859-5', new QualityFactor(0.9)),
                 new AbsentType(new QualityFactor(0))
-            )
-        );
-        $expectCollection->addPair(
+            ),
             new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new Type('windows-1250', new QualityFactor(0.8))
             )
         );
+        $expectCollection = new SharedTypePairCollection($pairSort, $pairList);
 
         $negotiate = new Negotiate();
         $resultCollection = $negotiate->charsetAll($httpField, $appPrefs);
@@ -303,25 +285,21 @@ class CharsetAllTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $expectCollection = new SharedTypePairCollection($pairSort);
-        $expectCollection->addPair(
+        $pairList = array(
             new TypePair(
                 new Type('iso-8859-5', new QualityFactor(0.8)),
                 new Type('iso-8859-5', new QualityFactor(1))
-            )
-        );
-        $expectCollection->addPair(
+            ),
             new TypePair(
                 new Type('utf-8', new QualityFactor(0.9)),
                 new Type('utf-8', new QualityFactor(0.7))
-            )
-        );
-        $expectCollection->addPair(
+            ),
             new TypePair(
                 new WildcardType(new QualityFactor(0.5)),
                 new Type('windows-1250', new QualityFactor(0.3))
             )
         );
+        $expectCollection = new SharedTypePairCollection($pairSort, $pairList);
 
         $negotiate = new Negotiate();
         $resultCollection = $negotiate->charsetAll($httpField, $appPrefs);

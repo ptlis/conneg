@@ -57,8 +57,7 @@ class TypePairSort
             }
         );
 
-        $newCollection = new SharedTypePairCollection($this);
-        $newCollection->setList($typePairList);
+        $newCollection = new SharedTypePairCollection($this, $typePairList);
 
         return $newCollection;
     }
@@ -80,8 +79,7 @@ class TypePairSort
             }
         );
 
-        $newCollection = new SharedTypePairCollection($this);
-        $newCollection->setList($typePairList);
+        $newCollection = new SharedTypePairCollection($this, $typePairList);
 
         return $newCollection;
     }

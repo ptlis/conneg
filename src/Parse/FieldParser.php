@@ -68,8 +68,7 @@ class FieldParser
             $typeList[] = $this->parseBundle($bundle, $appField);
         }
 
-        $collection = new TypeCollection();
-        $collection->setList($typeList);
+        $collection = new TypeCollection($typeList);
 
         return $collection;
     }

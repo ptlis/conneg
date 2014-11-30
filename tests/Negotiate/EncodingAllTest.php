@@ -38,7 +38,7 @@ class EncodingAllTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $expectCollection = new SharedTypePairCollection($pairSort);
+        $expectCollection = new SharedTypePairCollection($pairSort, array());
 
         $negotiate = new Negotiate();
         $resultCollection = $negotiate->encodingAll($httpField, $appPrefs);
@@ -59,19 +59,17 @@ class EncodingAllTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $expectCollection = new SharedTypePairCollection($pairSort);
-        $expectCollection->addPair(
+        $pairList = array(
             new TypePair(
                 new Type('deflate', new QualityFactor(1)),
                 new AbsentType(new QualityFactor(0))
-            )
-        );
-        $expectCollection->addPair(
+            ),
             new TypePair(
                 new Type('7zip', new QualityFactor(0.75)),
                 new AbsentType(new QualityFactor(0))
             )
         );
+        $expectCollection = new SharedTypePairCollection($pairSort, $pairList);
 
         $negotiate = new Negotiate();
         $resultCollection = $negotiate->encodingAll($httpField, $appPrefs);
@@ -92,19 +90,17 @@ class EncodingAllTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $expectCollection = new SharedTypePairCollection($pairSort);
-        $expectCollection->addPair(
+        $pairList = array(
             new TypePair(
                 new Type('deflate', new QualityFactor(1)),
                 new AbsentType(new QualityFactor(0))
-            )
-        );
-        $expectCollection->addPair(
+            ),
             new TypePair(
                 new Type('gzip', new QualityFactor(0.75)),
                 new AbsentType(new QualityFactor(0))
             )
         );
+        $expectCollection = new SharedTypePairCollection($pairSort, $pairList);
 
         $negotiate = new Negotiate();
         $resultCollection = $negotiate->encodingAll($httpField, $appPrefs);
@@ -125,19 +121,17 @@ class EncodingAllTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $expectCollection = new SharedTypePairCollection($pairSort);
-        $expectCollection->addPair(
+        $pairList = array(
             new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new Type('compress', new QualityFactor(1))
-            )
-        );
-        $expectCollection->addPair(
+            ),
             new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new Type('gzip', new QualityFactor(0.5))
             )
         );
+        $expectCollection = new SharedTypePairCollection($pairSort, $pairList);
 
         $negotiate = new Negotiate();
         $resultCollection = $negotiate->encodingAll($httpField, $appPrefs);
@@ -158,19 +152,17 @@ class EncodingAllTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $expectCollection = new SharedTypePairCollection($pairSort);
-        $expectCollection->addPair(
+        $pairList = array(
             new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new Type('gzip', new QualityFactor(1))
-            )
-        );
-        $expectCollection->addPair(
+            ),
             new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new Type('7zip', new QualityFactor(0.5))
             )
         );
+        $expectCollection = new SharedTypePairCollection($pairSort, $pairList);
 
         $negotiate = new Negotiate();
         $resultCollection = $negotiate->encodingAll($httpField, $appPrefs);
@@ -191,19 +183,17 @@ class EncodingAllTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $expectCollection = new SharedTypePairCollection($pairSort);
-        $expectCollection->addPair(
+        $pairList = array(
             new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new Type('7zip', new QualityFactor(0.5))
-            )
-        );
-        $expectCollection->addPair(
+            ),
             new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new Type('deflate', new QualityFactor(0.5))
             )
         );
+        $expectCollection = new SharedTypePairCollection($pairSort, $pairList);
 
         $negotiate = new Negotiate();
         $resultCollection = $negotiate->encodingAll($httpField, $appPrefs);
@@ -224,19 +214,17 @@ class EncodingAllTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $expectCollection = new SharedTypePairCollection($pairSort);
-        $expectCollection->addPair(
+        $pairList = array(
             new TypePair(
                 new Type('deflate', new QualityFactor(0.9)),
                 new Type('deflate', new QualityFactor(0.9))
-            )
-        );
-        $expectCollection->addPair(
+            ),
             new TypePair(
                 new Type('compress', new QualityFactor(0.6)),
                 new Type('compress', new QualityFactor(0.6))
             )
         );
+        $expectCollection = new SharedTypePairCollection($pairSort, $pairList);
 
         $negotiate = new Negotiate();
         $resultCollection = $negotiate->encodingAll($httpField, $appPrefs);
@@ -257,31 +245,25 @@ class EncodingAllTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $expectCollection = new SharedTypePairCollection($pairSort);
-        $expectCollection->addPair(
+        $pairList = array(
             new TypePair(
                 new Type('7zip', new QualityFactor(0.6)),
                 new Type('7zip', new QualityFactor(0.3))
-            )
-        );
-        $expectCollection->addPair(
+            ),
             new TypePair(
                 new Type('gzip', new QualityFactor(0.3)),
                 new Type('gzip', new QualityFactor(0.5))
-            )
-        );
-        $expectCollection->addPair(
+            ),
             new TypePair(
                 new Type('deflate', new QualityFactor(0.9)),
                 new AbsentType(new QualityFactor(0))
-            )
-        );
-        $expectCollection->addPair(
+            ),
             new TypePair(
                 new AbsentType(new QualityFactor(0)),
                 new Type('bz', new QualityFactor(0.8))
             )
         );
+        $expectCollection = new SharedTypePairCollection($pairSort, $pairList);
 
         $negotiate = new Negotiate();
         $resultCollection = $negotiate->encodingAll($httpField, $appPrefs);
@@ -302,25 +284,21 @@ class EncodingAllTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $expectCollection = new SharedTypePairCollection($pairSort);
-        $expectCollection->addPair(
+        $pairList = array(
             new TypePair(
                 new Type('gzip', new QualityFactor(0.8)),
                 new Type('gzip', new QualityFactor(1))
-            )
-        );
-        $expectCollection->addPair(
+            ),
             new TypePair(
                 new Type('compress', new QualityFactor(0.9)),
                 new Type('compress', new QualityFactor(0.7))
-            )
-        );
-        $expectCollection->addPair(
+            ),
             new TypePair(
                 new WildcardType(new QualityFactor(0.5)),
                 new Type('7zip', new QualityFactor(0.3))
             )
         );
+        $expectCollection = new SharedTypePairCollection($pairSort, $pairList);
 
         $negotiate = new Negotiate();
         $resultCollection = $negotiate->encodingAll($httpField, $appPrefs);
