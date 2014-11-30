@@ -14,8 +14,8 @@
 namespace ptlis\ConNeg;
 
 use ptlis\ConNeg\Collection\CollectionInterface;
-use ptlis\ConNeg\Collection\TypePairCollection;
 use ptlis\ConNeg\Collection\TypeCollection;
+use ptlis\ConNeg\Collection\TypePairCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
 use ptlis\ConNeg\Exception\ConNegException;
 use ptlis\ConNeg\Negotiator\MimeNegotiator;

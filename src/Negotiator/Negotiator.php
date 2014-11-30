@@ -13,8 +13,8 @@
 
 namespace ptlis\ConNeg\Negotiator;
 
-use ptlis\ConNeg\Collection\TypePairCollection;
 use ptlis\ConNeg\Collection\TypeCollection;
+use ptlis\ConNeg\Collection\TypePairCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
 use ptlis\ConNeg\TypePair\TypePair;
 use ptlis\ConNeg\TypePair\TypePairInterface;

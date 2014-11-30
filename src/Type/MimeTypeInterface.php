@@ -13,6 +13,8 @@
 
 namespace ptlis\ConNeg\Type;
 
+use ptlis\ConNeg\Type\Extens\AcceptExtens;
+
 /**
  * Interface for MIME types.
  */
@@ -32,5 +34,10 @@ interface MimeTypeInterface extends TypeInterface
      */
     public function getMimeSubType();
 
+    /**
+     * Get an array of accept-extens fragments belonging to this type.
+     *
+     * @return AcceptExtens[]
+     */
     public function getExtens();
 }

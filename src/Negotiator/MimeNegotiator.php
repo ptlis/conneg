@@ -13,15 +13,15 @@
 
 namespace ptlis\ConNeg\Negotiator;
 
-use ptlis\ConNeg\Collection\TypePairCollection;
 use ptlis\ConNeg\Collection\TypeCollection;
+use ptlis\ConNeg\Collection\TypePairCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
-use ptlis\ConNeg\Type\TypeInterface;
 use ptlis\ConNeg\TypePair\TypePair;
 use ptlis\ConNeg\TypePair\TypePairInterface;
 use ptlis\ConNeg\Type\MimeTypeInterface;
 use ptlis\ConNeg\Type\MimeWildcardSubType;
 use ptlis\ConNeg\Type\MimeWildcardType;
+use ptlis\ConNeg\Type\TypeInterface;
 
 /**
  * Class for negotiating on mime types.

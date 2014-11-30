@@ -87,7 +87,7 @@ class TypePairSort
     /**
      * Get the best matching type pair.
      *
-     * @param array $typePairList
+     * @param TypePairInterface[] $typePairList
      *
      * @return TypePairInterface
      */

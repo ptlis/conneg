@@ -15,8 +15,8 @@ namespace ptlis\ConNeg\Parse;
 
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Exception\InvalidTypeException;
-use ptlis\ConNeg\Type\TypeInterface;
 use ptlis\ConNeg\TypeBuilder\TypeBuilderInterface;
+use ptlis\ConNeg\Type\TypeInterface;
 
 /**
  * Parser that accepts a tokenized HTTP Accept or Accept-* field and returns an array of Type value objects.
@@ -245,7 +245,7 @@ class FieldParser
      *
      * @throws InvalidTypeException
      *
-     * @param array $paramBundle
+     * @param string[] $paramBundle
      */
     private function validateParamBundle(array $paramBundle)
     {

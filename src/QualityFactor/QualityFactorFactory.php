@@ -51,8 +51,8 @@ class QualityFactorFactory
      *
      * @throws QualityFactorMalformedException
      *
-     * @param $qualityFactor
-     * @param $appType
+     * @param float $qualityFactor
+     * @param bool $appType
      *
      * @return float
      */
@@ -78,8 +78,8 @@ class QualityFactorFactory
      *
      * @throws QualityFactorTooLargeException
      *
-     * @param $qualityFactor
-     * @param $appType
+     * @param float $qualityFactor
+     * @param bool $appType
      *
      * @return float
      */
@@ -103,8 +103,8 @@ class QualityFactorFactory
      *
      * @throws QualityFactorNegativeException
      *
-     * @param $qualityFactor
-     * @param $appType
+     * @param float $qualityFactor
+     * @param bool $appType
      *
      * @return float
      */
