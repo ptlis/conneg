@@ -232,16 +232,16 @@ class Negotiate
      *
      * @param string $userField
      * @param string|TypeCollection $appField
-     * @param bool $mimeField
+     * @param bool $isMimeField
      *
      * @return TypePair|TypePairInterface
      */
-    private function genericBest($userField, $appField, $mimeField)
+    private function genericBest($userField, $appField, $isMimeField)
     {
-        $userTypeList = $this->sharedUserPrefsToTypes($userField, $mimeField);
-        $appTypeList = $this->sharedAppPrefsToTypes($appField, $mimeField);
+        $userTypeList = $this->sharedUserPrefsToTypes($userField, $isMimeField);
+        $appTypeList = $this->sharedAppPrefsToTypes($appField, $isMimeField);
 
-        if ($mimeField) {
+        if ($isMimeField) {
             $best = $this->mimeNegotiator->negotiateBest($userTypeList, $appTypeList);
         } else {
             $best = $this->stdNegotiator->negotiateBest($userTypeList, $appTypeList);
@@ -256,16 +256,16 @@ class Negotiate
      *
      * @param string $userField
      * @param string|TypeCollection $appField
-     * @param bool $mimeField
+     * @param bool $isMimeField
      *
      * @return SharedTypePairCollection
      */
-    private function genericAll($userField, $appField, $mimeField)
+    private function genericAll($userField, $appField, $isMimeField)
     {
-        $userTypeList = $this->sharedUserPrefsToTypes($userField, $mimeField);
-        $appTypeList = $this->sharedAppPrefsToTypes($appField, $mimeField);
+        $userTypeList = $this->sharedUserPrefsToTypes($userField, $isMimeField);
+        $appTypeList = $this->sharedAppPrefsToTypes($appField, $isMimeField);
 
-        if ($mimeField) {
+        if ($isMimeField) {
             $all = $this->mimeNegotiator->negotiateAll($userTypeList, $appTypeList);
         } else {
             $all = $this->stdNegotiator->negotiateAll($userTypeList, $appTypeList);
@@ -274,11 +274,11 @@ class Negotiate
         return $all;
     }
 
-    private function sharedUserPrefsToTypes($userField, $mimeField)
+    private function sharedUserPrefsToTypes($userField, $isMimeField)
     {
-        $tokenList = $this->tokenizer->tokenize($userField, $mimeField);
+        $tokenList = $this->tokenizer->tokenize($userField, $isMimeField);
 
-        if ($mimeField) {
+        if ($isMimeField) {
             $typeList = $this->mimeParser->parse($tokenList, false);
         } else {
             $typeList = $this->stdParser->parse($tokenList, false);
@@ -293,15 +293,15 @@ class Negotiate
      * @throws ConNegException
      *
      * @param string|CollectionInterface $appField
-     * @param bool $mimeField
+     * @param bool $isMimeField
      *
      * @return TypeCollection
      */
-    private function sharedAppPrefsToTypes($appField, $mimeField)
+    private function sharedAppPrefsToTypes($appField, $isMimeField)
     {
         if (gettype($appField) === 'string') {
-            $tokenList = $this->tokenizer->tokenize($appField, $mimeField);
-            if ($mimeField) {
+            $tokenList = $this->tokenizer->tokenize($appField, $isMimeField);
+            if ($isMimeField) {
                 $appTypeList = $this->mimeParser->parse($tokenList, true);
             } else {
                 $appTypeList = $this->stdParser->parse($tokenList, true);
