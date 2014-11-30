@@ -15,7 +15,7 @@
 
 namespace ptlis\ConNeg\Test\Collection;
 
-use ptlis\ConNeg\Collection\SharedTypePairCollection;
+use ptlis\ConNeg\Collection\TypePairCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\Type;
@@ -44,7 +44,7 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $expectCollection = new SharedTypePairCollection($pairSort, $expectList);
+        $expectCollection = new TypePairCollection($pairSort, $expectList);
 
         $ascendingCollection = $expectCollection->getAscending();
         foreach ($ascendingCollection as $typePair) {
@@ -73,7 +73,7 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $expectCollection = new SharedTypePairCollection($pairSort, $expectList);
+        $expectCollection = new TypePairCollection($pairSort, $expectList);
 
         $expectAppType = array(
             'iso-8859-5;q=0.8',
@@ -114,7 +114,7 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
                 new Type('utf-8', new QualityFactor(1))
             )
         );
-        $collection = new SharedTypePairCollection($pairSort, $pairList);
+        $collection = new TypePairCollection($pairSort, $pairList);
 
         $expectAppType = array(
             'utf-8;q=1',
@@ -155,7 +155,7 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
                 new Type('utf-8', new QualityFactor(1))
             )
         );
-        $collection = new SharedTypePairCollection($pairSort, $pairList);
+        $collection = new TypePairCollection($pairSort, $pairList);
 
         $expectPair = new TypePair(
             new Type('utf-8', new QualityFactor(0.9)),
@@ -187,7 +187,7 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
                 new Type('utf-8', new QualityFactor(1))
             )
         );
-        $collection = new SharedTypePairCollection($pairSort, $pairList);
+        $collection = new TypePairCollection($pairSort, $pairList);
 
         $expectCollection = clone $collection;
 
@@ -215,7 +215,7 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
                 new Type('utf-8', new QualityFactor(1))
             )
         );
-        $collection = new SharedTypePairCollection($pairSort, $pairList);
+        $collection = new TypePairCollection($pairSort, $pairList);
 
         $this->assertEquals('iso-8859-5;q=0.64,utf-8;q=0.9', $collection->__toString());
     }

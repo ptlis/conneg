@@ -13,7 +13,7 @@
 
 namespace ptlis\ConNeg\Negotiator;
 
-use ptlis\ConNeg\Collection\SharedTypePairCollection;
+use ptlis\ConNeg\Collection\TypePairCollection;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
 use ptlis\ConNeg\TypePair\TypePair;
@@ -59,7 +59,7 @@ class Negotiator implements NegotiatorInterface
      * @param TypeCollection|TypeInterface[] $userTypeList
      * @param TypeCollection|TypeInterface[] $appTypeList
      *
-     * @return SharedTypePairCollection
+     * @return TypePairCollection
      */
     public function negotiateAll(TypeCollection $userTypeList, TypeCollection $appTypeList)
     {
@@ -77,7 +77,7 @@ class Negotiator implements NegotiatorInterface
         foreach ($matchingList as $matching) {
             $pairList[] = $matching;
         }
-        $pairCollection = new SharedTypePairCollection($this->pairSort, $pairList);
+        $pairCollection = new TypePairCollection($this->pairSort, $pairList);
 
         return $pairCollection->getDescending();
     }

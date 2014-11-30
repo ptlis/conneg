@@ -20,7 +20,7 @@ use ptlis\ConNeg\TypePair\TypePairInterface;
 /**
  * Collection for TypePair instances, provides sort capabilities.
  */
-class SharedTypePairCollection implements CollectionInterface
+class TypePairCollection implements CollectionInterface
 {
     /**
      * Instance of sorter than can reorder pairs.
@@ -72,7 +72,7 @@ class SharedTypePairCollection implements CollectionInterface
     /**
      * Returns a new sorted collection.
      *
-     * @return SharedTypePairCollection with elements in ascending order
+     * @return TypePairCollection with elements in ascending order
      */
     public function getAscending()
     {
@@ -82,7 +82,7 @@ class SharedTypePairCollection implements CollectionInterface
     /**
      * Returns a new sorted collection.
      *
-     * @return SharedTypePairCollection with elements in descending order
+     * @return TypePairCollection with elements in descending order
      */
     public function getDescending()
     {

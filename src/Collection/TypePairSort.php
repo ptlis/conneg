@@ -45,7 +45,7 @@ class TypePairSort
      *
      * @param TypePairInterface[] $typePairList
      *
-     * @return SharedTypePairCollection
+     * @return TypePairCollection
      */
     public function sortAscending(array $typePairList)
     {
@@ -57,7 +57,7 @@ class TypePairSort
             }
         );
 
-        $newCollection = new SharedTypePairCollection($this, $typePairList);
+        $newCollection = new TypePairCollection($this, $typePairList);
 
         return $newCollection;
     }
@@ -67,7 +67,7 @@ class TypePairSort
      *
      * @param TypePairInterface[] $typePairList
      *
-     * @return SharedTypePairCollection
+     * @return TypePairCollection
      */
     public function sortDescending(array $typePairList)
     {
@@ -79,7 +79,7 @@ class TypePairSort
             }
         );
 
-        $newCollection = new SharedTypePairCollection($this, $typePairList);
+        $newCollection = new TypePairCollection($this, $typePairList);
 
         return $newCollection;
     }

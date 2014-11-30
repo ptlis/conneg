@@ -15,7 +15,7 @@
 
 namespace ptlis\ConNeg\Test\Negotiate;
 
-use ptlis\ConNeg\Collection\SharedTypePairCollection;
+use ptlis\ConNeg\Collection\TypePairCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
 use ptlis\ConNeg\Negotiate;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
@@ -38,7 +38,7 @@ class LanguageAllTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $expectCollection = new SharedTypePairCollection($pairSort, array());
+        $expectCollection = new TypePairCollection($pairSort, array());
 
         $negotiate = new Negotiate();
         $resultCollection = $negotiate->languageAll($httpField, $appPrefs);
@@ -69,7 +69,7 @@ class LanguageAllTest extends \PHPUnit_Framework_TestCase
                 new AbsentType(new QualityFactor(0))
             )
         );
-        $expectCollection = new SharedTypePairCollection($pairSort, $pairList);
+        $expectCollection = new TypePairCollection($pairSort, $pairList);
 
         $negotiate = new Negotiate();
         $resultCollection = $negotiate->languageAll($httpField, $appPrefs);
@@ -100,7 +100,7 @@ class LanguageAllTest extends \PHPUnit_Framework_TestCase
                 new AbsentType(new QualityFactor(0))
             )
         );
-        $expectCollection = new SharedTypePairCollection($pairSort, $pairList);
+        $expectCollection = new TypePairCollection($pairSort, $pairList);
 
         $negotiate = new Negotiate();
         $resultCollection = $negotiate->languageAll($httpField, $appPrefs);
@@ -131,7 +131,7 @@ class LanguageAllTest extends \PHPUnit_Framework_TestCase
                 new Type('en-gb', new QualityFactor(0.5))
             )
         );
-        $expectCollection = new SharedTypePairCollection($pairSort, $pairList);
+        $expectCollection = new TypePairCollection($pairSort, $pairList);
 
         $negotiate = new Negotiate();
         $resultCollection = $negotiate->languageAll($httpField, $appPrefs);
@@ -162,7 +162,7 @@ class LanguageAllTest extends \PHPUnit_Framework_TestCase
                 new Type('fr', new QualityFactor(0.5))
             )
         );
-        $expectCollection = new SharedTypePairCollection($pairSort, $pairList);
+        $expectCollection = new TypePairCollection($pairSort, $pairList);
 
         $negotiate = new Negotiate();
         $resultCollection = $negotiate->languageAll($httpField, $appPrefs);
@@ -193,7 +193,7 @@ class LanguageAllTest extends \PHPUnit_Framework_TestCase
                 new Type('fr', new QualityFactor(0.5))
             )
         );
-        $expectCollection = new SharedTypePairCollection($pairSort, $pairList);
+        $expectCollection = new TypePairCollection($pairSort, $pairList);
 
         $negotiate = new Negotiate();
         $resultCollection = $negotiate->languageAll($httpField, $appPrefs);
@@ -224,7 +224,7 @@ class LanguageAllTest extends \PHPUnit_Framework_TestCase
                 new Type('de', new QualityFactor(0.6))
             )
         );
-        $expectCollection = new SharedTypePairCollection($pairSort, $pairList);
+        $expectCollection = new TypePairCollection($pairSort, $pairList);
 
         $negotiate = new Negotiate();
         $resultCollection = $negotiate->languageAll($httpField, $appPrefs);
@@ -263,7 +263,7 @@ class LanguageAllTest extends \PHPUnit_Framework_TestCase
                 new Type('es', new QualityFactor(0.8))
             )
         );
-        $expectCollection = new SharedTypePairCollection($pairSort, $pairList);
+        $expectCollection = new TypePairCollection($pairSort, $pairList);
 
         $negotiate = new Negotiate();
         $resultCollection = $negotiate->languageAll($httpField, $appPrefs);
@@ -298,7 +298,7 @@ class LanguageAllTest extends \PHPUnit_Framework_TestCase
                 new Type('fr', new QualityFactor(0.3))
             )
         );
-        $expectCollection = new SharedTypePairCollection($pairSort, $pairList);
+        $expectCollection = new TypePairCollection($pairSort, $pairList);
 
         $negotiate = new Negotiate();
         $resultCollection = $negotiate->languageAll($httpField, $appPrefs);

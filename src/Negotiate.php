@@ -14,7 +14,7 @@
 namespace ptlis\ConNeg;
 
 use ptlis\ConNeg\Collection\CollectionInterface;
-use ptlis\ConNeg\Collection\SharedTypePairCollection;
+use ptlis\ConNeg\Collection\TypePairCollection;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
 use ptlis\ConNeg\Exception\ConNegException;
@@ -133,7 +133,7 @@ class Negotiate
      *
      * @throws ConNegException
      *
-     * @return SharedTypePairCollection containing CharsetType, WildcardType & AbsentType instances.
+     * @return TypePairCollection containing CharsetType, WildcardType & AbsentType instances.
      */
     public function charsetAll($userField, $appField)
     {
@@ -162,7 +162,7 @@ class Negotiate
      *
      * @throws ConNegException
      *
-     * @return SharedTypePairCollection containing EncodingType, WildcardType & AbsentType instances.
+     * @return TypePairCollection containing EncodingType, WildcardType & AbsentType instances.
      */
     public function encodingAll($userField, $appField)
     {
@@ -191,7 +191,7 @@ class Negotiate
      *
      * @throws ConNegException
      *
-     * @return SharedTypePairCollection containing LanguageType, WildcardType & AbsentType instances.
+     * @return TypePairCollection containing LanguageType, WildcardType & AbsentType instances.
      */
     public function languageAll($userField, $appField)
     {
@@ -219,7 +219,7 @@ class Negotiate
      *
      * @throws ConNegException
      *
-     * @return SharedTypePairCollection containing MimeType, MimeWildcardType, MimeWildcardSubType & AbsentType
+     * @return TypePairCollection containing MimeType, MimeWildcardType, MimeWildcardSubType & AbsentType
      *          instances.
      */
     public function mimeAll($userField, $appField)
@@ -258,7 +258,7 @@ class Negotiate
      * @param string|TypeCollection $appField
      * @param bool $isMimeField
      *
-     * @return SharedTypePairCollection
+     * @return TypePairCollection
      */
     private function genericAll($userField, $appField, $isMimeField)
     {
