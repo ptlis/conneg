@@ -105,10 +105,7 @@ class SharedTypePairCollection implements CollectionInterface
      */
     public function getAscending()
     {
-        $newCollection = new SharedTypePairCollection($this->pairSort);
-        $this->pairSort->sortAscending($this->typePairList, $newCollection);
-
-        return $newCollection;
+        return $this->pairSort->sortAscending($this->typePairList);
     }
 
     /**
@@ -118,10 +115,7 @@ class SharedTypePairCollection implements CollectionInterface
      */
     public function getDescending()
     {
-        $newCollection = new SharedTypePairCollection($this->pairSort);
-        $this->pairSort->sortDescending($this->typePairList, $newCollection);
-
-        return $newCollection;
+        return $this->pairSort->sortDescending($this->typePairList);
     }
 
     /**

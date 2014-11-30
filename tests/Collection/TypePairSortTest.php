@@ -330,8 +330,7 @@ class TypePairSortTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $newCollection = new SharedTypePairCollection($sort);
-        $sort->sortDescending($typePairList, $newCollection);
+        $newCollection = $sort->sortDescending($typePairList);
 
         $expectAppType = array(
             'fr;q=0.8',

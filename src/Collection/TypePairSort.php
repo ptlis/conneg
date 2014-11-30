@@ -44,9 +44,10 @@ class TypePairSort
      * Sort the array of typePairs in ascending order.
      *
      * @param TypePairInterface[] $typePairList
-     * @param CollectionInterface $newCollection
+     *
+     * @return SharedTypePairCollection
      */
-    public function sortAscending(array $typePairList, CollectionInterface $newCollection)
+    public function sortAscending(array $typePairList)
     {
         $that = $this;
         usort(
@@ -56,16 +57,20 @@ class TypePairSort
             }
         );
 
+        $newCollection = new SharedTypePairCollection($this);
         $newCollection->setList($typePairList);
+
+        return $newCollection;
     }
 
     /**
      * Sort the array of typePairs in descending order.
      *
      * @param TypePairInterface[] $typePairList
-     * @param CollectionInterface $newCollection
+     *
+     * @return SharedTypePairCollection
      */
-    public function sortDescending(array $typePairList, CollectionInterface $newCollection)
+    public function sortDescending(array $typePairList)
     {
         $that = $this;
         usort(
@@ -75,7 +80,10 @@ class TypePairSort
             }
         );
 
+        $newCollection = new SharedTypePairCollection($this);
         $newCollection->setList($typePairList);
+
+        return $newCollection;
     }
 
     /**
