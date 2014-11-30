@@ -201,19 +201,16 @@ class FieldParser
      */
     private function validateBundleMimeType(array $bundle)
     {
-        switch (true) {
-            case count($bundle) < 3:                        // Too few items in bundle
-            case Tokens::MIME_SEPARATOR !== $bundle[1]:     // Invalid separator
-            case Tokens::isToken($bundle[0]):               // Invalid type
-            case Tokens::isToken($bundle[2]):               // Invalid subtype
-                throw new InvalidTypeException(
-                    '"' . implode('', $bundle) . '" is not a valid mime type'
-                );
-                break;
-            default:
-                // All is well
-                break;
-        };
+        if (
+            count($bundle) < 3                          // Too few items in bundle
+            || Tokens::MIME_SEPARATOR !== $bundle[1]    // Invalid separator
+            || Tokens::isToken($bundle[0])              // Invalid type
+            || Tokens::isToken($bundle[2])              // Invalid subtype
+        ) {
+            throw new InvalidTypeException(
+                '"' . implode('', $bundle) . '" is not a valid mime type'
+            );
+        }
     }
 
     /**

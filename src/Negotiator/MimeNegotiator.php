@@ -154,7 +154,7 @@ class MimeNegotiator implements NegotiatorInterface
      * @param TypePairInterface[]   $matchingList
      * @param MimeTypeInterface     $userType
      *
-     * @return TypePairInterface[]
+     * @return array<string,TypePairInterface>
      */
     private function matchExact(array $matchingList, MimeTypeInterface $userType)
     {
@@ -176,7 +176,7 @@ class MimeNegotiator implements NegotiatorInterface
      * @param TypeCollection   $userTypeList
      * @param TypePairInterface[]  $matchingList
      *
-     * @return TypePairInterface[]
+     * @return  array<string,TypePairInterface>
      */
     private function matchUserListToAppTypes(TypeCollection $userTypeList, array $matchingList)
     {
@@ -193,7 +193,7 @@ class MimeNegotiator implements NegotiatorInterface
      * @param MimeTypeInterface     $userType
      * @param TypePairInterface[]   $matchingList
      *
-     * @return TypePairInterface[]
+     * @return  array<string,TypePairInterface>
      */
     private function matchUserToAppTypes(MimeTypeInterface $userType, array $matchingList)
     {
