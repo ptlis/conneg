@@ -121,6 +121,28 @@ class TypePairSort
      */
     public function compare(TypePairInterface $lTypePair, TypePairInterface $rTypePair)
     {
+        // Compare by quality factors - highest quality factor has precedence.
+        $result = $this->compareQualityFactorPair($lTypePair, $rTypePair);
+
+        // If we did not get a preferred result from the above check then simply sort alphabetically - this ensures that
+        // the sort is always stable.
+        if (0 === $result) {
+            $result = $this->compareType($lTypePair, $rTypePair);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Comparison function for quality factors of type pairs.
+     *
+     * @param TypePairInterface $lTypePair
+     * @param TypePairInterface $rTypePair
+     *
+     * @return int -1, 0, 1 (see usort() callback for meaning)
+     */
+    private function compareQualityFactorPair(TypePairInterface $lTypePair, TypePairInterface $rTypePair)
+    {
         // Build a list of quality factor comparisons to perform; highest preference given to quality factor products,
         // followed by those provided by the user agent & finally the application provided.
         $compareList = array(
@@ -146,12 +168,6 @@ class TypePairSort
             if (0 !== $result) {
                 break;
             }
-        }
-
-        // If we did not get a preferred result from the above check then simply sort alphabetically - this ensures that
-        // the sort is always stable.
-        if (0 === $result) {
-            $result = $this->compareType($lTypePair, $rTypePair);
         }
 
         return $result;
