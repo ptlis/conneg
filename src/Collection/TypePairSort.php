@@ -121,43 +121,40 @@ class TypePairSort
      */
     public function compare(TypePairInterface $lTypePair, TypePairInterface $rTypePair)
     {
-        $lUserType = $lTypePair->getUserType();
-        $rUserType = $rTypePair->getUserType();
+        // Build a list of quality factor comparisons to perform; highest preference given to quality factor products,
+        // followed by those provided by the user agent & finally the application provided.
+        $compareList = array(
+            array(
+                'left' => $lTypePair,
+                'right' => $rTypePair
+            ),
+            array(
+                'left' => $lTypePair->getUserType(),
+                'right' => $rTypePair->getUserType()
+            ),
+            array(
+                'left' => $lTypePair->getAppType(),
+                'right' => $rTypePair->getAppType()
+            )
+        );
 
-        $lAppType = $lTypePair->getAppType();
-        $rAppType = $rTypePair->getAppType();
+        $result = 0;
+        foreach ($compareList as $compare) {
+            $result = $this->compareQualityFactor($compare['left'], $compare['right']);
 
-        if (0 !== ($result = $this->compareQualityFactorProduct($lTypePair, $rTypePair))) {
-            return $result;
-
-        } elseif (0 !== ($result = $this->compareQualityFactor($lUserType, $rUserType))) {
-            return $result;
-
-        } elseif (0 !== ($result = $this->compareQualityFactor($lAppType, $rAppType))) {
-            return $result;
-
-        } else {
-            return $this->compareType($lTypePair, $rTypePair);
+            // If a non matching result was found then we have the result of our comparison
+            if (0 !== $result) {
+                break;
+            }
         }
-    }
 
-    /**
-     * Compare the quality factor products of a type pair.
-     *
-     * @param TypePairInterface $lTypePair
-     * @param TypePairInterface $rTypePair
-     *
-     * @return int -1, 0, 1 (see usort() callback for meaning)
-     */
-    private function compareQualityFactorProduct(TypePairInterface $lTypePair, TypePairInterface $rTypePair)
-    {
-        if ($rTypePair->getQualityFactor() < $lTypePair->getQualityFactor()) {
-            return -1;
-        } elseif ($rTypePair->getQualityFactor() > $lTypePair->getQualityFactor()) {
-            return 1;
-        } else {
-            return 0;
+        // If we did not get a preferred result from the above check then simply sort alphabetically - this ensures that
+        // the sort is always stable.
+        if (0 === $result) {
+            $result = $this->compareType($lTypePair, $rTypePair);
         }
+
+        return $result;
     }
 
     /**
