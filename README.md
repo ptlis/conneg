@@ -6,7 +6,7 @@ A Content Negotiation library for PHP >= 5.3. The API provides support for negot
 
 ## Install
 
-Either from the console::
+Either from the console:
 
 ```shell
     $ composer require ptlis/conneg:"~3.0.0"
