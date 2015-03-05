@@ -2,7 +2,24 @@
     "name":         "ptlis/conneg",
     "description":  "Tools for performing content negotiation.",
     "license":      "MIT",
-    "keywords":     [ "content", "negotiation", "parse", "http", "field", "header", "types", "charset", "language", "mime", "encoding" ],
+    "keywords":     [
+        "content",
+        "negotiation",
+        "parse",
+        "http",
+        "field",
+        "header",
+        "types",
+        "charset",
+        "language",
+        "mime",
+        "encoding",
+        "content-type",
+        "accept",
+        "accept-encoding",
+        "accept-language",
+        "accept-charset"
+    ],
     "type":         "library",
     "authors": [
         {
