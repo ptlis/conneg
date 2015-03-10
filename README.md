@@ -9,7 +9,7 @@ A Content Negotiation library for PHP >= 5.3. The API provides support for negot
 Either from the console:
 
 ```shell
-    $ composer require ptlis/conneg:"~3.0.0"
+    $ composer require ptlis/conneg @stable
 ```
 
 Or by Editing composer.json:
