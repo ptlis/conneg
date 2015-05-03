@@ -13,9 +13,9 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Test\Negotiate;
+namespace ptlis\ConNeg\Test\Negotiation;
 
-use ptlis\ConNeg\Negotiate;
+use ptlis\ConNeg\Negotiation;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\AbsentType;
 use ptlis\ConNeg\Type\Type;
@@ -33,7 +33,7 @@ class CharsetBestTest extends \PHPUnit_Framework_TestCase
             new AbsentType(new QualityFactor(0))
         );
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultType = $negotiate->charsetBest($httpField, $appPrefs);
 
         $this->assertEquals($expectPair, $resultType);
@@ -50,7 +50,7 @@ class CharsetBestTest extends \PHPUnit_Framework_TestCase
             new AbsentType(new QualityFactor(0))
         );
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultType = $negotiate->charsetBest($httpField, $appPrefs);
 
         $this->assertEquals($expectPair, $resultType);
@@ -67,7 +67,7 @@ class CharsetBestTest extends \PHPUnit_Framework_TestCase
             new Type('iso-8859-1', new QualityFactor(1))
         );
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultType = $negotiate->charsetBest($httpField, $appPrefs);
 
         $this->assertEquals($expectPair, $resultType);
@@ -84,7 +84,7 @@ class CharsetBestTest extends \PHPUnit_Framework_TestCase
             new Type('iso-8859-1', new QualityFactor(0.5))
         );
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultType = $negotiate->charsetBest($httpField, $appPrefs);
 
         $this->assertEquals($expectPair, $resultType);
@@ -101,7 +101,7 @@ class CharsetBestTest extends \PHPUnit_Framework_TestCase
             new Type('iso-8859-5', new QualityFactor(0.9))
         );
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultType = $negotiate->charsetBest($httpField, $appPrefs);
 
         $this->assertEquals($expectPair, $resultType);
@@ -118,7 +118,7 @@ class CharsetBestTest extends \PHPUnit_Framework_TestCase
             new Type('utf-8', new QualityFactor(0.3))
         );
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultType = $negotiate->charsetBest($httpField, $appPrefs);
 
         $this->assertEquals($expectPair, $resultType);
@@ -135,7 +135,7 @@ class CharsetBestTest extends \PHPUnit_Framework_TestCase
             new Type('iso-8859-5', new QualityFactor(1))
         );
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultType = $negotiate->charsetBest($httpField, $appPrefs);
 
         $this->assertEquals($expectPair, $resultType);

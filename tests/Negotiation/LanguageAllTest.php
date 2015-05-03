@@ -13,11 +13,11 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Test\Negotiate;
+namespace ptlis\ConNeg\Test\Negotiation;
 
 use ptlis\ConNeg\Collection\TypePairCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
-use ptlis\ConNeg\Negotiate;
+use ptlis\ConNeg\Negotiation;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\AbsentType;
 use ptlis\ConNeg\Type\Type;
@@ -40,7 +40,7 @@ class LanguageAllTest extends \PHPUnit_Framework_TestCase
 
         $expectCollection = new TypePairCollection($pairSort, array());
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultCollection = $negotiate->languageAll($httpField, $appPrefs);
 
         $this->assertEquals($expectCollection, $resultCollection);
@@ -71,7 +71,7 @@ class LanguageAllTest extends \PHPUnit_Framework_TestCase
         );
         $expectCollection = new TypePairCollection($pairSort, $pairList);
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultCollection = $negotiate->languageAll($httpField, $appPrefs);
 
         $this->assertEquals($expectCollection, $resultCollection);
@@ -102,7 +102,7 @@ class LanguageAllTest extends \PHPUnit_Framework_TestCase
         );
         $expectCollection = new TypePairCollection($pairSort, $pairList);
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultCollection = $negotiate->languageAll($httpField, $appPrefs);
 
         $this->assertEquals($expectCollection, $resultCollection);
@@ -133,7 +133,7 @@ class LanguageAllTest extends \PHPUnit_Framework_TestCase
         );
         $expectCollection = new TypePairCollection($pairSort, $pairList);
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultCollection = $negotiate->languageAll($httpField, $appPrefs);
 
         $this->assertEquals($expectCollection, $resultCollection);
@@ -164,7 +164,7 @@ class LanguageAllTest extends \PHPUnit_Framework_TestCase
         );
         $expectCollection = new TypePairCollection($pairSort, $pairList);
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultCollection = $negotiate->languageAll($httpField, $appPrefs);
 
         $this->assertEquals($expectCollection, $resultCollection);
@@ -195,7 +195,7 @@ class LanguageAllTest extends \PHPUnit_Framework_TestCase
         );
         $expectCollection = new TypePairCollection($pairSort, $pairList);
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultCollection = $negotiate->languageAll($httpField, $appPrefs);
 
         $this->assertEquals($expectCollection, $resultCollection);
@@ -226,7 +226,7 @@ class LanguageAllTest extends \PHPUnit_Framework_TestCase
         );
         $expectCollection = new TypePairCollection($pairSort, $pairList);
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultCollection = $negotiate->languageAll($httpField, $appPrefs);
 
         $this->assertEquals($expectCollection, $resultCollection);
@@ -265,7 +265,7 @@ class LanguageAllTest extends \PHPUnit_Framework_TestCase
         );
         $expectCollection = new TypePairCollection($pairSort, $pairList);
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultCollection = $negotiate->languageAll($httpField, $appPrefs);
 
         $this->assertEquals($expectCollection, $resultCollection);
@@ -300,7 +300,7 @@ class LanguageAllTest extends \PHPUnit_Framework_TestCase
         );
         $expectCollection = new TypePairCollection($pairSort, $pairList);
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultCollection = $negotiate->languageAll($httpField, $appPrefs);
 
         $this->assertEquals($expectCollection, $resultCollection);

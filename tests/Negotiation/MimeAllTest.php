@@ -13,12 +13,12 @@
  * file that was distributed with this source coapplication/xml.
  */
 
-namespace ptlis\ConNeg\Test\Negotiate;
+namespace ptlis\ConNeg\Test\Negotiation;
 
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Collection\TypePairCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
-use ptlis\ConNeg\Negotiate;
+use ptlis\ConNeg\Negotiation;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\MimeAbsentType;
 use ptlis\ConNeg\Type\MimeType;
@@ -42,7 +42,7 @@ class MimeAllTest extends \PHPUnit_Framework_TestCase
 
         $expectCollection = new TypePairCollection($pairSort, array());
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultCollection = $negotiate->mimeAll($httpField, $appPrefs);
 
         $this->assertEquals($expectCollection, $resultCollection);
@@ -63,7 +63,7 @@ class MimeAllTest extends \PHPUnit_Framework_TestCase
 
         $expectCollection = new TypePairCollection($pairSort, array());
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultCollection = $negotiate->mimeAll($httpField, $appPrefs);
 
         $this->assertEquals($expectCollection, $resultCollection);
@@ -94,7 +94,7 @@ class MimeAllTest extends \PHPUnit_Framework_TestCase
         );
         $expectCollection = new TypePairCollection($pairSort, $pairList);
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultCollection = $negotiate->mimeAll($httpField, $appPrefs);
 
         $this->assertEquals($expectCollection, $resultCollection);
@@ -125,7 +125,7 @@ class MimeAllTest extends \PHPUnit_Framework_TestCase
         );
         $expectCollection = new TypePairCollection($pairSort, $pairList);
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultCollection = $negotiate->mimeAll($httpField, $appPrefs);
 
         $this->assertEquals($expectCollection, $resultCollection);
@@ -156,7 +156,7 @@ class MimeAllTest extends \PHPUnit_Framework_TestCase
         );
         $expectCollection = new TypePairCollection($pairSort, $pairList);
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultCollection = $negotiate->mimeAll($httpField, $appPrefs);
 
         $this->assertEquals($expectCollection, $resultCollection);
@@ -187,7 +187,7 @@ class MimeAllTest extends \PHPUnit_Framework_TestCase
         );
         $expectCollection = new TypePairCollection($pairSort, $pairList);
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultCollection = $negotiate->mimeAll($httpField, $appPrefs);
 
         $this->assertEquals($expectCollection, $resultCollection);
@@ -218,7 +218,7 @@ class MimeAllTest extends \PHPUnit_Framework_TestCase
         );
         $expectCollection = new TypePairCollection($pairSort, $pairList);
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultCollection = $negotiate->mimeAll($httpField, $appPrefs);
 
         $this->assertEquals($expectCollection, $resultCollection);
@@ -249,7 +249,7 @@ class MimeAllTest extends \PHPUnit_Framework_TestCase
         );
         $expectCollection = new TypePairCollection($pairSort, $pairList);
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultCollection = $negotiate->mimeAll($httpField, $appPrefs);
 
         $this->assertEquals($expectCollection, $resultCollection);
@@ -288,7 +288,7 @@ class MimeAllTest extends \PHPUnit_Framework_TestCase
         );
         $expectCollection = new TypePairCollection($pairSort, $pairList);
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultCollection = $negotiate->mimeAll($httpField, $appPrefs);
 
         $this->assertEquals($expectCollection, $resultCollection);
@@ -323,7 +323,7 @@ class MimeAllTest extends \PHPUnit_Framework_TestCase
         );
         $expectCollection = new TypePairCollection($pairSort, $pairList);
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultCollection = $negotiate->mimeAll($httpField, $appPrefs);
 
         $this->assertEquals($expectCollection, $resultCollection);
@@ -358,7 +358,7 @@ class MimeAllTest extends \PHPUnit_Framework_TestCase
         );
         $expectCollection = new TypePairCollection($pairSort, $pairList);
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultCollection = $negotiate->mimeAll($httpField, $appPrefs);
 
         $this->assertEquals($expectCollection, $resultCollection);
@@ -393,7 +393,7 @@ class MimeAllTest extends \PHPUnit_Framework_TestCase
         );
         $expectCollection = new TypePairCollection($pairSort, $pairList);
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultCollection = $negotiate->mimeAll($httpField, $appPrefs);
 
         $this->assertEquals($expectCollection, $resultCollection);

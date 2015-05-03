@@ -13,10 +13,10 @@
  * file that was distributed with this source coapplication/xml.
  */
 
-namespace ptlis\ConNeg\Test\Negotiate;
+namespace ptlis\ConNeg\Test\Negotiation;
 
 use ptlis\ConNeg\Collection\TypeCollection;
-use ptlis\ConNeg\Negotiate;
+use ptlis\ConNeg\Negotiation;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\MimeAbsentType;
 use ptlis\ConNeg\Type\MimeType;
@@ -35,7 +35,7 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
             new MimeAbsentType(new QualityFactor(0))
         );
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultPair = $negotiate->mimeBest($httpField, $appPrefs);
 
         $this->assertEquals($expectPair, $resultPair);
@@ -52,7 +52,7 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
             new MimeAbsentType(new QualityFactor(0))
         );
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultPair = $negotiate->mimeBest($httpField, $appPrefs);
 
         $this->assertEquals($expectPair, $resultPair);
@@ -69,7 +69,7 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
             'invalid application preferences passed to ptlis\ConNeg\Negotiate::ptlis\ConNeg\Negotiate::sharedAppPrefsToTypes'
         );
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $negotiate->mimeBest($httpField, $appPrefs);
     }
 
@@ -84,7 +84,7 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
             new MimeAbsentType(new QualityFactor(0))
         );
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultPair = $negotiate->mimeBest($httpField, $appPrefs);
 
         $this->assertEquals($expectPair, $resultPair);
@@ -101,7 +101,7 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
             new MimeAbsentType(new QualityFactor(0))
         );
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultPair = $negotiate->mimeBest($httpField, $appPrefs);
 
         $this->assertEquals($expectPair, $resultPair);
@@ -118,7 +118,7 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
             new MimeType('application', 'rdf+xml', new QualityFactor(1))
         );
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultPair = $negotiate->mimeBest($httpField, $appPrefs);
 
         $this->assertEquals($expectPair, $resultPair);
@@ -135,7 +135,7 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
             new MimeType('application', 'rdf+xml', new QualityFactor(1))
         );
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultPair = $negotiate->mimeBest($httpField, $appPrefs);
 
         $this->assertEquals($expectPair, $resultPair);
@@ -152,7 +152,7 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
             new MimeType('text', 'html', new QualityFactor(0.5))
         );
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultPair = $negotiate->mimeBest($httpField, $appPrefs);
 
         $this->assertEquals($expectPair, $resultPair);
@@ -169,7 +169,7 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
             new MimeType('text', 'n3', new QualityFactor(0.9))
         );
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultPair = $negotiate->mimeBest($httpField, $appPrefs);
 
         $this->assertEquals($expectPair, $resultPair);
@@ -186,7 +186,7 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
             new MimeType('text', 'html', new QualityFactor(0.3))
         );
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultPair = $negotiate->mimeBest($httpField, $appPrefs);
 
         $this->assertEquals($expectPair, $resultPair);
@@ -203,7 +203,7 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
             new MimeType('text', 'html', new QualityFactor(1))
         );
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultPair = $negotiate->mimeBest($httpField, $appPrefs);
 
         $this->assertEquals($expectPair, $resultPair);
@@ -220,7 +220,7 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
             new MimeType('text', 'html', new QualityFactor(1))
         );
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultPair = $negotiate->mimeBest($httpField, $appPrefs);
 
         $this->assertEquals($expectPair, $resultPair);
@@ -237,7 +237,7 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
             new MimeType('text', 'html', new QualityFactor(1))
         );
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultPair = $negotiate->mimeBest($httpField, $appPrefs);
 
         $this->assertEquals($expectPair, $resultPair);

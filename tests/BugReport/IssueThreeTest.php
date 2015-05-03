@@ -17,7 +17,7 @@ namespace ptlis\ConNeg\Test\BugReport;
 
 use ptlis\ConNeg\Collection\TypePairCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
-use ptlis\ConNeg\Negotiate;
+use ptlis\ConNeg\Negotiation;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\MimeAbsentType;
 use ptlis\ConNeg\Type\MimeType;
@@ -53,7 +53,7 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
 
         $expectCollection = new TypePairCollection($sort, $expectList);
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultCollection = $negotiate->mimeAll($httpField, $appPrefs);
 
         $this->assertEquals($expectCollection, $resultCollection);
@@ -83,7 +83,7 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
         );
         $expectCollection = new TypePairCollection($sort, $pairList);
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultCollection = $negotiate->mimeAll($httpField, $appPrefs);
 
         $this->assertEquals($expectCollection, $resultCollection);
@@ -117,7 +117,7 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
         );
         $expectCollection = new TypePairCollection($sort, $pairList);
 
-        $negotiate = new Negotiate();
+        $negotiate = new Negotiation();
         $resultCollection = $negotiate->mimeAll($httpField, $appPrefs);
 
         $this->assertEquals($expectCollection, $resultCollection);

@@ -31,12 +31,12 @@ use ptlis\Conneg\TypePair\TypePairInterface;
 /**
  * Class providing a simple API through which content negotiation is performed.
  */
-class Negotiate
+class Negotiation
 {
     /**
      * Negotiator for non-mime types.
      *
-     * @var Negotiator
+     * @var Negotiation
      */
     private $stdNegotiator;
 
