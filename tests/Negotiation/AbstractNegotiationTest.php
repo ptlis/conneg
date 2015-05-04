@@ -23,7 +23,7 @@ use ptlis\ConNeg\TypePair\TypePair;
 
 abstract class AbstractNegotiationTest extends \PHPUnit_Framework_TestCase
 {
-    public function mimeProvider()
+    public function charsetProvider()
     {
         $sort = new TypePairSort(
             new TypePair(

@@ -20,7 +20,7 @@ use ptlis\ConNeg\Type\TypeInterface;
 class CharsetTest extends AbstractNegotiationTest
 {
     /**
-     * @dataProvider mimeProvider
+     * @dataProvider charsetProvider
      *
      * @param string $userField
      * @param string $appField
@@ -36,7 +36,7 @@ class CharsetTest extends AbstractNegotiationTest
     }
 
     /**
-     * @dataProvider mimeProvider
+     * @dataProvider charsetProvider
      *
      * @param string $userField
      * @param string $appField
