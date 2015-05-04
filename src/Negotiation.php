@@ -36,7 +36,7 @@ class Negotiation
     /**
      * Negotiator for non-mime types.
      *
-     * @var Negotiation
+     * @var Negotiator
      */
     private $stdNegotiator;
 
