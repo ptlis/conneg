@@ -98,6 +98,17 @@ abstract class AbstractNegotiationTest extends \PHPUnit_Framework_TestCase
                     new Type('windows-1250', new QualityFactor(1))
                 ),
                 'all' => new TypePairCollection($sort, array())
+            ),
+
+            // Test wildcards - the non-wildcard match has higher precedence
+            'test_wildcard_precedence' => array(
+                'user' => '*;q=0.5,iso-8859-5;q=0.5',
+                'app' => 'iso-8859-5,windows-1250',
+                'best' => new TypePair(
+                    new Type('iso-8859-5', new QualityFactor(0.5)),
+                    new Type('iso-8859-5', new QualityFactor(1))
+                ),
+                'all' => new TypePairCollection($sort, array())
             )
         );
     }

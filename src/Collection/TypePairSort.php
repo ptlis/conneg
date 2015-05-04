@@ -124,8 +124,12 @@ class TypePairSort
         // Compare by quality factors - highest quality factor has precedence.
         $result = $this->compareQualityFactorPair($lTypePair, $rTypePair);
 
-        // If we did not get a preferred result from the above check then simply sort alphabetically - this ensures that
-        // the sort is always stable.
+        // Quality factors are equal attempt to sort by match precedence
+        if (0 === $result) {
+            $result = $this->comparePrecedence($lTypePair, $rTypePair);
+        }
+
+        // Quality factors & precedences match, simply sort alphabetically as this ensures that the sort is stable
         if (0 === $result) {
             $result = $this->compareType($lTypePair, $rTypePair);
         }
@@ -186,6 +190,25 @@ class TypePairSort
         if ($rType->getQualityFactor() < $lType->getQualityFactor()) {
             return -1;
         } elseif ($rType->getQualityFactor() > $lType->getQualityFactor()) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    /**
+     * Compare precedences of types.
+     *
+     * @param TypeInterface $lType
+     * @param TypeInterface $rType
+     *
+     * @return int -1, 0, 1 (see usort() callback for meaning)
+     */
+    private function comparePrecedence(TypeInterface $lType, TypeInterface $rType)
+    {
+        if ($rType->getPrecedence() < $lType->getPrecedence()) {
+            return -1;
+        } elseif ($rType->getPrecedence() > $lType->getPrecedence()) {
             return 1;
         } else {
             return 0;
