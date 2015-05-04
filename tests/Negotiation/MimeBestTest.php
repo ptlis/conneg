@@ -66,7 +66,7 @@ class MimeBestTest extends \PHPUnit_Framework_TestCase
 
         $this->setExpectedException(
             'Exception',
-            'invalid application preferences passed to ptlis\ConNeg\Negotiate::ptlis\ConNeg\Negotiate::sharedAppPrefsToTypes'
+            'invalid application preferences passed to ptlis\ConNeg\Negotiation::sharedAppPrefsToTypes'
         );
 
         $negotiate = new Negotiation();

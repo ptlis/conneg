@@ -319,7 +319,7 @@ class Negotiation
             $appTypeList = $appField;
 
         } else {
-            throw new ConNegException('invalid application preferences passed to ' . __CLASS__ . '::' . __METHOD__);
+            throw new ConNegException('invalid application preferences passed to ' . __METHOD__);
         }
 
         return $appTypeList;
