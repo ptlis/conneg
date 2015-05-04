@@ -52,7 +52,19 @@ abstract class AbstractNegotiationTest extends \PHPUnit_Framework_TestCase
                     new Type('utf-8', new QualityFactor(1.0)),
                     new AbsentType(new QualityFactor(0))
                 ),
-                'all' => new TypePairCollection($sort, array())
+                'all' => new TypePairCollection(
+                    $sort,
+                    array(
+                        new TypePair(
+                            new Type('utf-8', new QualityFactor(1.0)),
+                            new AbsentType(new QualityFactor(0))
+                        ),
+                        new TypePair(
+                            new Type('iso-8859-5', new QualityFactor(0.75)),
+                            new AbsentType(new QualityFactor(0))
+                        )
+                    )
+                )
             ),
 
             // Pair must contain user type with highest quality factor
@@ -63,7 +75,19 @@ abstract class AbstractNegotiationTest extends \PHPUnit_Framework_TestCase
                     new AbsentType(new QualityFactor(0)),
                     new Type('iso-8859-1', new QualityFactor(1.0))
                 ),
-                'all' => new TypePairCollection($sort, array())
+                'all' => new TypePairCollection(
+                    $sort,
+                    array(
+                        new TypePair(
+                            new AbsentType(new QualityFactor(0)),
+                            new Type('iso-8859-1', new QualityFactor(1.0))
+                        ),
+                        new TypePair(
+                            new AbsentType(new QualityFactor(0)),
+                            new Type('utf-8', new QualityFactor(0.5))
+                        )
+                    )
+                )
             ),
 
             // When types have matching quality factors the result should be ordered alphabetically - note that this
@@ -75,10 +99,23 @@ abstract class AbstractNegotiationTest extends \PHPUnit_Framework_TestCase
                     new AbsentType(new QualityFactor(0)),
                     new Type('iso-8859-1', new QualityFactor(0.5))
                 ),
-                'all' => new TypePairCollection($sort, array())
+                'all' => new TypePairCollection(
+                    $sort,
+                    array(
+                        new TypePair(
+                            new AbsentType(new QualityFactor(0)),
+                            new Type('iso-8859-1', new QualityFactor(0.5))
+                        ),
+                        new TypePair(
+                            new AbsentType(new QualityFactor(0)),
+                            new Type('utf-8', new QualityFactor(0.5))
+                        )
+                    )
+                )
             ),
 
-            // Test when we have multiple matching types
+            // Test when we have multiple matching types - when ordering type pairs where the type is omitted on one
+            // side the user-provided and app-omitted types have precedence over app-provided and user-omitted
             'multiple_matching_types' => array(
                 'user' => 'windows-1250;q=0.8,utf-8;q=0.3,iso-8859-1;q=0.5',
                 'app' => 'utf-8;q=0.6,iso-8859-5;q=0.9,iso-8859-1;q=0.3',
@@ -86,7 +123,27 @@ abstract class AbstractNegotiationTest extends \PHPUnit_Framework_TestCase
                     new Type('utf-8', new QualityFactor(0.3)),
                     new Type('utf-8', new QualityFactor(0.6))
                 ),
-                'all' => new TypePairCollection($sort, array())
+                'all' => new TypePairCollection(
+                    $sort,
+                    array(
+                        new TypePair(
+                            new Type('utf-8', new QualityFactor(0.3)),
+                            new Type('utf-8', new QualityFactor(0.6))
+                        ),
+                        new TypePair(
+                            new Type('iso-8859-1', new QualityFactor(0.5)),
+                            new Type('iso-8859-1', new QualityFactor(0.3))
+                        ),
+                        new TypePair(
+                            new Type('windows-1250', new QualityFactor(0.8)),
+                            new AbsentType(new QualityFactor(0))
+                        ),
+                        new TypePair(
+                            new AbsentType(new QualityFactor(0)),
+                            new Type('iso-8859-5', new QualityFactor(0.9))
+                        )
+                    )
+                )
             ),
 
             // Test wildcards - the wildcard match has higher quality factor product
@@ -97,7 +154,23 @@ abstract class AbstractNegotiationTest extends \PHPUnit_Framework_TestCase
                     new WildcardType(new QualityFactor(0.5)),
                     new Type('windows-1250', new QualityFactor(1))
                 ),
-                'all' => new TypePairCollection($sort, array())
+                'all' => new TypePairCollection(
+                    $sort,
+                    array(
+                        new TypePair(
+                            new WildcardType(new QualityFactor(0.5)),
+                            new Type('windows-1250', new QualityFactor(1))
+                        ),
+                        new TypePair(
+                            new Type('iso-8859-5', new QualityFactor(0.3)),
+                            new Type('iso-8859-5', new QualityFactor(1))
+                        ),
+                        new TypePair(
+                            new Type('utf-8', new QualityFactor(0.9)),
+                            new AbsentType(new QualityFactor(0))
+                        )
+                    )
+                )
             ),
 
             // Test wildcards - the non-wildcard match has higher precedence
@@ -108,7 +181,19 @@ abstract class AbstractNegotiationTest extends \PHPUnit_Framework_TestCase
                     new Type('iso-8859-5', new QualityFactor(0.5)),
                     new Type('iso-8859-5', new QualityFactor(1))
                 ),
-                'all' => new TypePairCollection($sort, array())
+                'all' => new TypePairCollection(
+                    $sort,
+                    array(
+                        new TypePair(
+                            new Type('iso-8859-5', new QualityFactor(0.5)),
+                            new Type('iso-8859-5', new QualityFactor(1))
+                        ),
+                        new TypePair(
+                            new WildcardType(new QualityFactor(0.5)),
+                            new Type('windows-1250', new QualityFactor(1))
+                        )
+                    )
+                )
             )
         );
     }

@@ -17,7 +17,7 @@ use ptlis\ConNeg\Collection\CollectionInterface;
 use ptlis\ConNeg\Negotiation;
 use ptlis\ConNeg\Type\TypeInterface;
 
-class CharsetBestTest extends AbstractNegotiationTest
+class CharsetTest extends AbstractNegotiationTest
 {
     /**
      * @dataProvider mimeProvider
@@ -33,5 +33,21 @@ class CharsetBestTest extends AbstractNegotiationTest
         $resultType = $negotiate->charsetBest($userField, $appField);
 
         $this->assertEquals($best, $resultType);
+    }
+
+    /**
+     * @dataProvider mimeProvider
+     *
+     * @param string $userField
+     * @param string $appField
+     * @param TypeInterface $best
+     * @param CollectionInterface $all
+     */
+    public function testAll($userField, $appField, TypeInterface $best, CollectionInterface $all)
+    {
+        $negotiate = new Negotiation();
+        $collection = $negotiate->charsetAll($userField, $appField);
+
+        $this->assertEquals($all, $collection);
     }
 }
