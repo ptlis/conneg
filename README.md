@@ -42,6 +42,7 @@ Use negotiator:
 
 ## Integration
 
+* PSR-7 via the [ptlis/psr7-conneg](https://github.com/ptlis/psr7-conneg) library.
 * Symfony2 via the [ptlis/conneg-bundle](https://github.com/ptlis/conneg-bundle) Bundle.
 
 ## Contributing
