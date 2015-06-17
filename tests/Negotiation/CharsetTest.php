@@ -17,7 +17,7 @@ use ptlis\ConNeg\Collection\CollectionInterface;
 use ptlis\ConNeg\Negotiation;
 use ptlis\ConNeg\Type\TypeInterface;
 
-class CharsetTest extends AbstractNegotiationTest
+class CharsetDataProvider extends NegotiationDataProvider
 {
     /**
      * @dataProvider charsetProvider

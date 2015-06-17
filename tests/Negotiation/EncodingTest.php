@@ -17,7 +17,7 @@ use ptlis\ConNeg\Collection\CollectionInterface;
 use ptlis\ConNeg\Negotiation;
 use ptlis\ConNeg\Type\TypeInterface;
 
-class EncodingTest extends AbstractNegotiationTest
+class EncodingDataProvider extends NegotiationDataProvider
 {
     /**
      * @dataProvider encodingProvider

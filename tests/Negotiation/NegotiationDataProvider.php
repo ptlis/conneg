@@ -21,7 +21,7 @@ use ptlis\ConNeg\Type\Type;
 use ptlis\ConNeg\Type\WildcardType;
 use ptlis\ConNeg\TypePair\TypePair;
 
-abstract class AbstractNegotiationTest extends \PHPUnit_Framework_TestCase
+abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
 {
     public function charsetProvider()
     {
