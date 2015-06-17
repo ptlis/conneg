@@ -42,7 +42,7 @@ Use negotiator:
 
 ## Integration
 
-* PSR-7 via the [ptlis/psr7-conneg](https://github.com/ptlis/psr7-conneg) library.
+* PSR-7, [Zend Stratigility](https://github.com/zendframework/zend-stratigility) and [Relay](https://github.com/relayphp/Relay.Relay) via the [ptlis/psr7-conneg](https://github.com/ptlis/psr7-conneg) package.
 * Symfony2 via the [ptlis/conneg-bundle](https://github.com/ptlis/conneg-bundle) Bundle.
 
 ## Contributing
