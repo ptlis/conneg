@@ -197,4 +197,179 @@ abstract class AbstractNegotiationTest extends \PHPUnit_Framework_TestCase
             )
         );
     }
+
+    public function encodingProvider()
+    {
+        $sort = new TypePairSort(
+            new TypePair(
+                new AbsentType(new QualityFactor(0)),
+                new AbsentType(new QualityFactor(0))
+            )
+        );
+
+        return array(
+            // There is nothing sensible we can do in this case
+            'user_empty_app_empty' => array(
+                'user' => '',
+                'app' => '',
+                'best' => new TypePair(
+                    new AbsentType(new QualityFactor(0)),
+                    new AbsentType(new QualityFactor(0))
+                ),
+                'all' => new TypePairCollection($sort, array())
+            ),
+
+            // Pair must contain app type with highest quality factor
+            'app_empty' => array(
+                'user' => '7zip,gzip;q=0.75',
+                'app' => '',
+                'best' => new TypePair(
+                    new Type('7zip', new QualityFactor(1.0)),
+                    new AbsentType(new QualityFactor(0))
+                ),
+                'all' => new TypePairCollection(
+                    $sort,
+                    array(
+                        new TypePair(
+                            new Type('7zip', new QualityFactor(1.0)),
+                            new AbsentType(new QualityFactor(0))
+                        ),
+                        new TypePair(
+                            new Type('gzip', new QualityFactor(0.75)),
+                            new AbsentType(new QualityFactor(0))
+                        )
+                    )
+                )
+            ),
+
+            // Pair must contain user type with highest quality factor
+            'user_empty' => array(
+                'user' => '',
+                'app' => 'compress;q=1,7zip;q=0.5',
+                'best' => new TypePair(
+                    new AbsentType(new QualityFactor(0)),
+                    new Type('compress', new QualityFactor(1.0))
+                ),
+                'all' => new TypePairCollection(
+                    $sort,
+                    array(
+                        new TypePair(
+                            new AbsentType(new QualityFactor(0)),
+                            new Type('compress', new QualityFactor(1.0))
+                        ),
+                        new TypePair(
+                            new AbsentType(new QualityFactor(0)),
+                            new Type('7zip', new QualityFactor(0.5))
+                        )
+                    )
+                )
+            ),
+
+            // When types have matching quality factors the result should be ordered alphabetically - note that this
+            // isn't specification defined, but done to ensure that the sort is stable
+            'user_empty_app_identical_quality' => array(
+                'user' => '',
+                'app' => 'compress;q=0.5, 7zip;q=0.5',
+                'best' => new TypePair(
+                    new AbsentType(new QualityFactor(0)),
+                    new Type('7zip', new QualityFactor(0.5))
+                ),
+                'all' => new TypePairCollection(
+                    $sort,
+                    array(
+                        new TypePair(
+                            new AbsentType(new QualityFactor(0)),
+                            new Type('7zip', new QualityFactor(0.5))
+                        ),
+                        new TypePair(
+                            new AbsentType(new QualityFactor(0)),
+                            new Type('compress', new QualityFactor(0.5))
+                        )
+                    )
+                )
+            ),
+
+            // Test when we have multiple matching types - when ordering type pairs where the type is omitted on one
+            // side the user-provided and app-omitted types have precedence over app-provided and user-omitted
+            'multiple_matching_types' => array(
+                'user' => 'compress;q=0.8,7zip;q=0.3,deflate;q=0.5',
+                'app' => '7zip;q=0.6,x-propriatary;q=0.9,deflate;q=0.3',
+                'best' => new TypePair(
+                    new Type('7zip', new QualityFactor(0.3)),
+                    new Type('7zip', new QualityFactor(0.6))
+                ),
+                'all' => new TypePairCollection(
+                    $sort,
+                    array(
+                        new TypePair(
+                            new Type('7zip', new QualityFactor(0.3)),
+                            new Type('7zip', new QualityFactor(0.6))
+                        ),
+                        new TypePair(
+                            new Type('deflate', new QualityFactor(0.5)),
+                            new Type('deflate', new QualityFactor(0.3))
+                        ),
+                        new TypePair(
+                            new Type('compress', new QualityFactor(0.8)),
+                            new AbsentType(new QualityFactor(0))
+                        ),
+                        new TypePair(
+                            new AbsentType(new QualityFactor(0)),
+                            new Type('x-propriatary', new QualityFactor(0.9))
+                        )
+                    )
+                )
+            ),
+//
+            // Test wildcards - the wildcard match has higher quality factor product
+            'test_wildcard_qualities' => array(
+                'user' => 'compress;q=0.3,7zip;q=0.9,*;q=0.5',
+                'app' => 'compress,deflate',
+                'best' => new TypePair(
+                    new WildcardType(new QualityFactor(0.5)),
+                    new Type('deflate', new QualityFactor(1))
+                ),
+                'all' => new TypePairCollection(
+                    $sort,
+                    array(
+                        new TypePair(
+                            new WildcardType(new QualityFactor(0.5)),
+                            new Type('deflate', new QualityFactor(1))
+                        ),
+                        new TypePair(
+                            new Type('compress', new QualityFactor(0.3)),
+                            new Type('compress', new QualityFactor(1))
+                        ),
+                        new TypePair(
+                            new Type('7zip', new QualityFactor(0.9)),
+                            new AbsentType(new QualityFactor(0))
+                        )
+                    )
+                )
+            ),
+
+            // Test wildcards - the non-wildcard match has higher precedence
+            'test_wildcard_precedence' => array(
+                'user' => '*;q=0.5,7zip;q=0.5',
+                'app' => '7zip,compress',
+                'best' => new TypePair(
+                    new Type('7zip', new QualityFactor(0.5)),
+                    new Type('7zip', new QualityFactor(1))
+                ),
+                'all' => new TypePairCollection(
+                    $sort,
+                    array(
+                        new TypePair(
+                            new Type('7zip', new QualityFactor(0.5)),
+                            new Type('7zip', new QualityFactor(1))
+                        ),
+                        new TypePair(
+                            new WildcardType(new QualityFactor(0.5)),
+                            new Type('compress', new QualityFactor(1))
+                        )
+                    )
+                )
+            )
+        );
+    }
 }
