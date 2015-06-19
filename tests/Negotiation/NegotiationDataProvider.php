@@ -17,6 +17,10 @@ use ptlis\ConNeg\Collection\TypePairCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
 use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\AbsentType;
+use ptlis\ConNeg\Type\MimeAbsentType;
+use ptlis\ConNeg\Type\MimeType;
+use ptlis\ConNeg\Type\MimeWildcardSubType;
+use ptlis\ConNeg\Type\MimeWildcardType;
 use ptlis\ConNeg\Type\Type;
 use ptlis\ConNeg\Type\WildcardType;
 use ptlis\ConNeg\TypePair\TypePair;
@@ -545,6 +549,245 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                     )
                 )
             )
+        );
+    }
+
+
+    public function mimeProvider()
+    {
+        $sort = new TypePairSort(
+            new TypePair(
+                new MimeAbsentType(new QualityFactor(0)),
+                new MimeAbsentType(new QualityFactor(0))
+            )
+        );
+
+        return array(
+            // There is nothing sensible we can do in this case
+            'user_empty_app_empty' => array(
+                'user' => '',
+                'app' => '',
+                'best' => new TypePair(
+                    new MimeAbsentType(new QualityFactor(0)),
+                    new MimeAbsentType(new QualityFactor(0))
+                ),
+                'all' => new TypePairCollection($sort, array())
+            ),
+
+            // Pair must contain app type with highest quality factor
+            'app_empty' => array(
+                'user' => 'text/html,application/xml;q=0.75',
+                'app' => '',
+                'best' => new TypePair(
+                    new MimeType('text', 'html', new QualityFactor(1.0)),
+                    new MimeAbsentType(new QualityFactor(0))
+                ),
+                'all' => new TypePairCollection(
+                    $sort,
+                    array(
+                        new TypePair(
+                            new MimeType('text', 'html', new QualityFactor(1.0)),
+                            new MimeAbsentType(new QualityFactor(0))
+                        ),
+                        new TypePair(
+                            new MimeType('application', 'xml', new QualityFactor(0.75)),
+                            new MimeAbsentType(new QualityFactor(0))
+                        )
+                    )
+                )
+            ),
+
+            // Pair must contain user type with highest quality factor
+            'user_empty' => array(
+                'user' => 'application/rdf+xml;q=1,text/n3;q=0.5',
+                'app' => '',
+                'best' => new TypePair(
+                    new MimeType('application', 'rdf+xml', new QualityFactor(1)),
+                    new MimeAbsentType(new QualityFactor(0))
+                ),
+                'all' => new TypePairCollection(
+                    $sort,
+                    array(
+                        new TypePair(
+                            new MimeType('application', 'rdf+xml', new QualityFactor(1)),
+                            new MimeAbsentType(new QualityFactor(0))
+                        ),
+                        new TypePair(
+                            new MimeType('text', 'n3', new QualityFactor(0.5)),
+                            new MimeAbsentType(new QualityFactor(0))
+                        )
+                    )
+                )
+            ),
+
+            // When types have matching quality factors the result should be ordered alphabetically - note that this
+            // isn't specification defined, but done to ensure that the sort is stable
+            'user_empty_app_identical_quality' => array(
+                'user' => '',
+                'app' => 'text/n3;q=0.5,text/html;q=0.5',
+                'best' => new TypePair(
+                    new MimeAbsentType(new QualityFactor(0)),
+                    new MimeType('text', 'html', new QualityFactor(0.5))
+                ),
+                'all' => new TypePairCollection(
+                    $sort,
+                    array(
+                        new TypePair(
+                            new MimeAbsentType(new QualityFactor(0)),
+                            new MimeType('text', 'html', new QualityFactor(0.5))
+                        ),
+                        new TypePair(
+                            new MimeAbsentType(new QualityFactor(0)),
+                            new MimeType('text', 'n3', new QualityFactor(0.5))
+                        )
+                    )
+                )
+            ),
+
+            // Test when we have multiple matching types - when ordering type pairs where the type is omitted on one
+            // side the user-provided and app-omitted types have precedence over app-provided and user-omitted
+            'multiple_matching_types' => array(
+                'user' => 'application/xml;q=0.8,application/json;q=0.3,text/html;q=0.5',
+                'app' => 'application/json;q=0.6,text/n3;q=0.9,text/html;q=0.3',
+                'best' => new TypePair(
+                    new MimeType('application', 'json', new QualityFactor(0.3)),
+                    new MimeType('application', 'json', new QualityFactor(0.6))
+                ),
+                'all' => new TypePairCollection(
+                    $sort,
+                    array(
+                        new TypePair(
+                            new MimeType('application', 'json', new QualityFactor(0.3)),
+                            new MimeType('application', 'json', new QualityFactor(0.6))
+                        ),
+                        new TypePair(
+                            new MimeType('text', 'html', new QualityFactor(0.5)),
+                            new MimeType('text', 'html', new QualityFactor(0.3))
+                        ),
+                        new TypePair(
+                            new MimeType('application', 'xml', new QualityFactor(0.8)),
+                            new MimeAbsentType(new QualityFactor(0))
+                        ),
+                        new TypePair(
+                            new MimeAbsentType(new QualityFactor(0)),
+                            new MimeType('text', 'n3', new QualityFactor(0.9))
+                        )
+                    )
+                )
+            ),
+
+            // Test subtype wildcard matching
+            'subtype_wildcard' => array(
+                'user' => 'text/*;q=0.8,application/xml;q=0.9',
+                'app' => 'text/html,application/xml;q=0.7,text/n3;q=0.3',
+                'best' => new TypePair(
+                    new MimeWildcardSubType('text', new QualityFactor(0.8)),
+                    new MimeType('text', 'html', new QualityFactor(1))
+                ),
+                'all' => new TypePairCollection(
+                    $sort,
+                    array(
+                        new TypePair(
+                            new MimeWildcardSubType('text', new QualityFactor(0.8)),
+                            new MimeType('text', 'html', new QualityFactor(1))
+                        ),
+                        new TypePair(
+                            new MimeType('application', 'xml', new QualityFactor(0.9)),
+                            new MimeType('application', 'xml', new QualityFactor(0.7))
+                        ),
+                        new TypePair(
+                            new MimeWildcardSubType('text', new QualityFactor(0.8)),
+                            new MimeType('text', 'n3', new QualityFactor(0.3))
+                        )
+                    )
+                )
+            ),
+
+            // Test subtype wildcard precedence
+            // If a wildcard and exact match have the came quality factor product the exact match is preferred
+            'subtype_wildcard_precedence' => array(
+                'user' => 'text/*;q=0.75,text/html',
+                'app' => 'text/plain,text/html;q=0.75,application/xml;q=0.9',
+                'best' => new TypePair(
+                    new MimeType('text', 'html', new QualityFactor(1)),
+                    new MimeType('text', 'html', new QualityFactor(0.75))
+                ),
+                'all' => new TypePairCollection(
+                    $sort,
+                    array(
+                        new TypePair(
+                            new MimeType('text', 'html', new QualityFactor(1)),
+                            new MimeType('text', 'html', new QualityFactor(0.75))
+                        ),
+                        new TypePair(
+                            new MimeWildcardSubType('text', new QualityFactor(0.75)),
+                            new MimeType('text', 'plain', new QualityFactor(1))
+                        ),
+                        new TypePair(
+                            new MimeAbsentType(new QualityFactor(0)),
+                            new MimeType('application', 'xml', new QualityFactor(0.9))
+                        )
+                    )
+                )
+            ),
+
+            // Test full wildcard matching
+            'full_wildcard' => array(
+                'user' => '*/*;q=0.75,text/html',
+                'app' => 'text/plain,text/html;q=0.75,application/xml;q=0.9',
+                'best' => new TypePair(
+                    new MimeType('text', 'html', new QualityFactor(1)),
+                    new MimeType('text', 'html', new QualityFactor(0.75))
+                ),
+                'all' => new TypePairCollection(
+                    $sort,
+                    array(
+                        new TypePair(
+                            new MimeType('text', 'html', new QualityFactor(1)),
+                            new MimeType('text', 'html', new QualityFactor(0.75))
+                        ),
+                        new TypePair(
+                            new MimeWildcardType(new QualityFactor(0.75)),
+                            new MimeType('text', 'plain', new QualityFactor(1))
+                        ),
+                        new TypePair(
+                            new MimeWildcardType(new QualityFactor(0.75)),
+                            new MimeType('application', 'xml', new QualityFactor(0.9))
+                        )
+                    )
+                )
+            ),
+
+            // Test full wildcard precedence
+            // The full match has higher precedence, followed by partial wildcard match (e.g. text/*) and a full
+            // wildcard match has the lowest precedence.
+            'full_wildcard_precedence' => array(
+                'user' => '*/*,text/*,text/html',
+                'app' => 'text/plain,text/html,application/xml',
+                'best' => new TypePair(
+                    new MimeType('text', 'html', new QualityFactor(1)),
+                    new MimeType('text', 'html', new QualityFactor(1))
+                ),
+                'all' => new TypePairCollection(
+                    $sort,
+                    array(
+                        new TypePair(
+                            new MimeType('text', 'html', new QualityFactor(1)),
+                            new MimeType('text', 'html', new QualityFactor(1))
+                        ),
+                        new TypePair(
+                            new MimeWildcardSubType('text', new QualityFactor(1)),
+                            new MimeType('text', 'plain', new QualityFactor(1))
+                        ),
+                        new TypePair(
+                            new MimeWildcardType(new QualityFactor(1)),
+                            new MimeType('application', 'xml', new QualityFactor(1))
+                        )
+                    )
+                )
+            ),
+
+            // TODO: Test with presence of accept-extens components
         );
     }
 }
