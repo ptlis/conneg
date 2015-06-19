@@ -16,10 +16,10 @@ namespace ptlis\ConNeg\Negotiator;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Collection\TypePairCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
+use ptlis\ConNeg\Type\Type;
 use ptlis\ConNeg\TypePair\TypePair;
 use ptlis\ConNeg\TypePair\TypePairInterface;
 use ptlis\ConNeg\Type\TypeInterface;
-use ptlis\ConNeg\Type\WildcardType;
 
 /**
  * Class for negotiating on charset, encoding & language types.
@@ -123,7 +123,7 @@ class Negotiator implements NegotiatorInterface
                 }
 
             // Wildcard Match
-            } elseif ($userType instanceof WildcardType) {
+            } elseif (Type::WILDCARD_TYPE === $userType->getPrecedence()) {
                 $matchingList = $this->matchFullWildcard($matchingList, $userType);
 
             // No match

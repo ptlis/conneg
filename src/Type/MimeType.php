@@ -20,12 +20,17 @@ use ptlis\ConNeg\Type\Extens\AcceptExtensInterface;
  */
 class MimeType implements MimeTypeInterface
 {
+    const ABSENT_TYPE = -1;
+    const WILDCARD_TYPE = 0;
+    const WILDCARD_SUBTYPE = 1;
+    const EXACT_TYPE = 2;
+
     /**
      * The main type (eg text, application, image).
      *
      * @var string
      */
-    private $type;
+    private $mimeType;
 
     /**
      * The subtype (eg html, xml, json).
@@ -35,11 +40,18 @@ class MimeType implements MimeTypeInterface
     private $subType;
 
     /**
-     * The quality factor associated with this type.
+     * The quality factor of this type.
      *
      * @var float
      */
     private $qFactor;
+
+    /**
+     * The precedence of this type (used for matching).
+     *
+     * @var int
+     */
+    private $precedence;
 
     /**
      * An array of accept-extens fragments.
@@ -48,29 +60,38 @@ class MimeType implements MimeTypeInterface
      */
     private $acceptExtensList;
 
-    /**
-     * Type precedence of the type (named > subtype wildcard > wildcard > absent).
-     *
-     * @var int
-     */
-    protected $precedence;
-
 
     /**
      * Constructor
      *
-     * @param string $type
+     * @param string $mimeType
      * @param string $subType
      * @param float $qFactor
+     * @param int $precedence
      * @param AcceptExtensInterface[] $acceptExtensList
      */
-    public function __construct($type, $subType, $qFactor, array $acceptExtensList = array())
+    public function __construct($mimeType, $subType, $qFactor, $precedence, array $acceptExtensList = array())
     {
-        $this->type = $type;
+        $this->mimeType = $mimeType;
         $this->subType = $subType;
         $this->qFactor = $qFactor;
+        $this->precedence = $precedence;
         $this->acceptExtensList = $acceptExtensList;
-        $this->precedence = 2;
+    }
+
+    /**
+     * Return the full type as a string.
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        $str = '';
+        if (strlen($this->subType)) {
+            $str = $this->mimeType . '/' . $this->subType;
+        }
+
+        return $str;
     }
 
     /**
@@ -80,7 +101,7 @@ class MimeType implements MimeTypeInterface
      */
     public function getMimeType()
     {
-        return $this->type;
+        return $this->mimeType;
     }
 
     /**
@@ -94,17 +115,7 @@ class MimeType implements MimeTypeInterface
     }
 
     /**
-     * Return the full type as a string.
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->getMimeType() . '/' . $this->getMimeSubType();
-    }
-
-    /**
-     * Return the precedence of the type, non-wildcard type have the highest precedence when you ignore accept-extens.
+     * Return the precedence of the type (wildcards are superseded by full matches etc).
      *
      * @return int
      */
@@ -124,7 +135,7 @@ class MimeType implements MimeTypeInterface
     }
 
     /**
-     * Return an array of accept-extens fragments.
+     * Get an array of accept-extens fragments belonging to this type.
      *
      * @return AcceptExtensInterface[]
      */
@@ -140,6 +151,10 @@ class MimeType implements MimeTypeInterface
      */
     public function __toString()
     {
-        return $this->getType() . ';q=' . $this->getQualityFactor() . implode(';', $this->acceptExtensList);
+        $str = '';
+        if (strlen($this->getType())) {
+            $str = $this->getType() . ';q=' . $this->getQualityFactor() . implode(';', $this->acceptExtensList);
+        }
+        return $str;
     }
 }

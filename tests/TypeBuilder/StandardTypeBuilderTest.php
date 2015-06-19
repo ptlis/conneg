@@ -13,9 +13,7 @@
 
 namespace ptlis\ConNeg\Test\TypeBuilder;
 
-use ptlis\ConNeg\Type\AbsentType;
 use ptlis\ConNeg\Type\Type;
-use ptlis\ConNeg\Type\WildcardType;
 use ptlis\ConNeg\TypeBuilder\TypeBuilder;
 
 /**
@@ -27,7 +25,8 @@ class StandardTypeBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $expected = new Type(
             'utf-8',
-            1
+            1,
+            Type::EXACT_TYPE
         );
 
         $builder = new TypeBuilder();
@@ -44,9 +43,7 @@ class StandardTypeBuilderTest extends \PHPUnit_Framework_TestCase
     public function testBuildAbsentTypeSuccess()
     {
         // Absent types should always have a quality factor of 0
-        $expected = new AbsentType(
-            0
-        );
+        $expected = new Type('', 0, Type::ABSENT_TYPE);
 
         $builder = new TypeBuilder();
 
@@ -61,9 +58,7 @@ class StandardTypeBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testBuildEmptyTypeSuccess()
     {
-        $expected = new AbsentType(
-            0
-        );
+        $expected = new Type('', 0, Type::ABSENT_TYPE);
 
         $builder = new TypeBuilder();
 
@@ -74,9 +69,7 @@ class StandardTypeBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testBuildUserWildcardTypeSuccess()
     {
-        $expected = new WildcardType(
-            0.8
-        );
+        $expected = new Type('*', 0.8, Type::WILDCARD_TYPE);
 
         $builder = new TypeBuilder();
 

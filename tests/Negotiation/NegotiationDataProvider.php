@@ -15,13 +15,8 @@ namespace ptlis\ConNeg\Test\Negotiation;
 
 use ptlis\ConNeg\Collection\TypePairCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
-use ptlis\ConNeg\Type\AbsentType;
-use ptlis\ConNeg\Type\MimeAbsentType;
 use ptlis\ConNeg\Type\MimeType;
-use ptlis\ConNeg\Type\MimeWildcardSubType;
-use ptlis\ConNeg\Type\MimeWildcardType;
 use ptlis\ConNeg\Type\Type;
-use ptlis\ConNeg\Type\WildcardType;
 use ptlis\ConNeg\TypePair\TypePair;
 
 abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
@@ -30,8 +25,8 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
     {
         $sort = new TypePairSort(
             new TypePair(
-                new AbsentType(0),
-                new AbsentType(0)
+                new Type('', 0, Type::ABSENT_TYPE),
+                new Type('', 0, Type::ABSENT_TYPE)
             )
         );
 
@@ -41,8 +36,8 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => '',
                 'app' => '',
                 'best' => new TypePair(
-                    new AbsentType(0),
-                    new AbsentType(0)
+                    new Type('', 0, Type::ABSENT_TYPE),
+                    new Type('', 0, Type::ABSENT_TYPE)
                 ),
                 'all' => new TypePairCollection($sort, array())
             ),
@@ -52,19 +47,19 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => 'utf-8,iso-8859-5;q=0.75',
                 'app' => '',
                 'best' => new TypePair(
-                    new Type('utf-8', 1.0),
-                    new AbsentType(0)
+                    new Type('utf-8', 1.0, Type::EXACT_TYPE),
+                    new Type('', 0, Type::ABSENT_TYPE)
                 ),
                 'all' => new TypePairCollection(
                     $sort,
                     array(
                         new TypePair(
-                            new Type('utf-8', 1.0),
-                            new AbsentType(0)
+                            new Type('utf-8', 1.0, Type::EXACT_TYPE),
+                            new Type('', 0, Type::ABSENT_TYPE)
                         ),
                         new TypePair(
-                            new Type('iso-8859-5', 0.75),
-                            new AbsentType(0)
+                            new Type('iso-8859-5', 0.75, Type::EXACT_TYPE),
+                            new Type('', 0, Type::ABSENT_TYPE)
                         )
                     )
                 )
@@ -75,19 +70,19 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => '',
                 'app' => 'iso-8859-1;q=1,utf-8;q=0.5',
                 'best' => new TypePair(
-                    new AbsentType(0),
-                    new Type('iso-8859-1', 1.0)
+                    new Type('', 0, Type::ABSENT_TYPE),
+                    new Type('iso-8859-1', 1.0, Type::EXACT_TYPE)
                 ),
                 'all' => new TypePairCollection(
                     $sort,
                     array(
                         new TypePair(
-                            new AbsentType(0),
-                            new Type('iso-8859-1', 1.0)
+                            new Type('', 0, Type::ABSENT_TYPE),
+                            new Type('iso-8859-1', 1.0, Type::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new AbsentType(0),
-                            new Type('utf-8', 0.5)
+                            new Type('', 0, Type::ABSENT_TYPE),
+                            new Type('utf-8', 0.5, Type::EXACT_TYPE)
                         )
                     )
                 )
@@ -99,19 +94,19 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => '',
                 'app' => 'utf-8;q=0.5,iso-8859-1;q=0.5',
                 'best' => new TypePair(
-                    new AbsentType(0),
-                    new Type('iso-8859-1', 0.5)
+                    new Type('', 0, Type::ABSENT_TYPE),
+                    new Type('iso-8859-1', 0.5, Type::EXACT_TYPE)
                 ),
                 'all' => new TypePairCollection(
                     $sort,
                     array(
                         new TypePair(
-                            new AbsentType(0),
-                            new Type('iso-8859-1', 0.5)
+                            new Type('', 0, Type::ABSENT_TYPE),
+                            new Type('iso-8859-1', 0.5, Type::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new AbsentType(0),
-                            new Type('utf-8', 0.5)
+                            new Type('', 0, Type::ABSENT_TYPE),
+                            new Type('utf-8', 0.5, Type::EXACT_TYPE)
                         )
                     )
                 )
@@ -123,27 +118,27 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => 'windows-1250;q=0.8,utf-8;q=0.3,iso-8859-1;q=0.5',
                 'app' => 'utf-8;q=0.6,iso-8859-5;q=0.9,iso-8859-1;q=0.3',
                 'best' => new TypePair(
-                    new Type('utf-8', 0.3),
-                    new Type('utf-8', 0.6)
+                    new Type('utf-8', 0.3, Type::EXACT_TYPE),
+                    new Type('utf-8', 0.6, Type::EXACT_TYPE)
                 ),
                 'all' => new TypePairCollection(
                     $sort,
                     array(
                         new TypePair(
-                            new Type('utf-8', 0.3),
-                            new Type('utf-8', 0.6)
+                            new Type('utf-8', 0.3, Type::EXACT_TYPE),
+                            new Type('utf-8', 0.6, Type::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new Type('iso-8859-1', 0.5),
-                            new Type('iso-8859-1', 0.3)
+                            new Type('iso-8859-1', 0.5, Type::EXACT_TYPE),
+                            new Type('iso-8859-1', 0.3, Type::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new Type('windows-1250', 0.8),
-                            new AbsentType(0)
+                            new Type('windows-1250', 0.8, Type::EXACT_TYPE),
+                            new Type('', 0, Type::ABSENT_TYPE)
                         ),
                         new TypePair(
-                            new AbsentType(0),
-                            new Type('iso-8859-5', 0.9)
+                            new Type('', 0, Type::ABSENT_TYPE),
+                            new Type('iso-8859-5', 0.9, Type::EXACT_TYPE)
                         )
                     )
                 )
@@ -154,23 +149,23 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => 'iso-8859-5;q=0.3,utf-8;q=0.9,*;q=0.5',
                 'app' => 'iso-8859-5,windows-1250',
                 'best' => new TypePair(
-                    new WildcardType(0.5),
-                    new Type('windows-1250', 1)
+                    new Type('*', 0.5, Type::WILDCARD_TYPE),
+                    new Type('windows-1250', 1, Type::EXACT_TYPE)
                 ),
                 'all' => new TypePairCollection(
                     $sort,
                     array(
                         new TypePair(
-                            new WildcardType(0.5),
-                            new Type('windows-1250', 1)
+                            new Type('*', 0.5, Type::WILDCARD_TYPE),
+                            new Type('windows-1250', 1, Type::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new Type('iso-8859-5', 0.3),
-                            new Type('iso-8859-5', 1)
+                            new Type('iso-8859-5', 0.3, Type::EXACT_TYPE),
+                            new Type('iso-8859-5', 1, Type::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new Type('utf-8', 0.9),
-                            new AbsentType(0)
+                            new Type('utf-8', 0.9, Type::EXACT_TYPE),
+                            new Type('', 0, Type::ABSENT_TYPE)
                         )
                     )
                 )
@@ -181,19 +176,19 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => '*;q=0.5,iso-8859-5;q=0.5',
                 'app' => 'iso-8859-5,windows-1250',
                 'best' => new TypePair(
-                    new Type('iso-8859-5', 0.5),
-                    new Type('iso-8859-5', 1)
+                    new Type('iso-8859-5', 0.5, Type::EXACT_TYPE),
+                    new Type('iso-8859-5', 1, Type::EXACT_TYPE)
                 ),
                 'all' => new TypePairCollection(
                     $sort,
                     array(
                         new TypePair(
-                            new Type('iso-8859-5', 0.5),
-                            new Type('iso-8859-5', 1)
+                            new Type('iso-8859-5', 0.5, Type::EXACT_TYPE),
+                            new Type('iso-8859-5', 1, Type::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new WildcardType(0.5),
-                            new Type('windows-1250', 1)
+                            new Type('*', 0.5, Type::WILDCARD_TYPE),
+                            new Type('windows-1250', 1, Type::EXACT_TYPE)
                         )
                     )
                 )
@@ -205,8 +200,8 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
     {
         $sort = new TypePairSort(
             new TypePair(
-                new AbsentType(0),
-                new AbsentType(0)
+                new Type('', 0, Type::ABSENT_TYPE),
+                new Type('', 0, Type::ABSENT_TYPE)
             )
         );
 
@@ -216,8 +211,8 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => '',
                 'app' => '',
                 'best' => new TypePair(
-                    new AbsentType(0),
-                    new AbsentType(0)
+                    new Type('', 0, Type::ABSENT_TYPE),
+                    new Type('', 0, Type::ABSENT_TYPE)
                 ),
                 'all' => new TypePairCollection($sort, array())
             ),
@@ -227,19 +222,19 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => '7zip,gzip;q=0.75',
                 'app' => '',
                 'best' => new TypePair(
-                    new Type('7zip', 1.0),
-                    new AbsentType(0)
+                    new Type('7zip', 1.0, Type::EXACT_TYPE),
+                    new Type('', 0, Type::ABSENT_TYPE)
                 ),
                 'all' => new TypePairCollection(
                     $sort,
                     array(
                         new TypePair(
-                            new Type('7zip', 1.0),
-                            new AbsentType(0)
+                            new Type('7zip', 1.0, Type::EXACT_TYPE),
+                            new Type('', 0, Type::ABSENT_TYPE)
                         ),
                         new TypePair(
-                            new Type('gzip', 0.75),
-                            new AbsentType(0)
+                            new Type('gzip', 0.75, Type::EXACT_TYPE),
+                            new Type('', 0, Type::ABSENT_TYPE)
                         )
                     )
                 )
@@ -250,19 +245,19 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => '',
                 'app' => 'compress;q=1,7zip;q=0.5',
                 'best' => new TypePair(
-                    new AbsentType(0),
-                    new Type('compress', 1.0)
+                    new Type('', 0, Type::ABSENT_TYPE),
+                    new Type('compress', 1.0, Type::EXACT_TYPE)
                 ),
                 'all' => new TypePairCollection(
                     $sort,
                     array(
                         new TypePair(
-                            new AbsentType(0),
-                            new Type('compress', 1.0)
+                            new Type('', 0, Type::ABSENT_TYPE),
+                            new Type('compress', 1.0, Type::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new AbsentType(0),
-                            new Type('7zip', 0.5)
+                            new Type('', 0, Type::ABSENT_TYPE),
+                            new Type('7zip', 0.5, Type::EXACT_TYPE)
                         )
                     )
                 )
@@ -274,19 +269,19 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => '',
                 'app' => 'compress;q=0.5, 7zip;q=0.5',
                 'best' => new TypePair(
-                    new AbsentType(0),
-                    new Type('7zip', 0.5)
+                    new Type('', 0, Type::ABSENT_TYPE),
+                    new Type('7zip', 0.5, Type::EXACT_TYPE)
                 ),
                 'all' => new TypePairCollection(
                     $sort,
                     array(
                         new TypePair(
-                            new AbsentType(0),
-                            new Type('7zip', 0.5)
+                            new Type('', 0, Type::ABSENT_TYPE),
+                            new Type('7zip', 0.5, Type::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new AbsentType(0),
-                            new Type('compress', 0.5)
+                            new Type('', 0, Type::ABSENT_TYPE),
+                            new Type('compress', 0.5, Type::EXACT_TYPE)
                         )
                     )
                 )
@@ -298,27 +293,27 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => 'compress;q=0.8,7zip;q=0.3,deflate;q=0.5',
                 'app' => '7zip;q=0.6,x-propriatary;q=0.9,deflate;q=0.3',
                 'best' => new TypePair(
-                    new Type('7zip', 0.3),
-                    new Type('7zip', 0.6)
+                    new Type('7zip', 0.3, Type::EXACT_TYPE),
+                    new Type('7zip', 0.6, Type::EXACT_TYPE)
                 ),
                 'all' => new TypePairCollection(
                     $sort,
                     array(
                         new TypePair(
-                            new Type('7zip', 0.3),
-                            new Type('7zip', 0.6)
+                            new Type('7zip', 0.3, Type::EXACT_TYPE),
+                            new Type('7zip', 0.6, Type::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new Type('deflate', 0.5),
-                            new Type('deflate', 0.3)
+                            new Type('deflate', 0.5, Type::EXACT_TYPE),
+                            new Type('deflate', 0.3, Type::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new Type('compress', 0.8),
-                            new AbsentType(0)
+                            new Type('compress', 0.8, Type::EXACT_TYPE),
+                            new Type('', 0, Type::ABSENT_TYPE)
                         ),
                         new TypePair(
-                            new AbsentType(0),
-                            new Type('x-propriatary', 0.9)
+                            new Type('', 0, Type::ABSENT_TYPE),
+                            new Type('x-propriatary', 0.9, Type::EXACT_TYPE)
                         )
                     )
                 )
@@ -329,23 +324,23 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => 'compress;q=0.3,7zip;q=0.9,*;q=0.5',
                 'app' => 'compress,deflate',
                 'best' => new TypePair(
-                    new WildcardType(0.5),
-                    new Type('deflate', 1)
+                    new Type('*', 0.5, Type::WILDCARD_TYPE),
+                    new Type('deflate', 1, Type::EXACT_TYPE)
                 ),
                 'all' => new TypePairCollection(
                     $sort,
                     array(
                         new TypePair(
-                            new WildcardType(0.5),
-                            new Type('deflate', 1)
+                            new Type('*', 0.5, Type::WILDCARD_TYPE),
+                            new Type('deflate', 1, Type::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new Type('compress', 0.3),
-                            new Type('compress', 1)
+                            new Type('compress', 0.3, Type::EXACT_TYPE),
+                            new Type('compress', 1, Type::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new Type('7zip', 0.9),
-                            new AbsentType(0)
+                            new Type('7zip', 0.9, Type::EXACT_TYPE),
+                            new Type('', 0, Type::ABSENT_TYPE)
                         )
                     )
                 )
@@ -356,19 +351,19 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => '*;q=0.5,7zip;q=0.5',
                 'app' => '7zip,compress',
                 'best' => new TypePair(
-                    new Type('7zip', 0.5),
-                    new Type('7zip', 1)
+                    new Type('7zip', 0.5, Type::EXACT_TYPE),
+                    new Type('7zip', 1, Type::EXACT_TYPE)
                 ),
                 'all' => new TypePairCollection(
                     $sort,
                     array(
                         new TypePair(
-                            new Type('7zip', 0.5),
-                            new Type('7zip', 1)
+                            new Type('7zip', 0.5, Type::EXACT_TYPE),
+                            new Type('7zip', 1, Type::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new WildcardType(0.5),
-                            new Type('compress', 1)
+                            new Type('*', 0.5, Type::WILDCARD_TYPE),
+                            new Type('compress', 1, Type::EXACT_TYPE)
                         )
                     )
                 )
@@ -380,8 +375,8 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
     {
         $sort = new TypePairSort(
             new TypePair(
-                new AbsentType(0),
-                new AbsentType(0)
+                new Type('', 0, Type::ABSENT_TYPE),
+                new Type('', 0, Type::ABSENT_TYPE)
             )
         );
 
@@ -391,8 +386,8 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => '',
                 'app' => '',
                 'best' => new TypePair(
-                    new AbsentType(0),
-                    new AbsentType(0)
+                    new Type('', 0, Type::ABSENT_TYPE),
+                    new Type('', 0, Type::ABSENT_TYPE)
                 ),
                 'all' => new TypePairCollection($sort, array())
             ),
@@ -402,19 +397,19 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => 'en-GB,es;q=0.75',
                 'app' => '',
                 'best' => new TypePair(
-                    new Type('en-GB', 1.0),
-                    new AbsentType(0)
+                    new Type('en-GB', 1.0, Type::EXACT_TYPE),
+                    new Type('', 0, Type::ABSENT_TYPE)
                 ),
                 'all' => new TypePairCollection(
                     $sort,
                     array(
                         new TypePair(
-                            new Type('en-GB', 1.0),
-                            new AbsentType(0)
+                            new Type('en-GB', 1.0, Type::EXACT_TYPE),
+                            new Type('', 0, Type::ABSENT_TYPE)
                         ),
                         new TypePair(
-                            new Type('es', 0.75),
-                            new AbsentType(0)
+                            new Type('es', 0.75, Type::EXACT_TYPE),
+                            new Type('', 0, Type::ABSENT_TYPE)
                         )
                     )
                 )
@@ -425,19 +420,19 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => '',
                 'app' => 'de;q=1,fr;q=0.5',
                 'best' => new TypePair(
-                    new AbsentType(0),
-                    new Type('de', 1.0)
+                    new Type('', 0, Type::ABSENT_TYPE),
+                    new Type('de', 1.0, Type::EXACT_TYPE)
                 ),
                 'all' => new TypePairCollection(
                     $sort,
                     array(
                         new TypePair(
-                            new AbsentType(0),
-                            new Type('de', 1.0)
+                            new Type('', 0, Type::ABSENT_TYPE),
+                            new Type('de', 1.0, Type::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new AbsentType(0),
-                            new Type('fr', 0.5)
+                            new Type('', 0, Type::ABSENT_TYPE),
+                            new Type('fr', 0.5, Type::EXACT_TYPE)
                         )
                     )
                 )
@@ -449,19 +444,19 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => '',
                 'app' => 'af;q=0.5, bg;q=0.5',
                 'best' => new TypePair(
-                    new AbsentType(0),
-                    new Type('af', 0.5)
+                    new Type('', 0, Type::ABSENT_TYPE),
+                    new Type('af', 0.5, Type::EXACT_TYPE)
                 ),
                 'all' => new TypePairCollection(
                     $sort,
                     array(
                         new TypePair(
-                            new AbsentType(0),
-                            new Type('af', 0.5)
+                            new Type('', 0, Type::ABSENT_TYPE),
+                            new Type('af', 0.5, Type::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new AbsentType(0),
-                            new Type('bg', 0.5)
+                            new Type('', 0, Type::ABSENT_TYPE),
+                            new Type('bg', 0.5, Type::EXACT_TYPE)
                         )
                     )
                 )
@@ -473,27 +468,27 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => 'en;q=0.8,en-GB;q=0.3,de;q=0.5',
                 'app' => 'en-GB;q=0.6,cs;q=0.9,de;q=0.3',
                 'best' => new TypePair(
-                    new Type('en-GB', 0.3),
-                    new Type('en-GB', 0.6)
+                    new Type('en-GB', 0.3, Type::EXACT_TYPE),
+                    new Type('en-GB', 0.6, Type::EXACT_TYPE)
                 ),
                 'all' => new TypePairCollection(
                     $sort,
                     array(
                         new TypePair(
-                            new Type('en-GB', 0.3),
-                            new Type('en-GB', 0.6)
+                            new Type('en-GB', 0.3, Type::EXACT_TYPE),
+                            new Type('en-GB', 0.6, Type::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new Type('de', 0.5),
-                            new Type('de', 0.3)
+                            new Type('de', 0.5, Type::EXACT_TYPE),
+                            new Type('de', 0.3, Type::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new Type('en', 0.8),
-                            new AbsentType(0)
+                            new Type('en', 0.8, Type::EXACT_TYPE),
+                            new Type('', 0, Type::ABSENT_TYPE)
                         ),
                         new TypePair(
-                            new AbsentType(0),
-                            new Type('cs', 0.9)
+                            new Type('', 0, Type::ABSENT_TYPE),
+                            new Type('cs', 0.9, Type::EXACT_TYPE)
                         )
                     )
                 )
@@ -504,23 +499,23 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => 'en-GB;q=0.3,de;q=0.9,*;q=0.5',
                 'app' => 'en-GB,fr',
                 'best' => new TypePair(
-                    new WildcardType(0.5),
-                    new Type('fr', 1)
+                    new Type('*', 0.5, Type::WILDCARD_TYPE),
+                    new Type('fr', 1, Type::EXACT_TYPE)
                 ),
                 'all' => new TypePairCollection(
                     $sort,
                     array(
                         new TypePair(
-                            new WildcardType(0.5),
-                            new Type('fr', 1)
+                            new Type('*', 0.5, Type::WILDCARD_TYPE),
+                            new Type('fr', 1, Type::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new Type('en-GB', 0.3),
-                            new Type('en-GB', 1)
+                            new Type('en-GB', 0.3, Type::EXACT_TYPE),
+                            new Type('en-GB', 1, Type::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new Type('de', 0.9),
-                            new AbsentType(0)
+                            new Type('de', 0.9, Type::EXACT_TYPE),
+                            new Type('', 0, Type::ABSENT_TYPE)
                         )
                     )
                 )
@@ -531,19 +526,19 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => '*;q=0.5,en-GB;q=0.5',
                 'app' => 'en-GB,en-US',
                 'best' => new TypePair(
-                    new Type('en-GB', 0.5),
-                    new Type('en-GB', 1)
+                    new Type('en-GB', 0.5, Type::EXACT_TYPE),
+                    new Type('en-GB', 1, Type::EXACT_TYPE)
                 ),
                 'all' => new TypePairCollection(
                     $sort,
                     array(
                         new TypePair(
-                            new Type('en-GB', 0.5),
-                            new Type('en-GB', 1)
+                            new Type('en-GB', 0.5, Type::EXACT_TYPE),
+                            new Type('en-GB', 1, Type::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new WildcardType(0.5),
-                            new Type('en-US', 1)
+                            new Type('*', 0.5, Type::WILDCARD_TYPE),
+                            new Type('en-US', 1, Type::EXACT_TYPE)
                         )
                     )
                 )
@@ -556,8 +551,8 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
     {
         $sort = new TypePairSort(
             new TypePair(
-                new MimeAbsentType(0),
-                new MimeAbsentType(0)
+                new MimeType('', '', 0, MimeType::ABSENT_TYPE),
+                new MimeType('', '', 0, MimeType::ABSENT_TYPE)
             )
         );
 
@@ -567,8 +562,8 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => '',
                 'app' => '',
                 'best' => new TypePair(
-                    new MimeAbsentType(0),
-                    new MimeAbsentType(0)
+                    new MimeType('', '', 0, MimeType::ABSENT_TYPE),
+                    new MimeType('', '', 0, MimeType::ABSENT_TYPE)
                 ),
                 'all' => new TypePairCollection($sort, array())
             ),
@@ -578,19 +573,19 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => 'text/html,application/xml;q=0.75',
                 'app' => '',
                 'best' => new TypePair(
-                    new MimeType('text', 'html', 1.0),
-                    new MimeAbsentType(0)
+                    new MimeType('text', 'html', 1.0, MimeType::EXACT_TYPE),
+                    new MimeType('', '', 0, MimeType::ABSENT_TYPE)
                 ),
                 'all' => new TypePairCollection(
                     $sort,
                     array(
                         new TypePair(
-                            new MimeType('text', 'html', 1.0),
-                            new MimeAbsentType(0)
+                            new MimeType('text', 'html', 1.0, MimeType::EXACT_TYPE),
+                            new MimeType('', '', 0, MimeType::ABSENT_TYPE)
                         ),
                         new TypePair(
-                            new MimeType('application', 'xml', 0.75),
-                            new MimeAbsentType(0)
+                            new MimeType('application', 'xml', 0.75, MimeType::EXACT_TYPE),
+                            new MimeType('', '', 0, MimeType::ABSENT_TYPE)
                         )
                     )
                 )
@@ -601,19 +596,19 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => 'application/rdf+xml;q=1,text/n3;q=0.5',
                 'app' => '',
                 'best' => new TypePair(
-                    new MimeType('application', 'rdf+xml', 1),
-                    new MimeAbsentType(0)
+                    new MimeType('application', 'rdf+xml', 1, MimeType::EXACT_TYPE),
+                    new MimeType('', '', 0, MimeType::ABSENT_TYPE)
                 ),
                 'all' => new TypePairCollection(
                     $sort,
                     array(
                         new TypePair(
-                            new MimeType('application', 'rdf+xml', 1),
-                            new MimeAbsentType(0)
+                            new MimeType('application', 'rdf+xml', 1, MimeType::EXACT_TYPE),
+                            new MimeType('', '', 0, MimeType::ABSENT_TYPE)
                         ),
                         new TypePair(
-                            new MimeType('text', 'n3', 0.5),
-                            new MimeAbsentType(0)
+                            new MimeType('text', 'n3', 0.5, MimeType::EXACT_TYPE),
+                            new MimeType('', '', 0, MimeType::ABSENT_TYPE)
                         )
                     )
                 )
@@ -625,19 +620,19 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => '',
                 'app' => 'text/n3;q=0.5,text/html;q=0.5',
                 'best' => new TypePair(
-                    new MimeAbsentType(0),
-                    new MimeType('text', 'html', 0.5)
+                    new MimeType('', '', 0, MimeType::ABSENT_TYPE),
+                    new MimeType('text', 'html', 0.5, MimeType::EXACT_TYPE)
                 ),
                 'all' => new TypePairCollection(
                     $sort,
                     array(
                         new TypePair(
-                            new MimeAbsentType(0),
-                            new MimeType('text', 'html', 0.5)
+                            new MimeType('', '', 0, MimeType::ABSENT_TYPE),
+                            new MimeType('text', 'html', 0.5, MimeType::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new MimeAbsentType(0),
-                            new MimeType('text', 'n3', 0.5)
+                            new MimeType('', '', 0, MimeType::ABSENT_TYPE),
+                            new MimeType('text', 'n3', 0.5, MimeType::EXACT_TYPE)
                         )
                     )
                 )
@@ -649,27 +644,27 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => 'application/xml;q=0.8,application/json;q=0.3,text/html;q=0.5',
                 'app' => 'application/json;q=0.6,text/n3;q=0.9,text/html;q=0.3',
                 'best' => new TypePair(
-                    new MimeType('application', 'json', 0.3),
-                    new MimeType('application', 'json', 0.6)
+                    new MimeType('application', 'json', 0.3, MimeType::EXACT_TYPE),
+                    new MimeType('application', 'json', 0.6, MimeType::EXACT_TYPE)
                 ),
                 'all' => new TypePairCollection(
                     $sort,
                     array(
                         new TypePair(
-                            new MimeType('application', 'json', 0.3),
-                            new MimeType('application', 'json', 0.6)
+                            new MimeType('application', 'json', 0.3, MimeType::EXACT_TYPE),
+                            new MimeType('application', 'json', 0.6, MimeType::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new MimeType('text', 'html', 0.5),
-                            new MimeType('text', 'html', 0.3)
+                            new MimeType('text', 'html', 0.5, MimeType::EXACT_TYPE),
+                            new MimeType('text', 'html', 0.3, MimeType::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new MimeType('application', 'xml', 0.8),
-                            new MimeAbsentType(0)
+                            new MimeType('application', 'xml', 0.8, MimeType::EXACT_TYPE),
+                            new MimeType('', '', 0, MimeType::ABSENT_TYPE)
                         ),
                         new TypePair(
-                            new MimeAbsentType(0),
-                            new MimeType('text', 'n3', 0.9)
+                            new MimeType('', '', 0, MimeType::ABSENT_TYPE),
+                            new MimeType('text', 'n3', 0.9, MimeType::EXACT_TYPE)
                         )
                     )
                 )
@@ -680,23 +675,23 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => 'text/*;q=0.8,application/xml;q=0.9',
                 'app' => 'text/html,application/xml;q=0.7,text/n3;q=0.3',
                 'best' => new TypePair(
-                    new MimeWildcardSubType('text', 0.8),
-                    new MimeType('text', 'html', 1)
+                    new MimeType('text', '*', 0.8, MimeType::WILDCARD_SUBTYPE),
+                    new MimeType('text', 'html', 1, MimeType::EXACT_TYPE)
                 ),
                 'all' => new TypePairCollection(
                     $sort,
                     array(
                         new TypePair(
-                            new MimeWildcardSubType('text', 0.8),
-                            new MimeType('text', 'html', 1)
+                            new MimeType('text', '*', 0.8, MimeType::WILDCARD_SUBTYPE),
+                            new MimeType('text', 'html', 1, MimeType::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new MimeType('application', 'xml', 0.9),
-                            new MimeType('application', 'xml', 0.7)
+                            new MimeType('application', 'xml', 0.9, MimeType::EXACT_TYPE),
+                            new MimeType('application', 'xml', 0.7, MimeType::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new MimeWildcardSubType('text', 0.8),
-                            new MimeType('text', 'n3', 0.3)
+                            new MimeType('text', '*', 0.8, MimeType::WILDCARD_SUBTYPE),
+                            new MimeType('text', 'n3', 0.3, MimeType::EXACT_TYPE)
                         )
                     )
                 )
@@ -708,23 +703,23 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => 'text/*;q=0.75,text/html',
                 'app' => 'text/plain,text/html;q=0.75,application/xml;q=0.9',
                 'best' => new TypePair(
-                    new MimeType('text', 'html', 1),
-                    new MimeType('text', 'html', 0.75)
+                    new MimeType('text', 'html', 1, MimeType::EXACT_TYPE),
+                    new MimeType('text', 'html', 0.75, MimeType::EXACT_TYPE)
                 ),
                 'all' => new TypePairCollection(
                     $sort,
                     array(
                         new TypePair(
-                            new MimeType('text', 'html', 1),
-                            new MimeType('text', 'html', 0.75)
+                            new MimeType('text', 'html', 1, MimeType::EXACT_TYPE),
+                            new MimeType('text', 'html', 0.75, MimeType::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new MimeWildcardSubType('text', 0.75),
-                            new MimeType('text', 'plain', 1)
+                            new MimeType('text', '*', 0.75, MimeType::WILDCARD_SUBTYPE),
+                            new MimeType('text', 'plain', 1, MimeType::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new MimeAbsentType(0),
-                            new MimeType('application', 'xml', 0.9)
+                            new MimeType('', '', 0, MimeType::ABSENT_TYPE),
+                            new MimeType('application', 'xml', 0.9, MimeType::EXACT_TYPE)
                         )
                     )
                 )
@@ -735,23 +730,23 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => '*/*;q=0.75,text/html',
                 'app' => 'text/plain,text/html;q=0.75,application/xml;q=0.9',
                 'best' => new TypePair(
-                    new MimeType('text', 'html', 1),
-                    new MimeType('text', 'html', 0.75)
+                    new MimeType('text', 'html', 1, MimeType::EXACT_TYPE),
+                    new MimeType('text', 'html', 0.75, MimeType::EXACT_TYPE)
                 ),
                 'all' => new TypePairCollection(
                     $sort,
                     array(
                         new TypePair(
-                            new MimeType('text', 'html', 1),
-                            new MimeType('text', 'html', 0.75)
+                            new MimeType('text', 'html', 1, MimeType::EXACT_TYPE),
+                            new MimeType('text', 'html', 0.75, MimeType::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new MimeWildcardType(0.75),
-                            new MimeType('text', 'plain', 1)
+                            new MimeType('*', '*', 0.75, MimeType::WILDCARD_TYPE),
+                            new MimeType('text', 'plain', 1, MimeType::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new MimeWildcardType(0.75),
-                            new MimeType('application', 'xml', 0.9)
+                            new MimeType('*', '*', 0.75, MimeType::WILDCARD_TYPE),
+                            new MimeType('application', 'xml', 0.9, MimeType::EXACT_TYPE)
                         )
                     )
                 )
@@ -764,23 +759,23 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => '*/*,text/*,text/html',
                 'app' => 'text/plain,text/html,application/xml',
                 'best' => new TypePair(
-                    new MimeType('text', 'html', 1),
-                    new MimeType('text', 'html', 1)
+                    new MimeType('text', 'html', 1, MimeType::EXACT_TYPE),
+                    new MimeType('text', 'html', 1, MimeType::EXACT_TYPE)
                 ),
                 'all' => new TypePairCollection(
                     $sort,
                     array(
                         new TypePair(
-                            new MimeType('text', 'html', 1),
-                            new MimeType('text', 'html', 1)
+                            new MimeType('text', 'html', 1, MimeType::EXACT_TYPE),
+                            new MimeType('text', 'html', 1, MimeType::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new MimeWildcardSubType('text', 1),
-                            new MimeType('text', 'plain', 1)
+                            new MimeType('text', '*', 1, MimeType::WILDCARD_SUBTYPE),
+                            new MimeType('text', 'plain', 1, MimeType::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new MimeWildcardType(1),
-                            new MimeType('application', 'xml', 1)
+                            new MimeType('*', '*', 1, MimeType::WILDCARD_TYPE),
+                            new MimeType('application', 'xml', 1, MimeType::EXACT_TYPE)
                         )
                     )
                 )

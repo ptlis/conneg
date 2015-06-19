@@ -16,12 +16,10 @@ namespace ptlis\ConNeg\Negotiator;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Collection\TypePairCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
+use ptlis\ConNeg\Type\MimeType;
 use ptlis\ConNeg\TypePair\TypePair;
 use ptlis\ConNeg\TypePair\TypePairInterface;
 use ptlis\ConNeg\Type\MimeTypeInterface;
-use ptlis\ConNeg\Type\MimeWildcardSubType;
-use ptlis\ConNeg\Type\MimeWildcardType;
-use ptlis\ConNeg\Type\TypeInterface;
 
 /**
  * Class for negotiating on mime types.
@@ -31,7 +29,7 @@ class MimeNegotiator implements NegotiatorInterface
     /**
      * Empty type instance, used when only user & app types are asymmetric.
      *
-     * @var TypeInterface
+     * @var MimeTypeInterface
      */
     private $emptyType;
 
@@ -46,10 +44,10 @@ class MimeNegotiator implements NegotiatorInterface
     /**
      * Constructor.
      *
-     * @param TypeInterface $emptyType
+     * @param MimeTypeInterface $emptyType
      * @param TypePairSort $pairSort
      */
-    public function __construct(TypeInterface $emptyType, TypePairSort $pairSort)
+    public function __construct(MimeTypeInterface $emptyType, TypePairSort $pairSort)
     {
         $this->emptyType  = $emptyType;
         $this->pairSort     = $pairSort;
@@ -76,10 +74,8 @@ class MimeNegotiator implements NegotiatorInterface
 
         $matchingList = $this->matchUserListToAppTypes($userTypeList, $matchingList);
 
-        $pairList = array();
-        foreach ($matchingList as $matching) {
-            $pairList[] = $matching;
-        }
+        $pairList = array_values($matchingList);
+
         $pairCollection = new TypePairCollection($this->pairSort, $pairList);
 
         return $pairCollection->getDescending();
@@ -199,12 +195,12 @@ class MimeNegotiator implements NegotiatorInterface
     {
         switch (true) {
             // Full Wildcard Match
-            case $userType instanceof MimeWildcardType:
+            case MimeType::WILDCARD_TYPE === $userType->getPrecedence():
                 $matchingList = $this->matchFullWildcard($matchingList, $userType);
                 break;
 
             // Wildcard SubType Match
-            case $userType instanceof MimeWildcardSubType:
+            case MimeType::WILDCARD_SUBTYPE === $userType->getPrecedence():
                 $matchingList = $this->matchSubTypeWildcard($matchingList, $userType);
                 break;
 

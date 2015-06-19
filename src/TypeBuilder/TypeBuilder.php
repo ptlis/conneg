@@ -14,13 +14,10 @@
 namespace ptlis\ConNeg\TypeBuilder;
 
 use ptlis\ConNeg\Exception\InvalidTypeException;
-use ptlis\ConNeg\Exception\QualityFactorException;
-use ptlis\ConNeg\Type\AbsentType;
 use ptlis\ConNeg\Type\Extens\AcceptExtens;
 use ptlis\ConNeg\Type\Extens\AcceptExtensInterface;
 use ptlis\ConNeg\Type\Type;
 use ptlis\ConNeg\Type\TypeInterface;
-use ptlis\ConNeg\Type\WildcardType;
 
 /**
  * Type builder for shared functionality.
@@ -148,7 +145,7 @@ class TypeBuilder implements TypeBuilderInterface
     {
         switch ($this->type) {
             case '':
-                $type = new AbsentType(0);
+                $type = new Type('', 0, Type::ABSENT_TYPE);
                 break;
 
             case '*':
@@ -214,7 +211,7 @@ class TypeBuilder implements TypeBuilderInterface
      *
      * @throws InvalidTypeException
      *
-     * @return WildcardType
+     * @return Type
      */
     private function getWildcard()
     {
@@ -224,7 +221,7 @@ class TypeBuilder implements TypeBuilderInterface
             );
         }
 
-        return new WildcardType($this->qFactor);
+        return new Type('*', $this->qFactor, Type::WILDCARD_TYPE);
     }
 
     /**
@@ -245,6 +242,6 @@ class TypeBuilder implements TypeBuilderInterface
      */
     protected function getType()
     {
-        return new Type($this->type, $this->qFactor);
+        return new Type($this->type, $this->qFactor, Type::EXACT_TYPE);
     }
 }

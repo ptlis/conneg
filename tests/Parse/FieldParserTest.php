@@ -51,9 +51,9 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = new TypeCollection(array(
-            new MimeType('application', 'atom+xml', 0.8),
-            new MimeType('text', 'html', 0.3),
-            new MimeType('application', 'rss+xml', 1)
+            new MimeType('application', 'atom+xml', 0.8, MimeType::EXACT_TYPE),
+            new MimeType('text', 'html', 0.3, MimeType::EXACT_TYPE),
+            new MimeType('application', 'rss+xml', 1, MimeType::EXACT_TYPE)
         ));
 
         $builder = new MimeTypeBuilder();
@@ -93,9 +93,9 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = new TypeCollection(array(
-            new MimeType('application', 'atom+xml', 0.8),
-            new MimeType('text', 'html', 0.3, array(new AcceptExtens('1', 'level'))),
-            new MimeType('application', 'rss+xml', 1)
+            new MimeType('application', 'atom+xml', 0.8, MimeType::EXACT_TYPE),
+            new MimeType('text', 'html', 0.3, MimeType::EXACT_TYPE, array(new AcceptExtens('1', 'level'))),
+            new MimeType('application', 'rss+xml', 1, MimeType::EXACT_TYPE)
         ));
 
         $builder = new MimeTypeBuilder();
@@ -142,9 +142,9 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = new TypeCollection(array(
-            new MimeType('application', 'atom+xml', 0.8),
-            new MimeType('text', 'html', 0.3, $extensList),
-            new MimeType('application', 'rss+xml', 1)
+            new MimeType('application', 'atom+xml', 0.8, MimeType::EXACT_TYPE),
+            new MimeType('text', 'html', 0.3, MimeType::EXACT_TYPE, $extensList),
+            new MimeType('application', 'rss+xml', 1, MimeType::EXACT_TYPE)
         ));
 
         $builder = new MimeTypeBuilder();
@@ -193,9 +193,9 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = new TypeCollection(array(
-            new MimeType('application', 'atom+xml', 0.8),
-            new MimeType('text', 'html', 0.3, $extensList),
-            new MimeType('application', 'rss+xml', 1)
+            new MimeType('application', 'atom+xml', 0.8, MimeType::EXACT_TYPE),
+            new MimeType('text', 'html', 0.3, MimeType::EXACT_TYPE, $extensList),
+            new MimeType('application', 'rss+xml', 1, MimeType::EXACT_TYPE)
         ));
 
         $builder = new MimeTypeBuilder();
@@ -242,11 +242,6 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             'rss+xml',
         );
 
-        $extensList = array(
-            new AcceptExtens('1', 'level'),
-            new AcceptExtens('"bar,;/="', 'foo')
-        );
-
         $builder = new MimeTypeBuilder();
         $parser = new FieldParser($builder, true);
 
@@ -289,9 +284,9 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = new TypeCollection(array(
-            new MimeType('application', 'atom+xml', 0.8),
-            new MimeType('text', 'html', 0.3, $extensList),
-            new MimeType('application', 'rss+xml', 1)
+            new MimeType('application', 'atom+xml', 0.8, MimeType::EXACT_TYPE),
+            new MimeType('text', 'html', 0.3, MimeType::EXACT_TYPE, $extensList),
+            new MimeType('application', 'rss+xml', 1, MimeType::EXACT_TYPE)
         ));
 
         $builder = new MimeTypeBuilder();
@@ -377,8 +372,8 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = new TypeCollection(array(
-            new Type('iso-8859-5', 1),
-            new Type('utf-8', 0.9),
+            new Type('iso-8859-5', 1, Type::EXACT_TYPE),
+            new Type('utf-8', 0.9, Type::EXACT_TYPE),
         ));
 
         $builder = new TypeBuilder();
@@ -403,8 +398,8 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = new TypeCollection(array(
-            new Type('iso-8859-5', 1),
-            new Type('utf-8', 0.9),
+            new Type('iso-8859-5', 1, Type::EXACT_TYPE),
+            new Type('utf-8', 0.9, Type::EXACT_TYPE),
         ));
 
         $builder = new TypeBuilder();
@@ -429,8 +424,8 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = new TypeCollection(array(
-            new Type('iso-8859-5', 1),
-            new Type('utf-8', 0.9),
+            new Type('iso-8859-5', 1, Type::EXACT_TYPE),
+            new Type('utf-8', 0.9, Type::EXACT_TYPE),
         ));
 
         $builder = new TypeBuilder();

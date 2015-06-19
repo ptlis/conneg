@@ -14,11 +14,8 @@
 namespace ptlis\ConNeg\TypeBuilder;
 
 use ptlis\ConNeg\Exception\InvalidTypeException;
-use ptlis\ConNeg\Type\MimeAbsentType;
 use ptlis\ConNeg\Type\MimeType;
-use ptlis\ConNeg\Type\MimeWildcardSubType;
-use ptlis\ConNeg\Type\MimeWildcardType;
-use ptlis\ConNeg\Type\TypeInterface;
+use ptlis\ConNeg\Type\MimeTypeInterface;
 
 /**
  * Concrete builder for Mime type.
@@ -30,14 +27,14 @@ class MimeTypeBuilder extends TypeBuilder
      *
      * @throws InvalidTypeException
      *
-     * @return TypeInterface
+     * @return MimeTypeInterface
      */
     public function get()
     {
         switch (true) {
             // Absent Type
             case 0 === strlen($this->type):
-                $type = new MimeAbsentType(0);
+                $type = new MimeType('', '', 0, MimeType::ABSENT_TYPE);
                 break;
 
             // Type & subtype present
@@ -116,29 +113,21 @@ class MimeTypeBuilder extends TypeBuilder
      *
      * @throws InvalidTypeException
      *
-     * @return TypeInterface
+     * @return MimeTypeInterface
      */
     protected function getType()
     {
         $explodedType = explode('/', $this->type);
         list($mimeType, $subType) = $explodedType;
 
-        switch (true) {
-            // Full wildcard type
-            case $mimeType === '*':
-                $type = new MimeWildcardType($this->qFactor);
-                break;
+        $precedence = MimeType::EXACT_TYPE;
 
-            // Wildcard subtype
-            case $subType === '*':
-                $type = new MimeWildcardSubType($mimeType, $this->qFactor);
-                break;
-
-            default:
-                $type = new MimeType($mimeType, $subType, $this->qFactor, $this->acceptExtensList);
-                break;
+        if ('*' === $mimeType) {
+            $precedence = MimeType::WILDCARD_TYPE;
+        } elseif ('*' === $subType) {
+            $precedence = MimeType::WILDCARD_SUBTYPE;
         }
 
-        return $type;
+        return new MimeType($mimeType, $subType, $this->qFactor, $precedence, $this->acceptExtensList);
     }
 }

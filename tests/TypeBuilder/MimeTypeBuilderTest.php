@@ -28,6 +28,7 @@ class MimeTypeBuilderTest extends \PHPUnit_Framework_TestCase
             'text',
             'html',
             1,
+            MimeType::EXACT_TYPE,
             array(new AcceptExtens('4', 'level'))
         );
 
@@ -113,7 +114,8 @@ class MimeTypeBuilderTest extends \PHPUnit_Framework_TestCase
         $expected = new MimeType(
             'text',
             'html',
-            1
+            1,
+            MimeType::EXACT_TYPE
         );
 
         $builder = new MimeTypeBuilder();

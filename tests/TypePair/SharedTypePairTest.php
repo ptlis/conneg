@@ -16,7 +16,6 @@
 namespace ptlis\ConNeg\Test\TypePair;
 
 use ptlis\ConNeg\Type\Type;
-use ptlis\ConNeg\Type\WildcardType;
 use ptlis\ConNeg\TypePair\TypePair;
 
 class SharedTypePairTest extends \PHPUnit_Framework_TestCase
@@ -24,12 +23,12 @@ class SharedTypePairTest extends \PHPUnit_Framework_TestCase
     public function testNewCharsetTypeOne()
     {
         $pair = new TypePair(
-            new Type('utf-8', 0.5),
-            new WildcardType(0.3)
+            new Type('utf-8', 0.5, Type::EXACT_TYPE),
+            new Type('*', 0.3, Type::WILDCARD_TYPE)
         );
 
         $this->assertSame('utf-8', $pair->getType());
-        $this->assertSame(1, $pair->getPrecedence());
+        $this->assertSame(2, $pair->getPrecedence());
         $this->assertSame('utf-8;q=0.15', $pair->__toString());
     }
 
@@ -37,12 +36,12 @@ class SharedTypePairTest extends \PHPUnit_Framework_TestCase
     public function testNewCharsetTypeTwo()
     {
         $pair = new TypePair(
-            new WildcardType(0.3),
-            new Type('utf-8', 0.5)
+            new Type('*', 0.3, Type::WILDCARD_TYPE),
+            new Type('utf-8', 0.5, Type::EXACT_TYPE)
         );
 
         $this->assertSame('utf-8', $pair->getType());
-        $this->assertSame(1, $pair->getPrecedence());
+        $this->assertSame(2, $pair->getPrecedence());
         $this->assertSame('utf-8;q=0.15', $pair->__toString());
     }
 }

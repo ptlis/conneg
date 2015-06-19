@@ -18,6 +18,11 @@ namespace ptlis\ConNeg\Type;
  */
 class Type implements TypeInterface
 {
+    const ABSENT_TYPE = -1;
+    const WILDCARD_TYPE = 0;
+    const WILDCARD_PARTIAL_LANG = 1;
+    const EXACT_TYPE = 2;
+
     /**
      * The name of the type.
      *
@@ -45,12 +50,13 @@ class Type implements TypeInterface
      *
      * @param string $type
      * @param float $qFactor
+     * @param int $precedence
      */
-    public function __construct($type, $qFactor)
+    public function __construct($type, $qFactor, $precedence)
     {
         $this->type = $type;
         $this->qFactor = $qFactor;
-        $this->precedence = 1;
+        $this->precedence = $precedence;
     }
 
     /**
@@ -90,6 +96,10 @@ class Type implements TypeInterface
      */
     public function __toString()
     {
-        return $this->getType() . ';q=' . $this->getQualityFactor();
+        $str = '';
+        if (strlen($this->getType())) {
+            $str = $this->getType() . ';q=' . $this->getQualityFactor();
+        }
+        return $str;
     }
 }
