@@ -13,8 +13,6 @@
 
 namespace ptlis\ConNeg\TypePair;
 
-use ptlis\ConNeg\QualityFactor\QualityFactor;
-use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
 use ptlis\ConNeg\Type\TypeInterface;
 
 /**
@@ -86,13 +84,11 @@ class TypePair implements TypePairInterface
     /**
      * Returns the product of the application & user-agent quality factors.
      *
-     * @return QualityFactorInterface
+     * @return float
      */
     public function getQualityFactor()
     {
-        return new QualityFactor(
-            $this->userType->getQualityFactor()->getFactor() * $this->appType->getQualityFactor()->getFactor()
-        );
+        return $this->userType->getQualityFactor() * $this->appType->getQualityFactor();
     }
 
     /**

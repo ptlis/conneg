@@ -13,8 +13,6 @@
 
 namespace ptlis\ConNeg\Type;
 
-use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
-
 /**
  * Interface for types.
  */
@@ -37,7 +35,7 @@ interface TypeInterface
     /**
      * Returns the quality factor for the type.
      *
-     * @return QualityFactorInterface
+     * @return float
      */
     public function getQualityFactor();
 

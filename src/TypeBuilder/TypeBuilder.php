@@ -15,8 +15,6 @@ namespace ptlis\ConNeg\TypeBuilder;
 
 use ptlis\ConNeg\Exception\InvalidTypeException;
 use ptlis\ConNeg\Exception\QualityFactorException;
-use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
-use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
 use ptlis\ConNeg\Type\AbsentType;
 use ptlis\ConNeg\Type\Extens\AcceptExtens;
 use ptlis\ConNeg\Type\Extens\AcceptExtensInterface;
@@ -37,13 +35,6 @@ class TypeBuilder implements TypeBuilderInterface
     protected $appType;
 
     /**
-     * Factory for creating quality factor value objects from floats.
-     *
-     * @var QualityFactorFactory
-     */
-    protected $qFactorFactory;
-
-    /**
      * The name of the type.
      *
      * @var string
@@ -53,7 +44,7 @@ class TypeBuilder implements TypeBuilderInterface
     /**
      * The quality factor associated with the type.
      *
-     * @var QualityFactorInterface
+     * @var float
      */
     protected $qFactor;
 
@@ -67,12 +58,9 @@ class TypeBuilder implements TypeBuilderInterface
 
     /**
      * Constructor
-     *
-     * @param QualityFactorFactory $qFactorFactory
      */
-    public function __construct(QualityFactorFactory $qFactorFactory)
+    public function __construct()
     {
-        $this->qFactorFactory = $qFactorFactory;
         $this->setDefaults();
     }
 
@@ -113,15 +101,13 @@ class TypeBuilder implements TypeBuilderInterface
     /**
      * Set the quality factor.
      *
-     * @throws QualityFactorException
-     *
      * @param float $qFactor
      *
      * @return TypeBuilderInterface
      */
     public function setQualityFactor($qFactor)
     {
-        $this->qFactor = $this->qFactorFactory->get($qFactor, $this->appType);
+        $this->qFactor = $qFactor;
 
         return $this;
     }
@@ -162,7 +148,7 @@ class TypeBuilder implements TypeBuilderInterface
     {
         switch ($this->type) {
             case '':
-                $type = new AbsentType($this->qFactorFactory->get(0, $this->appType));
+                $type = new AbsentType(0);
                 break;
 
             case '*':
@@ -248,7 +234,7 @@ class TypeBuilder implements TypeBuilderInterface
     {
         $this->appType = false;
         $this->type = '';
-        $this->qFactor = $this->qFactorFactory->get(1, $this->appType);
+        $this->qFactor = 1;
         $this->acceptExtensList = array();
     }
 

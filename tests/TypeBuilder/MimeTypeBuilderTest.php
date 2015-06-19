@@ -13,8 +13,6 @@
 
 namespace ptlis\ConNeg\Test\TypeBuilder;
 
-use ptlis\ConNeg\QualityFactor\QualityFactor;
-use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
 use ptlis\ConNeg\Type\Extens\AcceptExtens;
 use ptlis\ConNeg\Type\MimeType;
 use ptlis\ConNeg\TypeBuilder\MimeTypeBuilder;
@@ -29,11 +27,11 @@ class MimeTypeBuilderTest extends \PHPUnit_Framework_TestCase
         $expected = new MimeType(
             'text',
             'html',
-            new QualityFactor(1),
+            1,
             array(new AcceptExtens('4', 'level'))
         );
 
-        $builder = new MimeTypeBuilder(new QualityFactorFactory());
+        $builder = new MimeTypeBuilder();
 
         $real = $builder
             ->setAppType(true)
@@ -52,7 +50,7 @@ class MimeTypeBuilderTest extends \PHPUnit_Framework_TestCase
             '"foo" is not a valid mime type'
         );
 
-        $builder = new MimeTypeBuilder(new QualityFactorFactory());
+        $builder = new MimeTypeBuilder();
 
         $builder
             ->setAppType(true)
@@ -68,7 +66,7 @@ class MimeTypeBuilderTest extends \PHPUnit_Framework_TestCase
             'Wildcards are not valid in application-provided types.'
         );
 
-        $builder = new MimeTypeBuilder(new QualityFactorFactory());
+        $builder = new MimeTypeBuilder();
 
         $builder
             ->setAppType(true)
@@ -84,7 +82,7 @@ class MimeTypeBuilderTest extends \PHPUnit_Framework_TestCase
             '"*/html" is not a valid mime type.'
         );
 
-        $builder = new MimeTypeBuilder(new QualityFactorFactory());
+        $builder = new MimeTypeBuilder();
 
         $builder
             ->setAppType(false)
@@ -100,7 +98,7 @@ class MimeTypeBuilderTest extends \PHPUnit_Framework_TestCase
             'Malformed accept-extens "foo=" found'
         );
 
-        $builder = new MimeTypeBuilder(new QualityFactorFactory());
+        $builder = new MimeTypeBuilder();
 
         $builder
             ->setAppType(true)
@@ -115,10 +113,10 @@ class MimeTypeBuilderTest extends \PHPUnit_Framework_TestCase
         $expected = new MimeType(
             'text',
             'html',
-            new QualityFactor(1)
+            1
         );
 
-        $builder = new MimeTypeBuilder(new QualityFactorFactory());
+        $builder = new MimeTypeBuilder();
 
         $real = $builder
             ->setAppType(false)

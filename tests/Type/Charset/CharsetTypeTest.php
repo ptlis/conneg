@@ -15,17 +15,16 @@
 
 namespace ptlis\ConNeg\Test\Type\Charset;
 
-use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\Type;
 
 class CharsetTypeTest extends \PHPUnit_Framework_TestCase
 {
     public function testNewCharsetType()
     {
-        $type = new Type('utf-8', new QualityFactor(0.8));
+        $type = new Type('utf-8', 0.8);
 
         $this->assertSame('utf-8', $type->getType());
-        $this->assertSame(0.8, $type->getQualityFactor()->getFactor());
+        $this->assertSame(0.8, $type->getQualityFactor());
         $this->assertSame('utf-8;q=0.8', $type->__toString());
         $this->assertSame(1, $type->getPrecedence());
     }
@@ -33,10 +32,10 @@ class CharsetTypeTest extends \PHPUnit_Framework_TestCase
 
     public function testNewCharsetTypeOmitQualityFactor()
     {
-        $type = new Type('utf-8', new QualityFactor(1));
+        $type = new Type('utf-8', 1);
 
         $this->assertSame('utf-8', $type->getType());
-        $this->assertSame(1, $type->getQualityFactor()->getFactor());
+        $this->assertSame(1, $type->getQualityFactor());
         $this->assertSame('utf-8;q=1', $type->__toString());
         $this->assertSame(1, $type->getPrecedence());
     }
@@ -44,7 +43,7 @@ class CharsetTypeTest extends \PHPUnit_Framework_TestCase
 
     public function testCloneCharsetType()
     {
-        $type = new Type('utf-8', new QualityFactor(1));
+        $type = new Type('utf-8', 1);
 
         $cloneType = clone $type;
 

@@ -13,7 +13,6 @@
 
 namespace ptlis\ConNeg\Type;
 
-use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
 use ptlis\ConNeg\Type\Extens\AcceptExtensInterface;
 
 /**
@@ -38,7 +37,7 @@ class MimeType implements MimeTypeInterface
     /**
      * The quality factor associated with this type.
      *
-     * @var QualityFactorInterface
+     * @var float
      */
     private $qFactor;
 
@@ -62,10 +61,10 @@ class MimeType implements MimeTypeInterface
      *
      * @param string $type
      * @param string $subType
-     * @param QualityFactorInterface $qFactor
+     * @param float $qFactor
      * @param AcceptExtensInterface[] $acceptExtensList
      */
-    public function __construct($type, $subType, QualityFactorInterface $qFactor, array $acceptExtensList = array())
+    public function __construct($type, $subType, $qFactor, array $acceptExtensList = array())
     {
         $this->type = $type;
         $this->subType = $subType;
@@ -117,7 +116,7 @@ class MimeType implements MimeTypeInterface
     /**
      * Returns the quality factor for the type.
      *
-     * @return QualityFactorInterface
+     * @return float
      */
     public function getQualityFactor()
     {

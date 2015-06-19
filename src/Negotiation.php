@@ -22,7 +22,6 @@ use ptlis\ConNeg\Negotiator\MimeNegotiator;
 use ptlis\ConNeg\Negotiator\Negotiator;
 use ptlis\ConNeg\Parse\FieldParser;
 use ptlis\ConNeg\Parse\FieldTokenizer;
-use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
 use ptlis\ConNeg\TypeBuilder\MimeTypeBuilder;
 use ptlis\ConNeg\TypeBuilder\TypeBuilder;
 use ptlis\ConNeg\TypePair\TypePair;
@@ -74,11 +73,8 @@ class Negotiation
      */
     public function __construct()
     {
-        // Prepare dependencies
-        $qualityFactorFactory = new QualityFactorFactory();
-
-        $stdTypeBuilder = new TypeBuilder($qualityFactorFactory);
-        $mimeTypeBuilder = new MimeTypeBuilder($qualityFactorFactory);
+        $stdTypeBuilder = new TypeBuilder();
+        $mimeTypeBuilder = new MimeTypeBuilder();
 
         $this->tokenizer = new FieldTokenizer();
 

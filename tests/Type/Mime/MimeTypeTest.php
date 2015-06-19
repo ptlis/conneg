@@ -15,19 +15,18 @@
 
 namespace ptlis\ConNeg\Test\Type\Mime;
 
-use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\MimeType;
 
 class MimeTypeTest extends \PHPUnit_Framework_TestCase
 {
     public function testNewCharsetType()
     {
-        $type = new MimeType('text', 'html', new QualityFactor(0.8));
+        $type = new MimeType('text', 'html', 0.8);
 
         $this->assertSame('text/html', $type->getType());
         $this->assertSame('text', $type->getMimeType());
         $this->assertSame('html', $type->getMimeSubType());
-        $this->assertSame(0.8, $type->getQualityFactor()->getFactor());
+        $this->assertSame(0.8, $type->getQualityFactor());
         $this->assertSame('text/html;q=0.8', $type->__toString());
         $this->assertSame(2, $type->getPrecedence());
         $this->assertSame(array(), $type->getExtens());
@@ -36,12 +35,12 @@ class MimeTypeTest extends \PHPUnit_Framework_TestCase
 
     public function testNewCharsetTypeOmitQualityFactor()
     {
-        $type = new MimeType('application', 'xml', new QualityFactor(1));
+        $type = new MimeType('application', 'xml', 1);
 
         $this->assertSame('application/xml', $type->getType());
         $this->assertSame('application', $type->getMimeType());
         $this->assertSame('xml', $type->getMimeSubType());
-        $this->assertSame(1, $type->getQualityFactor()->getFactor());
+        $this->assertSame(1, $type->getQualityFactor());
         $this->assertSame('application/xml;q=1', $type->__toString());
         $this->assertSame(2, $type->getPrecedence());
         $this->assertSame(array(), $type->getExtens());
@@ -50,7 +49,7 @@ class MimeTypeTest extends \PHPUnit_Framework_TestCase
 
     public function testCloneCharsetType()
     {
-        $type = new MimeType('text', 'html', new QualityFactor(1));
+        $type = new MimeType('text', 'html', 1);
 
         $cloneType = clone $type;
 

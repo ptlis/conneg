@@ -15,8 +15,6 @@ namespace ptlis\ConNeg\Test\Parse;
 
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Parse\FieldParser;
-use ptlis\ConNeg\QualityFactor\QualityFactor;
-use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
 use ptlis\ConNeg\Type\Extens\AcceptExtens;
 use ptlis\ConNeg\Type\MimeType;
 use ptlis\ConNeg\Type\Type;
@@ -53,12 +51,12 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = new TypeCollection(array(
-            new MimeType('application', 'atom+xml', new QualityFactor('0.8')),
-            new MimeType('text', 'html', new QualityFactor('0.3')),
-            new MimeType('application', 'rss+xml', new QualityFactor('1'))
+            new MimeType('application', 'atom+xml', 0.8),
+            new MimeType('text', 'html', 0.3),
+            new MimeType('application', 'rss+xml', 1)
         ));
 
-        $builder = new MimeTypeBuilder(new QualityFactorFactory());
+        $builder = new MimeTypeBuilder();
         $parser = new FieldParser($builder, true);
 
         $real = $parser->parse($mimeTokens, true);
@@ -95,12 +93,12 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = new TypeCollection(array(
-            new MimeType('application', 'atom+xml', new QualityFactor('0.8')),
-            new MimeType('text', 'html', new QualityFactor('0.3'), array(new AcceptExtens('1', 'level'))),
-            new MimeType('application', 'rss+xml', new QualityFactor('1'))
+            new MimeType('application', 'atom+xml', 0.8),
+            new MimeType('text', 'html', 0.3, array(new AcceptExtens('1', 'level'))),
+            new MimeType('application', 'rss+xml', 1)
         ));
 
-        $builder = new MimeTypeBuilder(new QualityFactorFactory());
+        $builder = new MimeTypeBuilder();
         $parser = new FieldParser($builder, true);
 
         $real = $parser->parse($mimeTokens, true);
@@ -144,12 +142,12 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = new TypeCollection(array(
-            new MimeType('application', 'atom+xml', new QualityFactor('0.8')),
-            new MimeType('text', 'html', new QualityFactor('0.3'), $extensList),
-            new MimeType('application', 'rss+xml', new QualityFactor('1'))
+            new MimeType('application', 'atom+xml', 0.8),
+            new MimeType('text', 'html', 0.3, $extensList),
+            new MimeType('application', 'rss+xml', 1)
         ));
 
-        $builder = new MimeTypeBuilder(new QualityFactorFactory());
+        $builder = new MimeTypeBuilder();
         $parser = new FieldParser($builder, true);
 
         $real = $parser->parse($mimeTokens, true);
@@ -195,12 +193,12 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = new TypeCollection(array(
-            new MimeType('application', 'atom+xml', new QualityFactor('0.8')),
-            new MimeType('text', 'html', new QualityFactor('0.3'), $extensList),
-            new MimeType('application', 'rss+xml', new QualityFactor('1'))
+            new MimeType('application', 'atom+xml', 0.8),
+            new MimeType('text', 'html', 0.3, $extensList),
+            new MimeType('application', 'rss+xml', 1)
         ));
 
-        $builder = new MimeTypeBuilder(new QualityFactorFactory());
+        $builder = new MimeTypeBuilder();
         $parser = new FieldParser($builder, true);
 
         $real = $parser->parse($mimeTokens, true);
@@ -249,7 +247,7 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             new AcceptExtens('"bar,;/="', 'foo')
         );
 
-        $builder = new MimeTypeBuilder(new QualityFactorFactory());
+        $builder = new MimeTypeBuilder();
         $parser = new FieldParser($builder, true);
 
         $parser->parse($mimeTokens, true);
@@ -291,12 +289,12 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = new TypeCollection(array(
-            new MimeType('application', 'atom+xml', new QualityFactor('0.8')),
-            new MimeType('text', 'html', new QualityFactor('0.3'), $extensList),
-            new MimeType('application', 'rss+xml', new QualityFactor('1'))
+            new MimeType('application', 'atom+xml', 0.8),
+            new MimeType('text', 'html', 0.3, $extensList),
+            new MimeType('application', 'rss+xml', 1)
         ));
 
-        $builder = new MimeTypeBuilder(new QualityFactorFactory());
+        $builder = new MimeTypeBuilder();
         $parser = new FieldParser($builder, true);
 
         $real = $parser->parse($mimeTokens, false);
@@ -316,7 +314,7 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             '/'
         );
 
-        $builder = new MimeTypeBuilder(new QualityFactorFactory());
+        $builder = new MimeTypeBuilder();
         $parser = new FieldParser($builder, true);
 
         $parser->parse($mimeTokens, true);
@@ -338,7 +336,7 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             '0.8'
         );
 
-        $builder = new MimeTypeBuilder(new QualityFactorFactory());
+        $builder = new MimeTypeBuilder();
         $parser = new FieldParser($builder, true);
 
         $parser->parse($mimeTokens, true);
@@ -360,7 +358,7 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             '='
         );
 
-        $builder = new MimeTypeBuilder(new QualityFactorFactory());
+        $builder = new MimeTypeBuilder();
         $parser = new FieldParser($builder, true);
 
         $parser->parse($mimeTokens, true);
@@ -379,11 +377,11 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = new TypeCollection(array(
-            new Type('iso-8859-5', new QualityFactor('1')),
-            new Type('utf-8', new QualityFactor('0.9')),
+            new Type('iso-8859-5', 1),
+            new Type('utf-8', 0.9),
         ));
 
-        $builder = new TypeBuilder(new QualityFactorFactory());
+        $builder = new TypeBuilder();
         $parser = new FieldParser($builder, false);
 
         $real = $parser->parse($stdTokens, true);
@@ -405,11 +403,11 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = new TypeCollection(array(
-            new Type('iso-8859-5', new QualityFactor('1')),
-            new Type('utf-8', new QualityFactor('0.9')),
+            new Type('iso-8859-5', 1),
+            new Type('utf-8', 0.9),
         ));
 
-        $builder = new TypeBuilder(new QualityFactorFactory());
+        $builder = new TypeBuilder();
         $parser = new FieldParser($builder, false);
 
         $real = $parser->parse($stdTokens, true);
@@ -431,11 +429,11 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = new TypeCollection(array(
-            new Type('iso-8859-5', new QualityFactor('1')),
-            new Type('utf-8', new QualityFactor('0.9')),
+            new Type('iso-8859-5', 1),
+            new Type('utf-8', 0.9),
         ));
 
-        $builder = new TypeBuilder(new QualityFactorFactory());
+        $builder = new TypeBuilder();
         $parser = new FieldParser($builder, false);
 
         $real = $parser->parse($stdTokens, true);

@@ -13,8 +13,6 @@
 
 namespace ptlis\ConNeg\Type;
 
-use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
-
 /**
  * Class for representing a wildcard type.
  */
@@ -23,9 +21,9 @@ class WildcardType extends Type
     /**
      * Constructor.
      *
-     * @param QualityFactorInterface $qFactor
+     * @param float $qFactor
      */
-    public function __construct(QualityFactorInterface $qFactor)
+    public function __construct($qFactor)
     {
         parent::__construct('*', $qFactor);
         $this->precedence = 0;

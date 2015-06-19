@@ -13,8 +13,6 @@
 
 namespace ptlis\ConNeg\Type;
 
-use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
-
 /**
  * Class for MIME with wildcard subtype.
  */
@@ -24,9 +22,9 @@ class MimeWildcardSubType extends MimeType
      * Constructor
      *
      * @param string $type
-     * @param QualityFactorInterface $qFactor
+     * @param float $qFactor
      */
-    public function __construct($type, QualityFactorInterface $qFactor)
+    public function __construct($type, $qFactor)
     {
         parent::__construct($type, '*', $qFactor);
         $this->precedence = 1;

@@ -13,8 +13,6 @@
 
 namespace ptlis\ConNeg\Test\TypeBuilder;
 
-use ptlis\ConNeg\QualityFactor\QualityFactor;
-use ptlis\ConNeg\QualityFactor\QualityFactorFactory;
 use ptlis\ConNeg\Type\AbsentType;
 use ptlis\ConNeg\Type\Type;
 use ptlis\ConNeg\Type\WildcardType;
@@ -29,10 +27,10 @@ class StandardTypeBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $expected = new Type(
             'utf-8',
-            new QualityFactor(1)
+            1
         );
 
-        $builder = new TypeBuilder(new QualityFactorFactory());
+        $builder = new TypeBuilder();
 
         $real = $builder
             ->setAppType(true)
@@ -47,10 +45,10 @@ class StandardTypeBuilderTest extends \PHPUnit_Framework_TestCase
     {
         // Absent types should always have a quality factor of 0
         $expected = new AbsentType(
-            new QualityFactor(0)
+            0
         );
 
-        $builder = new TypeBuilder(new QualityFactorFactory());
+        $builder = new TypeBuilder();
 
         $real = $builder
             ->setAppType(true)
@@ -64,10 +62,10 @@ class StandardTypeBuilderTest extends \PHPUnit_Framework_TestCase
     public function testBuildEmptyTypeSuccess()
     {
         $expected = new AbsentType(
-            new QualityFactor(0)
+            0
         );
 
-        $builder = new TypeBuilder(new QualityFactorFactory());
+        $builder = new TypeBuilder();
 
         $real = $builder->getEmpty();
 
@@ -77,10 +75,10 @@ class StandardTypeBuilderTest extends \PHPUnit_Framework_TestCase
     public function testBuildUserWildcardTypeSuccess()
     {
         $expected = new WildcardType(
-            new QualityFactor(0.8)
+            0.8
         );
 
-        $builder = new TypeBuilder(new QualityFactorFactory());
+        $builder = new TypeBuilder();
 
         $real = $builder
             ->setAppType(false)
@@ -98,7 +96,7 @@ class StandardTypeBuilderTest extends \PHPUnit_Framework_TestCase
             'Wildcards are not valid in application-provided types.'
         );
 
-        $builder = new TypeBuilder(new QualityFactorFactory());
+        $builder = new TypeBuilder();
 
         $builder
             ->setAppType(true)
@@ -114,7 +112,7 @@ class StandardTypeBuilderTest extends \PHPUnit_Framework_TestCase
             'Invalid type provided to builder.'
         );
 
-        $builder = new TypeBuilder(new QualityFactorFactory());
+        $builder = new TypeBuilder();
 
         $builder
             ->setAppType(true)

@@ -16,7 +16,6 @@
 namespace ptlis\ConNeg\Test\Collection;
 
 use ptlis\ConNeg\Collection\TypeCollection;
-use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\MimeType;
 
 class TypeCollectionTest extends \PHPUnit_Framework_TestCase
@@ -24,8 +23,8 @@ class TypeCollectionTest extends \PHPUnit_Framework_TestCase
     public function testIterator()
     {
         $expectList = array(
-            new MimeType('text', 'html', new QualityFactor(1)),
-            new MimeType('text', 'n3', new QualityFactor(0.8))
+            new MimeType('text', 'html', 1),
+            new MimeType('text', 'n3', 0.8)
         );
 
         $expectCollection = new TypeCollection($expectList);
@@ -40,8 +39,8 @@ class TypeCollectionTest extends \PHPUnit_Framework_TestCase
     public function testGetAscendingOne()
     {
         $expectList = array(
-            new MimeType('text', 'html', new QualityFactor(1)),
-            new MimeType('text', 'n3', new QualityFactor(0.8))
+            new MimeType('text', 'html', 1),
+            new MimeType('text', 'n3', 0.8)
         );
 
         $expectCollection = new TypeCollection($expectList);
@@ -64,8 +63,8 @@ class TypeCollectionTest extends \PHPUnit_Framework_TestCase
     public function testGetAscendingTwo()
     {
         $expectList = array(
-            new MimeType('text', 'n3', new QualityFactor(0.8)),
-            new MimeType('text', 'html', new QualityFactor(1))
+            new MimeType('text', 'n3', 0.8),
+            new MimeType('text', 'html', 1)
         );
         $expectCollection = new TypeCollection($expectList);
 
@@ -87,8 +86,8 @@ class TypeCollectionTest extends \PHPUnit_Framework_TestCase
     public function testGetAscendingThree()
     {
         $expectList = array(
-            new MimeType('text', 'n3', new QualityFactor(1)),
-            new MimeType('text', 'html', new QualityFactor(1))
+            new MimeType('text', 'n3', 1),
+            new MimeType('text', 'html', 1)
         );
 
         $expectCollection = new TypeCollection($expectList);
@@ -111,8 +110,8 @@ class TypeCollectionTest extends \PHPUnit_Framework_TestCase
     public function testGetDescendingOne()
     {
         $expectList = array(
-            new MimeType('text', 'n3', new QualityFactor(0.8)),
-            new MimeType('text', 'html', new QualityFactor(1))
+            new MimeType('text', 'n3', 0.8),
+            new MimeType('text', 'html', 1)
         );
         $expectCollection = new TypeCollection($expectList);
 
@@ -134,8 +133,8 @@ class TypeCollectionTest extends \PHPUnit_Framework_TestCase
     public function testGetDescendingTwo()
     {
         $expectList = array(
-            new MimeType('text', 'html', new QualityFactor(1)),
-            new MimeType('text', 'n3', new QualityFactor(0.8))
+            new MimeType('text', 'html', 1),
+            new MimeType('text', 'n3', 0.8)
         );
 
         $expectCollection = new TypeCollection($expectList);
@@ -158,8 +157,8 @@ class TypeCollectionTest extends \PHPUnit_Framework_TestCase
     public function testGetDescendingThree()
     {
         $expectList = array(
-            new MimeType('text', 'n3', new QualityFactor(1)),
-            new MimeType('text', 'html', new QualityFactor(1))
+            new MimeType('text', 'n3', 1),
+            new MimeType('text', 'html', 1)
         );
 
         $expectCollection = new TypeCollection($expectList);
@@ -182,8 +181,8 @@ class TypeCollectionTest extends \PHPUnit_Framework_TestCase
     public function testClone()
     {
         $expectList = array(
-            new MimeType('text', 'n3', new QualityFactor(0.8)),
-            new MimeType('text', 'html', new QualityFactor(1))
+            new MimeType('text', 'n3', 0.8),
+            new MimeType('text', 'html', 1)
         );
 
         $collection = new TypeCollection($expectList);
@@ -197,8 +196,8 @@ class TypeCollectionTest extends \PHPUnit_Framework_TestCase
     public function testToString()
     {
         $expectList = array(
-            new MimeType('text', 'n3', new QualityFactor(0.8)),
-            new MimeType('text', 'html', new QualityFactor(1))
+            new MimeType('text', 'n3', 0.8),
+            new MimeType('text', 'html', 1)
         );
 
         $collection = new TypeCollection($expectList);
@@ -209,8 +208,8 @@ class TypeCollectionTest extends \PHPUnit_Framework_TestCase
     public function testCount()
     {
         $expectList = array(
-            new MimeType('text', 'n3', new QualityFactor(0.8)),
-            new MimeType('text', 'html', new QualityFactor(1))
+            new MimeType('text', 'n3', 0.8),
+            new MimeType('text', 'html', 1)
         );
 
         $collection = new TypeCollection($expectList);

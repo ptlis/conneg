@@ -72,7 +72,7 @@ class TypeCollection implements CollectionInterface
         $descSort = function (TypeInterface $lTypePair, TypeInterface $rTypePair) {
             if ($lTypePair->getQualityFactor() < $rTypePair->getQualityFactor()) {
                 return -1;
-            } elseif ($lTypePair->getQualityFactor()->getFactor() === $rTypePair->getQualityFactor()->getFactor()) {
+            } elseif ($lTypePair->getQualityFactor() === $rTypePair->getQualityFactor()) {
                 return strcasecmp($lTypePair->getType(), $rTypePair->getType());
             } else {
                 return 1;
@@ -101,7 +101,7 @@ class TypeCollection implements CollectionInterface
         $descSort = function (TypeInterface $lTypePair, TypeInterface $rTypePair) {
             if ($rTypePair->getQualityFactor() < $lTypePair->getQualityFactor()) {
                 return -1;
-            } elseif ($lTypePair->getQualityFactor()->getFactor() === $rTypePair->getQualityFactor()->getFactor()) {
+            } elseif ($lTypePair->getQualityFactor() === $rTypePair->getQualityFactor()) {
                 return strcasecmp($lTypePair->getType(), $rTypePair->getType());
             } else {
                 return 1;

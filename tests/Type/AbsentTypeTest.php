@@ -15,17 +15,16 @@
 
 namespace ptlis\ConNeg\Test\Type;
 
-use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\AbsentType;
 
 class AbsentTypeTest extends \PHPUnit_Framework_TestCase
 {
     public function testNewCharsetType()
     {
-        $type = new AbsentType(new QualityFactor(0));
+        $type = new AbsentType(0);
 
         $this->assertSame('', $type->getType());
-        $this->assertSame(0, $type->getQualityFactor()->getFactor());
+        $this->assertSame(0, $type->getQualityFactor());
         $this->assertSame('', $type->__toString());
         $this->assertSame(-1, $type->getPrecedence());
     }
@@ -33,7 +32,7 @@ class AbsentTypeTest extends \PHPUnit_Framework_TestCase
 
     public function testCloneCharsetType()
     {
-        $type = new AbsentType(new QualityFactor(0));
+        $type = new AbsentType(0);
 
         $cloneType = clone $type;
 

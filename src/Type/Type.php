@@ -13,8 +13,6 @@
 
 namespace ptlis\ConNeg\Type;
 
-use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
-
 /**
  * Class representing a type.
  */
@@ -30,7 +28,7 @@ class Type implements TypeInterface
     /**
      * The quality factor associated with this type.
      *
-     * @var QualityFactorInterface
+     * @var float
      */
     private $qFactor;
 
@@ -46,9 +44,9 @@ class Type implements TypeInterface
      * Constructor
      *
      * @param string $type
-     * @param QualityFactorInterface $qFactor
+     * @param float $qFactor
      */
-    public function __construct($type, QualityFactorInterface $qFactor)
+    public function __construct($type, $qFactor)
     {
         $this->type = $type;
         $this->qFactor = $qFactor;
@@ -78,7 +76,7 @@ class Type implements TypeInterface
     /**
      * Returns the quality factor for the type.
      *
-     * @return QualityFactorInterface
+     * @return float
      */
     public function getQualityFactor()
     {

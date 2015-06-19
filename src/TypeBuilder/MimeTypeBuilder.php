@@ -37,7 +37,7 @@ class MimeTypeBuilder extends TypeBuilder
         switch (true) {
             // Absent Type
             case 0 === strlen($this->type):
-                $type = new MimeAbsentType($this->qFactorFactory->get(0, $this->appType));
+                $type = new MimeAbsentType(0);
                 break;
 
             // Type & subtype present

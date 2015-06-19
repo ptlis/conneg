@@ -13,8 +13,6 @@
 
 namespace ptlis\ConNeg\Type;
 
-use ptlis\ConNeg\QualityFactor\QualityFactorInterface;
-
 /**
  * Class for absence of a MIME type.
  */
@@ -23,9 +21,9 @@ class MimeAbsentType extends MimeType
     /**
      * Constructor
      *
-     * @param QualityFactorInterface $qFactor
+     * @param float $qFactor
      */
-    public function __construct(QualityFactorInterface $qFactor)
+    public function __construct($qFactor)
     {
         parent::__construct('', '', $qFactor);
         $this->precedence = -1;

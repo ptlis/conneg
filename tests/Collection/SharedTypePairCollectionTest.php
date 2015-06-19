@@ -17,7 +17,6 @@ namespace ptlis\ConNeg\Test\Collection;
 
 use ptlis\ConNeg\Collection\TypePairCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
-use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\Type;
 use ptlis\ConNeg\Type\AbsentType;
 use ptlis\ConNeg\TypePair\TypePair;
@@ -28,19 +27,19 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
     {
         $pairSort = new TypePairSort(
             new TypePair(
-                new AbsentType(new QualityFactor(0)),
-                new AbsentType(new QualityFactor(0))
+                new AbsentType(0),
+                new AbsentType(0)
             )
         );
 
         $expectList = array(
             new TypePair(
-                new Type('utf-8', new QualityFactor(0.9)),
-                new Type('utf-8', new QualityFactor(1))
+                new Type('utf-8', 0.9),
+                new Type('utf-8', 1)
             ),
             new TypePair(
-                new Type('iso-8859-5', new QualityFactor(0.8)),
-                new Type('iso-8859-5', new QualityFactor(0.8))
+                new Type('iso-8859-5', 0.8),
+                new Type('iso-8859-5', 0.8)
             )
         );
 
@@ -57,19 +56,19 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
     {
         $pairSort = new TypePairSort(
             new TypePair(
-                new AbsentType(new QualityFactor(0)),
-                new AbsentType(new QualityFactor(0))
+                new AbsentType(0),
+                new AbsentType(0)
             )
         );
 
         $expectList = array(
             new TypePair(
-                new Type('utf-8', new QualityFactor(0.9)),
-                new Type('utf-8', new QualityFactor(1))
+                new Type('utf-8', 0.9),
+                new Type('utf-8', 1)
             ),
             new TypePair(
-                new Type('iso-8859-5', new QualityFactor(0.8)),
-                new Type('iso-8859-5', new QualityFactor(0.8))
+                new Type('iso-8859-5', 0.8),
+                new Type('iso-8859-5', 0.8)
             )
         );
 
@@ -99,19 +98,19 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
     {
         $pairSort = new TypePairSort(
             new TypePair(
-                new AbsentType(new QualityFactor(0)),
-                new AbsentType(new QualityFactor(0))
+                new AbsentType(0),
+                new AbsentType(0)
             )
         );
 
         $pairList = array(
             new TypePair(
-                new Type('iso-8859-5', new QualityFactor(0.8)),
-                new Type('iso-8859-5', new QualityFactor(0.8))
+                new Type('iso-8859-5', 0.8),
+                new Type('iso-8859-5', 0.8)
             ),
             new TypePair(
-                new Type('utf-8', new QualityFactor(0.9)),
-                new Type('utf-8', new QualityFactor(1))
+                new Type('utf-8', 0.9),
+                new Type('utf-8', 1)
             )
         );
         $collection = new TypePairCollection($pairSort, $pairList);
@@ -140,26 +139,26 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
     {
         $pairSort = new TypePairSort(
             new TypePair(
-                new AbsentType(new QualityFactor(0)),
-                new AbsentType(new QualityFactor(0))
+                new AbsentType(0),
+                new AbsentType(0)
             )
         );
 
         $pairList = array(
             new TypePair(
-                new Type('iso-8859-5', new QualityFactor(0.8)),
-                new Type('iso-8859-5', new QualityFactor(0.8))
+                new Type('iso-8859-5', 0.8),
+                new Type('iso-8859-5', 0.8)
             ),
             new TypePair(
-                new Type('utf-8', new QualityFactor(0.9)),
-                new Type('utf-8', new QualityFactor(1))
+                new Type('utf-8', 0.9),
+                new Type('utf-8', 1)
             )
         );
         $collection = new TypePairCollection($pairSort, $pairList);
 
         $expectPair = new TypePair(
-            new Type('utf-8', new QualityFactor(0.9)),
-            new Type('utf-8', new QualityFactor(1))
+            new Type('utf-8', 0.9),
+            new Type('utf-8', 1)
         );
 
         $bestPair = $collection->getBest();
@@ -172,19 +171,19 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
     {
         $pairSort = new TypePairSort(
             new TypePair(
-                new AbsentType(new QualityFactor(0)),
-                new AbsentType(new QualityFactor(0))
+                new AbsentType(0),
+                new AbsentType(0)
             )
         );
 
         $pairList = array(
             new TypePair(
-                new Type('iso-8859-5', new QualityFactor(0.8)),
-                new Type('iso-8859-5', new QualityFactor(0.8))
+                new Type('iso-8859-5', 0.8),
+                new Type('iso-8859-5', 0.8)
             ),
             new TypePair(
-                new Type('utf-8', new QualityFactor(0.9)),
-                new Type('utf-8', new QualityFactor(1))
+                new Type('utf-8', 0.9),
+                new Type('utf-8', 1)
             )
         );
         $collection = new TypePairCollection($pairSort, $pairList);
@@ -200,19 +199,19 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
     {
         $pairSort = new TypePairSort(
             new TypePair(
-                new AbsentType(new QualityFactor(0)),
-                new AbsentType(new QualityFactor(0))
+                new AbsentType(0),
+                new AbsentType(0)
             )
         );
 
         $pairList = array(
             new TypePair(
-                new Type('iso-8859-5', new QualityFactor(0.8)),
-                new Type('iso-8859-5', new QualityFactor(0.8))
+                new Type('iso-8859-5', 0.8),
+                new Type('iso-8859-5', 0.8)
             ),
             new TypePair(
-                new Type('utf-8', new QualityFactor(0.9)),
-                new Type('utf-8', new QualityFactor(1))
+                new Type('utf-8', 0.9),
+                new Type('utf-8', 1)
             )
         );
         $collection = new TypePairCollection($pairSort, $pairList);
@@ -225,19 +224,19 @@ class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
     {
         $pairSort = new TypePairSort(
             new TypePair(
-                new AbsentType(new QualityFactor(0)),
-                new AbsentType(new QualityFactor(0))
+                new AbsentType(0),
+                new AbsentType(0)
             )
         );
 
         $pairList = array(
             new TypePair(
-                new Type('iso-8859-5', new QualityFactor(0.8)),
-                new Type('iso-8859-5', new QualityFactor(0.8))
+                new Type('iso-8859-5', 0.8),
+                new Type('iso-8859-5', 0.8)
             ),
             new TypePair(
-                new Type('utf-8', new QualityFactor(0.9)),
-                new Type('utf-8', new QualityFactor(1))
+                new Type('utf-8', 0.9),
+                new Type('utf-8', 1)
             )
         );
         $collection = new TypePairCollection($pairSort, $pairList);

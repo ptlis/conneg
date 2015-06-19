@@ -18,7 +18,6 @@ namespace ptlis\ConNeg\Test\BugReport;
 use ptlis\ConNeg\Collection\TypePairCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
 use ptlis\ConNeg\Negotiation;
-use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\MimeAbsentType;
 use ptlis\ConNeg\Type\MimeType;
 use ptlis\ConNeg\TypePair\TypePair;
@@ -35,35 +34,35 @@ class IssueTwoTest extends \PHPUnit_Framework_TestCase
 
         $sort = new TypePairSort(
             new TypePair(
-                new MimeAbsentType(new QualityFactor(0)),
-                new MimeAbsentType(new QualityFactor(0))
+                new MimeAbsentType(0),
+                new MimeAbsentType(0)
             )
         );
 
         $pairList = array(
             new TypePair(
-                new MimeType('text', 'turtle', new QualityFactor(1)),
-                new MimeAbsentType(new QualityFactor(0))
+                new MimeType('text', 'turtle', 1),
+                new MimeAbsentType(0)
             ),
             new TypePair(
-                new MimeType('application', 'rdf+json', new QualityFactor(0.8)),
-                new MimeAbsentType(new QualityFactor(0))
+                new MimeType('application', 'rdf+json', 0.8),
+                new MimeAbsentType(0)
             ),
             new TypePair(
-                new MimeType('application', 'rdf+xml', new QualityFactor(0.8)),
-                new MimeAbsentType(new QualityFactor(0))
+                new MimeType('application', 'rdf+xml', 0.8),
+                new MimeAbsentType(0)
             ),
             new TypePair(
-                new MimeType('text', 'n3', new QualityFactor(0.8)),
-                new MimeAbsentType(new QualityFactor(0))
+                new MimeType('text', 'n3', 0.8),
+                new MimeAbsentType(0)
             ),
             new TypePair(
-                new MimeType('text', 'rdf+n3', new QualityFactor(0.8)),
-                new MimeAbsentType(new QualityFactor(0))
+                new MimeType('text', 'rdf+n3', 0.8),
+                new MimeAbsentType(0)
             ),
             new TypePair(
-                new MimeType('application', 'ld+json', new QualityFactor(0.5)),
-                new MimeAbsentType(new QualityFactor(0))
+                new MimeType('application', 'ld+json', 0.5),
+                new MimeAbsentType(0)
             )
         );
         $expectCollection = new TypePairCollection($sort, $pairList);

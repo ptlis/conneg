@@ -15,19 +15,18 @@
 
 namespace ptlis\ConNeg\Test\Type\Mime;
 
-use ptlis\ConNeg\QualityFactor\QualityFactor;
 use ptlis\ConNeg\Type\MimeWildcardType;
 
 class MimeWildcardTypeTest extends \PHPUnit_Framework_TestCase
 {
     public function testNewCharsetType()
     {
-        $type = new MimeWildcardType(new QualityFactor(0.75));
+        $type = new MimeWildcardType(0.75);
 
         $this->assertSame('*/*', $type->getType());
         $this->assertSame('*', $type->getMimeType());
         $this->assertSame('*', $type->getMimeSubType());
-        $this->assertSame(0.75, $type->getQualityFactor()->getFactor());
+        $this->assertSame(0.75, $type->getQualityFactor());
         $this->assertSame('*/*;q=0.75', $type->__toString());
         $this->assertSame(0, $type->getPrecedence());
     }
@@ -35,12 +34,12 @@ class MimeWildcardTypeTest extends \PHPUnit_Framework_TestCase
 
     public function testNewCharsetTypeOmitQualityFactor()
     {
-        $type = new MimeWildcardType(new QualityFactor(1));
+        $type = new MimeWildcardType(1);
 
         $this->assertSame('*/*', $type->getType());
         $this->assertSame('*', $type->getMimeType());
         $this->assertSame('*', $type->getMimeSubType());
-        $this->assertSame(1, $type->getQualityFactor()->getFactor());
+        $this->assertSame(1, $type->getQualityFactor());
         $this->assertSame('*/*;q=1', $type->__toString());
         $this->assertSame(0, $type->getPrecedence());
     }
@@ -48,7 +47,7 @@ class MimeWildcardTypeTest extends \PHPUnit_Framework_TestCase
 
     public function testCloneCharsetType()
     {
-        $type = new MimeWildcardType(new QualityFactor(1));
+        $type = new MimeWildcardType(1);
 
         $cloneType = clone $type;
 
