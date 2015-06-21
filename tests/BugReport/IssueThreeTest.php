@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Test to verify the no regressions for Issue #3 occur.
- *
  * PHP Version 5.3
  *
  * @copyright   (c) 2006-2015 brian ridley
@@ -21,6 +19,9 @@ use ptlis\ConNeg\Negotiation;
 use ptlis\ConNeg\Type\MimeType;
 use ptlis\ConNeg\TypePair\TypePair;
 
+/**
+ * Regression tests for Issue #3
+ */
 class IssueThreeTest extends \PHPUnit_Framework_TestCase
 {
     /**

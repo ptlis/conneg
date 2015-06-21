@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Test to verify the correctness of SharedTypePairCollection.
- *
  * PHP Version 5.3
  *
  * @copyright   (c) 2006-2015 brian ridley
@@ -19,6 +17,7 @@ use ptlis\ConNeg\Collection\TypePairCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
 use ptlis\ConNeg\Type\Type;
 use ptlis\ConNeg\TypePair\TypePair;
+
 
 class SharedTypePairCollectionTest extends \PHPUnit_Framework_TestCase
 {

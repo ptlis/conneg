@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Test to verify the correctness of TypePairSort.
- *
  * PHP Version 5.3
  *
  * @copyright   (c) 2006-2015 brian ridley
