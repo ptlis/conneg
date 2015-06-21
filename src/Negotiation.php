@@ -17,7 +17,6 @@ use ptlis\ConNeg\Collection\CollectionInterface;
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Collection\TypePairCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
-use ptlis\ConNeg\Exception\ConNegException;
 use ptlis\ConNeg\Negotiator\MimeNegotiator;
 use ptlis\ConNeg\Negotiator\Negotiator;
 use ptlis\ConNeg\Parse\FieldParser;
@@ -127,7 +126,7 @@ class Negotiation
      * @param string $userField
      * @param string|TypeCollection $appField
      *
-     * @throws ConNegException
+     * @throws \LogicException
      *
      * @return TypePairCollection containing CharsetType, WildcardType & AbsentType instances.
      */
@@ -156,7 +155,7 @@ class Negotiation
      * @param string $userField
      * @param string|TypeCollection $appField
      *
-     * @throws ConNegException
+     * @throws \LogicException
      *
      * @return TypePairCollection containing EncodingType, WildcardType & AbsentType instances.
      */
@@ -185,7 +184,7 @@ class Negotiation
      * @param string $userField
      * @param string|TypeCollection $appField
      *
-     * @throws ConNegException
+     * @throws \LogicException
      *
      * @return TypePairCollection containing LanguageType, WildcardType & AbsentType instances.
      */
@@ -213,7 +212,7 @@ class Negotiation
      * @param string $userField
      * @param string|TypeCollection $appField
      *
-     * @throws ConNegException
+     * @throws \LogicException
      *
      * @return TypePairCollection containing MimeType, MimeWildcardType, MimeWildcardSubType & AbsentType
      *          instances.
@@ -294,7 +293,7 @@ class Negotiation
     /**
      * Convert application type preferences to a TypeCollection.
      *
-     * @throws ConNegException
+     * @throws \LogicException
      *
      * @param string|CollectionInterface $appField
      * @param bool $isMimeField
@@ -315,7 +314,7 @@ class Negotiation
             $appTypeList = $appField;
 
         } else {
-            throw new ConNegException('invalid application preferences passed to ' . __METHOD__);
+            throw new \LogicException('invalid application preferences passed to ' . __METHOD__);
         }
 
         return $appTypeList;
