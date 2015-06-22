@@ -11,7 +11,7 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\TypeBuilder;
+namespace ptlis\ConNeg\Type\Builder;
 
 use ptlis\ConNeg\Type\TypeInterface;
 
@@ -23,18 +23,18 @@ interface TypeBuilderInterface
     /**
      * Set whether the build type is application-defined or user-defined.
      *
-     * @param bool $appType
+     * @param bool $isFromApp
      *
-     * @return TypeBuilderInterface
+     * @return $this
      */
-    public function setAppType($appType);
+    public function setFromApp($isFromApp);
 
     /**
      * Set the string representation of the type.
      *
      * @param string $type
      *
-     * @return TypeBuilderInterface
+     * @return $this
      */
     public function setType($type);
 
@@ -43,18 +43,9 @@ interface TypeBuilderInterface
      *
      * @param float $qFactor
      *
-     * @return TypeBuilderInterface
+     * @return $this
      */
     public function setQualityFactor($qFactor);
-
-    /**
-     * Set accept-extens for the type.
-     *
-     * @param array<array<string>> $acceptExtensList
-     *
-     * @return TypeBuilderInterface
-     */
-    public function setAcceptExtens(array $acceptExtensList);
 
     /**
      * Get the hydrated type object.

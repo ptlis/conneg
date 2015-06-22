@@ -15,7 +15,7 @@ namespace ptlis\ConNeg\Parse;
 
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Exception\InvalidTypeException;
-use ptlis\ConNeg\TypeBuilder\TypeBuilderInterface;
+use ptlis\ConNeg\Type\Builder\TypeBuilderInterface;
 use ptlis\ConNeg\Type\TypeInterface;
 
 /**
@@ -121,27 +121,21 @@ class FieldParser
      */
     private function createType(array $typeTokenList, array $paramBundleList, $appField)
     {
-        $this->typeBuilder
-            ->setAppType($appField)
+        $builder = $this->typeBuilder
+            ->setFromApp($appField)
             ->setType(implode('', $typeTokenList));
 
-        // Look for quality factor and accept-extens
-        $acceptExtensList = array();
+        // Look for quality factor, discarding accept-extens
         foreach ($paramBundleList as $paramBundle) {
 
             // Correct format for quality factor
             if ($this->isQualityFactor($paramBundle)) {
-                $this->typeBuilder->setQualityFactor($paramBundle[2]);
-            } else {
-                $acceptExtensList[] = $paramBundle;
+                $builder = $builder->setQualityFactor($paramBundle[2]);
+                break;
             }
         }
 
-        if ($this->mimeField) {
-            $this->typeBuilder->setAcceptExtens($acceptExtensList);
-        }
-
-        return $this->typeBuilder->get();
+        return $builder->get();
     }
 
     /**

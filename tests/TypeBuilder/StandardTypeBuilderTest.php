@@ -14,7 +14,7 @@
 namespace ptlis\ConNeg\Test\TypeBuilder;
 
 use ptlis\ConNeg\Type\Type;
-use ptlis\ConNeg\TypeBuilder\TypeBuilder;
+use ptlis\ConNeg\Type\Builder\TypeBuilder;
 
 /**
  * Tests for standard type builder
@@ -32,7 +32,7 @@ class StandardTypeBuilderTest extends \PHPUnit_Framework_TestCase
         $builder = new TypeBuilder();
 
         $real = $builder
-            ->setAppType(true)
+            ->setFromApp(true)
             ->setType('utf-8')
             ->setQualityFactor(1)
             ->get();
@@ -48,7 +48,7 @@ class StandardTypeBuilderTest extends \PHPUnit_Framework_TestCase
         $builder = new TypeBuilder();
 
         $real = $builder
-            ->setAppType(true)
+            ->setFromApp(true)
             ->setType('')
             ->setQualityFactor(1)
             ->get();
@@ -62,7 +62,7 @@ class StandardTypeBuilderTest extends \PHPUnit_Framework_TestCase
 
         $builder = new TypeBuilder();
 
-        $real = $builder->getEmpty();
+        $real = $builder->get();
 
         $this->assertEquals($expected, $real);
     }
@@ -74,7 +74,7 @@ class StandardTypeBuilderTest extends \PHPUnit_Framework_TestCase
         $builder = new TypeBuilder();
 
         $real = $builder
-            ->setAppType(false)
+            ->setFromApp(false)
             ->setType('*')
             ->setQualityFactor(0.8)
             ->get();
@@ -86,31 +86,15 @@ class StandardTypeBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(
             '\ptlis\ConNeg\Exception\InvalidTypeException',
-            'Wildcards are not valid in application-provided types.'
+            'Wildcards are not allowed in application-provided types.'
         );
 
         $builder = new TypeBuilder();
 
         $builder
-            ->setAppType(true)
+            ->setFromApp(true)
             ->setType('*')
             ->setQualityFactor(0.8)
-            ->get();
-    }
-
-    public function testBuildInvalidAbsentType()
-    {
-        $this->setExpectedException(
-            '\ptlis\ConNeg\Exception\InvalidTypeException',
-            'Invalid type provided to builder.'
-        );
-
-        $builder = new TypeBuilder();
-
-        $builder
-            ->setAppType(true)
-            ->setType(null)
-            ->setQualityFactor(1)
             ->get();
     }
 }

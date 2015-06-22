@@ -21,8 +21,8 @@ use ptlis\ConNeg\Negotiator\MimeNegotiator;
 use ptlis\ConNeg\Negotiator\Negotiator;
 use ptlis\ConNeg\Parse\FieldParser;
 use ptlis\ConNeg\Parse\FieldTokenizer;
-use ptlis\ConNeg\TypeBuilder\MimeTypeBuilder;
-use ptlis\ConNeg\TypeBuilder\TypeBuilder;
+use ptlis\ConNeg\Type\Builder\MimeTypeBuilder;
+use ptlis\ConNeg\Type\Builder\TypeBuilder;
 use ptlis\ConNeg\TypePair\TypePair;
 use ptlis\Conneg\TypePair\TypePairInterface;
 
@@ -84,24 +84,24 @@ class Negotiation
         // Prepare pair sorters
         $sharedSort = new TypePairSort(
             new TypePair(
-                $stdTypeBuilder->getEmpty(),
-                $stdTypeBuilder->getEmpty()
+                $stdTypeBuilder->get(),
+                $stdTypeBuilder->get()
             )
         );
 
         $mimeSort = new TypePairSort(
             new TypePair(
-                $mimeTypeBuilder->getEmpty(),
-                $mimeTypeBuilder->getEmpty()
+                $mimeTypeBuilder->get(),
+                $mimeTypeBuilder->get()
             )
         );
 
         $this->stdNegotiator = new Negotiator(
-            $stdTypeBuilder->getEmpty(),
+            $stdTypeBuilder->get(),
             $sharedSort
         );
         $this->mimeNegotiator       = new MimeNegotiator(
-            $mimeTypeBuilder->getEmpty(),
+            $mimeTypeBuilder->get(),
             $mimeSort
         );
     }

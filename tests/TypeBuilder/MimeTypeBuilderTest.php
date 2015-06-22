@@ -13,9 +13,8 @@
 
 namespace ptlis\ConNeg\Test\TypeBuilder;
 
-use ptlis\ConNeg\Type\Extens\AcceptExtens;
 use ptlis\ConNeg\Type\MimeType;
-use ptlis\ConNeg\TypeBuilder\MimeTypeBuilder;
+use ptlis\ConNeg\Type\Builder\MimeTypeBuilder;
 
 /**
  * Tests for mime type builder
@@ -28,17 +27,35 @@ class MimeTypeBuilderTest extends \PHPUnit_Framework_TestCase
             'text',
             'html',
             1,
-            MimeType::EXACT_TYPE,
-            array(new AcceptExtens('4', 'level'))
+            MimeType::EXACT_TYPE
         );
 
         $builder = new MimeTypeBuilder();
 
         $real = $builder
-            ->setAppType(true)
+            ->setFromApp(true)
             ->setType('text/html')
             ->setQualityFactor(1)
-            ->setAcceptExtens(array(array('level', '=', '4')))
+            ->get();
+
+        $this->assertEquals($expected, $real);
+    }
+
+    public function testBuildUserWildcardTypeOnlyInvalid()
+    {
+        $expected = new MimeType(
+            '',
+            '',
+            0,
+            MimeType::ABSENT_TYPE
+        );
+
+        $builder = new MimeTypeBuilder();
+
+        $real = $builder
+            ->setFromApp(false)
+            ->setType('*/html')
+            ->setQualityFactor(1)
             ->get();
 
         $this->assertEquals($expected, $real);
@@ -54,7 +71,7 @@ class MimeTypeBuilderTest extends \PHPUnit_Framework_TestCase
         $builder = new MimeTypeBuilder();
 
         $builder
-            ->setAppType(true)
+            ->setFromApp(true)
             ->setType('foo')
             ->setQualityFactor(1)
             ->get();
@@ -64,69 +81,15 @@ class MimeTypeBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(
             '\ptlis\ConNeg\Exception\InvalidTypeException',
-            'Wildcards are not valid in application-provided types.'
+            'Wildcards are not allowed in application-provided types.'
         );
 
         $builder = new MimeTypeBuilder();
 
         $builder
-            ->setAppType(true)
+            ->setFromApp(true)
             ->setType('text/*')
             ->setQualityFactor(1)
             ->get();
-    }
-
-    public function testBuildUserWildcardTypeOnlyInvalid()
-    {
-        $this->setExpectedException(
-            '\ptlis\ConNeg\Exception\InvalidTypeException',
-            '"*/html" is not a valid mime type.'
-        );
-
-        $builder = new MimeTypeBuilder();
-
-        $builder
-            ->setAppType(false)
-            ->setType('*/html')
-            ->setQualityFactor(1)
-            ->get();
-    }
-
-    public function testBuildAppExtensInvalid()
-    {
-        $this->setExpectedException(
-            '\ptlis\ConNeg\Exception\InvalidTypeException',
-            'Malformed accept-extens "foo=" found'
-        );
-
-        $builder = new MimeTypeBuilder();
-
-        $builder
-            ->setAppType(true)
-            ->setType('text/html')
-            ->setQualityFactor(1)
-            ->setAcceptExtens(array(array('foo', '=')))
-            ->get();
-    }
-
-    public function testBuildUserExtensInvalid()
-    {
-        $expected = new MimeType(
-            'text',
-            'html',
-            1,
-            MimeType::EXACT_TYPE
-        );
-
-        $builder = new MimeTypeBuilder();
-
-        $real = $builder
-            ->setAppType(false)
-            ->setType('text/html')
-            ->setQualityFactor(1)
-            ->setAcceptExtens(array(array('foo', '=')))
-            ->get();
-
-        $this->assertEquals($expected, $real);
     }
 }
