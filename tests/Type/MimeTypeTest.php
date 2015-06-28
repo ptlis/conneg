@@ -25,5 +25,7 @@ class MimeTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(0.5, $type->getQualityFactor());
         $this->assertSame('text/html;q=0.5', $type->__toString());
         $this->assertSame(2, $type->getPrecedence());
+        $this->assertSame('text', $type->getMimeType());
+        $this->assertSame('html', $type->getMimeSubType());
     }
 }
