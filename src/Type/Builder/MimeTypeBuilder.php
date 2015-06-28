@@ -51,12 +51,14 @@ class MimeTypeBuilder extends AbstractTypeBuilder
         // Ignore misformatted types
         if (2 !== count($typeParts)) {
             $type = '';
-        }
 
-        // Types in form of */foo aren't valid
-        list($mimeType, $subType) = $typeParts;
-        if ('*' === $mimeType && '*' !== $subType) {
-            $type = '';
+        } else {
+
+            // Types in form of */foo aren't valid
+            list($mimeType, $subType) = $typeParts;
+            if ('*' === $mimeType && '*' !== $subType) {
+                $type = '';
+            }
         }
 
         return $type;

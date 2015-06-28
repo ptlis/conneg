@@ -61,7 +61,27 @@ class MimeTypeBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $real);
     }
 
-    public function testBuildInvalidType()
+    public function testBuildUserTypeInvalid()
+    {
+        $expected = new MimeType(
+            '',
+            '',
+            0,
+            MimeType::ABSENT_TYPE
+        );
+
+        $builder = new MimeTypeBuilder();
+
+        $real = $builder
+            ->setFromApp(false)
+            ->setType('foo-bar')
+            ->setQualityFactor(1)
+            ->get();
+
+        $this->assertEquals($expected, $real);
+    }
+
+    public function testBuildAppInvalidType()
     {
         $this->setExpectedException(
             '\ptlis\ConNeg\Exception\InvalidTypeException',
