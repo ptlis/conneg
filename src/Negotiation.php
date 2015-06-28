@@ -314,7 +314,7 @@ class Negotiation
             $appTypeList = $appField;
 
         } else {
-            throw new \LogicException('invalid application preferences passed to ' . __METHOD__);
+            throw new \LogicException('Invalid application preferences passed to ' . __METHOD__);
         }
 
         return $appTypeList;
