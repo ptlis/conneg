@@ -113,7 +113,7 @@ abstract class AbstractTypeBuilder implements TypeBuilderInterface
      */
     private function validQualityFactor($qFactor)
     {
-        return is_numeric($qFactor) && $qFactor >= 0 || $qFactor <= 1;
+        return is_numeric($qFactor) && $qFactor >= 0 && $qFactor <= 1;
     }
 
     /**

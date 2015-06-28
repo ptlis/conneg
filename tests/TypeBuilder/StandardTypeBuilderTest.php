@@ -97,4 +97,97 @@ class StandardTypeBuilderTest extends \PHPUnit_Framework_TestCase
             ->setQualityFactor(0.8)
             ->get();
     }
+
+    public function testUserInvalidQualityFactorString()
+    {
+        $expected = new Type('utf-8', 1, Type::EXACT_TYPE);
+
+        $builder = new TypeBuilder();
+
+        $real = $builder
+            ->setFromApp(false)
+            ->setType('utf-8')
+            ->setQualityFactor('asdf')
+            ->get();
+
+        $this->assertEquals($expected, $real);
+    }
+
+    public function testAppInvalidQualityFactorString()
+    {
+        $this->setExpectedException(
+            '\ptlis\ConNeg\Exception\InvalidTypeException',
+            'Invalid quality factor "asdf" in application preferences'
+        );
+
+        $builder = new TypeBuilder();
+
+        $builder
+            ->setFromApp(true)
+            ->setType('utf-8')
+            ->setQualityFactor('asdf')
+            ->get();
+    }
+
+    public function testUserInvalidQualityFactorTooLarge()
+    {
+        $expected = new Type('utf-8', 1, Type::EXACT_TYPE);
+
+        $builder = new TypeBuilder();
+
+        $real = $builder
+            ->setFromApp(false)
+            ->setType('utf-8')
+            ->setQualityFactor(7)
+            ->get();
+
+        $this->assertEquals($expected, $real);
+    }
+
+    public function testAppInvalidQualityFactorTooLarge()
+    {
+        $this->setExpectedException(
+            '\ptlis\ConNeg\Exception\InvalidTypeException',
+            'Invalid quality factor "7" in application preferences'
+        );
+
+        $builder = new TypeBuilder();
+
+        $builder
+            ->setFromApp(true)
+            ->setType('utf-8')
+            ->setQualityFactor(7)
+            ->get();
+    }
+
+    public function testUserInvalidQualityFactorTooSmall()
+    {
+        $expected = new Type('utf-8', 0, Type::EXACT_TYPE);
+
+        $builder = new TypeBuilder();
+
+        $real = $builder
+            ->setFromApp(false)
+            ->setType('utf-8')
+            ->setQualityFactor(-1)
+            ->get();
+
+        $this->assertEquals($expected, $real);
+    }
+
+    public function testAppInvalidQualityFactorTooSmall()
+    {
+        $this->setExpectedException(
+            '\ptlis\ConNeg\Exception\InvalidTypeException',
+            'Invalid quality factor "-1" in application preferences'
+        );
+
+        $builder = new TypeBuilder();
+
+        $builder
+            ->setFromApp(true)
+            ->setType('utf-8')
+            ->setQualityFactor(-1)
+            ->get();
+    }
 }
