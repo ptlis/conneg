@@ -33,9 +33,8 @@ class NonStringAppTypeTest extends \PHPUnit_Framework_TestCase
 
     public function testAppCollection()
     {
-
         $negotiate = new Negotiation();
-        $collection = $negotiate->charsetAll('', new TypeCollection([]));
+        $collection = $negotiate->charsetAll('', new TypeCollection(array()));
 
         $this->assertEquals(
             new TypePair(
