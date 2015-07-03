@@ -46,19 +46,15 @@ class Tokens
      *
      * @return bool
      */
-    public static function isToken($string)
+    public static function isSeparator($string)
     {
-        $isToken = false;
+        $seperatorList = array(
+            self::TYPE_SEPARATOR,
+            self::PARAMS_SEPARATOR,
+            self::MIME_SEPARATOR,
+            self::PARAMS_KV_SEPARATOR
+        );
 
-        switch ($string) {
-            case self::TYPE_SEPARATOR:
-            case self::PARAMS_SEPARATOR:
-            case self::MIME_SEPARATOR:
-            case self::PARAMS_KV_SEPARATOR:
-                $isToken = true;
-                break;
-        }
-
-        return $isToken;
+        return in_array($string, $seperatorList);
     }
 }

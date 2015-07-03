@@ -198,8 +198,8 @@ class FieldParser
         if (
             count($bundle) < 3                          // Too few items in bundle
             || Tokens::MIME_SEPARATOR !== $bundle[1]    // Invalid separator
-            || Tokens::isToken($bundle[0])              // Invalid type
-            || Tokens::isToken($bundle[2])              // Invalid subtype
+            || Tokens::isSeparator($bundle[0])              // Invalid type
+            || Tokens::isSeparator($bundle[2])              // Invalid subtype
         ) {
             throw new InvalidTypeException(
                 '"' . implode('', $bundle) . '" is not a valid mime type'
