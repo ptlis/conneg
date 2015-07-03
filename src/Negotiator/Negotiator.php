@@ -119,6 +119,11 @@ class Negotiator implements NegotiatorInterface
             } elseif (Type::WILDCARD_TYPE === $userType->getPrecedence()) {
                 $matchingList = $this->matchFullWildcard($matchingList, $userType);
 
+            // App Partial Lang Match
+            // TODO: Only for Accept-Language field
+            } elseif ($this->listHasPartialLanguage($matchingList, $userType)) {
+                $matchingList = $this->matchAppPartialLanguage($matchingList, $userType);
+
             // No match
             } else {
                 $matchingList[$userType->getType()] = new TypePair(
@@ -129,6 +134,80 @@ class Negotiator implements NegotiatorInterface
         }
 
         return $matchingList;
+    }
+
+    /**
+     * Returns true if the user type matches an application-provided partial language.
+     *
+     * @param TypePair[]    $matchingList
+     * @param TypeInterface $userType
+     *
+     * @return TypePair[]
+     */
+    private function listHasPartialLanguage(array $matchingList, TypeInterface $userType)
+    {
+        $matches = false;
+        foreach ($matchingList as $matching) {
+            if (
+                $this->partialLangMatches($matching->getAppType(), $userType)
+                && $userType->getPrecedence() > $matching->getUserType()->getPrecedence()
+            ) {
+                $matches = true;
+            }
+        }
+
+        return $matches;
+    }
+
+    /**
+     * Returns true if the app type contains a partial language that matches the language in the user type.
+     *
+     * e.g. An application type of en-* would match en, en-US but not es-ES
+     *
+     * @param TypeInterface $appType
+     * @param TypeInterface $userType
+     *
+     * @return bool
+     */
+    private function partialLangMatches(TypeInterface $appType, TypeInterface $userType)
+    {
+        // Note that this only supports the simplest case of (e.g.) en-* matching en-GB and en-US, additional
+        // Language tags are explicitly ignored
+        list($userMainLang) = explode('-', $userType->getType());
+        list($appMainLang) = explode('-', $appType->getType());
+
+        return Type::WILDCARD_PARTIAL_LANG === $appType->getPrecedence()
+            && $userMainLang == $appMainLang;
+    }
+
+    /**
+     * @param TypePair[]    $matchingList
+     * @param TypeInterface $userType
+     *
+     * @return TypePair[]
+     */
+    private function matchAppPartialLanguage(array $matchingList, TypeInterface $userType)
+    {
+        $newMatchingList = array();
+
+        foreach ($matchingList as $key => $matching) {
+            if (
+                $this->partialLangMatches($matching->getAppType(), $userType)
+                && $userType->getPrecedence() > $matching->getUserType()->getPrecedence()
+            ) {
+                $newPair = new TypePair(
+                    $userType,
+                    $matching->getAppType()
+                );
+
+                $newMatchingList[$key] = $newPair;
+
+            } else {
+                $newMatchingList[$key] = $matching;
+            }
+        }
+
+        return $newMatchingList;
     }
 
     /**

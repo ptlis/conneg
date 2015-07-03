@@ -541,6 +541,64 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                         )
                     )
                 )
+            ),
+
+            // Test matching of partial language wildcards to languages
+            'test_partial_language' => array(
+                'user' => 'en-GB,es',
+                'app' => 'es-*;q=0.75,es-ES,es-419',
+                'best' => new TypePair(
+                    new Type('es', 1, Type::EXACT_TYPE),
+                    new Type('es-*', 0.75, Type::WILDCARD_PARTIAL_LANG)
+                ),
+                'all' => new TypePairCollection(
+                    $sort,
+                    array(
+                        new TypePair(
+                            new Type('es', 1, Type::EXACT_TYPE),
+                            new Type('es-*', 0.75, Type::WILDCARD_PARTIAL_LANG)
+                        ),
+                        new TypePair(
+                            new Type('en-GB', 1, Type::EXACT_TYPE),
+                            new Type('', 0, Type::ABSENT_TYPE)
+                        ),
+                        new TypePair(
+                            new Type('', 0, Type::ABSENT_TYPE),
+                            new Type('es-419', 1, Type::EXACT_TYPE)
+                        ),
+                        new TypePair(
+                            new Type('', 0, Type::ABSENT_TYPE),
+                            new Type('es-ES', 1, Type::EXACT_TYPE)
+                        )
+                    )
+                )
+            ),
+
+            // Test matching of partial language wildcards matching subtypes
+            'test_partial_language_subtype' => array(
+                'user' => 'es-CO,es-ES',
+                'app' => 'es-*;q=0.75,es-ES,es-419',
+                'best' => new TypePair(
+                    new Type('es-ES', 1, Type::EXACT_TYPE),
+                    new Type('es-ES', 1, Type::EXACT_TYPE)
+                ),
+                'all' => new TypePairCollection(
+                    $sort,
+                    array(
+                        new TypePair(
+                            new Type('es-ES', 1, Type::EXACT_TYPE),
+                            new Type('es-ES', 1, Type::EXACT_TYPE)
+                        ),
+                        new TypePair(
+                            new Type('es-CO', 1, Type::EXACT_TYPE),
+                            new Type('es-*', 0.75, Type::WILDCARD_PARTIAL_LANG)
+                        ),
+                        new TypePair(
+                            new Type('', 0, Type::ABSENT_TYPE),
+                            new Type('es-419', 1, Type::EXACT_TYPE)
+                        )
+                    )
+                )
             )
         );
     }

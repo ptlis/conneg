@@ -281,6 +281,35 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $real);
     }
 
+    public function testParseAppPartialLang()
+    {
+        $tokens = array(
+            'es-*',
+            ';',
+            'q',
+            '=',
+            '0.7',
+            ',',
+            'es-ES',
+            ';',
+            'q',
+            '=',
+            '0.9'
+        );
+
+        $expected = new TypeCollection(array(
+            new Type('es-*', 0.7, Type::WILDCARD_PARTIAL_LANG),
+            new Type('es-ES', 0.9, Type::EXACT_TYPE)
+        ));
+
+        $builder = new TypeBuilder();
+        $parser = new FieldParser($builder, false);
+
+        $real = $parser->parse($tokens, true);
+
+        $this->assertEquals($expected, $real);
+    }
+
     public function testParseAcceptInvalidType()
     {
         $this->setExpectedException(

@@ -115,4 +115,33 @@ class FieldTokenizerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expected, $real);
     }
+
+    public function testTokenizePartialLang()
+    {
+        $httpField = 'es-*;q=0.7,es-ES;q=0.9,es-CO;q=0.8';
+        $expected = array(
+            'es-*',
+            ';',
+            'q',
+            '=',
+            '0.7',
+            ',',
+            'es-ES',
+            ';',
+            'q',
+            '=',
+            '0.9',
+            ',',
+            'es-CO',
+            ';',
+            'q',
+            '=',
+            '0.8'
+        );
+
+        $tokenizer = new FieldTokenizer();
+        $real = $tokenizer->tokenize($httpField, true);
+
+        $this->assertEquals($expected, $real);
+    }
 }

@@ -47,6 +47,10 @@ class TypeBuilder extends AbstractTypeBuilder
         } elseif (!strlen($this->type)) {
             $precedence = Type::ABSENT_TYPE;
             $qFactor = 0;
+
+        // TODO: Only for Accept-Language field
+        } elseif ('-*' === substr($this->type, -2, 2)) {
+            $precedence = Type::WILDCARD_PARTIAL_LANG;
         }
 
         return new Type(
