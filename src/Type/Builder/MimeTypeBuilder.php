@@ -72,8 +72,6 @@ class MimeTypeBuilder extends AbstractTypeBuilder
     public function get()
     {
         // Defaults for absent type
-        $mimeType = '';
-        $subType = '';
         $precedence = Type::ABSENT_TYPE;
         $qFactor = 0;
 
