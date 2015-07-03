@@ -19,7 +19,7 @@ use ptlis\ConNeg\Preference\Builder\PreferenceBuilder;
 /**
  * Tests for standard type builder
  */
-class StandardPreferenceBuilderTest extends \PHPUnit_Framework_TestCase
+class PreferenceBuilderTest extends \PHPUnit_Framework_TestCase
 {
     public function testBuildTypeSuccess()
     {
