@@ -142,7 +142,7 @@ class Negotiator implements NegotiatorInterface
      * @param MatchedPreferences[]    $matchingList
      * @param PreferenceInterface $userType
      *
-     * @return MatchedPreferences[]
+     * @return boolean
      */
     private function listHasPartialLanguage(array $matchingList, PreferenceInterface $userType)
     {

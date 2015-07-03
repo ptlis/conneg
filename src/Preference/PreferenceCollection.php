@@ -14,9 +14,7 @@
 namespace ptlis\ConNeg\Preference;
 
 use ArrayIterator;
-use ptlis\ConNeg\Preference\CollectionInterface;
 use Traversable;
-use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
  * Collection for Type instances, provides sort capabilities.

@@ -149,7 +149,7 @@ class MimeNegotiator implements NegotiatorInterface
      * @param MatchedPreferencesInterface[]   $matchingList
      * @param PreferenceInterface     $userType
      *
-     * @return array<string,TypePairInterface>
+     * @return array<string,MatchedPreferencesInterface>
      */
     private function matchExact(array $matchingList, PreferenceInterface $userType)
     {
@@ -171,7 +171,7 @@ class MimeNegotiator implements NegotiatorInterface
      * @param PreferenceCollection   $userTypeList
      * @param MatchedPreferencesInterface[]  $matchingList
      *
-     * @return  array<string,TypePairInterface>
+     * @return  array<string,MatchedPreferencesInterface>
      */
     private function matchUserListToAppTypes(PreferenceCollection $userTypeList, array $matchingList)
     {
@@ -188,7 +188,7 @@ class MimeNegotiator implements NegotiatorInterface
      * @param PreferenceInterface     $userType
      * @param MatchedPreferencesInterface[]   $matchingList
      *
-     * @return  array<string,TypePairInterface>
+     * @return  array<string,MatchedPreferencesInterface>
      */
     private function matchUserToAppTypes(PreferenceInterface $userType, array $matchingList)
     {
