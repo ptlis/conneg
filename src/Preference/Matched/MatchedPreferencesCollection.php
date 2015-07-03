@@ -46,7 +46,7 @@ class MatchedPreferencesCollection implements CollectionInterface
     public function __construct(MatchedPreferencesSort $pairSort, array $typePairList)
     {
         $this->pairSort     = $pairSort;
-        $this->typePairList = $typePairList;
+        $this->typePairList = array_values($typePairList);
     }
 
     /**

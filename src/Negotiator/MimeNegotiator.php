@@ -73,10 +73,7 @@ class MimeNegotiator implements NegotiatorInterface
         }
 
         $matchingList = $this->matchUserListToAppTypes($userTypeList, $matchingList);
-
-        $pairList = array_values($matchingList);
-
-        $pairCollection = new MatchedPreferencesCollection($this->pairSort, $pairList);
+        $pairCollection = new MatchedPreferencesCollection($this->pairSort, $matchingList);
 
         return $pairCollection->getDescending();
     }
