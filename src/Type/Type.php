@@ -21,6 +21,7 @@ class Type implements TypeInterface
     const ABSENT_TYPE = -1;
     const WILDCARD_TYPE = 0;
     const WILDCARD_PARTIAL_LANG = 1;
+    const WILDCARD_SUBTYPE = 1;
     const EXACT_TYPE = 2;
 
     /**

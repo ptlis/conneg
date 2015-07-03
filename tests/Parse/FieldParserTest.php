@@ -15,7 +15,6 @@ namespace ptlis\ConNeg\Test\Parse;
 
 use ptlis\ConNeg\Collection\TypeCollection;
 use ptlis\ConNeg\Parse\FieldParser;
-use ptlis\ConNeg\Type\MimeType;
 use ptlis\ConNeg\Type\Type;
 use ptlis\ConNeg\Type\Builder\MimeTypeBuilder;
 use ptlis\ConNeg\Type\Builder\TypeBuilder;
@@ -50,9 +49,9 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = new TypeCollection(array(
-            new MimeType('application', 'atom+xml', 0.8, MimeType::EXACT_TYPE),
-            new MimeType('text', 'html', 0.3, MimeType::EXACT_TYPE),
-            new MimeType('application', 'rss+xml', 1, MimeType::EXACT_TYPE)
+            new Type('application/atom+xml', 0.8, Type::EXACT_TYPE),
+            new Type('text/html', 0.3, Type::EXACT_TYPE),
+            new Type('application/rss+xml', 1, Type::EXACT_TYPE)
         ));
 
         $builder = new MimeTypeBuilder();
@@ -92,9 +91,9 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = new TypeCollection(array(
-            new MimeType('application', 'atom+xml', 0.8, MimeType::EXACT_TYPE),
-            new MimeType('text', 'html', 0.3, MimeType::EXACT_TYPE),
-            new MimeType('application', 'rss+xml', 1, MimeType::EXACT_TYPE)
+            new Type('application/atom+xml', 0.8, Type::EXACT_TYPE),
+            new Type('text/html', 0.3, Type::EXACT_TYPE),
+            new Type('application/rss+xml', 1, Type::EXACT_TYPE)
         ));
 
         $builder = new MimeTypeBuilder();
@@ -136,9 +135,9 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = new TypeCollection(array(
-            new MimeType('application', 'atom+xml', 0.8, MimeType::EXACT_TYPE),
-            new MimeType('text', 'html', 0.3, MimeType::EXACT_TYPE),
-            new MimeType('application', 'rss+xml', 1, MimeType::EXACT_TYPE)
+            new Type('application/atom+xml', 0.8, Type::EXACT_TYPE),
+            new Type('text/html', 0.3, Type::EXACT_TYPE),
+            new Type('application/rss+xml', 1, Type::EXACT_TYPE)
         ));
 
         $builder = new MimeTypeBuilder();
@@ -182,9 +181,9 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = new TypeCollection(array(
-            new MimeType('application', 'atom+xml', 0.8, MimeType::EXACT_TYPE),
-            new MimeType('text', 'html', 0.3, MimeType::EXACT_TYPE),
-            new MimeType('application', 'rss+xml', 1, MimeType::EXACT_TYPE)
+            new Type('application/atom+xml', 0.8, Type::EXACT_TYPE),
+            new Type('text/html', 0.3, Type::EXACT_TYPE),
+            new Type('application/rss+xml', 1, Type::EXACT_TYPE)
         ));
 
         $builder = new MimeTypeBuilder();
@@ -269,9 +268,9 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = new TypeCollection(array(
-            new MimeType('application', 'atom+xml', 0.8, MimeType::EXACT_TYPE),
-            new MimeType('text', 'html', 0.3, MimeType::EXACT_TYPE),
-            new MimeType('application', 'rss+xml', 1, MimeType::EXACT_TYPE)
+            new Type('application/atom+xml', 0.8, Type::EXACT_TYPE),
+            new Type('text/html', 0.3, Type::EXACT_TYPE),
+            new Type('application/rss+xml', 1, Type::EXACT_TYPE)
         ));
 
         $builder = new MimeTypeBuilder();

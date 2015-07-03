@@ -14,15 +14,15 @@
 namespace ptlis\ConNeg\Test\Collection;
 
 use ptlis\ConNeg\Collection\TypeCollection;
-use ptlis\ConNeg\Type\MimeType;
+use ptlis\ConNeg\Type\Type;
 
 class TypeCollectionTest extends \PHPUnit_Framework_TestCase
 {
     public function testIterator()
     {
         $expectList = array(
-            new MimeType('text', 'html', 1, MimeType::EXACT_TYPE),
-            new MimeType('text', 'n3', 0.8, MimeType::EXACT_TYPE)
+            new Type('text/html', 1, Type::EXACT_TYPE),
+            new Type('text/n3', 0.8, Type::EXACT_TYPE)
         );
 
         $expectCollection = new TypeCollection($expectList);
@@ -37,8 +37,8 @@ class TypeCollectionTest extends \PHPUnit_Framework_TestCase
     public function testGetAscendingOne()
     {
         $expectList = array(
-            new MimeType('text', 'html', 1, MimeType::EXACT_TYPE),
-            new MimeType('text', 'n3', 0.8, MimeType::EXACT_TYPE)
+            new Type('text/html', 1, Type::EXACT_TYPE),
+            new Type('text/n3', 0.8, Type::EXACT_TYPE)
         );
 
         $expectCollection = new TypeCollection($expectList);
@@ -61,8 +61,8 @@ class TypeCollectionTest extends \PHPUnit_Framework_TestCase
     public function testGetAscendingTwo()
     {
         $expectList = array(
-            new MimeType('text', 'n3', 0.8, MimeType::EXACT_TYPE),
-            new MimeType('text', 'html', 1, MimeType::EXACT_TYPE)
+            new Type('text/n3', 0.8, Type::EXACT_TYPE),
+            new Type('text/html', 1, Type::EXACT_TYPE)
         );
         $expectCollection = new TypeCollection($expectList);
 
@@ -84,8 +84,8 @@ class TypeCollectionTest extends \PHPUnit_Framework_TestCase
     public function testGetAscendingThree()
     {
         $expectList = array(
-            new MimeType('text', 'n3', 1, MimeType::EXACT_TYPE),
-            new MimeType('text', 'html', 1, MimeType::EXACT_TYPE)
+            new Type('text/n3', 1, Type::EXACT_TYPE),
+            new Type('text/html', 1, Type::EXACT_TYPE)
         );
 
         $expectCollection = new TypeCollection($expectList);
@@ -108,8 +108,8 @@ class TypeCollectionTest extends \PHPUnit_Framework_TestCase
     public function testGetDescendingOne()
     {
         $expectList = array(
-            new MimeType('text', 'n3', 0.8, MimeType::EXACT_TYPE),
-            new MimeType('text', 'html', 1, MimeType::EXACT_TYPE)
+            new Type('text/n3', 0.8, Type::EXACT_TYPE),
+            new Type('text/html', 1, Type::EXACT_TYPE)
         );
         $expectCollection = new TypeCollection($expectList);
 
@@ -131,8 +131,8 @@ class TypeCollectionTest extends \PHPUnit_Framework_TestCase
     public function testGetDescendingTwo()
     {
         $expectList = array(
-            new MimeType('text', 'html', 1, MimeType::EXACT_TYPE),
-            new MimeType('text', 'n3', 0.8, MimeType::EXACT_TYPE)
+            new Type('text/html', 1, Type::EXACT_TYPE),
+            new Type('text/n3', 0.8, Type::EXACT_TYPE)
         );
 
         $expectCollection = new TypeCollection($expectList);
@@ -155,8 +155,8 @@ class TypeCollectionTest extends \PHPUnit_Framework_TestCase
     public function testGetDescendingThree()
     {
         $expectList = array(
-            new MimeType('text', 'n3', 1, MimeType::EXACT_TYPE),
-            new MimeType('text', 'html', 1, MimeType::EXACT_TYPE)
+            new Type('text/n3', 1, Type::EXACT_TYPE),
+            new Type('text/html', 1, Type::EXACT_TYPE)
         );
 
         $expectCollection = new TypeCollection($expectList);
@@ -179,8 +179,8 @@ class TypeCollectionTest extends \PHPUnit_Framework_TestCase
     public function testClone()
     {
         $expectList = array(
-            new MimeType('text', 'n3', 0.8, MimeType::EXACT_TYPE),
-            new MimeType('text', 'html', 1, MimeType::EXACT_TYPE)
+            new Type('text/n3', 0.8, Type::EXACT_TYPE),
+            new Type('text/html', 1, Type::EXACT_TYPE)
         );
 
         $collection = new TypeCollection($expectList);
@@ -194,8 +194,8 @@ class TypeCollectionTest extends \PHPUnit_Framework_TestCase
     public function testToString()
     {
         $expectList = array(
-            new MimeType('text', 'n3', 0.8, MimeType::EXACT_TYPE),
-            new MimeType('text', 'html', 1, MimeType::EXACT_TYPE)
+            new Type('text/n3', 0.8, Type::EXACT_TYPE),
+            new Type('text/html', 1, Type::EXACT_TYPE)
         );
 
         $collection = new TypeCollection($expectList);
@@ -206,8 +206,8 @@ class TypeCollectionTest extends \PHPUnit_Framework_TestCase
     public function testCount()
     {
         $expectList = array(
-            new MimeType('text', 'n3', 0.8, MimeType::EXACT_TYPE),
-            new MimeType('text', 'html', 1, MimeType::EXACT_TYPE)
+            new Type('text/n3', 0.8, Type::EXACT_TYPE),
+            new Type('text/html', 1, Type::EXACT_TYPE)
         );
 
         $collection = new TypeCollection($expectList);

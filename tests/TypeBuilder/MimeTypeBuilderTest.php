@@ -13,7 +13,7 @@
 
 namespace ptlis\ConNeg\Test\TypeBuilder;
 
-use ptlis\ConNeg\Type\MimeType;
+use ptlis\ConNeg\Type\Type;
 use ptlis\ConNeg\Type\Builder\MimeTypeBuilder;
 
 /**
@@ -23,12 +23,7 @@ class MimeTypeBuilderTest extends \PHPUnit_Framework_TestCase
 {
     public function testBuildTypeSuccess()
     {
-        $expected = new MimeType(
-            'text',
-            'html',
-            1,
-            MimeType::EXACT_TYPE
-        );
+        $expected = new Type('text/html', 1, Type::EXACT_TYPE);
 
         $builder = new MimeTypeBuilder();
 
@@ -43,12 +38,7 @@ class MimeTypeBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testBuildUserWildcardTypeOnlyInvalid()
     {
-        $expected = new MimeType(
-            '',
-            '',
-            0,
-            MimeType::ABSENT_TYPE
-        );
+        $expected = new Type('', 0, Type::ABSENT_TYPE);
 
         $builder = new MimeTypeBuilder();
 
@@ -63,12 +53,7 @@ class MimeTypeBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testBuildUserTypeInvalid()
     {
-        $expected = new MimeType(
-            '',
-            '',
-            0,
-            MimeType::ABSENT_TYPE
-        );
+        $expected = new Type('', 0, Type::ABSENT_TYPE);
 
         $builder = new MimeTypeBuilder();
 

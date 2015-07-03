@@ -14,7 +14,7 @@
 namespace ptlis\ConNeg\Type\Builder;
 
 use ptlis\ConNeg\Exception\InvalidTypeException;
-use ptlis\ConNeg\Type\MimeType;
+use ptlis\ConNeg\Type\Type;
 
 /**
  * MIME type builder.
@@ -67,14 +67,14 @@ class MimeTypeBuilder extends AbstractTypeBuilder
     /**
      * {@inheritDoc}
      *
-     * @return MimeType
+     * @return Type
      */
     public function get()
     {
         // Defaults for absent type
         $mimeType = '';
         $subType = '';
-        $precedence = MimeType::ABSENT_TYPE;
+        $precedence = Type::ABSENT_TYPE;
         $qFactor = 0;
 
         // A type was present
@@ -83,20 +83,24 @@ class MimeTypeBuilder extends AbstractTypeBuilder
 
             list($mimeType, $subType) = $explodedType;
 
-            $precedence = MimeType::EXACT_TYPE;
+            $precedence = Type::EXACT_TYPE;
             $qFactor = $this->qFactor;
 
             if ('*' === $mimeType) {
-                $precedence = MimeType::WILDCARD_TYPE;
+                $precedence = Type::WILDCARD_TYPE;
 
             } elseif ('*' === $subType) {
-                $precedence = MimeType::WILDCARD_SUBTYPE;
+                $precedence = Type::WILDCARD_SUBTYPE;
             }
         }
 
-        return new MimeType(
-            $mimeType,
-            $subType,
+        $type = '';
+        if (Type::ABSENT_TYPE !== $precedence) {
+            $type = $mimeType . '/' . $subType;
+        }
+
+        return new Type(
+            $type,
             $qFactor,
             $precedence
         );

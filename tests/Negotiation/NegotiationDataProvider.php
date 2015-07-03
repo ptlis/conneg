@@ -15,7 +15,6 @@ namespace ptlis\ConNeg\Test\Negotiation;
 
 use ptlis\ConNeg\Collection\TypePairCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
-use ptlis\ConNeg\Type\MimeType;
 use ptlis\ConNeg\Type\Type;
 use ptlis\ConNeg\TypePair\TypePair;
 
@@ -551,8 +550,8 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
     {
         $sort = new TypePairSort(
             new TypePair(
-                new MimeType('', '', 0, MimeType::ABSENT_TYPE),
-                new MimeType('', '', 0, MimeType::ABSENT_TYPE)
+                new Type('', 0, Type::ABSENT_TYPE),
+                new Type('', 0, Type::ABSENT_TYPE)
             )
         );
 
@@ -562,8 +561,8 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => '',
                 'app' => '',
                 'best' => new TypePair(
-                    new MimeType('', '', 0, MimeType::ABSENT_TYPE),
-                    new MimeType('', '', 0, MimeType::ABSENT_TYPE)
+                    new Type('', 0, Type::ABSENT_TYPE),
+                    new Type('', 0, Type::ABSENT_TYPE)
                 ),
                 'all' => new TypePairCollection($sort, array())
             ),
@@ -573,19 +572,19 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => 'text/html,application/xml;q=0.75',
                 'app' => '',
                 'best' => new TypePair(
-                    new MimeType('text', 'html', 1.0, MimeType::EXACT_TYPE),
-                    new MimeType('', '', 0, MimeType::ABSENT_TYPE)
+                    new Type('text/html', 1.0, Type::EXACT_TYPE),
+                    new Type('', 0, Type::ABSENT_TYPE)
                 ),
                 'all' => new TypePairCollection(
                     $sort,
                     array(
                         new TypePair(
-                            new MimeType('text', 'html', 1.0, MimeType::EXACT_TYPE),
-                            new MimeType('', '', 0, MimeType::ABSENT_TYPE)
+                            new Type('text/html', 1.0, Type::EXACT_TYPE),
+                            new Type('', 0, Type::ABSENT_TYPE)
                         ),
                         new TypePair(
-                            new MimeType('application', 'xml', 0.75, MimeType::EXACT_TYPE),
-                            new MimeType('', '', 0, MimeType::ABSENT_TYPE)
+                            new Type('application/xml', 0.75, Type::EXACT_TYPE),
+                            new Type('', 0, Type::ABSENT_TYPE)
                         )
                     )
                 )
@@ -596,19 +595,19 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => 'application/rdf+xml;q=1,text/n3;q=0.5',
                 'app' => '',
                 'best' => new TypePair(
-                    new MimeType('application', 'rdf+xml', 1, MimeType::EXACT_TYPE),
-                    new MimeType('', '', 0, MimeType::ABSENT_TYPE)
+                    new Type('application/rdf+xml', 1, Type::EXACT_TYPE),
+                    new Type('', 0, Type::ABSENT_TYPE)
                 ),
                 'all' => new TypePairCollection(
                     $sort,
                     array(
                         new TypePair(
-                            new MimeType('application', 'rdf+xml', 1, MimeType::EXACT_TYPE),
-                            new MimeType('', '', 0, MimeType::ABSENT_TYPE)
+                            new Type('application/rdf+xml', 1, Type::EXACT_TYPE),
+                            new Type('', 0, Type::ABSENT_TYPE)
                         ),
                         new TypePair(
-                            new MimeType('text', 'n3', 0.5, MimeType::EXACT_TYPE),
-                            new MimeType('', '', 0, MimeType::ABSENT_TYPE)
+                            new Type('text/n3', 0.5, Type::EXACT_TYPE),
+                            new Type('', 0, Type::ABSENT_TYPE)
                         )
                     )
                 )
@@ -620,19 +619,19 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => '',
                 'app' => 'text/n3;q=0.5,text/html;q=0.5',
                 'best' => new TypePair(
-                    new MimeType('', '', 0, MimeType::ABSENT_TYPE),
-                    new MimeType('text', 'html', 0.5, MimeType::EXACT_TYPE)
+                    new Type('', 0, Type::ABSENT_TYPE),
+                    new Type('text/html', 0.5, Type::EXACT_TYPE)
                 ),
                 'all' => new TypePairCollection(
                     $sort,
                     array(
                         new TypePair(
-                            new MimeType('', '', 0, MimeType::ABSENT_TYPE),
-                            new MimeType('text', 'html', 0.5, MimeType::EXACT_TYPE)
+                            new Type('', 0, Type::ABSENT_TYPE),
+                            new Type('text/html', 0.5, Type::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new MimeType('', '', 0, MimeType::ABSENT_TYPE),
-                            new MimeType('text', 'n3', 0.5, MimeType::EXACT_TYPE)
+                            new Type('', 0, Type::ABSENT_TYPE),
+                            new Type('text/n3', 0.5, Type::EXACT_TYPE)
                         )
                     )
                 )
@@ -644,27 +643,27 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => 'application/xml;q=0.8,application/json;q=0.3,text/html;q=0.5',
                 'app' => 'application/json;q=0.6,text/n3;q=0.9,text/html;q=0.3',
                 'best' => new TypePair(
-                    new MimeType('application', 'json', 0.3, MimeType::EXACT_TYPE),
-                    new MimeType('application', 'json', 0.6, MimeType::EXACT_TYPE)
+                    new Type('application/json', 0.3, Type::EXACT_TYPE),
+                    new Type('application/json', 0.6, Type::EXACT_TYPE)
                 ),
                 'all' => new TypePairCollection(
                     $sort,
                     array(
                         new TypePair(
-                            new MimeType('application', 'json', 0.3, MimeType::EXACT_TYPE),
-                            new MimeType('application', 'json', 0.6, MimeType::EXACT_TYPE)
+                            new Type('application/json', 0.3, Type::EXACT_TYPE),
+                            new Type('application/json', 0.6, Type::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new MimeType('text', 'html', 0.5, MimeType::EXACT_TYPE),
-                            new MimeType('text', 'html', 0.3, MimeType::EXACT_TYPE)
+                            new Type('text/html', 0.5, Type::EXACT_TYPE),
+                            new Type('text/html', 0.3, Type::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new MimeType('application', 'xml', 0.8, MimeType::EXACT_TYPE),
-                            new MimeType('', '', 0, MimeType::ABSENT_TYPE)
+                            new Type('application/xml', 0.8, Type::EXACT_TYPE),
+                            new Type('', 0, Type::ABSENT_TYPE)
                         ),
                         new TypePair(
-                            new MimeType('', '', 0, MimeType::ABSENT_TYPE),
-                            new MimeType('text', 'n3', 0.9, MimeType::EXACT_TYPE)
+                            new Type('', 0, Type::ABSENT_TYPE),
+                            new Type('text/n3', 0.9, Type::EXACT_TYPE)
                         )
                     )
                 )
@@ -675,23 +674,23 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => 'text/*;q=0.8,application/xml;q=0.9',
                 'app' => 'text/html,application/xml;q=0.7,text/n3;q=0.3',
                 'best' => new TypePair(
-                    new MimeType('text', '*', 0.8, MimeType::WILDCARD_SUBTYPE),
-                    new MimeType('text', 'html', 1, MimeType::EXACT_TYPE)
+                    new Type('text/*', 0.8, Type::WILDCARD_SUBTYPE),
+                    new Type('text/html', 1, Type::EXACT_TYPE)
                 ),
                 'all' => new TypePairCollection(
                     $sort,
                     array(
                         new TypePair(
-                            new MimeType('text', '*', 0.8, MimeType::WILDCARD_SUBTYPE),
-                            new MimeType('text', 'html', 1, MimeType::EXACT_TYPE)
+                            new Type('text/*', 0.8, Type::WILDCARD_SUBTYPE),
+                            new Type('text/html', 1, Type::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new MimeType('application', 'xml', 0.9, MimeType::EXACT_TYPE),
-                            new MimeType('application', 'xml', 0.7, MimeType::EXACT_TYPE)
+                            new Type('application/xml', 0.9, Type::EXACT_TYPE),
+                            new Type('application/xml', 0.7, Type::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new MimeType('text', '*', 0.8, MimeType::WILDCARD_SUBTYPE),
-                            new MimeType('text', 'n3', 0.3, MimeType::EXACT_TYPE)
+                            new Type('text/*', 0.8, Type::WILDCARD_SUBTYPE),
+                            new Type('text/n3', 0.3, Type::EXACT_TYPE)
                         )
                     )
                 )
@@ -703,23 +702,23 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => 'text/*;q=0.75,text/html',
                 'app' => 'text/plain,text/html;q=0.75,application/xml;q=0.9',
                 'best' => new TypePair(
-                    new MimeType('text', 'html', 1, MimeType::EXACT_TYPE),
-                    new MimeType('text', 'html', 0.75, MimeType::EXACT_TYPE)
+                    new Type('text/html', 1, Type::EXACT_TYPE),
+                    new Type('text/html', 0.75, Type::EXACT_TYPE)
                 ),
                 'all' => new TypePairCollection(
                     $sort,
                     array(
                         new TypePair(
-                            new MimeType('text', 'html', 1, MimeType::EXACT_TYPE),
-                            new MimeType('text', 'html', 0.75, MimeType::EXACT_TYPE)
+                            new Type('text/html', 1, Type::EXACT_TYPE),
+                            new Type('text/html', 0.75, Type::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new MimeType('text', '*', 0.75, MimeType::WILDCARD_SUBTYPE),
-                            new MimeType('text', 'plain', 1, MimeType::EXACT_TYPE)
+                            new Type('text/*', 0.75, Type::WILDCARD_SUBTYPE),
+                            new Type('text/plain', 1, Type::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new MimeType('', '', 0, MimeType::ABSENT_TYPE),
-                            new MimeType('application', 'xml', 0.9, MimeType::EXACT_TYPE)
+                            new Type('', 0, Type::ABSENT_TYPE),
+                            new Type('application/xml', 0.9, Type::EXACT_TYPE)
                         )
                     )
                 )
@@ -730,23 +729,23 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => '*/*;q=0.75,text/html',
                 'app' => 'text/plain,text/html;q=0.75,application/xml;q=0.9',
                 'best' => new TypePair(
-                    new MimeType('text', 'html', 1, MimeType::EXACT_TYPE),
-                    new MimeType('text', 'html', 0.75, MimeType::EXACT_TYPE)
+                    new Type('text/html', 1, Type::EXACT_TYPE),
+                    new Type('text/html', 0.75, Type::EXACT_TYPE)
                 ),
                 'all' => new TypePairCollection(
                     $sort,
                     array(
                         new TypePair(
-                            new MimeType('text', 'html', 1, MimeType::EXACT_TYPE),
-                            new MimeType('text', 'html', 0.75, MimeType::EXACT_TYPE)
+                            new Type('text/html', 1, Type::EXACT_TYPE),
+                            new Type('text/html', 0.75, Type::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new MimeType('*', '*', 0.75, MimeType::WILDCARD_TYPE),
-                            new MimeType('text', 'plain', 1, MimeType::EXACT_TYPE)
+                            new Type('*/*', 0.75, Type::WILDCARD_TYPE),
+                            new Type('text/plain', 1, Type::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new MimeType('*', '*', 0.75, MimeType::WILDCARD_TYPE),
-                            new MimeType('application', 'xml', 0.9, MimeType::EXACT_TYPE)
+                            new Type('*/*', 0.75, Type::WILDCARD_TYPE),
+                            new Type('application/xml', 0.9, Type::EXACT_TYPE)
                         )
                     )
                 )
@@ -759,23 +758,23 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 'user' => '*/*,text/*,text/html',
                 'app' => 'text/plain,text/html,application/xml',
                 'best' => new TypePair(
-                    new MimeType('text', 'html', 1, MimeType::EXACT_TYPE),
-                    new MimeType('text', 'html', 1, MimeType::EXACT_TYPE)
+                    new Type('text/html', 1, Type::EXACT_TYPE),
+                    new Type('text/html', 1, Type::EXACT_TYPE)
                 ),
                 'all' => new TypePairCollection(
                     $sort,
                     array(
                         new TypePair(
-                            new MimeType('text', 'html', 1, MimeType::EXACT_TYPE),
-                            new MimeType('text', 'html', 1, MimeType::EXACT_TYPE)
+                            new Type('text/html', 1, Type::EXACT_TYPE),
+                            new Type('text/html', 1, Type::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new MimeType('text', '*', 1, MimeType::WILDCARD_SUBTYPE),
-                            new MimeType('text', 'plain', 1, MimeType::EXACT_TYPE)
+                            new Type('text/*', 1, Type::WILDCARD_SUBTYPE),
+                            new Type('text/plain', 1, Type::EXACT_TYPE)
                         ),
                         new TypePair(
-                            new MimeType('*', '*', 1, MimeType::WILDCARD_TYPE),
-                            new MimeType('application', 'xml', 1, MimeType::EXACT_TYPE)
+                            new Type('*/*', 1, Type::WILDCARD_TYPE),
+                            new Type('application/xml', 1, Type::EXACT_TYPE)
                         )
                     )
                 )

@@ -16,7 +16,7 @@ namespace ptlis\ConNeg\Test\BugReport;
 use ptlis\ConNeg\Collection\TypePairCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
 use ptlis\ConNeg\Negotiation;
-use ptlis\ConNeg\Type\MimeType;
+use ptlis\ConNeg\Type\Type;
 use ptlis\ConNeg\TypePair\TypePair;
 
 /**
@@ -34,19 +34,19 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
 
         $sort = new TypePairSort(
             new TypePair(
-                new MimeType('', '', 0, MimeType::ABSENT_TYPE),
-                new MimeType('', '', 0, MimeType::ABSENT_TYPE)
+                new Type('', 0, Type::ABSENT_TYPE),
+                new Type('', 0, Type::ABSENT_TYPE)
             )
         );
 
         $expectList = array(
             new TypePair(
-                new MimeType('application', 'rdf+xml', 0.5, MimeType::EXACT_TYPE),
-                new MimeType('', '', 0, MimeType::ABSENT_TYPE)
+                new Type('application/rdf+xml', 0.5, Type::EXACT_TYPE),
+                new Type('', 0, Type::ABSENT_TYPE)
             ),
             new TypePair(
-                new MimeType('text', 'html', 0.3, MimeType::EXACT_TYPE),
-                new MimeType('', '', 0, MimeType::ABSENT_TYPE)
+                new Type('text/html', 0.3, Type::EXACT_TYPE),
+                new Type('', 0, Type::ABSENT_TYPE)
             )
         );
 
@@ -69,15 +69,15 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
 
         $sort = new TypePairSort(
             new TypePair(
-                new MimeType('', '', 0, MimeType::ABSENT_TYPE),
-                new MimeType('', '', 0, MimeType::ABSENT_TYPE)
+                new Type('', 0, Type::ABSENT_TYPE),
+                new Type('', 0, Type::ABSENT_TYPE)
             )
         );
 
         $pairList = array(
             new TypePair(
-                new MimeType('application', 'xhtml+xml', 0.5, MimeType::EXACT_TYPE),
-                new MimeType('', '', 0, MimeType::ABSENT_TYPE)
+                new Type('application/xhtml+xml', 0.5, Type::EXACT_TYPE),
+                new Type('', 0, Type::ABSENT_TYPE)
             )
         );
         $expectCollection = new TypePairCollection($sort, $pairList);
@@ -99,19 +99,19 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
 
         $sort = new TypePairSort(
             new TypePair(
-                new MimeType('', '', 0, MimeType::ABSENT_TYPE),
-                new MimeType('', '', 0, MimeType::ABSENT_TYPE)
+                new Type('', 0, Type::ABSENT_TYPE),
+                new Type('', 0, Type::ABSENT_TYPE)
             )
         );
 
         $pairList = array(
             new TypePair(
-                new MimeType('application', 'rdf+xml', 0.5, MimeType::EXACT_TYPE),
-                new MimeType('', '', 0, MimeType::ABSENT_TYPE)
+                new Type('application/rdf+xml', 0.5, Type::EXACT_TYPE),
+                new Type('', 0, Type::ABSENT_TYPE)
             ),
             new TypePair(
-                new MimeType('text', 'html', 0.5, MimeType::EXACT_TYPE),
-                new MimeType('', '', 0, MimeType::ABSENT_TYPE)
+                new Type('text/html', 0.5, Type::EXACT_TYPE),
+                new Type('', 0, Type::ABSENT_TYPE)
             )
         );
         $expectCollection = new TypePairCollection($sort, $pairList);

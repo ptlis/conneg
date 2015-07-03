@@ -16,7 +16,7 @@ namespace ptlis\ConNeg\Test\BugReport;
 use ptlis\ConNeg\Collection\TypePairCollection;
 use ptlis\ConNeg\Collection\TypePairSort;
 use ptlis\ConNeg\Negotiation;
-use ptlis\ConNeg\Type\MimeType;
+use ptlis\ConNeg\Type\Type;
 use ptlis\ConNeg\TypePair\TypePair;
 
 /**
@@ -34,35 +34,35 @@ class IssueTwoTest extends \PHPUnit_Framework_TestCase
 
         $sort = new TypePairSort(
             new TypePair(
-                new MimeType('', '', 0, MimeType::ABSENT_TYPE),
-                new MimeType('', '', 0, MimeType::ABSENT_TYPE)
+                new Type('', 0, Type::ABSENT_TYPE),
+                new Type('', 0, Type::ABSENT_TYPE)
             )
         );
 
         $pairList = array(
             new TypePair(
-                new MimeType('text', 'turtle', 1, MimeType::EXACT_TYPE),
-                new MimeType('', '', 0, MimeType::ABSENT_TYPE)
+                new Type('text/turtle', 1, Type::EXACT_TYPE),
+                new Type('', 0, Type::ABSENT_TYPE)
             ),
             new TypePair(
-                new MimeType('application', 'rdf+json', 0.8, MimeType::EXACT_TYPE),
-                new MimeType('', '', 0, MimeType::ABSENT_TYPE)
+                new Type('application/rdf+json', 0.8, Type::EXACT_TYPE),
+                new Type('', 0, Type::ABSENT_TYPE)
             ),
             new TypePair(
-                new MimeType('application', 'rdf+xml', 0.8, MimeType::EXACT_TYPE),
-                new MimeType('', '', 0, MimeType::ABSENT_TYPE)
+                new Type('application/rdf+xml', 0.8, Type::EXACT_TYPE),
+                new Type('', 0, Type::ABSENT_TYPE)
             ),
             new TypePair(
-                new MimeType('text', 'n3', 0.8, MimeType::EXACT_TYPE),
-                new MimeType('', '', 0, MimeType::ABSENT_TYPE)
+                new Type('text/n3', 0.8, Type::EXACT_TYPE),
+                new Type('', 0, Type::ABSENT_TYPE)
             ),
             new TypePair(
-                new MimeType('text', 'rdf+n3', 0.8, MimeType::EXACT_TYPE),
-                new MimeType('', '', 0, MimeType::ABSENT_TYPE)
+                new Type('text/rdf+n3', 0.8, Type::EXACT_TYPE),
+                new Type('', 0, Type::ABSENT_TYPE)
             ),
             new TypePair(
-                new MimeType('application', 'ld+json', 0.5, MimeType::EXACT_TYPE),
-                new MimeType('', '', 0, MimeType::ABSENT_TYPE)
+                new Type('application/ld+json', 0.5, Type::EXACT_TYPE),
+                new Type('', 0, Type::ABSENT_TYPE)
             )
         );
         $expectCollection = new TypePairCollection($sort, $pairList);
