@@ -94,13 +94,8 @@ class MimeTypeBuilder extends AbstractTypeBuilder
             }
         }
 
-        $type = '';
-        if (Type::ABSENT_TYPE !== $precedence) {
-            $type = $mimeType . '/' . $subType;
-        }
-
         return new Type(
-            $type,
+            $this->type,
             $qFactor,
             $precedence
         );
