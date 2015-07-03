@@ -31,7 +31,7 @@ abstract class AbstractTypeBuilder implements TypeBuilderInterface
     protected $type = '';
 
     /**
-     * @var int
+     * @var float
      */
     protected $qFactor = 1;
 
