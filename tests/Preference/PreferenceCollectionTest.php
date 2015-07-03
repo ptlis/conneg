@@ -11,25 +11,25 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Test\Collection;
+namespace ptlis\ConNeg\Test\Preference;
 
-use ptlis\ConNeg\Collection\TypeCollection;
-use ptlis\ConNeg\Type\Type;
+use ptlis\ConNeg\Preference\PreferenceCollection;
+use ptlis\ConNeg\Preference\Preference;
 
-class TypeCollectionTest extends \PHPUnit_Framework_TestCase
+class PreferenceCollectionTest extends \PHPUnit_Framework_TestCase
 {
     public function testIterator()
     {
         $expectList = array(
-            new Type('text/html', 1, Type::EXACT_TYPE),
-            new Type('text/n3', 0.8, Type::EXACT_TYPE)
+            new Preference('text/html', 1, Preference::EXACT_TYPE),
+            new Preference('text/n3', 0.8, Preference::EXACT_TYPE)
         );
 
-        $expectCollection = new TypeCollection($expectList);
+        $expectCollection = new PreferenceCollection($expectList);
 
         $ascendingCollection = $expectCollection->getAscending();
         foreach ($ascendingCollection as $type) {
-            $this->assertInstanceOf('ptlis\ConNeg\Type\TypeInterface', $type);
+            $this->assertInstanceOf('ptlis\ConNeg\Preference\PreferenceInterface', $type);
         }
     }
 
@@ -37,11 +37,11 @@ class TypeCollectionTest extends \PHPUnit_Framework_TestCase
     public function testGetAscendingOne()
     {
         $expectList = array(
-            new Type('text/html', 1, Type::EXACT_TYPE),
-            new Type('text/n3', 0.8, Type::EXACT_TYPE)
+            new Preference('text/html', 1, Preference::EXACT_TYPE),
+            new Preference('text/n3', 0.8, Preference::EXACT_TYPE)
         );
 
-        $expectCollection = new TypeCollection($expectList);
+        $expectCollection = new PreferenceCollection($expectList);
 
         $expectType = array(
             'text/n3;q=0.8',
@@ -61,10 +61,10 @@ class TypeCollectionTest extends \PHPUnit_Framework_TestCase
     public function testGetAscendingTwo()
     {
         $expectList = array(
-            new Type('text/n3', 0.8, Type::EXACT_TYPE),
-            new Type('text/html', 1, Type::EXACT_TYPE)
+            new Preference('text/n3', 0.8, Preference::EXACT_TYPE),
+            new Preference('text/html', 1, Preference::EXACT_TYPE)
         );
-        $expectCollection = new TypeCollection($expectList);
+        $expectCollection = new PreferenceCollection($expectList);
 
         $expectType = array(
             'text/n3;q=0.8',
@@ -84,11 +84,11 @@ class TypeCollectionTest extends \PHPUnit_Framework_TestCase
     public function testGetAscendingThree()
     {
         $expectList = array(
-            new Type('text/n3', 1, Type::EXACT_TYPE),
-            new Type('text/html', 1, Type::EXACT_TYPE)
+            new Preference('text/n3', 1, Preference::EXACT_TYPE),
+            new Preference('text/html', 1, Preference::EXACT_TYPE)
         );
 
-        $expectCollection = new TypeCollection($expectList);
+        $expectCollection = new PreferenceCollection($expectList);
 
         $expectType = array(
             'text/html;q=1',
@@ -108,10 +108,10 @@ class TypeCollectionTest extends \PHPUnit_Framework_TestCase
     public function testGetDescendingOne()
     {
         $expectList = array(
-            new Type('text/n3', 0.8, Type::EXACT_TYPE),
-            new Type('text/html', 1, Type::EXACT_TYPE)
+            new Preference('text/n3', 0.8, Preference::EXACT_TYPE),
+            new Preference('text/html', 1, Preference::EXACT_TYPE)
         );
-        $expectCollection = new TypeCollection($expectList);
+        $expectCollection = new PreferenceCollection($expectList);
 
         $expectType = array(
             'text/html;q=1',
@@ -131,11 +131,11 @@ class TypeCollectionTest extends \PHPUnit_Framework_TestCase
     public function testGetDescendingTwo()
     {
         $expectList = array(
-            new Type('text/html', 1, Type::EXACT_TYPE),
-            new Type('text/n3', 0.8, Type::EXACT_TYPE)
+            new Preference('text/html', 1, Preference::EXACT_TYPE),
+            new Preference('text/n3', 0.8, Preference::EXACT_TYPE)
         );
 
-        $expectCollection = new TypeCollection($expectList);
+        $expectCollection = new PreferenceCollection($expectList);
 
         $expectType = array(
             'text/html;q=1',
@@ -155,11 +155,11 @@ class TypeCollectionTest extends \PHPUnit_Framework_TestCase
     public function testGetDescendingThree()
     {
         $expectList = array(
-            new Type('text/n3', 1, Type::EXACT_TYPE),
-            new Type('text/html', 1, Type::EXACT_TYPE)
+            new Preference('text/n3', 1, Preference::EXACT_TYPE),
+            new Preference('text/html', 1, Preference::EXACT_TYPE)
         );
 
-        $expectCollection = new TypeCollection($expectList);
+        $expectCollection = new PreferenceCollection($expectList);
 
         $expectType = array(
             'text/html;q=1',
@@ -179,11 +179,11 @@ class TypeCollectionTest extends \PHPUnit_Framework_TestCase
     public function testClone()
     {
         $expectList = array(
-            new Type('text/n3', 0.8, Type::EXACT_TYPE),
-            new Type('text/html', 1, Type::EXACT_TYPE)
+            new Preference('text/n3', 0.8, Preference::EXACT_TYPE),
+            new Preference('text/html', 1, Preference::EXACT_TYPE)
         );
 
-        $collection = new TypeCollection($expectList);
+        $collection = new PreferenceCollection($expectList);
 
         $expectCollection = clone $collection;
 
@@ -194,11 +194,11 @@ class TypeCollectionTest extends \PHPUnit_Framework_TestCase
     public function testToString()
     {
         $expectList = array(
-            new Type('text/n3', 0.8, Type::EXACT_TYPE),
-            new Type('text/html', 1, Type::EXACT_TYPE)
+            new Preference('text/n3', 0.8, Preference::EXACT_TYPE),
+            new Preference('text/html', 1, Preference::EXACT_TYPE)
         );
 
-        $collection = new TypeCollection($expectList);
+        $collection = new PreferenceCollection($expectList);
 
         $this->assertEquals('text/n3;q=0.8,text/html;q=1', $collection->__toString());
     }
@@ -206,11 +206,11 @@ class TypeCollectionTest extends \PHPUnit_Framework_TestCase
     public function testCount()
     {
         $expectList = array(
-            new Type('text/n3', 0.8, Type::EXACT_TYPE),
-            new Type('text/html', 1, Type::EXACT_TYPE)
+            new Preference('text/n3', 0.8, Preference::EXACT_TYPE),
+            new Preference('text/html', 1, Preference::EXACT_TYPE)
         );
 
-        $collection = new TypeCollection($expectList);
+        $collection = new PreferenceCollection($expectList);
 
         $this->assertEquals(2, count($collection));
     }

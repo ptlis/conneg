@@ -13,18 +13,18 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Test\TypePair;
+namespace ptlis\ConNeg\Test\Preference\Matched;
 
-use ptlis\ConNeg\Type\Type;
-use ptlis\ConNeg\TypePair\TypePair;
+use ptlis\ConNeg\Preference\Preference;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferences;
 
-class SharedTypePairTest extends \PHPUnit_Framework_TestCase
+class SharedMatchedPreferencesTest extends \PHPUnit_Framework_TestCase
 {
     public function testNewCharsetTypeOne()
     {
-        $pair = new TypePair(
-            new Type('utf-8', 0.5, Type::EXACT_TYPE),
-            new Type('*', 0.3, Type::WILDCARD_TYPE)
+        $pair = new MatchedPreferences(
+            new Preference('utf-8', 0.5, Preference::EXACT_TYPE),
+            new Preference('*', 0.3, Preference::WILDCARD_TYPE)
         );
 
         $this->assertSame('utf-8', $pair->getType());
@@ -35,9 +35,9 @@ class SharedTypePairTest extends \PHPUnit_Framework_TestCase
 
     public function testNewCharsetTypeTwo()
     {
-        $pair = new TypePair(
-            new Type('*', 0.3, Type::WILDCARD_TYPE),
-            new Type('utf-8', 0.5, Type::EXACT_TYPE)
+        $pair = new MatchedPreferences(
+            new Preference('*', 0.3, Preference::WILDCARD_TYPE),
+            new Preference('utf-8', 0.5, Preference::EXACT_TYPE)
         );
 
         $this->assertSame('utf-8', $pair->getType());

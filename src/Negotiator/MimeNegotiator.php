@@ -13,13 +13,13 @@
 
 namespace ptlis\ConNeg\Negotiator;
 
-use ptlis\ConNeg\Collection\TypeCollection;
-use ptlis\ConNeg\Collection\TypePairCollection;
-use ptlis\ConNeg\Collection\TypePairSort;
-use ptlis\ConNeg\TypePair\TypePair;
-use ptlis\ConNeg\TypePair\TypePairInterface;
-use ptlis\ConNeg\Type\Type;
-use ptlis\ConNeg\Type\TypeInterface;
+use ptlis\ConNeg\Preference\PreferenceCollection;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferencesCollection;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferencesSort;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferences;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferencesInterface;
+use ptlis\ConNeg\Preference\Preference;
+use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
  * Class for negotiating on mime types.
@@ -29,14 +29,14 @@ class MimeNegotiator implements NegotiatorInterface
     /**
      * Empty type instance, used when only user & app types are asymmetric.
      *
-     * @var TypeInterface
+     * @var PreferenceInterface
      */
     private $emptyType;
 
     /**
      * Instance of sorter than can reorder pairs.
      *
-     * @var TypePairSort
+     * @var MatchedPreferencesSort
      */
     private $pairSort;
 
@@ -44,10 +44,10 @@ class MimeNegotiator implements NegotiatorInterface
     /**
      * Constructor.
      *
-     * @param TypeInterface $emptyType
-     * @param TypePairSort $pairSort
+     * @param PreferenceInterface $emptyType
+     * @param MatchedPreferencesSort $pairSort
      */
-    public function __construct(TypeInterface $emptyType, TypePairSort $pairSort)
+    public function __construct(PreferenceInterface $emptyType, MatchedPreferencesSort $pairSort)
     {
         $this->emptyType  = $emptyType;
         $this->pairSort     = $pairSort;
@@ -56,17 +56,17 @@ class MimeNegotiator implements NegotiatorInterface
     /**
      * Return a collection of types sorted by preference.
      *
-     * @param TypeCollection $userTypeList
-     * @param TypeCollection $appTypeList
+     * @param PreferenceCollection $userTypeList
+     * @param PreferenceCollection $appTypeList
      *
-     * @return TypePairCollection
+     * @return MatchedPreferencesCollection
      */
-    public function negotiateAll(TypeCollection $userTypeList, TypeCollection $appTypeList)
+    public function negotiateAll(PreferenceCollection $userTypeList, PreferenceCollection $appTypeList)
     {
         $matchingList = array();
-        /** @var TypeInterface $appType */
+        /** @var PreferenceInterface $appType */
         foreach ($appTypeList as $appType) {
-            $matchingList[$appType->getType()] = new TypePair(
+            $matchingList[$appType->getType()] = new MatchedPreferences(
                 $this->emptyType,
                 $appType
             );
@@ -76,7 +76,7 @@ class MimeNegotiator implements NegotiatorInterface
 
         $pairList = array_values($matchingList);
 
-        $pairCollection = new TypePairCollection($this->pairSort, $pairList);
+        $pairCollection = new MatchedPreferencesCollection($this->pairSort, $pairList);
 
         return $pairCollection->getDescending();
     }
@@ -84,12 +84,12 @@ class MimeNegotiator implements NegotiatorInterface
     /**
      * Return the preferred type & product of application & user-agent quality factors.
      *
-     * @param TypeCollection $userTypeList
-     * @param TypeCollection $appTypeList
+     * @param PreferenceCollection $userTypeList
+     * @param PreferenceCollection $appTypeList
      *
-     * @return TypePair
+     * @return MatchedPreferences
      */
-    public function negotiateBest(TypeCollection $userTypeList, TypeCollection $appTypeList)
+    public function negotiateBest(PreferenceCollection $userTypeList, PreferenceCollection $appTypeList)
     {
         $pairCollection = $this->negotiateAll($userTypeList, $appTypeList);
 
@@ -99,16 +99,16 @@ class MimeNegotiator implements NegotiatorInterface
     /**
      * Attempt to match wildcard type against each item in matching list.
      *
-     * @param TypePairInterface[]  $matchingList
-     * @param TypeInterface $userType
+     * @param MatchedPreferencesInterface[]  $matchingList
+     * @param PreferenceInterface $userType
      *
-     * @return TypePairInterface[]
+     * @return MatchedPreferencesInterface[]
      */
-    private function matchFullWildcard(array $matchingList, TypeInterface $userType)
+    private function matchFullWildcard(array $matchingList, PreferenceInterface $userType)
     {
         foreach ($matchingList as $key => $matching) {
             if ($userType->getPrecedence() > $matching->getUserType()->getPrecedence()) {
-                $matchingList[$key] = new TypePair(
+                $matchingList[$key] = new MatchedPreferences(
                     $userType,
                     $matchingList[$key]->getAppType()
                 );
@@ -121,12 +121,12 @@ class MimeNegotiator implements NegotiatorInterface
     /**
      * Attempt to match wildcard subtypes against each item in matching list with an identical type.
      *
-     * @param TypePairInterface[]   $matchingList
-     * @param TypeInterface     $userType
+     * @param MatchedPreferencesInterface[]   $matchingList
+     * @param PreferenceInterface     $userType
      *
-     * @return TypePairInterface[]
+     * @return MatchedPreferencesInterface[]
      */
-    private function matchSubTypeWildcard(array $matchingList, TypeInterface $userType)
+    private function matchSubTypeWildcard(array $matchingList, PreferenceInterface $userType)
     {
         foreach ($matchingList as $key => $matching) {
             $appType = $matching->getAppType();
@@ -136,7 +136,7 @@ class MimeNegotiator implements NegotiatorInterface
             if ($userMimeType == $appMimeType
                     && $userType->getPrecedence() > $matching->getUserType()->getPrecedence()) {
 
-                $matchingList[$key] = new TypePair(
+                $matchingList[$key] = new MatchedPreferences(
                     $userType,
                     $matchingList[$key]->getAppType()
                 );
@@ -149,14 +149,14 @@ class MimeNegotiator implements NegotiatorInterface
     /**
      * Attempt to match the given type to an existing type in typeList.
      *
-     * @param TypePairInterface[]   $matchingList
-     * @param TypeInterface     $userType
+     * @param MatchedPreferencesInterface[]   $matchingList
+     * @param PreferenceInterface     $userType
      *
      * @return array<string,TypePairInterface>
      */
-    private function matchExact(array $matchingList, TypeInterface $userType)
+    private function matchExact(array $matchingList, PreferenceInterface $userType)
     {
-        $newPair = new TypePair(
+        $newPair = new MatchedPreferences(
             $userType,
             $matchingList[$userType->getType()]->getAppType()
         );
@@ -171,12 +171,12 @@ class MimeNegotiator implements NegotiatorInterface
     /**
      * Match user types to app types.
      *
-     * @param TypeCollection   $userTypeList
-     * @param TypePairInterface[]  $matchingList
+     * @param PreferenceCollection   $userTypeList
+     * @param MatchedPreferencesInterface[]  $matchingList
      *
      * @return  array<string,TypePairInterface>
      */
-    private function matchUserListToAppTypes(TypeCollection $userTypeList, array $matchingList)
+    private function matchUserListToAppTypes(PreferenceCollection $userTypeList, array $matchingList)
     {
         foreach ($userTypeList as $userType) {
             $matchingList = $this->matchUserToAppTypes($userType, $matchingList);
@@ -188,21 +188,21 @@ class MimeNegotiator implements NegotiatorInterface
     /**
      * Match a single user type to the application types.
      *
-     * @param TypeInterface     $userType
-     * @param TypePairInterface[]   $matchingList
+     * @param PreferenceInterface     $userType
+     * @param MatchedPreferencesInterface[]   $matchingList
      *
      * @return  array<string,TypePairInterface>
      */
-    private function matchUserToAppTypes(TypeInterface $userType, array $matchingList)
+    private function matchUserToAppTypes(PreferenceInterface $userType, array $matchingList)
     {
         switch (true) {
             // Full Wildcard Match
-            case Type::WILDCARD_TYPE === $userType->getPrecedence():
+            case Preference::WILDCARD_TYPE === $userType->getPrecedence():
                 $matchingList = $this->matchFullWildcard($matchingList, $userType);
                 break;
 
             // Wildcard SubType Match
-            case Type::WILDCARD_SUBTYPE === $userType->getPrecedence():
+            case Preference::WILDCARD_SUBTYPE === $userType->getPrecedence():
                 $matchingList = $this->matchSubTypeWildcard($matchingList, $userType);
                 break;
 
@@ -213,7 +213,7 @@ class MimeNegotiator implements NegotiatorInterface
 
             // No match
             default:
-                $matchingList[$userType->getType()] = new TypePair(
+                $matchingList[$userType->getType()] = new MatchedPreferences(
                     $userType,
                     $this->emptyType
                 );

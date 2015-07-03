@@ -11,20 +11,19 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Collection;
+namespace ptlis\ConNeg\Preference\Matched;
 
-use ptlis\ConNeg\TypePair\TypePairInterface;
-use ptlis\ConNeg\Type\TypeInterface;
+use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
  * Helper class encoding the rules governing the sorting of TypePairCollections.
  */
-class TypePairSort
+class MatchedPreferencesSort
 {
     /**
      * Default type pair returned by 'best' negotiation when a collection is empty.
      *
-     * @var TypePairInterface
+     * @var MatchedPreferencesInterface
      */
     private $defaultPair;
 
@@ -32,10 +31,10 @@ class TypePairSort
     /**
      * Constructor.
      *
-     * @param TypePairInterface $defaultPair    Default type pair used for 'best' negotiation where the collection is
+     * @param MatchedPreferencesInterface $defaultPair    Default type pair used for 'best' negotiation where the collection is
      *                                          empty.
      */
-    public function __construct(TypePairInterface $defaultPair)
+    public function __construct(MatchedPreferencesInterface $defaultPair)
     {
         $this->defaultPair = $defaultPair;
     }
@@ -43,21 +42,21 @@ class TypePairSort
     /**
      * Sort the array of typePairs in ascending order.
      *
-     * @param TypePairInterface[] $typePairList
+     * @param MatchedPreferencesInterface[] $typePairList
      *
-     * @return TypePairCollection
+     * @return MatchedPreferencesCollection
      */
     public function sortAscending(array $typePairList)
     {
         $that = $this;
         usort(
             $typePairList,
-            function (TypePairInterface $lTypePair, TypePairInterface $rTypePair) use ($that) {
+            function (MatchedPreferencesInterface $lTypePair, MatchedPreferencesInterface $rTypePair) use ($that) {
                 return -1 * $that->compare($lTypePair, $rTypePair);
             }
         );
 
-        $newCollection = new TypePairCollection($this, $typePairList);
+        $newCollection = new MatchedPreferencesCollection($this, $typePairList);
 
         return $newCollection;
     }
@@ -65,21 +64,21 @@ class TypePairSort
     /**
      * Sort the array of typePairs in descending order.
      *
-     * @param TypePairInterface[] $typePairList
+     * @param MatchedPreferencesInterface[] $typePairList
      *
-     * @return TypePairCollection
+     * @return MatchedPreferencesCollection
      */
     public function sortDescending(array $typePairList)
     {
         $that = $this;
         usort(
             $typePairList,
-            function (TypePairInterface $lTypePair, TypePairInterface $rTypePair) use ($that) {
+            function (MatchedPreferencesInterface $lTypePair, MatchedPreferencesInterface $rTypePair) use ($that) {
                 return $that->compare($lTypePair, $rTypePair);
             }
         );
 
-        $newCollection = new TypePairCollection($this, $typePairList);
+        $newCollection = new MatchedPreferencesCollection($this, $typePairList);
 
         return $newCollection;
     }
@@ -87,16 +86,16 @@ class TypePairSort
     /**
      * Get the best matching type pair.
      *
-     * @param TypePairInterface[] $typePairList
+     * @param MatchedPreferencesInterface[] $typePairList
      *
-     * @return TypePairInterface
+     * @return MatchedPreferencesInterface
      */
     public function getBest(array $typePairList)
     {
         $that = $this;
         usort(
             $typePairList,
-            function (TypePairInterface $lTypePair, TypePairInterface $rTypePair) use ($that) {
+            function (MatchedPreferencesInterface $lTypePair, MatchedPreferencesInterface $rTypePair) use ($that) {
                 return $that->compare($lTypePair, $rTypePair);
             }
         );
@@ -114,12 +113,12 @@ class TypePairSort
     /**
      * Comparison function used for ordering type pairs.
      *
-     * @param TypePairInterface $lTypePair
-     * @param TypePairInterface $rTypePair
+     * @param MatchedPreferencesInterface $lTypePair
+     * @param MatchedPreferencesInterface $rTypePair
      *
      * @return int -1, 0, 1 (see usort() callback for meaning)
      */
-    public function compare(TypePairInterface $lTypePair, TypePairInterface $rTypePair)
+    public function compare(MatchedPreferencesInterface $lTypePair, MatchedPreferencesInterface $rTypePair)
     {
         // Compare by quality factors - highest quality factor has precedence.
         $result = $this->compareQualityFactorPair($lTypePair, $rTypePair);
@@ -140,12 +139,12 @@ class TypePairSort
     /**
      * Comparison function for quality factors of type pairs.
      *
-     * @param TypePairInterface $lTypePair
-     * @param TypePairInterface $rTypePair
+     * @param MatchedPreferencesInterface $lTypePair
+     * @param MatchedPreferencesInterface $rTypePair
      *
      * @return int -1, 0, 1 (see usort() callback for meaning)
      */
-    private function compareQualityFactorPair(TypePairInterface $lTypePair, TypePairInterface $rTypePair)
+    private function compareQualityFactorPair(MatchedPreferencesInterface $lTypePair, MatchedPreferencesInterface $rTypePair)
     {
         // Build a list of quality factor comparisons to perform; highest preference given to quality factor products,
         // followed by those provided by the user agent & finally the application provided.
@@ -180,12 +179,12 @@ class TypePairSort
     /**
      * Compare quality factors of types.
      *
-     * @param TypeInterface $lType
-     * @param TypeInterface $rType
+     * @param PreferenceInterface $lType
+     * @param PreferenceInterface $rType
      *
      * @return int -1, 0, 1 (see usort() callback for meaning)
      */
-    private function compareQualityFactor(TypeInterface $lType, TypeInterface $rType)
+    private function compareQualityFactor(PreferenceInterface $lType, PreferenceInterface $rType)
     {
         if ($rType->getQualityFactor() < $lType->getQualityFactor()) {
             return -1;
@@ -199,12 +198,12 @@ class TypePairSort
     /**
      * Compare precedences of types.
      *
-     * @param TypeInterface $lType
-     * @param TypeInterface $rType
+     * @param PreferenceInterface $lType
+     * @param PreferenceInterface $rType
      *
      * @return int -1, 0, 1 (see usort() callback for meaning)
      */
-    private function comparePrecedence(TypeInterface $lType, TypeInterface $rType)
+    private function comparePrecedence(PreferenceInterface $lType, PreferenceInterface $rType)
     {
         if ($rType->getPrecedence() < $lType->getPrecedence()) {
             return -1;
@@ -218,12 +217,12 @@ class TypePairSort
     /**
      * Compare types alphabetically
      *
-     * @param TypePairInterface $lTypePair
-     * @param TypePairInterface $rTypePair
+     * @param MatchedPreferencesInterface $lTypePair
+     * @param MatchedPreferencesInterface $rTypePair
      *
      * @return int -1, 0, 1 (see usort() callback for meaning)
      */
-    private function compareType(TypePairInterface $lTypePair, TypePairInterface $rTypePair)
+    private function compareType(MatchedPreferencesInterface $lTypePair, MatchedPreferencesInterface $rTypePair)
     {
         return strcasecmp($lTypePair->getType(), $rTypePair->getType());
     }

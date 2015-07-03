@@ -13,9 +13,9 @@
 
 namespace ptlis\ConNeg\Negotiator;
 
-use ptlis\ConNeg\Collection\CollectionInterface;
-use ptlis\ConNeg\Collection\TypeCollection;
-use ptlis\ConNeg\Type\TypeInterface;
+use ptlis\ConNeg\Preference\CollectionInterface;
+use ptlis\ConNeg\Preference\PreferenceCollection;
+use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
  * Interface class for negotiators.
@@ -25,20 +25,20 @@ interface NegotiatorInterface
     /**
      * Return a collection of types sorted by preference.
      *
-     * @param TypeCollection $userTypeList
-     * @param TypeCollection $appTypeList
+     * @param PreferenceCollection $userTypeList
+     * @param PreferenceCollection $appTypeList
      *
      * @return CollectionInterface
      */
-    public function negotiateAll(TypeCollection $userTypeList, TypeCollection $appTypeList);
+    public function negotiateAll(PreferenceCollection $userTypeList, PreferenceCollection $appTypeList);
 
     /**
      * Return the preferred type & product of application & user-agent quality factors.
      *
-     * @param TypeCollection $userTypeList
-     * @param TypeCollection $appTypeList
+     * @param PreferenceCollection $userTypeList
+     * @param PreferenceCollection $appTypeList
      *
-     * @return TypeInterface
+     * @return PreferenceInterface
      */
-    public function negotiateBest(TypeCollection $userTypeList, TypeCollection $appTypeList);
+    public function negotiateBest(PreferenceCollection $userTypeList, PreferenceCollection $appTypeList);
 }

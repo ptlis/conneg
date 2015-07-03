@@ -13,11 +13,11 @@
 
 namespace ptlis\ConNeg\Test\BugReport;
 
-use ptlis\ConNeg\Collection\TypePairCollection;
-use ptlis\ConNeg\Collection\TypePairSort;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferencesCollection;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferencesSort;
 use ptlis\ConNeg\Negotiation;
-use ptlis\ConNeg\Type\Type;
-use ptlis\ConNeg\TypePair\TypePair;
+use ptlis\ConNeg\Preference\Preference;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferences;
 
 /**
  * Regression tests for Issue #3
@@ -32,25 +32,25 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
         $httpField = 'application/rdf+xml;q=0.5,text/html;q=.3';
         $appPrefs = '';
 
-        $sort = new TypePairSort(
-            new TypePair(
-                new Type('', 0, Type::ABSENT_TYPE),
-                new Type('', 0, Type::ABSENT_TYPE)
+        $sort = new MatchedPreferencesSort(
+            new MatchedPreferences(
+                new Preference('', 0, Preference::ABSENT_TYPE),
+                new Preference('', 0, Preference::ABSENT_TYPE)
             )
         );
 
         $expectList = array(
-            new TypePair(
-                new Type('application/rdf+xml', 0.5, Type::EXACT_TYPE),
-                new Type('', 0, Type::ABSENT_TYPE)
+            new MatchedPreferences(
+                new Preference('application/rdf+xml', 0.5, Preference::EXACT_TYPE),
+                new Preference('', 0, Preference::ABSENT_TYPE)
             ),
-            new TypePair(
-                new Type('text/html', 0.3, Type::EXACT_TYPE),
-                new Type('', 0, Type::ABSENT_TYPE)
+            new MatchedPreferences(
+                new Preference('text/html', 0.3, Preference::EXACT_TYPE),
+                new Preference('', 0, Preference::ABSENT_TYPE)
             )
         );
 
-        $expectCollection = new TypePairCollection($sort, $expectList);
+        $expectCollection = new MatchedPreferencesCollection($sort, $expectList);
 
         $negotiate = new Negotiation();
         $resultCollection = $negotiate->mimeAll($httpField, $appPrefs);
@@ -67,20 +67,20 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
         $httpField = 'application/xhtml+xml;q=0.5';
         $appPrefs = '';
 
-        $sort = new TypePairSort(
-            new TypePair(
-                new Type('', 0, Type::ABSENT_TYPE),
-                new Type('', 0, Type::ABSENT_TYPE)
+        $sort = new MatchedPreferencesSort(
+            new MatchedPreferences(
+                new Preference('', 0, Preference::ABSENT_TYPE),
+                new Preference('', 0, Preference::ABSENT_TYPE)
             )
         );
 
         $pairList = array(
-            new TypePair(
-                new Type('application/xhtml+xml', 0.5, Type::EXACT_TYPE),
-                new Type('', 0, Type::ABSENT_TYPE)
+            new MatchedPreferences(
+                new Preference('application/xhtml+xml', 0.5, Preference::EXACT_TYPE),
+                new Preference('', 0, Preference::ABSENT_TYPE)
             )
         );
-        $expectCollection = new TypePairCollection($sort, $pairList);
+        $expectCollection = new MatchedPreferencesCollection($sort, $pairList);
 
         $negotiate = new Negotiation();
         $resultCollection = $negotiate->mimeAll($httpField, $appPrefs);
@@ -97,24 +97,24 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
         $httpField = 'application/rdf+xml;q=0.5,text/html;q=.5';
         $appPrefs = '';
 
-        $sort = new TypePairSort(
-            new TypePair(
-                new Type('', 0, Type::ABSENT_TYPE),
-                new Type('', 0, Type::ABSENT_TYPE)
+        $sort = new MatchedPreferencesSort(
+            new MatchedPreferences(
+                new Preference('', 0, Preference::ABSENT_TYPE),
+                new Preference('', 0, Preference::ABSENT_TYPE)
             )
         );
 
         $pairList = array(
-            new TypePair(
-                new Type('application/rdf+xml', 0.5, Type::EXACT_TYPE),
-                new Type('', 0, Type::ABSENT_TYPE)
+            new MatchedPreferences(
+                new Preference('application/rdf+xml', 0.5, Preference::EXACT_TYPE),
+                new Preference('', 0, Preference::ABSENT_TYPE)
             ),
-            new TypePair(
-                new Type('text/html', 0.5, Type::EXACT_TYPE),
-                new Type('', 0, Type::ABSENT_TYPE)
+            new MatchedPreferences(
+                new Preference('text/html', 0.5, Preference::EXACT_TYPE),
+                new Preference('', 0, Preference::ABSENT_TYPE)
             )
         );
-        $expectCollection = new TypePairCollection($sort, $pairList);
+        $expectCollection = new MatchedPreferencesCollection($sort, $pairList);
 
         $negotiate = new Negotiation();
         $resultCollection = $negotiate->mimeAll($httpField, $appPrefs);

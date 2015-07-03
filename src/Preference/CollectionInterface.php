@@ -11,7 +11,7 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Collection;
+namespace ptlis\ConNeg\Preference;
 
 use Countable;
 use IteratorAggregate;

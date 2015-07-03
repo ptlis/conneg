@@ -11,26 +11,26 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\TypePair;
+namespace ptlis\ConNeg\Preference\Matched;
 
-use ptlis\ConNeg\Type\TypeInterface;
+use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
  * Class for type pairs.
  */
-class TypePair implements TypePairInterface
+class MatchedPreferences implements MatchedPreferencesInterface
 {
     /**
      * The type from the User-Agent.
      *
-     * @var TypeInterface
+     * @var PreferenceInterface
      */
     private $userType;
 
     /**
      * The type from the Application.
      *
-     * @var TypeInterface
+     * @var PreferenceInterface
      */
     private $appType;
 
@@ -38,10 +38,10 @@ class TypePair implements TypePairInterface
     /**
      * Constructor.
      *
-     * @param TypeInterface $appType
-     * @param TypeInterface $userType
+     * @param PreferenceInterface $appType
+     * @param PreferenceInterface $userType
      */
-    public function __construct(TypeInterface $userType, TypeInterface $appType)
+    public function __construct(PreferenceInterface $userType, PreferenceInterface $appType)
     {
         $this->userType = $userType;
         $this->appType  = $appType;
@@ -50,7 +50,7 @@ class TypePair implements TypePairInterface
     /**
      * Returns the user-agent's type or an instance of AbsentType.
      *
-     * @return TypeInterface
+     * @return PreferenceInterface
      */
     public function getUserType()
     {
@@ -60,7 +60,7 @@ class TypePair implements TypePairInterface
     /**
      * Returns the application's type or an instance of AbsentType.
      *
-     * @return TypeInterface
+     * @return PreferenceInterface
      */
     public function getAppType()
     {

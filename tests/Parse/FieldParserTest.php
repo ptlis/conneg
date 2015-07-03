@@ -13,11 +13,11 @@
 
 namespace ptlis\ConNeg\Test\Parse;
 
-use ptlis\ConNeg\Collection\TypeCollection;
+use ptlis\ConNeg\Preference\PreferenceCollection;
 use ptlis\ConNeg\Parse\FieldParser;
-use ptlis\ConNeg\Type\Type;
-use ptlis\ConNeg\Type\Builder\MimeTypeBuilder;
-use ptlis\ConNeg\Type\Builder\TypeBuilder;
+use ptlis\ConNeg\Preference\Preference;
+use ptlis\ConNeg\Preference\Builder\MimePreferenceBuilder;
+use ptlis\ConNeg\Preference\Builder\PreferenceBuilder;
 
 /**
  * Tests to ensure that the parser behaves correctly.
@@ -48,13 +48,13 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             'rss+xml',
         );
 
-        $expected = new TypeCollection(array(
-            new Type('application/atom+xml', 0.8, Type::EXACT_TYPE),
-            new Type('text/html', 0.3, Type::EXACT_TYPE),
-            new Type('application/rss+xml', 1, Type::EXACT_TYPE)
+        $expected = new PreferenceCollection(array(
+            new Preference('application/atom+xml', 0.8, Preference::EXACT_TYPE),
+            new Preference('text/html', 0.3, Preference::EXACT_TYPE),
+            new Preference('application/rss+xml', 1, Preference::EXACT_TYPE)
         ));
 
-        $builder = new MimeTypeBuilder();
+        $builder = new MimePreferenceBuilder();
         $parser = new FieldParser($builder, true);
 
         $real = $parser->parse($mimeTokens, true);
@@ -90,13 +90,13 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             'rss+xml',
         );
 
-        $expected = new TypeCollection(array(
-            new Type('application/atom+xml', 0.8, Type::EXACT_TYPE),
-            new Type('text/html', 0.3, Type::EXACT_TYPE),
-            new Type('application/rss+xml', 1, Type::EXACT_TYPE)
+        $expected = new PreferenceCollection(array(
+            new Preference('application/atom+xml', 0.8, Preference::EXACT_TYPE),
+            new Preference('text/html', 0.3, Preference::EXACT_TYPE),
+            new Preference('application/rss+xml', 1, Preference::EXACT_TYPE)
         ));
 
-        $builder = new MimeTypeBuilder();
+        $builder = new MimePreferenceBuilder();
         $parser = new FieldParser($builder, true);
 
         $real = $parser->parse($mimeTokens, true);
@@ -134,13 +134,13 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             'rss+xml',
         );
 
-        $expected = new TypeCollection(array(
-            new Type('application/atom+xml', 0.8, Type::EXACT_TYPE),
-            new Type('text/html', 0.3, Type::EXACT_TYPE),
-            new Type('application/rss+xml', 1, Type::EXACT_TYPE)
+        $expected = new PreferenceCollection(array(
+            new Preference('application/atom+xml', 0.8, Preference::EXACT_TYPE),
+            new Preference('text/html', 0.3, Preference::EXACT_TYPE),
+            new Preference('application/rss+xml', 1, Preference::EXACT_TYPE)
         ));
 
-        $builder = new MimeTypeBuilder();
+        $builder = new MimePreferenceBuilder();
         $parser = new FieldParser($builder, true);
 
         $real = $parser->parse($mimeTokens, true);
@@ -180,13 +180,13 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             'rss+xml',
         );
 
-        $expected = new TypeCollection(array(
-            new Type('application/atom+xml', 0.8, Type::EXACT_TYPE),
-            new Type('text/html', 0.3, Type::EXACT_TYPE),
-            new Type('application/rss+xml', 1, Type::EXACT_TYPE)
+        $expected = new PreferenceCollection(array(
+            new Preference('application/atom+xml', 0.8, Preference::EXACT_TYPE),
+            new Preference('text/html', 0.3, Preference::EXACT_TYPE),
+            new Preference('application/rss+xml', 1, Preference::EXACT_TYPE)
         ));
 
-        $builder = new MimeTypeBuilder();
+        $builder = new MimePreferenceBuilder();
         $parser = new FieldParser($builder, true);
 
         $real = $parser->parse($mimeTokens, true);
@@ -230,7 +230,7 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             'rss+xml',
         );
 
-        $builder = new MimeTypeBuilder();
+        $builder = new MimePreferenceBuilder();
         $parser = new FieldParser($builder, true);
 
         $parser->parse($mimeTokens, true);
@@ -267,13 +267,13 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             'rss+xml',
         );
 
-        $expected = new TypeCollection(array(
-            new Type('application/atom+xml', 0.8, Type::EXACT_TYPE),
-            new Type('text/html', 0.3, Type::EXACT_TYPE),
-            new Type('application/rss+xml', 1, Type::EXACT_TYPE)
+        $expected = new PreferenceCollection(array(
+            new Preference('application/atom+xml', 0.8, Preference::EXACT_TYPE),
+            new Preference('text/html', 0.3, Preference::EXACT_TYPE),
+            new Preference('application/rss+xml', 1, Preference::EXACT_TYPE)
         ));
 
-        $builder = new MimeTypeBuilder();
+        $builder = new MimePreferenceBuilder();
         $parser = new FieldParser($builder, true);
 
         $real = $parser->parse($mimeTokens, false);
@@ -297,12 +297,12 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             '0.9'
         );
 
-        $expected = new TypeCollection(array(
-            new Type('es-*', 0.7, Type::WILDCARD_PARTIAL_LANG),
-            new Type('es-ES', 0.9, Type::EXACT_TYPE)
+        $expected = new PreferenceCollection(array(
+            new Preference('es-*', 0.7, Preference::WILDCARD_PARTIAL_LANG),
+            new Preference('es-ES', 0.9, Preference::EXACT_TYPE)
         ));
 
-        $builder = new TypeBuilder();
+        $builder = new PreferenceBuilder();
         $parser = new FieldParser($builder, false);
 
         $real = $parser->parse($tokens, true);
@@ -322,7 +322,7 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             '/'
         );
 
-        $builder = new MimeTypeBuilder();
+        $builder = new MimePreferenceBuilder();
         $parser = new FieldParser($builder, true);
 
         $parser->parse($mimeTokens, true);
@@ -344,7 +344,7 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             '0.8'
         );
 
-        $builder = new MimeTypeBuilder();
+        $builder = new MimePreferenceBuilder();
         $parser = new FieldParser($builder, true);
 
         $parser->parse($mimeTokens, true);
@@ -366,7 +366,7 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             '='
         );
 
-        $builder = new MimeTypeBuilder();
+        $builder = new MimePreferenceBuilder();
         $parser = new FieldParser($builder, true);
 
         $parser->parse($mimeTokens, true);
@@ -384,12 +384,12 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             '0.9'
         );
 
-        $expected = new TypeCollection(array(
-            new Type('iso-8859-5', 1, Type::EXACT_TYPE),
-            new Type('utf-8', 0.9, Type::EXACT_TYPE),
+        $expected = new PreferenceCollection(array(
+            new Preference('iso-8859-5', 1, Preference::EXACT_TYPE),
+            new Preference('utf-8', 0.9, Preference::EXACT_TYPE),
         ));
 
-        $builder = new TypeBuilder();
+        $builder = new PreferenceBuilder();
         $parser = new FieldParser($builder, false);
 
         $real = $parser->parse($stdTokens, true);
@@ -410,12 +410,12 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             '0.9'
         );
 
-        $expected = new TypeCollection(array(
-            new Type('iso-8859-5', 1, Type::EXACT_TYPE),
-            new Type('utf-8', 0.9, Type::EXACT_TYPE),
+        $expected = new PreferenceCollection(array(
+            new Preference('iso-8859-5', 1, Preference::EXACT_TYPE),
+            new Preference('utf-8', 0.9, Preference::EXACT_TYPE),
         ));
 
-        $builder = new TypeBuilder();
+        $builder = new PreferenceBuilder();
         $parser = new FieldParser($builder, false);
 
         $real = $parser->parse($stdTokens, true);
@@ -436,12 +436,12 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             '0.9'
         );
 
-        $expected = new TypeCollection(array(
-            new Type('iso-8859-5', 1, Type::EXACT_TYPE),
-            new Type('utf-8', 0.9, Type::EXACT_TYPE),
+        $expected = new PreferenceCollection(array(
+            new Preference('iso-8859-5', 1, Preference::EXACT_TYPE),
+            new Preference('utf-8', 0.9, Preference::EXACT_TYPE),
         ));
 
-        $builder = new TypeBuilder();
+        $builder = new PreferenceBuilder();
         $parser = new FieldParser($builder, false);
 
         $real = $parser->parse($stdTokens, true);

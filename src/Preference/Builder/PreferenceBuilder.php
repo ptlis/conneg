@@ -11,15 +11,15 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Type\Builder;
+namespace ptlis\ConNeg\Preference\Builder;
 
 use ptlis\ConNeg\Exception\InvalidTypeException;
-use ptlis\ConNeg\Type\Type;
+use ptlis\ConNeg\Preference\Preference;
 
 /**
  * Shared type builder (handles Charset, Encoding & Language).
  */
-class TypeBuilder extends AbstractTypeBuilder
+class PreferenceBuilder extends AbstractPreferenceBuilder
 {
     /**
      * {@inheritDoc}
@@ -34,26 +34,26 @@ class TypeBuilder extends AbstractTypeBuilder
     /**
      * {@inheritDoc}
      *
-     * @return Type
+     * @return Preference
      */
     public function get()
     {
-        $precedence = Type::EXACT_TYPE;
+        $precedence = Preference::EXACT_TYPE;
         $qFactor = $this->qFactor;
 
         if ('*' === $this->type) {
-            $precedence = Type::WILDCARD_TYPE;
+            $precedence = Preference::WILDCARD_TYPE;
 
         } elseif (!strlen($this->type)) {
-            $precedence = Type::ABSENT_TYPE;
+            $precedence = Preference::ABSENT_TYPE;
             $qFactor = 0;
 
         // TODO: Only for Accept-Language field
         } elseif ('-*' === substr($this->type, -2, 2)) {
-            $precedence = Type::WILDCARD_PARTIAL_LANG;
+            $precedence = Preference::WILDCARD_PARTIAL_LANG;
         }
 
-        return new Type(
+        return new Preference(
             $this->type,
             $qFactor,
             $precedence

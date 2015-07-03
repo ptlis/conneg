@@ -11,12 +11,12 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Type;
+namespace ptlis\ConNeg\Preference;
 
 /**
- * Class representing a type.
+ * Value types storing type preferences.
  */
-class Type implements TypeInterface
+class Preference implements PreferenceInterface
 {
     const ABSENT_TYPE = -1;
     const WILDCARD_TYPE = 0;

@@ -11,21 +11,21 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Test\TypeBuilder;
+namespace ptlis\ConNeg\Test\Preference\Builder;
 
-use ptlis\ConNeg\Type\Type;
-use ptlis\ConNeg\Type\Builder\MimeTypeBuilder;
+use ptlis\ConNeg\Preference\Preference;
+use ptlis\ConNeg\Preference\Builder\MimePreferenceBuilder;
 
 /**
  * Tests for mime type builder
  */
-class MimeTypeBuilderTest extends \PHPUnit_Framework_TestCase
+class MimePreferenceBuilderTest extends \PHPUnit_Framework_TestCase
 {
     public function testBuildTypeSuccess()
     {
-        $expected = new Type('text/html', 1, Type::EXACT_TYPE);
+        $expected = new Preference('text/html', 1, Preference::EXACT_TYPE);
 
-        $builder = new MimeTypeBuilder();
+        $builder = new MimePreferenceBuilder();
 
         $real = $builder
             ->setFromApp(true)
@@ -38,9 +38,9 @@ class MimeTypeBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testBuildUserWildcardTypeOnlyInvalid()
     {
-        $expected = new Type('', 0, Type::ABSENT_TYPE);
+        $expected = new Preference('', 0, Preference::ABSENT_TYPE);
 
-        $builder = new MimeTypeBuilder();
+        $builder = new MimePreferenceBuilder();
 
         $real = $builder
             ->setFromApp(false)
@@ -53,9 +53,9 @@ class MimeTypeBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testBuildUserTypeInvalid()
     {
-        $expected = new Type('', 0, Type::ABSENT_TYPE);
+        $expected = new Preference('', 0, Preference::ABSENT_TYPE);
 
-        $builder = new MimeTypeBuilder();
+        $builder = new MimePreferenceBuilder();
 
         $real = $builder
             ->setFromApp(false)
@@ -73,7 +73,7 @@ class MimeTypeBuilderTest extends \PHPUnit_Framework_TestCase
             '"foo" is not a valid mime type'
         );
 
-        $builder = new MimeTypeBuilder();
+        $builder = new MimePreferenceBuilder();
 
         $builder
             ->setFromApp(true)
@@ -89,7 +89,7 @@ class MimeTypeBuilderTest extends \PHPUnit_Framework_TestCase
             'Wildcards are not allowed in application-provided types.'
         );
 
-        $builder = new MimeTypeBuilder();
+        $builder = new MimePreferenceBuilder();
 
         $builder
             ->setFromApp(true)

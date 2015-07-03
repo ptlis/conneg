@@ -11,14 +11,14 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Type\Builder;
+namespace ptlis\ConNeg\Preference\Builder;
 
 use ptlis\ConNeg\Exception\InvalidTypeException;
 
 /**
  * Shared type building implementation.
  */
-abstract class AbstractTypeBuilder implements TypeBuilderInterface
+abstract class AbstractPreferenceBuilder implements PreferenceBuilderInterface
 {
     /**
      * @var bool

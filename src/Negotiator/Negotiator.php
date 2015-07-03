@@ -13,13 +13,13 @@
 
 namespace ptlis\ConNeg\Negotiator;
 
-use ptlis\ConNeg\Collection\TypeCollection;
-use ptlis\ConNeg\Collection\TypePairCollection;
-use ptlis\ConNeg\Collection\TypePairSort;
-use ptlis\ConNeg\Type\Type;
-use ptlis\ConNeg\TypePair\TypePair;
-use ptlis\ConNeg\TypePair\TypePairInterface;
-use ptlis\ConNeg\Type\TypeInterface;
+use ptlis\ConNeg\Preference\PreferenceCollection;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferencesCollection;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferencesSort;
+use ptlis\ConNeg\Preference\Preference;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferences;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferencesInterface;
+use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
  * Class for negotiating on charset, encoding & language types.
@@ -29,14 +29,14 @@ class Negotiator implements NegotiatorInterface
     /**
      * Empty type instance, used when only user & app types are asymmetric.
      *
-     * @var TypeInterface
+     * @var PreferenceInterface
      */
     private $emptyType;
 
     /**
      * Instance of sorter than can reorder pairs.
      *
-     * @var TypePairSort
+     * @var MatchedPreferencesSort
      */
     private $pairSort;
 
@@ -44,10 +44,10 @@ class Negotiator implements NegotiatorInterface
     /**
      * Constructor
      *
-     * @param TypeInterface $emptyType
-     * @param TypePairSort $pairSort
+     * @param PreferenceInterface $emptyType
+     * @param MatchedPreferencesSort $pairSort
      */
-    public function __construct(TypeInterface $emptyType, TypePairSort $pairSort)
+    public function __construct(PreferenceInterface $emptyType, MatchedPreferencesSort $pairSort)
     {
         $this->emptyType  = $emptyType;
         $this->pairSort     = $pairSort;
@@ -56,17 +56,17 @@ class Negotiator implements NegotiatorInterface
     /**
      * Return a collection of types sorted by preference.
      *
-     * @param TypeCollection $userTypeList
-     * @param TypeCollection $appTypeList
+     * @param PreferenceCollection $userTypeList
+     * @param PreferenceCollection $appTypeList
      *
-     * @return TypePairCollection
+     * @return MatchedPreferencesCollection
      */
-    public function negotiateAll(TypeCollection $userTypeList, TypeCollection $appTypeList)
+    public function negotiateAll(PreferenceCollection $userTypeList, PreferenceCollection $appTypeList)
     {
         $matchingList = array();
-        /** @var TypeInterface $appType */
+        /** @var PreferenceInterface $appType */
         foreach ($appTypeList as $appType) {
-            $matchingList[$appType->getType()] = new TypePair(
+            $matchingList[$appType->getType()] = new MatchedPreferences(
                 $this->emptyType,
                 $appType
             );
@@ -78,7 +78,7 @@ class Negotiator implements NegotiatorInterface
         foreach ($matchingList as $matching) {
             $pairList[] = $matching;
         }
-        $pairCollection = new TypePairCollection($this->pairSort, $pairList);
+        $pairCollection = new MatchedPreferencesCollection($this->pairSort, $pairList);
 
         return $pairCollection->getDescending();
     }
@@ -86,12 +86,12 @@ class Negotiator implements NegotiatorInterface
     /**
      * Return the preferred type & product of application & user-agent quality factors.
      *
-     * @param TypeCollection $userTypeList
-     * @param TypeCollection $appTypeList
+     * @param PreferenceCollection $userTypeList
+     * @param PreferenceCollection $appTypeList
      *
-     * @return TypePairInterface
+     * @return MatchedPreferencesInterface
      */
-    public function negotiateBest(TypeCollection $userTypeList, TypeCollection $appTypeList)
+    public function negotiateBest(PreferenceCollection $userTypeList, PreferenceCollection $appTypeList)
     {
         $pairCollection = $this->negotiateAll($userTypeList, $appTypeList);
 
@@ -101,14 +101,14 @@ class Negotiator implements NegotiatorInterface
     /**
      * Match user types to app types.
      *
-     * @param TypeCollection    $userTypeList
-     * @param TypePair[]                  $matchingList
+     * @param PreferenceCollection    $userTypeList
+     * @param MatchedPreferences[]                  $matchingList
      *
-     * @return TypePair[]
+     * @return MatchedPreferences[]
      */
-    private function matchUserToAppTypes(TypeCollection $userTypeList, array $matchingList)
+    private function matchUserToAppTypes(PreferenceCollection $userTypeList, array $matchingList)
     {
-        /** @var TypeInterface $userType */
+        /** @var PreferenceInterface $userType */
         foreach ($userTypeList as $userType) {
 
             // Type match
@@ -116,7 +116,7 @@ class Negotiator implements NegotiatorInterface
                 $matchingList = $this->matchExact($matchingList, $userType);
 
             // Wildcard Match
-            } elseif (Type::WILDCARD_TYPE === $userType->getPrecedence()) {
+            } elseif (Preference::WILDCARD_TYPE === $userType->getPrecedence()) {
                 $matchingList = $this->matchFullWildcard($matchingList, $userType);
 
             // App Partial Lang Match
@@ -126,7 +126,7 @@ class Negotiator implements NegotiatorInterface
 
             // No match
             } else {
-                $matchingList[$userType->getType()] = new TypePair(
+                $matchingList[$userType->getType()] = new MatchedPreferences(
                     $userType,
                     $this->emptyType
                 );
@@ -139,12 +139,12 @@ class Negotiator implements NegotiatorInterface
     /**
      * Returns true if the user type matches an application-provided partial language.
      *
-     * @param TypePair[]    $matchingList
-     * @param TypeInterface $userType
+     * @param MatchedPreferences[]    $matchingList
+     * @param PreferenceInterface $userType
      *
-     * @return TypePair[]
+     * @return MatchedPreferences[]
      */
-    private function listHasPartialLanguage(array $matchingList, TypeInterface $userType)
+    private function listHasPartialLanguage(array $matchingList, PreferenceInterface $userType)
     {
         $matches = false;
         foreach ($matchingList as $matching) {
@@ -164,29 +164,29 @@ class Negotiator implements NegotiatorInterface
      *
      * e.g. An application type of en-* would match en, en-US but not es-ES
      *
-     * @param TypeInterface $appType
-     * @param TypeInterface $userType
+     * @param PreferenceInterface $appType
+     * @param PreferenceInterface $userType
      *
      * @return bool
      */
-    private function partialLangMatches(TypeInterface $appType, TypeInterface $userType)
+    private function partialLangMatches(PreferenceInterface $appType, PreferenceInterface $userType)
     {
         // Note that this only supports the simplest case of (e.g.) en-* matching en-GB and en-US, additional
         // Language tags are explicitly ignored
         list($userMainLang) = explode('-', $userType->getType());
         list($appMainLang) = explode('-', $appType->getType());
 
-        return Type::WILDCARD_PARTIAL_LANG === $appType->getPrecedence()
+        return Preference::WILDCARD_PARTIAL_LANG === $appType->getPrecedence()
             && $userMainLang == $appMainLang;
     }
 
     /**
-     * @param TypePair[]    $matchingList
-     * @param TypeInterface $userType
+     * @param MatchedPreferences[]    $matchingList
+     * @param PreferenceInterface $userType
      *
-     * @return TypePair[]
+     * @return MatchedPreferences[]
      */
-    private function matchAppPartialLanguage(array $matchingList, TypeInterface $userType)
+    private function matchAppPartialLanguage(array $matchingList, PreferenceInterface $userType)
     {
         $newMatchingList = array();
 
@@ -195,7 +195,7 @@ class Negotiator implements NegotiatorInterface
                 $this->partialLangMatches($matching->getAppType(), $userType)
                 && $userType->getPrecedence() > $matching->getUserType()->getPrecedence()
             ) {
-                $newPair = new TypePair(
+                $newPair = new MatchedPreferences(
                     $userType,
                     $matching->getAppType()
                 );
@@ -213,14 +213,14 @@ class Negotiator implements NegotiatorInterface
     /**
      * Attempt to find an exact match with type in matching list.
      *
-     * @param TypePair[]    $matchingList
-     * @param TypeInterface $userType
+     * @param MatchedPreferences[]    $matchingList
+     * @param PreferenceInterface $userType
      *
-     * @return TypePair[]
+     * @return MatchedPreferences[]
      */
-    private function matchExact(array $matchingList, TypeInterface $userType)
+    private function matchExact(array $matchingList, PreferenceInterface $userType)
     {
-        $newPair = new TypePair(
+        $newPair = new MatchedPreferences(
             $userType,
             $matchingList[$userType->getType()]->getAppType()
         );
@@ -235,16 +235,16 @@ class Negotiator implements NegotiatorInterface
     /**
      * Attempt to match wildcard type against each item in matching list.
      *
-     * @param TypePair[]    $matchingList
-     * @param TypeInterface $userType
+     * @param MatchedPreferences[]    $matchingList
+     * @param PreferenceInterface $userType
      *
-     * @return TypePair[]
+     * @return MatchedPreferences[]
      */
-    private function matchFullWildcard(array $matchingList, TypeInterface $userType)
+    private function matchFullWildcard(array $matchingList, PreferenceInterface $userType)
     {
         foreach ($matchingList as $key => $matching) {
             if ($userType->getPrecedence() > $matching->getUserType()->getPrecedence()) {
-                $matchingList[$key] = new TypePair(
+                $matchingList[$key] = new MatchedPreferences(
                     $userType,
                     $matchingList[$key]->getAppType()
                 );

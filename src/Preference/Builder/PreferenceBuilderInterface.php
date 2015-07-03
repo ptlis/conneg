@@ -11,14 +11,14 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Type\Builder;
+namespace ptlis\ConNeg\Preference\Builder;
 
-use ptlis\ConNeg\Type\TypeInterface;
+use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
  * Interface for type builders.
  */
-interface TypeBuilderInterface
+interface PreferenceBuilderInterface
 {
     /**
      * Set whether the build type is application-defined or user-defined.
@@ -50,7 +50,7 @@ interface TypeBuilderInterface
     /**
      * Get the hydrated type object.
      *
-     * @return TypeInterface
+     * @return PreferenceInterface
      */
     public function get();
 }

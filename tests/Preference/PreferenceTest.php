@@ -11,15 +11,15 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Test\Type;
+namespace ptlis\ConNeg\Test\Preference;
 
-use ptlis\ConNeg\Type\Type;
+use ptlis\ConNeg\Preference\Preference;
 
-class TypeTest extends \PHPUnit_Framework_TestCase
+class PreferenceTest extends \PHPUnit_Framework_TestCase
 {
     public function testType()
     {
-        $type = new Type('utf-8', 1, Type::EXACT_TYPE);
+        $type = new Preference('utf-8', 1, Preference::EXACT_TYPE);
 
         $this->assertSame('utf-8', $type->getType());
         $this->assertSame(1, $type->getQualityFactor());

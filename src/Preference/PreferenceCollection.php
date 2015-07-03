@@ -11,21 +11,22 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Collection;
+namespace ptlis\ConNeg\Preference;
 
 use ArrayIterator;
+use ptlis\ConNeg\Preference\CollectionInterface;
 use Traversable;
-use ptlis\ConNeg\Type\TypeInterface;
+use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
  * Collection for Type instances, provides sort capabilities.
  */
-class TypeCollection implements CollectionInterface
+class PreferenceCollection implements CollectionInterface
 {
     /**
      * Types contained within this collection.
      *
-     * @var TypeInterface[]
+     * @var PreferenceInterface[]
      */
     private $typeList;
 
@@ -33,7 +34,7 @@ class TypeCollection implements CollectionInterface
     /**
      * Constructor.
      *
-     * @param TypeInterface[] $typeList
+     * @param PreferenceInterface[] $typeList
      */
     public function __construct(array $typeList)
     {
@@ -63,13 +64,13 @@ class TypeCollection implements CollectionInterface
     /**
      * Returns a new sorted collection.
      *
-     * @return TypeCollection with elements in ascending order
+     * @return PreferenceCollection with elements in ascending order
      */
     public function getAscending()
     {
         $newTypeList = $this->typeList;
 
-        $descSort = function (TypeInterface $lTypePair, TypeInterface $rTypePair) {
+        $descSort = function (PreferenceInterface $lTypePair, PreferenceInterface $rTypePair) {
             if ($lTypePair->getQualityFactor() < $rTypePair->getQualityFactor()) {
                 return -1;
             } elseif ($lTypePair->getQualityFactor() === $rTypePair->getQualityFactor()) {
@@ -84,7 +85,7 @@ class TypeCollection implements CollectionInterface
             $descSort
         );
 
-        $newCollection = new TypeCollection($newTypeList);
+        $newCollection = new PreferenceCollection($newTypeList);
 
         return $newCollection;
     }
@@ -92,13 +93,13 @@ class TypeCollection implements CollectionInterface
     /**
      * Returns a new sorted collection.
      *
-     * @return TypeCollection with elements in descending order
+     * @return PreferenceCollection with elements in descending order
      */
     public function getDescending()
     {
         $newTypePairList = $this->typeList;
 
-        $descSort = function (TypeInterface $lTypePair, TypeInterface $rTypePair) {
+        $descSort = function (PreferenceInterface $lTypePair, PreferenceInterface $rTypePair) {
             if ($rTypePair->getQualityFactor() < $lTypePair->getQualityFactor()) {
                 return -1;
             } elseif ($lTypePair->getQualityFactor() === $rTypePair->getQualityFactor()) {
@@ -113,7 +114,7 @@ class TypeCollection implements CollectionInterface
             $descSort
         );
 
-        $newCollection = new TypeCollection($newTypePairList);
+        $newCollection = new PreferenceCollection($newTypePairList);
 
         return $newCollection;
     }

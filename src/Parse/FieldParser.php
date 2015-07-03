@@ -13,10 +13,10 @@
 
 namespace ptlis\ConNeg\Parse;
 
-use ptlis\ConNeg\Collection\TypeCollection;
+use ptlis\ConNeg\Preference\PreferenceCollection;
 use ptlis\ConNeg\Exception\InvalidTypeException;
-use ptlis\ConNeg\Type\Builder\TypeBuilderInterface;
-use ptlis\ConNeg\Type\TypeInterface;
+use ptlis\ConNeg\Preference\Builder\PreferenceBuilderInterface;
+use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
  * Parser that accepts a tokenized HTTP Accept or Accept-* field and returns an array of Type value objects.
@@ -24,7 +24,7 @@ use ptlis\ConNeg\Type\TypeInterface;
 class FieldParser
 {
     /**
-     * @var TypeBuilderInterface Simple builder that can be used to incrementally build & return a type.
+     * @var PreferenceBuilderInterface Simple builder that can be used to incrementally build & return a type.
      */
     private $typeBuilder;
 
@@ -37,10 +37,10 @@ class FieldParser
     /**
      * Constructor.
      *
-     * @param TypeBuilderInterface $typeBuilder
+     * @param PreferenceBuilderInterface $typeBuilder
      * @param bool $mimeField
      */
-    public function __construct(TypeBuilderInterface $typeBuilder, $mimeField)
+    public function __construct(PreferenceBuilderInterface $typeBuilder, $mimeField)
     {
         $this->typeBuilder = $typeBuilder;
         $this->mimeField = $mimeField;
@@ -56,7 +56,7 @@ class FieldParser
      * @param bool $appField        If true the field came from the application & we error on malformed data otherwise
      *                              we suppress errors for user-agent types.
      *
-     * @return TypeCollection
+     * @return PreferenceCollection
      */
     public function parse(array $tokenList, $appField)
     {
@@ -68,7 +68,7 @@ class FieldParser
             $typeList[] = $this->parseBundle($bundle, $appField);
         }
 
-        $collection = new TypeCollection($typeList);
+        $collection = new PreferenceCollection($typeList);
 
         return $collection;
     }
@@ -81,7 +81,7 @@ class FieldParser
      * @param array<string> $tokenBundle
      * @param bool $appField
      *
-     * @return null|TypeInterface
+     * @return null|PreferenceInterface
      */
     private function parseBundle(array $tokenBundle, $appField)
     {
@@ -117,7 +117,7 @@ class FieldParser
      * @param array<array<string>> $paramBundleList
      * @param bool $appField
      *
-     * @return TypeInterface
+     * @return PreferenceInterface
      */
     private function createType(array $typeTokenList, array $paramBundleList, $appField)
     {

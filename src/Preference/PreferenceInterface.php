@@ -11,12 +11,12 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Type;
+namespace ptlis\ConNeg\Preference;
 
 /**
- * Interface for types.
+ * Interface for value types storing type preferences.
  */
-interface TypeInterface
+interface PreferenceInterface
 {
     /**
      * Return the full type as a string.

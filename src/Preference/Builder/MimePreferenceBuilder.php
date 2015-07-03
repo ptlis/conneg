@@ -11,15 +11,15 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Type\Builder;
+namespace ptlis\ConNeg\Preference\Builder;
 
 use ptlis\ConNeg\Exception\InvalidTypeException;
-use ptlis\ConNeg\Type\Type;
+use ptlis\ConNeg\Preference\Preference;
 
 /**
  * MIME type builder.
  */
-class MimeTypeBuilder extends AbstractTypeBuilder
+class MimePreferenceBuilder extends AbstractPreferenceBuilder
 {
     /**
      * {@inheritDoc}
@@ -67,12 +67,12 @@ class MimeTypeBuilder extends AbstractTypeBuilder
     /**
      * {@inheritDoc}
      *
-     * @return Type
+     * @return Preference
      */
     public function get()
     {
         // Defaults for absent type
-        $precedence = Type::ABSENT_TYPE;
+        $precedence = Preference::ABSENT_TYPE;
         $qFactor = 0;
 
         // A type was present
@@ -81,18 +81,18 @@ class MimeTypeBuilder extends AbstractTypeBuilder
 
             list($mimeType, $subType) = $explodedType;
 
-            $precedence = Type::EXACT_TYPE;
+            $precedence = Preference::EXACT_TYPE;
             $qFactor = $this->qFactor;
 
             if ('*' === $mimeType) {
-                $precedence = Type::WILDCARD_TYPE;
+                $precedence = Preference::WILDCARD_TYPE;
 
             } elseif ('*' === $subType) {
-                $precedence = Type::WILDCARD_SUBTYPE;
+                $precedence = Preference::WILDCARD_SUBTYPE;
             }
         }
 
-        return new Type(
+        return new Preference(
             $this->type,
             $qFactor,
             $precedence

@@ -11,25 +11,25 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Test\TypeBuilder;
+namespace ptlis\ConNeg\Test\Preference\Builder;
 
-use ptlis\ConNeg\Type\Type;
-use ptlis\ConNeg\Type\Builder\TypeBuilder;
+use ptlis\ConNeg\Preference\Preference;
+use ptlis\ConNeg\Preference\Builder\PreferenceBuilder;
 
 /**
  * Tests for standard type builder
  */
-class StandardTypeBuilderTest extends \PHPUnit_Framework_TestCase
+class StandardPreferenceBuilderTest extends \PHPUnit_Framework_TestCase
 {
     public function testBuildTypeSuccess()
     {
-        $expected = new Type(
+        $expected = new Preference(
             'utf-8',
             1,
-            Type::EXACT_TYPE
+            Preference::EXACT_TYPE
         );
 
-        $builder = new TypeBuilder();
+        $builder = new PreferenceBuilder();
 
         $real = $builder
             ->setFromApp(true)
@@ -43,9 +43,9 @@ class StandardTypeBuilderTest extends \PHPUnit_Framework_TestCase
     public function testBuildAbsentTypeSuccess()
     {
         // Absent types should always have a quality factor of 0
-        $expected = new Type('', 0, Type::ABSENT_TYPE);
+        $expected = new Preference('', 0, Preference::ABSENT_TYPE);
 
-        $builder = new TypeBuilder();
+        $builder = new PreferenceBuilder();
 
         $real = $builder
             ->setFromApp(true)
@@ -58,9 +58,9 @@ class StandardTypeBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testBuildEmptyTypeSuccess()
     {
-        $expected = new Type('', 0, Type::ABSENT_TYPE);
+        $expected = new Preference('', 0, Preference::ABSENT_TYPE);
 
-        $builder = new TypeBuilder();
+        $builder = new PreferenceBuilder();
 
         $real = $builder->get();
 
@@ -69,9 +69,9 @@ class StandardTypeBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testBuildUserWildcardTypeSuccess()
     {
-        $expected = new Type('*', 0.8, Type::WILDCARD_TYPE);
+        $expected = new Preference('*', 0.8, Preference::WILDCARD_TYPE);
 
-        $builder = new TypeBuilder();
+        $builder = new PreferenceBuilder();
 
         $real = $builder
             ->setFromApp(false)
@@ -89,7 +89,7 @@ class StandardTypeBuilderTest extends \PHPUnit_Framework_TestCase
             'Wildcards are not allowed in application-provided types.'
         );
 
-        $builder = new TypeBuilder();
+        $builder = new PreferenceBuilder();
 
         $builder
             ->setFromApp(true)
@@ -100,9 +100,9 @@ class StandardTypeBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testUserInvalidQualityFactorString()
     {
-        $expected = new Type('utf-8', 1, Type::EXACT_TYPE);
+        $expected = new Preference('utf-8', 1, Preference::EXACT_TYPE);
 
-        $builder = new TypeBuilder();
+        $builder = new PreferenceBuilder();
 
         $real = $builder
             ->setFromApp(false)
@@ -120,7 +120,7 @@ class StandardTypeBuilderTest extends \PHPUnit_Framework_TestCase
             'Invalid quality factor "asdf" in application preferences'
         );
 
-        $builder = new TypeBuilder();
+        $builder = new PreferenceBuilder();
 
         $builder
             ->setFromApp(true)
@@ -131,9 +131,9 @@ class StandardTypeBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testUserInvalidQualityFactorTooLarge()
     {
-        $expected = new Type('utf-8', 1, Type::EXACT_TYPE);
+        $expected = new Preference('utf-8', 1, Preference::EXACT_TYPE);
 
-        $builder = new TypeBuilder();
+        $builder = new PreferenceBuilder();
 
         $real = $builder
             ->setFromApp(false)
@@ -151,7 +151,7 @@ class StandardTypeBuilderTest extends \PHPUnit_Framework_TestCase
             'Invalid quality factor "7" in application preferences'
         );
 
-        $builder = new TypeBuilder();
+        $builder = new PreferenceBuilder();
 
         $builder
             ->setFromApp(true)
@@ -162,9 +162,9 @@ class StandardTypeBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testUserInvalidQualityFactorTooSmall()
     {
-        $expected = new Type('utf-8', 0, Type::EXACT_TYPE);
+        $expected = new Preference('utf-8', 0, Preference::EXACT_TYPE);
 
-        $builder = new TypeBuilder();
+        $builder = new PreferenceBuilder();
 
         $real = $builder
             ->setFromApp(false)
@@ -182,7 +182,7 @@ class StandardTypeBuilderTest extends \PHPUnit_Framework_TestCase
             'Invalid quality factor "-1" in application preferences'
         );
 
-        $builder = new TypeBuilder();
+        $builder = new PreferenceBuilder();
 
         $builder
             ->setFromApp(true)

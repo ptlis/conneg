@@ -11,28 +11,28 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Collection;
+namespace ptlis\ConNeg\Preference\Matched;
 
 use ArrayIterator;
+use ptlis\ConNeg\Preference\CollectionInterface;
 use Traversable;
-use ptlis\ConNeg\TypePair\TypePairInterface;
 
 /**
  * Collection for TypePair instances, provides sort capabilities.
  */
-class TypePairCollection implements CollectionInterface
+class MatchedPreferencesCollection implements CollectionInterface
 {
     /**
      * Instance of sorter than can reorder pairs.
      *
-     * @var TypePairSort
+     * @var MatchedPreferencesSort
      */
     private $pairSort;
 
     /**
      * Type Pairs contained within this collection.
      *
-     * @var TypePairInterface[]
+     * @var MatchedPreferencesInterface[]
      */
     private $typePairList;
 
@@ -40,10 +40,10 @@ class TypePairCollection implements CollectionInterface
     /**
      * Constructor.
      *
-     * @param TypePairSort $pairSort
-     * @param TypePairInterface[] $typePairList
+     * @param MatchedPreferencesSort $pairSort
+     * @param MatchedPreferencesInterface[] $typePairList
      */
-    public function __construct(TypePairSort $pairSort, array $typePairList)
+    public function __construct(MatchedPreferencesSort $pairSort, array $typePairList)
     {
         $this->pairSort     = $pairSort;
         $this->typePairList = $typePairList;
@@ -72,7 +72,7 @@ class TypePairCollection implements CollectionInterface
     /**
      * Returns a new sorted collection.
      *
-     * @return TypePairCollection with elements in ascending order
+     * @return MatchedPreferencesCollection with elements in ascending order
      */
     public function getAscending()
     {
@@ -82,7 +82,7 @@ class TypePairCollection implements CollectionInterface
     /**
      * Returns a new sorted collection.
      *
-     * @return TypePairCollection with elements in descending order
+     * @return MatchedPreferencesCollection with elements in descending order
      */
     public function getDescending()
     {
@@ -92,7 +92,7 @@ class TypePairCollection implements CollectionInterface
     /**
      * Get the preferred pair.
      *
-     * @return TypePairInterface
+     * @return MatchedPreferencesInterface
      */
     public function getBest()
     {

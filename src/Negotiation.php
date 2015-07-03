@@ -13,18 +13,18 @@
 
 namespace ptlis\ConNeg;
 
-use ptlis\ConNeg\Collection\CollectionInterface;
-use ptlis\ConNeg\Collection\TypeCollection;
-use ptlis\ConNeg\Collection\TypePairCollection;
-use ptlis\ConNeg\Collection\TypePairSort;
+use ptlis\ConNeg\Preference\CollectionInterface;
+use ptlis\ConNeg\Preference\PreferenceCollection;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferencesCollection;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferencesSort;
 use ptlis\ConNeg\Negotiator\MimeNegotiator;
 use ptlis\ConNeg\Negotiator\Negotiator;
 use ptlis\ConNeg\Parse\FieldParser;
 use ptlis\ConNeg\Parse\FieldTokenizer;
-use ptlis\ConNeg\Type\Builder\MimeTypeBuilder;
-use ptlis\ConNeg\Type\Builder\TypeBuilder;
-use ptlis\ConNeg\TypePair\TypePair;
-use ptlis\Conneg\TypePair\TypePairInterface;
+use ptlis\ConNeg\Preference\Builder\MimePreferenceBuilder;
+use ptlis\ConNeg\Preference\Builder\PreferenceBuilder;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferences;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferencesInterface;
 
 /**
  * Class providing a simple API through which content negotiation is performed.
@@ -72,16 +72,16 @@ class Negotiation
      */
     public function __construct()
     {
-        $stdTypeBuilder = new TypeBuilder();
-        $mimeTypeBuilder = new MimeTypeBuilder();
+        $stdTypeBuilder = new PreferenceBuilder();
+        $mimeTypeBuilder = new MimePreferenceBuilder();
 
         $this->tokenizer = new FieldTokenizer();
 
         $this->stdParser = new FieldParser($stdTypeBuilder, false);
         $this->mimeParser = new FieldParser($mimeTypeBuilder, true);
 
-        $sort = new TypePairSort(
-            new TypePair($stdTypeBuilder->get(), $stdTypeBuilder->get())
+        $sort = new MatchedPreferencesSort(
+            new MatchedPreferences($stdTypeBuilder->get(), $stdTypeBuilder->get())
         );
 
         $this->stdNegotiator = new Negotiator($stdTypeBuilder->get(), $sort);
@@ -92,9 +92,9 @@ class Negotiation
      * Parse the Accept-Charset field & negotiate against application types, returns the preferred type.
      *
      * @param string $userField
-     * @param string|TypeCollection $appField
+     * @param string|PreferenceCollection $appField
      *
-     * @return TypePairInterface
+     * @return MatchedPreferencesInterface
      */
     public function charsetBest($userField, $appField)
     {
@@ -106,11 +106,11 @@ class Negotiation
      * preference.
      *
      * @param string $userField
-     * @param string|TypeCollection $appField
+     * @param string|PreferenceCollection $appField
      *
      * @throws \LogicException
      *
-     * @return TypePairCollection containing CharsetType, WildcardType & AbsentType instances.
+     * @return MatchedPreferencesCollection containing CharsetType, WildcardType & AbsentType instances.
      */
     public function charsetAll($userField, $appField)
     {
@@ -121,9 +121,9 @@ class Negotiation
      * Parse the Accept-Encoding field & negotiate against application types, returns the preferred type.
      *
      * @param string $userField
-     * @param string|TypeCollection $appField
+     * @param string|PreferenceCollection $appField
      *
-     * @return TypePairInterface
+     * @return MatchedPreferencesInterface
      */
     public function encodingBest($userField, $appField)
     {
@@ -135,11 +135,11 @@ class Negotiation
      * preference.
      *
      * @param string $userField
-     * @param string|TypeCollection $appField
+     * @param string|PreferenceCollection $appField
      *
      * @throws \LogicException
      *
-     * @return TypePairCollection containing EncodingType, WildcardType & AbsentType instances.
+     * @return MatchedPreferencesCollection containing EncodingType, WildcardType & AbsentType instances.
      */
     public function encodingAll($userField, $appField)
     {
@@ -150,9 +150,9 @@ class Negotiation
      * Parse the Accept-Language field & negotiate against application types, returns the preferred type.
      *
      * @param string $userField
-     * @param string|TypeCollection $appField
+     * @param string|PreferenceCollection $appField
      *
-     * @return TypePairInterface
+     * @return MatchedPreferencesInterface
      */
     public function languageBest($userField, $appField)
     {
@@ -164,11 +164,11 @@ class Negotiation
      * preference.
      *
      * @param string $userField
-     * @param string|TypeCollection $appField
+     * @param string|PreferenceCollection $appField
      *
      * @throws \LogicException
      *
-     * @return TypePairCollection containing LanguageType, WildcardType & AbsentType instances.
+     * @return MatchedPreferencesCollection containing LanguageType, WildcardType & AbsentType instances.
      */
     public function languageAll($userField, $appField)
     {
@@ -179,9 +179,9 @@ class Negotiation
      * Parse the Accept field & negotiate against application types, returns the preferred type.
      *
      * @param string $userField
-     * @param string|TypeCollection $appField
+     * @param string|PreferenceCollection $appField
      *
-     * @return TypePairInterface
+     * @return MatchedPreferencesInterface
      */
     public function mimeBest($userField, $appField)
     {
@@ -192,11 +192,11 @@ class Negotiation
      * Parse the Accept field & negotiate against application types, returns an array of types sorted by preference.
      *
      * @param string $userField
-     * @param string|TypeCollection $appField
+     * @param string|PreferenceCollection $appField
      *
      * @throws \LogicException
      *
-     * @return TypePairCollection containing MimeType, MimeWildcardType, MimeWildcardSubType & AbsentType
+     * @return MatchedPreferencesCollection containing MimeType, MimeWildcardType, MimeWildcardSubType & AbsentType
      *          instances.
      */
     public function mimeAll($userField, $appField)
@@ -208,10 +208,10 @@ class Negotiation
      * Shared code to parse an Accept* field & negotiate against application types, returns the preferred type.
      *
      * @param string $userField
-     * @param string|TypeCollection $appField
+     * @param string|PreferenceCollection $appField
      * @param bool $isMimeField
      *
-     * @return TypePair|TypePairInterface
+     * @return MatchedPreferences|MatchedPreferencesInterface
      */
     private function genericBest($userField, $appField, $isMimeField)
     {
@@ -232,10 +232,10 @@ class Negotiation
      * preference.
      *
      * @param string $userField
-     * @param string|TypeCollection $appField
+     * @param string|PreferenceCollection $appField
      * @param bool $isMimeField
      *
-     * @return TypePairCollection
+     * @return MatchedPreferencesCollection
      */
     private function genericAll($userField, $appField, $isMimeField)
     {
@@ -257,7 +257,7 @@ class Negotiation
      * @param string $userField
      * @param bool $isMimeField
      *
-     * @return TypeCollection
+     * @return PreferenceCollection
      */
     private function sharedUserPrefsToTypes($userField, $isMimeField)
     {
@@ -280,7 +280,7 @@ class Negotiation
      * @param string|CollectionInterface $appField
      * @param bool $isMimeField
      *
-     * @return TypeCollection
+     * @return PreferenceCollection
      */
     private function sharedAppPrefsToTypes($appField, $isMimeField)
     {

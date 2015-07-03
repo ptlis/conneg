@@ -11,26 +11,26 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\TypePair;
+namespace ptlis\ConNeg\Preference\Matched;
 
-use ptlis\ConNeg\Type\TypeInterface;
+use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
  * Interface for types.
  */
-interface TypePairInterface extends TypeInterface
+interface MatchedPreferencesInterface extends PreferenceInterface
 {
     /**
      * Returns the user's preferred type or an instance of AbsentType.
      *
-     * @return TypeInterface
+     * @return PreferenceInterface
      */
     public function getUserType();
 
     /**
      * Returns the application's preferred type or an instance of AbsentType.
      *
-     * @return TypeInterface
+     * @return PreferenceInterface
      */
     public function getAppType();
 }

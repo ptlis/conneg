@@ -13,11 +13,11 @@
 
 namespace ptlis\ConNeg\Test\BugReport;
 
-use ptlis\ConNeg\Collection\TypePairCollection;
-use ptlis\ConNeg\Collection\TypePairSort;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferencesCollection;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferencesSort;
 use ptlis\ConNeg\Negotiation;
-use ptlis\ConNeg\Type\Type;
-use ptlis\ConNeg\TypePair\TypePair;
+use ptlis\ConNeg\Preference\Preference;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferences;
 
 /**
  * Regression tests for Issue #2.
@@ -32,40 +32,40 @@ class IssueTwoTest extends \PHPUnit_Framework_TestCase
         $httpField = 'text/rdf+n3; q=0.8, application/rdf+json; q=0.8, text/turtle; q=1.0, text/n3; q=0.8, application/ld+json; q=0.5, application/rdf+xml; q=0.8';
         $appPrefs = '';
 
-        $sort = new TypePairSort(
-            new TypePair(
-                new Type('', 0, Type::ABSENT_TYPE),
-                new Type('', 0, Type::ABSENT_TYPE)
+        $sort = new MatchedPreferencesSort(
+            new MatchedPreferences(
+                new Preference('', 0, Preference::ABSENT_TYPE),
+                new Preference('', 0, Preference::ABSENT_TYPE)
             )
         );
 
         $pairList = array(
-            new TypePair(
-                new Type('text/turtle', 1, Type::EXACT_TYPE),
-                new Type('', 0, Type::ABSENT_TYPE)
+            new MatchedPreferences(
+                new Preference('text/turtle', 1, Preference::EXACT_TYPE),
+                new Preference('', 0, Preference::ABSENT_TYPE)
             ),
-            new TypePair(
-                new Type('application/rdf+json', 0.8, Type::EXACT_TYPE),
-                new Type('', 0, Type::ABSENT_TYPE)
+            new MatchedPreferences(
+                new Preference('application/rdf+json', 0.8, Preference::EXACT_TYPE),
+                new Preference('', 0, Preference::ABSENT_TYPE)
             ),
-            new TypePair(
-                new Type('application/rdf+xml', 0.8, Type::EXACT_TYPE),
-                new Type('', 0, Type::ABSENT_TYPE)
+            new MatchedPreferences(
+                new Preference('application/rdf+xml', 0.8, Preference::EXACT_TYPE),
+                new Preference('', 0, Preference::ABSENT_TYPE)
             ),
-            new TypePair(
-                new Type('text/n3', 0.8, Type::EXACT_TYPE),
-                new Type('', 0, Type::ABSENT_TYPE)
+            new MatchedPreferences(
+                new Preference('text/n3', 0.8, Preference::EXACT_TYPE),
+                new Preference('', 0, Preference::ABSENT_TYPE)
             ),
-            new TypePair(
-                new Type('text/rdf+n3', 0.8, Type::EXACT_TYPE),
-                new Type('', 0, Type::ABSENT_TYPE)
+            new MatchedPreferences(
+                new Preference('text/rdf+n3', 0.8, Preference::EXACT_TYPE),
+                new Preference('', 0, Preference::ABSENT_TYPE)
             ),
-            new TypePair(
-                new Type('application/ld+json', 0.5, Type::EXACT_TYPE),
-                new Type('', 0, Type::ABSENT_TYPE)
+            new MatchedPreferences(
+                new Preference('application/ld+json', 0.5, Preference::EXACT_TYPE),
+                new Preference('', 0, Preference::ABSENT_TYPE)
             )
         );
-        $expectCollection = new TypePairCollection($sort, $pairList);
+        $expectCollection = new MatchedPreferencesCollection($sort, $pairList);
 
         $negotiate = new Negotiation();
         $resultCollection = $negotiate->mimeAll($httpField, $appPrefs);
