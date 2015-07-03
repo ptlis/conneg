@@ -80,30 +80,12 @@ class Negotiation
         $this->stdParser = new FieldParser($stdTypeBuilder, false);
         $this->mimeParser = new FieldParser($mimeTypeBuilder, true);
 
-
-        // Prepare pair sorters
-        $sharedSort = new TypePairSort(
-            new TypePair(
-                $stdTypeBuilder->get(),
-                $stdTypeBuilder->get()
-            )
+        $sort = new TypePairSort(
+            new TypePair($stdTypeBuilder->get(), $stdTypeBuilder->get())
         );
 
-        $mimeSort = new TypePairSort(
-            new TypePair(
-                $mimeTypeBuilder->get(),
-                $mimeTypeBuilder->get()
-            )
-        );
-
-        $this->stdNegotiator = new Negotiator(
-            $stdTypeBuilder->get(),
-            $sharedSort
-        );
-        $this->mimeNegotiator       = new MimeNegotiator(
-            $mimeTypeBuilder->get(),
-            $mimeSort
-        );
+        $this->stdNegotiator = new Negotiator($stdTypeBuilder->get(), $sort);
+        $this->mimeNegotiator = new MimeNegotiator($mimeTypeBuilder->get(), $sort);
     }
 
     /**
