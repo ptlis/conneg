@@ -23,8 +23,8 @@ class SharedMatchedPreferencesTest extends \PHPUnit_Framework_TestCase
     public function testNewCharsetTypeOne()
     {
         $pair = new MatchedPreferences(
-            new Preference('utf-8', 0.5, Preference::EXACT_TYPE),
-            new Preference('*', 0.3, Preference::WILDCARD_TYPE)
+            new Preference('utf-8', 0.5, Preference::COMPLETE),
+            new Preference('*', 0.3, Preference::WILDCARD)
         );
 
         $this->assertSame('utf-8', $pair->getType());
@@ -36,8 +36,8 @@ class SharedMatchedPreferencesTest extends \PHPUnit_Framework_TestCase
     public function testNewCharsetTypeTwo()
     {
         $pair = new MatchedPreferences(
-            new Preference('*', 0.3, Preference::WILDCARD_TYPE),
-            new Preference('utf-8', 0.5, Preference::EXACT_TYPE)
+            new Preference('*', 0.3, Preference::WILDCARD),
+            new Preference('utf-8', 0.5, Preference::COMPLETE)
         );
 
         $this->assertSame('utf-8', $pair->getType());

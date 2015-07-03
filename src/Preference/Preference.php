@@ -18,11 +18,17 @@ namespace ptlis\ConNeg\Preference;
  */
 class Preference implements PreferenceInterface
 {
+    // Null type
     const ABSENT_TYPE = -1;
-    const WILDCARD_TYPE = 0;
-    const WILDCARD_PARTIAL_LANG = 1;
-    const WILDCARD_SUBTYPE = 1;
-    const EXACT_TYPE = 2;
+
+    // Wildcard
+    const WILDCARD = 0;
+
+    // Partial wildcard (e.g. text/* or en-*)
+    const PARTIAL_WILDCARD = 1;
+
+    // Full type
+    const COMPLETE = 2;
 
     /**
      * The name of the type.

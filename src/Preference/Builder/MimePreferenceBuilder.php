@@ -81,14 +81,14 @@ class MimePreferenceBuilder extends AbstractPreferenceBuilder
 
             list($mimeType, $subType) = $explodedType;
 
-            $precedence = Preference::EXACT_TYPE;
+            $precedence = Preference::COMPLETE;
             $qFactor = $this->qFactor;
 
             if ('*' === $mimeType) {
-                $precedence = Preference::WILDCARD_TYPE;
+                $precedence = Preference::WILDCARD;
 
             } elseif ('*' === $subType) {
-                $precedence = Preference::WILDCARD_SUBTYPE;
+                $precedence = Preference::PARTIAL_WILDCARD;
             }
         }
 

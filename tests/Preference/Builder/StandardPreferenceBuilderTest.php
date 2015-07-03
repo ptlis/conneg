@@ -26,7 +26,7 @@ class StandardPreferenceBuilderTest extends \PHPUnit_Framework_TestCase
         $expected = new Preference(
             'utf-8',
             1,
-            Preference::EXACT_TYPE
+            Preference::COMPLETE
         );
 
         $builder = new PreferenceBuilder();
@@ -69,7 +69,7 @@ class StandardPreferenceBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testBuildUserWildcardTypeSuccess()
     {
-        $expected = new Preference('*', 0.8, Preference::WILDCARD_TYPE);
+        $expected = new Preference('*', 0.8, Preference::WILDCARD);
 
         $builder = new PreferenceBuilder();
 
@@ -100,7 +100,7 @@ class StandardPreferenceBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testUserInvalidQualityFactorString()
     {
-        $expected = new Preference('utf-8', 1, Preference::EXACT_TYPE);
+        $expected = new Preference('utf-8', 1, Preference::COMPLETE);
 
         $builder = new PreferenceBuilder();
 
@@ -131,7 +131,7 @@ class StandardPreferenceBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testUserInvalidQualityFactorTooLarge()
     {
-        $expected = new Preference('utf-8', 1, Preference::EXACT_TYPE);
+        $expected = new Preference('utf-8', 1, Preference::COMPLETE);
 
         $builder = new PreferenceBuilder();
 
@@ -162,7 +162,7 @@ class StandardPreferenceBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testUserInvalidQualityFactorTooSmall()
     {
-        $expected = new Preference('utf-8', 0, Preference::EXACT_TYPE);
+        $expected = new Preference('utf-8', 0, Preference::COMPLETE);
 
         $builder = new PreferenceBuilder();
 

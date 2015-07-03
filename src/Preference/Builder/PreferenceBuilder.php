@@ -38,11 +38,11 @@ class PreferenceBuilder extends AbstractPreferenceBuilder
      */
     public function get()
     {
-        $precedence = Preference::EXACT_TYPE;
+        $precedence = Preference::COMPLETE;
         $qFactor = $this->qFactor;
 
         if ('*' === $this->type) {
-            $precedence = Preference::WILDCARD_TYPE;
+            $precedence = Preference::WILDCARD;
 
         } elseif (!strlen($this->type)) {
             $precedence = Preference::ABSENT_TYPE;
@@ -50,7 +50,7 @@ class PreferenceBuilder extends AbstractPreferenceBuilder
 
         // TODO: Only for Accept-Language field
         } elseif ('-*' === substr($this->type, -2, 2)) {
-            $precedence = Preference::WILDCARD_PARTIAL_LANG;
+            $precedence = Preference::PARTIAL_WILDCARD;
         }
 
         return new Preference(

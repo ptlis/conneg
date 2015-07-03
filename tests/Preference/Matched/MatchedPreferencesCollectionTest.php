@@ -32,12 +32,12 @@ class MatchedPreferencesCollectionTest extends \PHPUnit_Framework_TestCase
 
         $expectList = array(
             new MatchedPreferences(
-                new Preference('utf-8', 0.9, Preference::EXACT_TYPE),
-                new Preference('utf-8', 1, Preference::EXACT_TYPE)
+                new Preference('utf-8', 0.9, Preference::COMPLETE),
+                new Preference('utf-8', 1, Preference::COMPLETE)
             ),
             new MatchedPreferences(
-                new Preference('iso-8859-5', 0.8, Preference::EXACT_TYPE),
-                new Preference('iso-8859-5', 0.8, Preference::EXACT_TYPE)
+                new Preference('iso-8859-5', 0.8, Preference::COMPLETE),
+                new Preference('iso-8859-5', 0.8, Preference::COMPLETE)
             )
         );
 
@@ -61,12 +61,12 @@ class MatchedPreferencesCollectionTest extends \PHPUnit_Framework_TestCase
 
         $expectList = array(
             new MatchedPreferences(
-                new Preference('utf-8', 0.9, Preference::EXACT_TYPE),
-                new Preference('utf-8', 1, Preference::EXACT_TYPE)
+                new Preference('utf-8', 0.9, Preference::COMPLETE),
+                new Preference('utf-8', 1, Preference::COMPLETE)
             ),
             new MatchedPreferences(
-                new Preference('iso-8859-5', 0.8, Preference::EXACT_TYPE),
-                new Preference('iso-8859-5', 0.8, Preference::EXACT_TYPE)
+                new Preference('iso-8859-5', 0.8, Preference::COMPLETE),
+                new Preference('iso-8859-5', 0.8, Preference::COMPLETE)
             )
         );
 
@@ -103,12 +103,12 @@ class MatchedPreferencesCollectionTest extends \PHPUnit_Framework_TestCase
 
         $pairList = array(
             new MatchedPreferences(
-                new Preference('iso-8859-5', 0.8, Preference::EXACT_TYPE),
-                new Preference('iso-8859-5', 0.8, Preference::EXACT_TYPE)
+                new Preference('iso-8859-5', 0.8, Preference::COMPLETE),
+                new Preference('iso-8859-5', 0.8, Preference::COMPLETE)
             ),
             new MatchedPreferences(
-                new Preference('utf-8', 0.9, Preference::EXACT_TYPE),
-                new Preference('utf-8', 1, Preference::EXACT_TYPE)
+                new Preference('utf-8', 0.9, Preference::COMPLETE),
+                new Preference('utf-8', 1, Preference::COMPLETE)
             )
         );
         $collection = new MatchedPreferencesCollection($pairSort, $pairList);
@@ -144,19 +144,19 @@ class MatchedPreferencesCollectionTest extends \PHPUnit_Framework_TestCase
 
         $pairList = array(
             new MatchedPreferences(
-                new Preference('iso-8859-5', 0.8, Preference::EXACT_TYPE),
-                new Preference('iso-8859-5', 0.8, Preference::EXACT_TYPE)
+                new Preference('iso-8859-5', 0.8, Preference::COMPLETE),
+                new Preference('iso-8859-5', 0.8, Preference::COMPLETE)
             ),
             new MatchedPreferences(
-                new Preference('utf-8', 0.9, Preference::EXACT_TYPE),
-                new Preference('utf-8', 1, Preference::EXACT_TYPE)
+                new Preference('utf-8', 0.9, Preference::COMPLETE),
+                new Preference('utf-8', 1, Preference::COMPLETE)
             )
         );
         $collection = new MatchedPreferencesCollection($pairSort, $pairList);
 
         $expectPair = new MatchedPreferences(
-            new Preference('utf-8', 0.9, Preference::EXACT_TYPE),
-            new Preference('utf-8', 1, Preference::EXACT_TYPE)
+            new Preference('utf-8', 0.9, Preference::COMPLETE),
+            new Preference('utf-8', 1, Preference::COMPLETE)
         );
 
         $bestPair = $collection->getBest();
@@ -176,12 +176,12 @@ class MatchedPreferencesCollectionTest extends \PHPUnit_Framework_TestCase
 
         $pairList = array(
             new MatchedPreferences(
-                new Preference('iso-8859-5', 0.8, Preference::EXACT_TYPE),
-                new Preference('iso-8859-5', 0.8, Preference::EXACT_TYPE)
+                new Preference('iso-8859-5', 0.8, Preference::COMPLETE),
+                new Preference('iso-8859-5', 0.8, Preference::COMPLETE)
             ),
             new MatchedPreferences(
-                new Preference('utf-8', 0.9, Preference::EXACT_TYPE),
-                new Preference('utf-8', 1, Preference::EXACT_TYPE)
+                new Preference('utf-8', 0.9, Preference::COMPLETE),
+                new Preference('utf-8', 1, Preference::COMPLETE)
             )
         );
         $collection = new MatchedPreferencesCollection($pairSort, $pairList);
@@ -204,12 +204,12 @@ class MatchedPreferencesCollectionTest extends \PHPUnit_Framework_TestCase
 
         $pairList = array(
             new MatchedPreferences(
-                new Preference('iso-8859-5', 0.8, Preference::EXACT_TYPE),
-                new Preference('iso-8859-5', 0.8, Preference::EXACT_TYPE)
+                new Preference('iso-8859-5', 0.8, Preference::COMPLETE),
+                new Preference('iso-8859-5', 0.8, Preference::COMPLETE)
             ),
             new MatchedPreferences(
-                new Preference('utf-8', 0.9, Preference::EXACT_TYPE),
-                new Preference('utf-8', 1, Preference::EXACT_TYPE)
+                new Preference('utf-8', 0.9, Preference::COMPLETE),
+                new Preference('utf-8', 1, Preference::COMPLETE)
             )
         );
         $collection = new MatchedPreferencesCollection($pairSort, $pairList);
@@ -229,12 +229,12 @@ class MatchedPreferencesCollectionTest extends \PHPUnit_Framework_TestCase
 
         $pairList = array(
             new MatchedPreferences(
-                new Preference('iso-8859-5', 0.8, Preference::EXACT_TYPE),
-                new Preference('iso-8859-5', 0.8, Preference::EXACT_TYPE)
+                new Preference('iso-8859-5', 0.8, Preference::COMPLETE),
+                new Preference('iso-8859-5', 0.8, Preference::COMPLETE)
             ),
             new MatchedPreferences(
-                new Preference('utf-8', 0.9, Preference::EXACT_TYPE),
-                new Preference('utf-8', 1, Preference::EXACT_TYPE)
+                new Preference('utf-8', 0.9, Preference::COMPLETE),
+                new Preference('utf-8', 1, Preference::COMPLETE)
             )
         );
         $collection = new MatchedPreferencesCollection($pairSort, $pairList);

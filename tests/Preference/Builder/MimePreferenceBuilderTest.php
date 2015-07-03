@@ -23,7 +23,7 @@ class MimePreferenceBuilderTest extends \PHPUnit_Framework_TestCase
 {
     public function testBuildTypeSuccess()
     {
-        $expected = new Preference('text/html', 1, Preference::EXACT_TYPE);
+        $expected = new Preference('text/html', 1, Preference::COMPLETE);
 
         $builder = new MimePreferenceBuilder();
 

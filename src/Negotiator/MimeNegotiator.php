@@ -194,12 +194,12 @@ class MimeNegotiator implements NegotiatorInterface
     {
         switch (true) {
             // Full Wildcard Match
-            case Preference::WILDCARD_TYPE === $userType->getPrecedence():
+            case Preference::WILDCARD === $userType->getPrecedence():
                 $matchingList = $this->matchFullWildcard($matchingList, $userType);
                 break;
 
             // Wildcard SubType Match
-            case Preference::WILDCARD_SUBTYPE === $userType->getPrecedence():
+            case Preference::PARTIAL_WILDCARD === $userType->getPrecedence():
                 $matchingList = $this->matchSubTypeWildcard($matchingList, $userType);
                 break;
 

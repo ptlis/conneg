@@ -21,8 +21,8 @@ class PreferenceCollectionTest extends \PHPUnit_Framework_TestCase
     public function testIterator()
     {
         $expectList = array(
-            new Preference('text/html', 1, Preference::EXACT_TYPE),
-            new Preference('text/n3', 0.8, Preference::EXACT_TYPE)
+            new Preference('text/html', 1, Preference::COMPLETE),
+            new Preference('text/n3', 0.8, Preference::COMPLETE)
         );
 
         $expectCollection = new PreferenceCollection($expectList);
@@ -37,8 +37,8 @@ class PreferenceCollectionTest extends \PHPUnit_Framework_TestCase
     public function testGetAscendingOne()
     {
         $expectList = array(
-            new Preference('text/html', 1, Preference::EXACT_TYPE),
-            new Preference('text/n3', 0.8, Preference::EXACT_TYPE)
+            new Preference('text/html', 1, Preference::COMPLETE),
+            new Preference('text/n3', 0.8, Preference::COMPLETE)
         );
 
         $expectCollection = new PreferenceCollection($expectList);
@@ -61,8 +61,8 @@ class PreferenceCollectionTest extends \PHPUnit_Framework_TestCase
     public function testGetAscendingTwo()
     {
         $expectList = array(
-            new Preference('text/n3', 0.8, Preference::EXACT_TYPE),
-            new Preference('text/html', 1, Preference::EXACT_TYPE)
+            new Preference('text/n3', 0.8, Preference::COMPLETE),
+            new Preference('text/html', 1, Preference::COMPLETE)
         );
         $expectCollection = new PreferenceCollection($expectList);
 
@@ -84,8 +84,8 @@ class PreferenceCollectionTest extends \PHPUnit_Framework_TestCase
     public function testGetAscendingThree()
     {
         $expectList = array(
-            new Preference('text/n3', 1, Preference::EXACT_TYPE),
-            new Preference('text/html', 1, Preference::EXACT_TYPE)
+            new Preference('text/n3', 1, Preference::COMPLETE),
+            new Preference('text/html', 1, Preference::COMPLETE)
         );
 
         $expectCollection = new PreferenceCollection($expectList);
@@ -108,8 +108,8 @@ class PreferenceCollectionTest extends \PHPUnit_Framework_TestCase
     public function testGetDescendingOne()
     {
         $expectList = array(
-            new Preference('text/n3', 0.8, Preference::EXACT_TYPE),
-            new Preference('text/html', 1, Preference::EXACT_TYPE)
+            new Preference('text/n3', 0.8, Preference::COMPLETE),
+            new Preference('text/html', 1, Preference::COMPLETE)
         );
         $expectCollection = new PreferenceCollection($expectList);
 
@@ -131,8 +131,8 @@ class PreferenceCollectionTest extends \PHPUnit_Framework_TestCase
     public function testGetDescendingTwo()
     {
         $expectList = array(
-            new Preference('text/html', 1, Preference::EXACT_TYPE),
-            new Preference('text/n3', 0.8, Preference::EXACT_TYPE)
+            new Preference('text/html', 1, Preference::COMPLETE),
+            new Preference('text/n3', 0.8, Preference::COMPLETE)
         );
 
         $expectCollection = new PreferenceCollection($expectList);
@@ -155,8 +155,8 @@ class PreferenceCollectionTest extends \PHPUnit_Framework_TestCase
     public function testGetDescendingThree()
     {
         $expectList = array(
-            new Preference('text/n3', 1, Preference::EXACT_TYPE),
-            new Preference('text/html', 1, Preference::EXACT_TYPE)
+            new Preference('text/n3', 1, Preference::COMPLETE),
+            new Preference('text/html', 1, Preference::COMPLETE)
         );
 
         $expectCollection = new PreferenceCollection($expectList);
@@ -179,8 +179,8 @@ class PreferenceCollectionTest extends \PHPUnit_Framework_TestCase
     public function testClone()
     {
         $expectList = array(
-            new Preference('text/n3', 0.8, Preference::EXACT_TYPE),
-            new Preference('text/html', 1, Preference::EXACT_TYPE)
+            new Preference('text/n3', 0.8, Preference::COMPLETE),
+            new Preference('text/html', 1, Preference::COMPLETE)
         );
 
         $collection = new PreferenceCollection($expectList);
@@ -194,8 +194,8 @@ class PreferenceCollectionTest extends \PHPUnit_Framework_TestCase
     public function testToString()
     {
         $expectList = array(
-            new Preference('text/n3', 0.8, Preference::EXACT_TYPE),
-            new Preference('text/html', 1, Preference::EXACT_TYPE)
+            new Preference('text/n3', 0.8, Preference::COMPLETE),
+            new Preference('text/html', 1, Preference::COMPLETE)
         );
 
         $collection = new PreferenceCollection($expectList);
@@ -206,8 +206,8 @@ class PreferenceCollectionTest extends \PHPUnit_Framework_TestCase
     public function testCount()
     {
         $expectList = array(
-            new Preference('text/n3', 0.8, Preference::EXACT_TYPE),
-            new Preference('text/html', 1, Preference::EXACT_TYPE)
+            new Preference('text/n3', 0.8, Preference::COMPLETE),
+            new Preference('text/html', 1, Preference::COMPLETE)
         );
 
         $collection = new PreferenceCollection($expectList);

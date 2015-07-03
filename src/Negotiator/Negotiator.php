@@ -116,7 +116,7 @@ class Negotiator implements NegotiatorInterface
                 $matchingList = $this->matchExact($matchingList, $userType);
 
             // Wildcard Match
-            } elseif (Preference::WILDCARD_TYPE === $userType->getPrecedence()) {
+            } elseif (Preference::WILDCARD === $userType->getPrecedence()) {
                 $matchingList = $this->matchFullWildcard($matchingList, $userType);
 
             // App Partial Lang Match
@@ -176,7 +176,7 @@ class Negotiator implements NegotiatorInterface
         list($userMainLang) = explode('-', $userType->getType());
         list($appMainLang) = explode('-', $appType->getType());
 
-        return Preference::WILDCARD_PARTIAL_LANG === $appType->getPrecedence()
+        return Preference::PARTIAL_WILDCARD === $appType->getPrecedence()
             && $userMainLang == $appMainLang;
     }
 

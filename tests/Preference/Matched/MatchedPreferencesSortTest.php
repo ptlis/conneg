@@ -23,12 +23,12 @@ class MatchedPreferencesSortTest extends \PHPUnit_Framework_TestCase
     {
         $typePairList = array();
         $typePairList[] = new MatchedPreferences(
-            new Preference('en-gb', 0.9, Preference::EXACT_TYPE),
-            new Preference('en-gb', 1, Preference::EXACT_TYPE)
+            new Preference('en-gb', 0.9, Preference::COMPLETE),
+            new Preference('en-gb', 1, Preference::COMPLETE)
         );
         $typePairList[] = new MatchedPreferences(
-            new Preference('fr', 0.8, Preference::EXACT_TYPE),
-            new Preference('fr', 0.8, Preference::EXACT_TYPE)
+            new Preference('fr', 0.8, Preference::COMPLETE),
+            new Preference('fr', 0.8, Preference::COMPLETE)
         );
 
         $sort = new MatchedPreferencesSort(
@@ -62,12 +62,12 @@ class MatchedPreferencesSortTest extends \PHPUnit_Framework_TestCase
     {
         $typePairList = array();
         $typePairList[] = new MatchedPreferences(
-            new Preference('en-gb', 0.9, Preference::EXACT_TYPE),
-            new Preference('en-gb', 0.5, Preference::EXACT_TYPE)
+            new Preference('en-gb', 0.9, Preference::COMPLETE),
+            new Preference('en-gb', 0.5, Preference::COMPLETE)
         );
         $typePairList[] = new MatchedPreferences(
-            new Preference('fr', 0.8, Preference::EXACT_TYPE),
-            new Preference('fr', 0.8, Preference::EXACT_TYPE)
+            new Preference('fr', 0.8, Preference::COMPLETE),
+            new Preference('fr', 0.8, Preference::COMPLETE)
         );
 
         $sort = new MatchedPreferencesSort(
@@ -103,12 +103,12 @@ class MatchedPreferencesSortTest extends \PHPUnit_Framework_TestCase
     {
         $typePairList = array();
         $typePairList[] = new MatchedPreferences(
-            new Preference('en-gb', 0.8, Preference::EXACT_TYPE),
-            new Preference('en-gb', 0.9, Preference::EXACT_TYPE)
+            new Preference('en-gb', 0.8, Preference::COMPLETE),
+            new Preference('en-gb', 0.9, Preference::COMPLETE)
         );
         $typePairList[] = new MatchedPreferences(
-            new Preference('fr', 0.8, Preference::EXACT_TYPE),
-            new Preference('fr', 0.9, Preference::EXACT_TYPE)
+            new Preference('fr', 0.8, Preference::COMPLETE),
+            new Preference('fr', 0.9, Preference::COMPLETE)
         );
 
         $sort = new MatchedPreferencesSort(
@@ -143,12 +143,12 @@ class MatchedPreferencesSortTest extends \PHPUnit_Framework_TestCase
     {
         $typePairList = array();
         $typePairList[] = new MatchedPreferences(
-            new Preference('en-gb', 0.9, Preference::EXACT_TYPE),
-            new Preference('en-gb', 0.8, Preference::EXACT_TYPE)
+            new Preference('en-gb', 0.9, Preference::COMPLETE),
+            new Preference('en-gb', 0.8, Preference::COMPLETE)
         );
         $typePairList[] = new MatchedPreferences(
-            new Preference('fr', 0.8, Preference::EXACT_TYPE),
-            new Preference('fr', 0.9, Preference::EXACT_TYPE)
+            new Preference('fr', 0.8, Preference::COMPLETE),
+            new Preference('fr', 0.9, Preference::COMPLETE)
         );
 
         $sort = new MatchedPreferencesSort(
@@ -183,12 +183,12 @@ class MatchedPreferencesSortTest extends \PHPUnit_Framework_TestCase
     {
         $typePairList = array();
         $typePairList[] = new MatchedPreferences(
-            new Preference('en-gb', 0.8, Preference::EXACT_TYPE),
-            new Preference('en-gb', 0.9, Preference::EXACT_TYPE)
+            new Preference('en-gb', 0.8, Preference::COMPLETE),
+            new Preference('en-gb', 0.9, Preference::COMPLETE)
         );
         $typePairList[] = new MatchedPreferences(
-            new Preference('fr', 0.9, Preference::EXACT_TYPE),
-            new Preference('fr', 0.8, Preference::EXACT_TYPE)
+            new Preference('fr', 0.9, Preference::COMPLETE),
+            new Preference('fr', 0.8, Preference::COMPLETE)
         );
 
         $sort = new MatchedPreferencesSort(
@@ -224,11 +224,11 @@ class MatchedPreferencesSortTest extends \PHPUnit_Framework_TestCase
         $typePairList = array();
         $typePairList[] = new MatchedPreferences(
             new Preference('', 0, Preference::ABSENT_TYPE),
-            new Preference('en-gb', 0.9, Preference::EXACT_TYPE)
+            new Preference('en-gb', 0.9, Preference::COMPLETE)
         );
         $typePairList[] = new MatchedPreferences(
             new Preference('', 0, Preference::ABSENT_TYPE),
-            new Preference('fr', 0.8, Preference::EXACT_TYPE)
+            new Preference('fr', 0.8, Preference::COMPLETE)
         );
 
         $sort = new MatchedPreferencesSort(
@@ -263,11 +263,11 @@ class MatchedPreferencesSortTest extends \PHPUnit_Framework_TestCase
     {
         $typePairList = array();
         $typePairList[] = new MatchedPreferences(
-            new Preference('en-gb', 0.9, Preference::EXACT_TYPE),
+            new Preference('en-gb', 0.9, Preference::COMPLETE),
             new Preference('', 0, Preference::ABSENT_TYPE)
         );
         $typePairList[] = new MatchedPreferences(
-            new Preference('fr', 0.8, Preference::EXACT_TYPE),
+            new Preference('fr', 0.8, Preference::COMPLETE),
             new Preference('', 0, Preference::ABSENT_TYPE)
         );
 
@@ -303,12 +303,12 @@ class MatchedPreferencesSortTest extends \PHPUnit_Framework_TestCase
     {
         $typePairList = array();
         $typePairList[] = new MatchedPreferences(
-            new Preference('en-gb', 0.8, Preference::EXACT_TYPE),
-            new Preference('en-gb', 0.9, Preference::EXACT_TYPE)
+            new Preference('en-gb', 0.8, Preference::COMPLETE),
+            new Preference('en-gb', 0.9, Preference::COMPLETE)
         );
         $typePairList[] = new MatchedPreferences(
-            new Preference('fr', 0.9, Preference::EXACT_TYPE),
-            new Preference('fr', 0.8, Preference::EXACT_TYPE)
+            new Preference('fr', 0.9, Preference::COMPLETE),
+            new Preference('fr', 0.8, Preference::COMPLETE)
         );
 
         $sort = new MatchedPreferencesSort(
@@ -376,12 +376,12 @@ class MatchedPreferencesSortTest extends \PHPUnit_Framework_TestCase
 
         $typePairList = array();
         $typePairList[] = new MatchedPreferences(
-            new Preference('en-gb', 0.8, Preference::EXACT_TYPE),
-            new Preference('en-gb', 0.9, Preference::EXACT_TYPE)
+            new Preference('en-gb', 0.8, Preference::COMPLETE),
+            new Preference('en-gb', 0.9, Preference::COMPLETE)
         );
         $typePairList[] = new MatchedPreferences(
-            new Preference('fr', 0.9, Preference::EXACT_TYPE),
-            new Preference('fr', 0.8, Preference::EXACT_TYPE)
+            new Preference('fr', 0.9, Preference::COMPLETE),
+            new Preference('fr', 0.8, Preference::COMPLETE)
         );
 
         $best = $sort->getBest(
@@ -393,8 +393,8 @@ class MatchedPreferencesSortTest extends \PHPUnit_Framework_TestCase
         );
 
         $expect = new MatchedPreferences(
-            new Preference('fr', 0.9, Preference::EXACT_TYPE),
-            new Preference('fr', 0.8, Preference::EXACT_TYPE)
+            new Preference('fr', 0.9, Preference::COMPLETE),
+            new Preference('fr', 0.8, Preference::COMPLETE)
         );
 
         $this->assertEquals($expect, $best);

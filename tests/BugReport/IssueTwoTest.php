@@ -41,27 +41,27 @@ class IssueTwoTest extends \PHPUnit_Framework_TestCase
 
         $pairList = array(
             new MatchedPreferences(
-                new Preference('text/turtle', 1, Preference::EXACT_TYPE),
+                new Preference('text/turtle', 1, Preference::COMPLETE),
                 new Preference('', 0, Preference::ABSENT_TYPE)
             ),
             new MatchedPreferences(
-                new Preference('application/rdf+json', 0.8, Preference::EXACT_TYPE),
+                new Preference('application/rdf+json', 0.8, Preference::COMPLETE),
                 new Preference('', 0, Preference::ABSENT_TYPE)
             ),
             new MatchedPreferences(
-                new Preference('application/rdf+xml', 0.8, Preference::EXACT_TYPE),
+                new Preference('application/rdf+xml', 0.8, Preference::COMPLETE),
                 new Preference('', 0, Preference::ABSENT_TYPE)
             ),
             new MatchedPreferences(
-                new Preference('text/n3', 0.8, Preference::EXACT_TYPE),
+                new Preference('text/n3', 0.8, Preference::COMPLETE),
                 new Preference('', 0, Preference::ABSENT_TYPE)
             ),
             new MatchedPreferences(
-                new Preference('text/rdf+n3', 0.8, Preference::EXACT_TYPE),
+                new Preference('text/rdf+n3', 0.8, Preference::COMPLETE),
                 new Preference('', 0, Preference::ABSENT_TYPE)
             ),
             new MatchedPreferences(
-                new Preference('application/ld+json', 0.5, Preference::EXACT_TYPE),
+                new Preference('application/ld+json', 0.5, Preference::COMPLETE),
                 new Preference('', 0, Preference::ABSENT_TYPE)
             )
         );
