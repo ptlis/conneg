@@ -113,14 +113,7 @@ class Negotiator implements NegotiatorInterface
 
             // Type match
             if (array_key_exists($userType->getType(), $matchingList)) {
-                $newPair = new TypePair(
-                    $userType,
-                    $matchingList[$userType->getType()]->getAppType()
-                );
-
-                if ($this->pairSort->compare($matchingList[$userType->getType()], $newPair) > 0) {
-                    $matchingList[$userType->getType()] = $newPair;
-                }
+                $matchingList = $this->matchExact($matchingList, $userType);
 
             // Wildcard Match
             } elseif (Type::WILDCARD_TYPE === $userType->getPrecedence()) {
@@ -133,6 +126,28 @@ class Negotiator implements NegotiatorInterface
                     $this->emptyType
                 );
             }
+        }
+
+        return $matchingList;
+    }
+
+    /**
+     * Attempt to find an exact match with type in matching list.
+     *
+     * @param TypePair[]    $matchingList
+     * @param TypeInterface $userType
+     *
+     * @return TypePair[]
+     */
+    private function matchExact(array $matchingList, TypeInterface $userType)
+    {
+        $newPair = new TypePair(
+            $userType,
+            $matchingList[$userType->getType()]->getAppType()
+        );
+
+        if ($this->pairSort->compare($matchingList[$userType->getType()], $newPair) > 0) {
+            $matchingList[$userType->getType()] = $newPair;
         }
 
         return $matchingList;
