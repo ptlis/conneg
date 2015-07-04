@@ -11,7 +11,7 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Negotiator;
+namespace ptlis\ConNeg\Matcher;
 
 use ptlis\ConNeg\Preference\PreferenceCollection;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferencesCollection;
@@ -22,9 +22,9 @@ use ptlis\ConNeg\Preference\Matched\MatchedPreferencesInterface;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
- * Class for negotiating on charset, encoding & language types.
+ * Matcher for charset, encoding & language types.
  */
-class Negotiator implements NegotiatorInterface
+class Matcher implements MatcherInterface
 {
     /**
      * Empty type instance, used when only user & app types are asymmetric.

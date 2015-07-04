@@ -11,7 +11,7 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Negotiator;
+namespace ptlis\ConNeg\Matcher;
 
 use ptlis\ConNeg\Preference\PreferenceCollection;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferencesCollection;
@@ -22,9 +22,9 @@ use ptlis\ConNeg\Preference\Preference;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
- * Class for negotiating on mime types.
+ * Matcher for mime types.
  */
-class MimeNegotiator implements NegotiatorInterface
+class MimeMatcher implements MatcherInterface
 {
     /**
      * Empty type instance, used when only user & app types are asymmetric.

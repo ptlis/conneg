@@ -17,8 +17,8 @@ use ptlis\ConNeg\Preference\CollectionInterface;
 use ptlis\ConNeg\Preference\PreferenceCollection;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferencesCollection;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferencesSort;
-use ptlis\ConNeg\Negotiator\MimeNegotiator;
-use ptlis\ConNeg\Negotiator\Negotiator;
+use ptlis\ConNeg\Matcher\MimeMatcher;
+use ptlis\ConNeg\Matcher\Matcher;
 use ptlis\ConNeg\Parse\FieldParser;
 use ptlis\ConNeg\Parse\FieldTokenizer;
 use ptlis\ConNeg\Preference\Builder\MimePreferenceBuilder;
@@ -34,14 +34,14 @@ class Negotiation
     /**
      * Negotiator for non-mime types.
      *
-     * @var Negotiator
+     * @var Matcher
      */
     private $stdNegotiator;
 
     /**
      * Negotiator for mime types.
      *
-     * @var MimeNegotiator
+     * @var MimeMatcher
      */
     private $mimeNegotiator;
 
@@ -84,8 +84,8 @@ class Negotiation
             new MatchedPreferences($stdTypeBuilder->get(), $stdTypeBuilder->get())
         );
 
-        $this->stdNegotiator = new Negotiator($stdTypeBuilder->get(), $sort);
-        $this->mimeNegotiator = new MimeNegotiator($mimeTypeBuilder->get(), $sort);
+        $this->stdNegotiator = new Matcher($stdTypeBuilder->get(), $sort);
+        $this->mimeNegotiator = new MimeMatcher($mimeTypeBuilder->get(), $sort);
     }
 
     /**
