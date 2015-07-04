@@ -13,10 +13,10 @@
 
 namespace ptlis\ConNeg\Matcher;
 
-use ptlis\ConNeg\Preference\Matched\MatchedPreferencesCollection;
-use ptlis\ConNeg\Preference\Matched\MatchedPreferencesSort;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferences;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferencesCollection;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferencesInterface;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferencesSort;
 use ptlis\ConNeg\Preference\Preference;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 

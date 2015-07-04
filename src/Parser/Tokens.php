@@ -48,13 +48,13 @@ class Tokens
      */
     public static function isSeparator($string)
     {
-        $seperatorList = array(
+        $separatorList = array(
             self::TYPE_SEPARATOR,
             self::PARAMS_SEPARATOR,
             self::MIME_SEPARATOR,
             self::PARAMS_KV_SEPARATOR
         );
 
-        return in_array($string, $seperatorList);
+        return in_array($string, $separatorList);
     }
 }

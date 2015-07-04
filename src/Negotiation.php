@@ -13,7 +13,6 @@
 
 namespace ptlis\ConNeg;
 
-use ptlis\ConNeg\Preference\CollectionInterface;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferencesCollection;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferencesSort;
 use ptlis\ConNeg\Matcher\MimeMatcher;

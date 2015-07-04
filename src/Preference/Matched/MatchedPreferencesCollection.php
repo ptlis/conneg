@@ -102,20 +102,6 @@ class MatchedPreferencesCollection implements CollectionInterface
     }
 
     /**
-     * Deep clone
-     */
-    public function __clone()
-    {
-        $newTypePairList = array();
-
-        foreach ($this->typePairList as $index => $typePair) {
-            $newTypePairList[$index] = clone $typePair;
-        }
-
-        $this->typePairList = $newTypePairList;
-    }
-
-    /**
      * Return a string representation of the collection.
      *
      * @return string
