@@ -13,7 +13,6 @@
 
 namespace ptlis\ConNeg\Test\Parse;
 
-use ptlis\ConNeg\Preference\PreferenceCollection;
 use ptlis\ConNeg\Parser\FieldParser;
 use ptlis\ConNeg\Preference\Preference;
 use ptlis\ConNeg\Preference\Builder\MimePreferenceBuilder;
@@ -48,11 +47,11 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             'rss+xml',
         );
 
-        $expected = new PreferenceCollection(array(
+        $expected = array(
             new Preference('application/atom+xml', 0.8, Preference::COMPLETE),
             new Preference('text/html', 0.3, Preference::COMPLETE),
             new Preference('application/rss+xml', 1, Preference::COMPLETE)
-        ));
+        );
 
         $builder = new MimePreferenceBuilder();
         $parser = new FieldParser($builder, true);
@@ -90,11 +89,11 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             'rss+xml',
         );
 
-        $expected = new PreferenceCollection(array(
+        $expected = array(
             new Preference('application/atom+xml', 0.8, Preference::COMPLETE),
             new Preference('text/html', 0.3, Preference::COMPLETE),
             new Preference('application/rss+xml', 1, Preference::COMPLETE)
-        ));
+        );
 
         $builder = new MimePreferenceBuilder();
         $parser = new FieldParser($builder, true);
@@ -134,11 +133,11 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             'rss+xml',
         );
 
-        $expected = new PreferenceCollection(array(
+        $expected = array(
             new Preference('application/atom+xml', 0.8, Preference::COMPLETE),
             new Preference('text/html', 0.3, Preference::COMPLETE),
             new Preference('application/rss+xml', 1, Preference::COMPLETE)
-        ));
+        );
 
         $builder = new MimePreferenceBuilder();
         $parser = new FieldParser($builder, true);
@@ -180,11 +179,11 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             'rss+xml',
         );
 
-        $expected = new PreferenceCollection(array(
+        $expected = array(
             new Preference('application/atom+xml', 0.8, Preference::COMPLETE),
             new Preference('text/html', 0.3, Preference::COMPLETE),
             new Preference('application/rss+xml', 1, Preference::COMPLETE)
-        ));
+        );
 
         $builder = new MimePreferenceBuilder();
         $parser = new FieldParser($builder, true);
@@ -267,11 +266,11 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             'rss+xml',
         );
 
-        $expected = new PreferenceCollection(array(
+        $expected = array(
             new Preference('application/atom+xml', 0.8, Preference::COMPLETE),
             new Preference('text/html', 0.3, Preference::COMPLETE),
             new Preference('application/rss+xml', 1, Preference::COMPLETE)
-        ));
+        );
 
         $builder = new MimePreferenceBuilder();
         $parser = new FieldParser($builder, true);
@@ -297,10 +296,10 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             '0.9'
         );
 
-        $expected = new PreferenceCollection(array(
+        $expected = array(
             new Preference('es-*', 0.7, Preference::PARTIAL_WILDCARD),
             new Preference('es-ES', 0.9, Preference::COMPLETE)
-        ));
+        );
 
         $builder = new PreferenceBuilder();
         $parser = new FieldParser($builder, false);
@@ -384,10 +383,10 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             '0.9'
         );
 
-        $expected = new PreferenceCollection(array(
+        $expected = array(
             new Preference('iso-8859-5', 1, Preference::COMPLETE),
             new Preference('utf-8', 0.9, Preference::COMPLETE),
-        ));
+        );
 
         $builder = new PreferenceBuilder();
         $parser = new FieldParser($builder, false);
@@ -410,10 +409,10 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             '0.9'
         );
 
-        $expected = new PreferenceCollection(array(
+        $expected = array(
             new Preference('iso-8859-5', 1, Preference::COMPLETE),
             new Preference('utf-8', 0.9, Preference::COMPLETE),
-        ));
+        );
 
         $builder = new PreferenceBuilder();
         $parser = new FieldParser($builder, false);
@@ -436,10 +435,10 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             '0.9'
         );
 
-        $expected = new PreferenceCollection(array(
+        $expected = array(
             new Preference('iso-8859-5', 1, Preference::COMPLETE),
             new Preference('utf-8', 0.9, Preference::COMPLETE),
-        ));
+        );
 
         $builder = new PreferenceBuilder();
         $parser = new FieldParser($builder, false);

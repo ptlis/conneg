@@ -13,7 +13,6 @@
 
 namespace ptlis\ConNeg\Parser;
 
-use ptlis\ConNeg\Preference\PreferenceCollection;
 use ptlis\ConNeg\Exception\InvalidTypeException;
 use ptlis\ConNeg\Preference\Builder\PreferenceBuilderInterface;
 use ptlis\ConNeg\Preference\PreferenceInterface;
@@ -56,7 +55,7 @@ class FieldParser
      * @param bool $appField        If true the field came from the application & we error on malformed data otherwise
      *                              we suppress errors for user-agent types.
      *
-     * @return PreferenceCollection
+     * @return PreferenceInterface[]
      */
     public function parse(array $tokenList, $appField)
     {
@@ -68,9 +67,7 @@ class FieldParser
             $typeList[] = $this->parseBundle($bundle, $appField);
         }
 
-        $collection = new PreferenceCollection($typeList);
-
-        return $collection;
+        return $typeList;
     }
 
     /**

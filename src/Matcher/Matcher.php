@@ -13,7 +13,6 @@
 
 namespace ptlis\ConNeg\Matcher;
 
-use ptlis\ConNeg\Preference\PreferenceCollection;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferencesCollection;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferencesSort;
 use ptlis\ConNeg\Preference\Preference;
@@ -56,12 +55,12 @@ class Matcher implements MatcherInterface
     /**
      * Return a collection of types sorted by preference.
      *
-     * @param PreferenceCollection $userTypeList
-     * @param PreferenceCollection $appTypeList
+     * @param PreferenceInterface[] $userTypeList
+     * @param PreferenceInterface[] $appTypeList
      *
      * @return MatchedPreferencesCollection
      */
-    public function negotiateAll(PreferenceCollection $userTypeList, PreferenceCollection $appTypeList)
+    public function negotiateAll(array $userTypeList, array $appTypeList)
     {
         $matchingList = array();
         /** @var PreferenceInterface $appType */
@@ -86,12 +85,12 @@ class Matcher implements MatcherInterface
     /**
      * Return the preferred type & product of application & user-agent quality factors.
      *
-     * @param PreferenceCollection $userTypeList
-     * @param PreferenceCollection $appTypeList
+     * @param PreferenceInterface[] $userTypeList
+     * @param PreferenceInterface[] $appTypeList
      *
      * @return MatchedPreferencesInterface
      */
-    public function negotiateBest(PreferenceCollection $userTypeList, PreferenceCollection $appTypeList)
+    public function negotiateBest(array $userTypeList, array $appTypeList)
     {
         $pairCollection = $this->negotiateAll($userTypeList, $appTypeList);
 
@@ -101,12 +100,12 @@ class Matcher implements MatcherInterface
     /**
      * Match user types to app types.
      *
-     * @param PreferenceCollection    $userTypeList
-     * @param MatchedPreferences[]                  $matchingList
+     * @param PreferenceInterface[] $userTypeList
+     * @param MatchedPreferences[] $matchingList
      *
      * @return MatchedPreferences[]
      */
-    private function matchUserToAppTypes(PreferenceCollection $userTypeList, array $matchingList)
+    private function matchUserToAppTypes(array $userTypeList, array $matchingList)
     {
         /** @var PreferenceInterface $userType */
         foreach ($userTypeList as $userType) {
@@ -139,7 +138,7 @@ class Matcher implements MatcherInterface
     /**
      * Returns true if the user type matches an application-provided partial language.
      *
-     * @param MatchedPreferences[]    $matchingList
+     * @param MatchedPreferences[] $matchingList
      * @param PreferenceInterface $userType
      *
      * @return boolean

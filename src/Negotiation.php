@@ -14,7 +14,6 @@
 namespace ptlis\ConNeg;
 
 use ptlis\ConNeg\Preference\CollectionInterface;
-use ptlis\ConNeg\Preference\PreferenceCollection;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferencesCollection;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferencesSort;
 use ptlis\ConNeg\Matcher\MimeMatcher;
@@ -25,6 +24,7 @@ use ptlis\ConNeg\Preference\Builder\MimePreferenceBuilder;
 use ptlis\ConNeg\Preference\Builder\PreferenceBuilder;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferences;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferencesInterface;
+use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
  * Class providing a simple API through which content negotiation is performed.
@@ -92,7 +92,7 @@ class Negotiation
      * Parse the Accept-Charset field & negotiate against application types, returns the preferred type.
      *
      * @param string $userField
-     * @param string|PreferenceCollection $appField
+     * @param string $appField
      *
      * @return MatchedPreferencesInterface
      */
@@ -106,7 +106,7 @@ class Negotiation
      * preference.
      *
      * @param string $userField
-     * @param string|PreferenceCollection $appField
+     * @param string $appField
      *
      * @throws \LogicException
      *
@@ -121,7 +121,7 @@ class Negotiation
      * Parse the Accept-Encoding field & negotiate against application types, returns the preferred type.
      *
      * @param string $userField
-     * @param string|PreferenceCollection $appField
+     * @param string $appField
      *
      * @return MatchedPreferencesInterface
      */
@@ -135,7 +135,7 @@ class Negotiation
      * preference.
      *
      * @param string $userField
-     * @param string|PreferenceCollection $appField
+     * @param string $appField
      *
      * @throws \LogicException
      *
@@ -150,7 +150,7 @@ class Negotiation
      * Parse the Accept-Language field & negotiate against application types, returns the preferred type.
      *
      * @param string $userField
-     * @param string|PreferenceCollection $appField
+     * @param string $appField
      *
      * @return MatchedPreferencesInterface
      */
@@ -164,7 +164,7 @@ class Negotiation
      * preference.
      *
      * @param string $userField
-     * @param string|PreferenceCollection $appField
+     * @param string $appField
      *
      * @throws \LogicException
      *
@@ -179,7 +179,7 @@ class Negotiation
      * Parse the Accept field & negotiate against application types, returns the preferred type.
      *
      * @param string $userField
-     * @param string|PreferenceCollection $appField
+     * @param string $appField
      *
      * @return MatchedPreferencesInterface
      */
@@ -192,7 +192,7 @@ class Negotiation
      * Parse the Accept field & negotiate against application types, returns an array of types sorted by preference.
      *
      * @param string $userField
-     * @param string|PreferenceCollection $appField
+     * @param string $appField
      *
      * @throws \LogicException
      *
@@ -208,7 +208,7 @@ class Negotiation
      * Shared code to parse an Accept* field & negotiate against application types, returns the preferred type.
      *
      * @param string $userField
-     * @param string|PreferenceCollection $appField
+     * @param string $appField
      * @param bool $isMimeField
      *
      * @return MatchedPreferences|MatchedPreferencesInterface
@@ -232,7 +232,7 @@ class Negotiation
      * preference.
      *
      * @param string $userField
-     * @param string|PreferenceCollection $appField
+     * @param string $appField
      * @param bool $isMimeField
      *
      * @return MatchedPreferencesCollection
@@ -257,7 +257,7 @@ class Negotiation
      * @param string $userField
      * @param bool $isMimeField
      *
-     * @return PreferenceCollection
+     * @return PreferenceInterface[]
      */
     private function sharedUserPrefsToTypes($userField, $isMimeField)
     {
@@ -277,10 +277,10 @@ class Negotiation
      *
      * @throws \LogicException
      *
-     * @param string|CollectionInterface $appField
+     * @param string $appField
      * @param bool $isMimeField
      *
-     * @return PreferenceCollection
+     * @return PreferenceInterface[]
      */
     private function sharedAppPrefsToTypes($appField, $isMimeField)
     {
@@ -291,9 +291,6 @@ class Negotiation
             } else {
                 $appTypeList = $this->stdParser->parse($tokenList, true);
             }
-
-        } elseif ($appField instanceof CollectionInterface) {
-            $appTypeList = $appField;
 
         } else {
             throw new \LogicException('Invalid application preferences passed to ' . __METHOD__);

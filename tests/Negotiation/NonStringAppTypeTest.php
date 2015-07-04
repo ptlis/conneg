@@ -13,7 +13,6 @@
 
 namespace ptlis\ConNeg\Test\Negotiation;
 
-use ptlis\ConNeg\Preference\PreferenceCollection;
 use ptlis\ConNeg\Negotiation;
 use ptlis\ConNeg\Preference\Preference;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferences;
@@ -29,19 +28,5 @@ class NonStringAppTypeTest extends \PHPUnit_Framework_TestCase
 
         $negotiate = new Negotiation();
         $negotiate->charsetAll('', new \DateTime());
-    }
-
-    public function testAppCollection()
-    {
-        $negotiate = new Negotiation();
-        $collection = $negotiate->charsetAll('', new PreferenceCollection(array()));
-
-        $this->assertEquals(
-            new MatchedPreferences(
-                new Preference('', 0, Preference::ABSENT_TYPE),
-                new Preference('', 0, Preference::ABSENT_TYPE)
-            ),
-            $collection->getBest()
-        );
     }
 }

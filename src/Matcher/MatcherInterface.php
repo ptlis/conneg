@@ -14,7 +14,6 @@
 namespace ptlis\ConNeg\Matcher;
 
 use ptlis\ConNeg\Preference\CollectionInterface;
-use ptlis\ConNeg\Preference\PreferenceCollection;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
@@ -25,20 +24,20 @@ interface MatcherInterface
     /**
      * Return a collection of types sorted by preference.
      *
-     * @param PreferenceCollection $userTypeList
-     * @param PreferenceCollection $appTypeList
+     * @param PreferenceInterface[] $userTypeList
+     * @param PreferenceInterface[] $appTypeList
      *
      * @return CollectionInterface
      */
-    public function negotiateAll(PreferenceCollection $userTypeList, PreferenceCollection $appTypeList);
+    public function negotiateAll(array $userTypeList, array $appTypeList);
 
     /**
      * Return the preferred type & product of application & user-agent quality factors.
      *
-     * @param PreferenceCollection $userTypeList
-     * @param PreferenceCollection $appTypeList
+     * @param PreferenceInterface[] $userTypeList
+     * @param PreferenceInterface[] $appTypeList
      *
      * @return PreferenceInterface
      */
-    public function negotiateBest(PreferenceCollection $userTypeList, PreferenceCollection $appTypeList);
+    public function negotiateBest(array $userTypeList, array $appTypeList);
 }

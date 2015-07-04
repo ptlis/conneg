@@ -13,7 +13,6 @@
 
 namespace ptlis\ConNeg\Matcher;
 
-use ptlis\ConNeg\Preference\PreferenceCollection;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferencesCollection;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferencesSort;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferences;
@@ -56,12 +55,12 @@ class MimeMatcher implements MatcherInterface
     /**
      * Return a collection of types sorted by preference.
      *
-     * @param PreferenceCollection $userTypeList
-     * @param PreferenceCollection $appTypeList
+     * @param PreferenceInterface[] $userTypeList
+     * @param PreferenceInterface[] $appTypeList
      *
      * @return MatchedPreferencesCollection
      */
-    public function negotiateAll(PreferenceCollection $userTypeList, PreferenceCollection $appTypeList)
+    public function negotiateAll(array $userTypeList, array $appTypeList)
     {
         $matchingList = array();
         /** @var PreferenceInterface $appType */
@@ -81,12 +80,12 @@ class MimeMatcher implements MatcherInterface
     /**
      * Return the preferred type & product of application & user-agent quality factors.
      *
-     * @param PreferenceCollection $userTypeList
-     * @param PreferenceCollection $appTypeList
+     * @param PreferenceInterface[] $userTypeList
+     * @param PreferenceInterface[] $appTypeList
      *
      * @return MatchedPreferences
      */
-    public function negotiateBest(PreferenceCollection $userTypeList, PreferenceCollection $appTypeList)
+    public function negotiateBest(array $userTypeList, array $appTypeList)
     {
         $pairCollection = $this->negotiateAll($userTypeList, $appTypeList);
 
@@ -168,12 +167,12 @@ class MimeMatcher implements MatcherInterface
     /**
      * Match user types to app types.
      *
-     * @param PreferenceCollection   $userTypeList
-     * @param MatchedPreferencesInterface[]  $matchingList
+     * @param PreferenceInterface[] $userTypeList
+     * @param MatchedPreferencesInterface[] $matchingList
      *
      * @return  array<string,MatchedPreferencesInterface>
      */
-    private function matchUserListToAppTypes(PreferenceCollection $userTypeList, array $matchingList)
+    private function matchUserListToAppTypes(array $userTypeList, array $matchingList)
     {
         foreach ($userTypeList as $userType) {
             $matchingList = $this->matchUserToAppTypes($userType, $matchingList);
@@ -185,8 +184,8 @@ class MimeMatcher implements MatcherInterface
     /**
      * Match a single user type to the application types.
      *
-     * @param PreferenceInterface     $userType
-     * @param MatchedPreferencesInterface[]   $matchingList
+     * @param PreferenceInterface $userType
+     * @param MatchedPreferencesInterface[] $matchingList
      *
      * @return  array<string,MatchedPreferencesInterface>
      */
