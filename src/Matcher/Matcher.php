@@ -63,7 +63,7 @@ class Matcher implements MatcherInterface
     public function negotiateAll(array $userTypeList, array $appTypeList)
     {
         $matchingList = array();
-        /** @var PreferenceInterface $appType */
+
         foreach ($appTypeList as $appType) {
             $matchingList[$appType->getType()] = new MatchedPreferences(
                 $this->emptyType,
@@ -107,7 +107,6 @@ class Matcher implements MatcherInterface
      */
     private function matchUserToAppTypes(array $userTypeList, array $matchingList)
     {
-        /** @var PreferenceInterface $userType */
         foreach ($userTypeList as $userType) {
 
             // Type match

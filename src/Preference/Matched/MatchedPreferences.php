@@ -102,15 +102,6 @@ class MatchedPreferences implements MatchedPreferencesInterface
     }
 
     /**
-     * Deep clone.
-     */
-    public function __clone()
-    {
-        $this->userType = clone $this->userType;
-        $this->appType = clone $this->appType;
-    }
-
-    /**
      * Create string representation of type.
      *
      * @return string

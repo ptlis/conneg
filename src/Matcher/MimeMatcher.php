@@ -63,7 +63,7 @@ class MimeMatcher implements MatcherInterface
     public function negotiateAll(array $userTypeList, array $appTypeList)
     {
         $matchingList = array();
-        /** @var PreferenceInterface $appType */
+
         foreach ($appTypeList as $appType) {
             $matchingList[$appType->getType()] = new MatchedPreferences(
                 $this->emptyType,
