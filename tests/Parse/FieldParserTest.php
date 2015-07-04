@@ -14,7 +14,7 @@
 namespace ptlis\ConNeg\Test\Parse;
 
 use ptlis\ConNeg\Preference\PreferenceCollection;
-use ptlis\ConNeg\Parse\FieldParser;
+use ptlis\ConNeg\Parser\FieldParser;
 use ptlis\ConNeg\Preference\Preference;
 use ptlis\ConNeg\Preference\Builder\MimePreferenceBuilder;
 use ptlis\ConNeg\Preference\Builder\PreferenceBuilder;

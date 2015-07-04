@@ -11,7 +11,7 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Parse;
+namespace ptlis\ConNeg\Parser;
 
 use ptlis\ConNeg\Preference\PreferenceCollection;
 use ptlis\ConNeg\Exception\InvalidTypeException;

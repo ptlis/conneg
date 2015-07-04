@@ -13,7 +13,7 @@
 
 namespace ptlis\ConNeg\Test\Parse;
 
-use ptlis\ConNeg\Parse\FieldTokenizer;
+use ptlis\ConNeg\Parser\FieldTokenizer;
 
 /**
  * Tests to ensure that the tokenizer behaves correctly.
