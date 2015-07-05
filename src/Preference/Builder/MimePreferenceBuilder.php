@@ -22,7 +22,7 @@ use ptlis\ConNeg\Preference\Preference;
 class MimePreferenceBuilder extends AbstractPreferenceBuilder
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function validateType($type)
     {
@@ -42,7 +42,7 @@ class MimePreferenceBuilder extends AbstractPreferenceBuilder
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function normalizeType($type)
     {
@@ -65,9 +65,7 @@ class MimePreferenceBuilder extends AbstractPreferenceBuilder
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * @return Preference
+     * @inheritDoc
      */
     public function get()
     {

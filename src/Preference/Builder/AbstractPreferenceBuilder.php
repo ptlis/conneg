@@ -37,7 +37,7 @@ abstract class AbstractPreferenceBuilder implements PreferenceBuilderInterface
 
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function setFromApp($isFromApp)
     {
@@ -48,7 +48,7 @@ abstract class AbstractPreferenceBuilder implements PreferenceBuilderInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      *
      * @throws InvalidTypeException If the provided type is not valid.
      */
@@ -65,7 +65,7 @@ abstract class AbstractPreferenceBuilder implements PreferenceBuilderInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      *
      * @throws InvalidTypeException If an invalid quality factor in encountered when building an application type.
      */

@@ -22,7 +22,7 @@ use ptlis\ConNeg\Preference\Preference;
 class PreferenceBuilder extends AbstractPreferenceBuilder
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function validateType($type)
     {
@@ -32,7 +32,7 @@ class PreferenceBuilder extends AbstractPreferenceBuilder
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      *
      * @return Preference
      */
