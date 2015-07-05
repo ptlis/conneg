@@ -59,7 +59,7 @@ class FieldTokenizer
                     break;
 
                 // Separators found, add previously accumulated string & separator to token list
-                case $this->isSeparator($chr, $mimeField):
+                case Tokens::isSeparator($chr, $mimeField):
                     if (strlen($stringAccumulator)) {
                         $tokenList[] = $stringAccumulator;
                         $stringAccumulator = '';
@@ -84,70 +84,5 @@ class FieldTokenizer
         $tokenList = array_map('trim', $tokenList);
 
         return $tokenList;
-    }
-
-    /**
-     * Returns true if $chr is a valid separator for this field type.
-     *
-     * @param string $chr
-     * @param bool $mimeField
-     *
-     * @return bool
-     */
-    private function isSeparator($chr, $mimeField)
-    {
-        return $this->isTypeSeparator($chr)
-            || $this->isParamsSeparator($chr)
-            || $this->inMimeSeparator($chr, $mimeField)
-            || $this->isParamsKvSeparator($chr);
-    }
-
-    /**
-     * Returns true if $chr is a type separator.
-     *
-     * @param string $chr
-     *
-     * @return bool
-     */
-    private function isTypeSeparator($chr)
-    {
-        return Tokens::TYPE_SEPARATOR === $chr;
-    }
-
-    /**
-     * Returns true if $chr is a parameter separator.
-     *
-     * @param string $chr
-     *
-     * @return bool
-     */
-    private function isParamsSeparator($chr)
-    {
-        return Tokens::PARAMS_SEPARATOR === $chr;
-    }
-
-    /**
-     * Returns true if $chr is a mime type/subtype separator.
-     *
-     * @param string $chr
-     * @param bool $mimeField
-     *
-     * @return bool
-     */
-    private function inMimeSeparator($chr, $mimeField)
-    {
-        return $mimeField && Tokens::MIME_SEPARATOR === $chr;
-    }
-
-    /**
-     * Returns true if $chr is a key/value separator.
-     *
-     * @param string $chr
-     *
-     * @return bool
-     */
-    private function isParamsKvSeparator($chr)
-    {
-        return Tokens::PARAMS_KV_SEPARATOR === $chr;
     }
 }

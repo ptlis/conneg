@@ -43,18 +43,18 @@ class Tokens
      * Return true if the provided string is one of the separator tokens defined in this class.
      *
      * @param string $string
+     * @param bool $mimeField
      *
      * @return bool
      */
-    public static function isSeparator($string)
+    public static function isSeparator($string, $mimeField)
     {
         $separatorList = array(
             self::TYPE_SEPARATOR,
             self::PARAMS_SEPARATOR,
-            self::MIME_SEPARATOR,
             self::PARAMS_KV_SEPARATOR
         );
 
-        return in_array($string, $separatorList);
+        return in_array($string, $separatorList) || ($mimeField && Tokens::MIME_SEPARATOR === $string);
     }
 }
