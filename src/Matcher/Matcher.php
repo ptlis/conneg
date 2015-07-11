@@ -68,13 +68,8 @@ class Matcher implements MatcherInterface
             );
         }
 
-        $matchingList = $this->matchUserToAppTypes($userTypeList, $matchingList, $sort, $emptyType, $fromField);
-
-        $pairList = array();
-        foreach ($matchingList as $matching) {
-            $pairList[] = $matching;
-        }
-        $pairCollection = new MatchedPreferencesCollection($sort, $pairList);
+        $matchingList = $this->matchUserListToAppTypes($userTypeList, $matchingList, $sort, $emptyType, $fromField);
+        $pairCollection = new MatchedPreferencesCollection($sort, $matchingList);
 
         return $pairCollection->getDescending();
     }
@@ -106,7 +101,7 @@ class Matcher implements MatcherInterface
      *
      * @return MatchedPreferences[]
      */
-    private function matchUserToAppTypes(
+    private function matchUserListToAppTypes(
         array $userTypeList,
         array $matchingList,
         MatchedPreferencesSort $sort,
