@@ -43,13 +43,7 @@ class Matcher implements MatcherInterface
     }
 
     /**
-     * Return a collection of types sorted by preference.
-     *
-     * @param PreferenceInterface[] $userTypeList
-     * @param PreferenceInterface[] $appTypeList
-     * @param string $fromField
-     *
-     * @return MatchedPreferencesCollection
+     * @inheritDoc
      */
     public function negotiateAll(array $userTypeList, array $appTypeList, $fromField)
     {
@@ -75,13 +69,7 @@ class Matcher implements MatcherInterface
     }
 
     /**
-     * Return the preferred type & product of application & user-agent quality factors.
-     *
-     * @param PreferenceInterface[] $userTypeList
-     * @param PreferenceInterface[] $appTypeList
-     * @param string $fromField
-     *
-     * @return MatchedPreferencesInterface
+     * @inheritDoc
      */
     public function negotiateBest(array $userTypeList, array $appTypeList, $fromField)
     {

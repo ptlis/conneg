@@ -50,9 +50,7 @@ class MatchedPreferencesCollection implements CollectionInterface
     }
 
     /**
-     * Return count of elements.
-     *
-     * @return int
+     * @inheritDoc
      */
     public function count()
     {
@@ -60,9 +58,7 @@ class MatchedPreferencesCollection implements CollectionInterface
     }
 
     /**
-     * Retrieve an external iterator.
-     *
-     * @return Traversable
+     * @inheritDoc
      */
     public function getIterator()
     {
@@ -70,9 +66,7 @@ class MatchedPreferencesCollection implements CollectionInterface
     }
 
     /**
-     * Returns a new sorted collection.
-     *
-     * @return MatchedPreferencesCollection with elements in ascending order
+     * @inheritDoc
      */
     public function getAscending()
     {
@@ -80,9 +74,7 @@ class MatchedPreferencesCollection implements CollectionInterface
     }
 
     /**
-     * Returns a new sorted collection.
-     *
-     * @return MatchedPreferencesCollection with elements in descending order
+     * @inheritDoc
      */
     public function getDescending()
     {
@@ -90,9 +82,7 @@ class MatchedPreferencesCollection implements CollectionInterface
     }
 
     /**
-     * Get the preferred pair.
-     *
-     * @return MatchedPreferencesInterface
+     * @inheritDoc
      */
     public function getBest()
     {
@@ -102,9 +92,7 @@ class MatchedPreferencesCollection implements CollectionInterface
     }
 
     /**
-     * Return a string representation of the collection.
-     *
-     * @return string
+     * @inheritDoc
      */
     public function __toString()
     {

@@ -48,9 +48,7 @@ class MatchedPreferences implements MatchedPreferencesInterface
     }
 
     /**
-     * Returns the user-agent's type or an instance of AbsentType.
-     *
-     * @return PreferenceInterface
+     * @inheritDoc
      */
     public function getUserType()
     {
@@ -58,9 +56,7 @@ class MatchedPreferences implements MatchedPreferencesInterface
     }
 
     /**
-     * Returns the application's type or an instance of AbsentType.
-     *
-     * @return PreferenceInterface
+     * @inheritDoc
      */
     public function getAppType()
     {

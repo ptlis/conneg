@@ -64,9 +64,7 @@ class Preference implements PreferenceInterface
     }
 
     /**
-     * Return the full type as a string.
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getType()
     {
@@ -74,9 +72,7 @@ class Preference implements PreferenceInterface
     }
 
     /**
-     * Return the precedence of the type, non-wildcard type have the highest precedence.
-     *
-     * @return int
+     * @inheritDoc
      */
     public function getPrecedence()
     {
@@ -84,9 +80,7 @@ class Preference implements PreferenceInterface
     }
 
     /**
-     * Returns the quality factor for the type.
-     *
-     * @return float
+     * @inheritDoc
      */
     public function getQualityFactor()
     {
@@ -102,9 +96,7 @@ class Preference implements PreferenceInterface
     }
 
     /**
-     * Create string representation of type.
-     *
-     * @return string
+     * @inheritDoc
      */
     public function __toString()
     {
