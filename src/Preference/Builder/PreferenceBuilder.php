@@ -34,10 +34,16 @@ class PreferenceBuilder extends AbstractPreferenceBuilder
     /**
      * @inheritDoc
      *
-     * @return Preference
+     * @throws \RuntimeException if the HTTP field was not provided
      */
     public function get()
     {
+        if (is_null($this->fromField)) {
+            throw new \RuntimeException(
+                'The HTTP field must be provided to the builder.'
+            );
+        }
+
         $precedence = Preference::COMPLETE;
         $qFactor = $this->qFactor;
 
@@ -48,12 +54,13 @@ class PreferenceBuilder extends AbstractPreferenceBuilder
             $precedence = Preference::ABSENT_TYPE;
             $qFactor = 0;
 
-        // TODO: Only for Accept-Language field
-        } elseif ('-*' === substr($this->type, -2, 2)) {
+        // Special handling for Accept-Language field
+        } elseif (Preference::LANGUAGE === $this->fromField && '-*' === substr($this->type, -2, 2)) {
             $precedence = Preference::PARTIAL_WILDCARD;
         }
 
         return new Preference(
+            $this->fromField,
             $this->type,
             $qFactor,
             $precedence

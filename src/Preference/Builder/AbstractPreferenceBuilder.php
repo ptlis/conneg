@@ -28,6 +28,11 @@ abstract class AbstractPreferenceBuilder implements PreferenceBuilderInterface
     /**
      * @var string
      */
+    protected $fromField;
+
+    /**
+     * @var string
+     */
     protected $type = '';
 
     /**
@@ -43,6 +48,17 @@ abstract class AbstractPreferenceBuilder implements PreferenceBuilderInterface
     {
         $clone = clone $this;
         $clone->isFromApp = $isFromApp;
+
+        return $clone;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setFromField($fromField)
+    {
+        $clone = clone $this;
+        $clone->fromField = $fromField;
 
         return $clone;
     }

@@ -27,22 +27,15 @@ class FieldParser
      */
     private $typeBuilder;
 
-    /**
-     * @var bool When true then we are parsing the Accept field and need to apply some special rules
-     */
-    private $mimeField;
-
 
     /**
      * Constructor.
      *
      * @param PreferenceBuilderInterface $typeBuilder
-     * @param bool $mimeField
      */
-    public function __construct(PreferenceBuilderInterface $typeBuilder, $mimeField)
+    public function __construct(PreferenceBuilderInterface $typeBuilder)
     {
         $this->typeBuilder = $typeBuilder;
-        $this->mimeField = $mimeField;
     }
 
     /**
@@ -54,17 +47,18 @@ class FieldParser
      *                              malformed fields with incoming data than from the application.
      * @param bool $appField        If true the field came from the application & we error on malformed data otherwise
      *                              we suppress errors for user-agent types.
+     * @param string $fromField Which field the tokens came from
      *
      * @return PreferenceInterface[]
      */
-    public function parse(array $tokenList, $appField)
+    public function parse(array $tokenList, $appField, $fromField)
     {
         // Bundle tokens by type.
         $bundleList = $this->bundleTokens($tokenList, Tokens::TYPE_SEPARATOR);
 
         $typeList = array();
         foreach ($bundleList as $bundle) {
-            $typeList[] = $this->parseBundle($bundle, $appField);
+            $typeList[] = $this->parseBundle($bundle, $appField, $fromField);
         }
 
         return $typeList;
@@ -77,14 +71,15 @@ class FieldParser
      *
      * @param array<string> $tokenBundle
      * @param bool $appField
+     * @param string $fromField
      *
      * @return null|PreferenceInterface
      */
-    private function parseBundle(array $tokenBundle, $appField)
+    private function parseBundle(array $tokenBundle, $appField, $fromField)
     {
         $type = null;
         try {
-            if ($this->mimeField) {
+            if (PreferenceInterface::MIME === $fromField) {
                 $this->validateBundleMimeType($tokenBundle);
                 $typeTokenList = array_slice($tokenBundle, 0, 3);
                 $paramTokenList = array_slice($tokenBundle, 3);
@@ -96,7 +91,7 @@ class FieldParser
             $paramBundleList = $this->bundleTokens($paramTokenList, Tokens::PARAMS_SEPARATOR);
             $this->validateParamBundleList($paramBundleList, $appField);
 
-            $type = $this->createType($typeTokenList, $paramBundleList, $appField);
+            $type = $this->createType($typeTokenList, $paramBundleList, $appField, $fromField);
 
         } catch (InvalidTypeException $e) {
             if ($appField) {
@@ -113,12 +108,14 @@ class FieldParser
      * @param array<string> $typeTokenList
      * @param array<array<string>> $paramBundleList
      * @param bool $appField
+     * @param string $fromField
      *
      * @return PreferenceInterface
      */
-    private function createType(array $typeTokenList, array $paramBundleList, $appField)
+    private function createType(array $typeTokenList, array $paramBundleList, $appField, $fromField)
     {
         $builder = $this->typeBuilder
+            ->setFromField($fromField)
             ->setFromApp($appField)
             ->setType(implode('', $typeTokenList));
 

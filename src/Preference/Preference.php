@@ -18,17 +18,12 @@ namespace ptlis\ConNeg\Preference;
  */
 class Preference implements PreferenceInterface
 {
-    /** Null/absent type, used as a placeholder for matched preferences. */
-    const ABSENT_TYPE = -1;
-
-    /** Wildcard match */
-    const WILDCARD = 0;
-
-    /** Partial wildcard (e.g. text/* or en-*) */
-    const PARTIAL_WILDCARD = 1;
-
-    /** Fully qualified type */
-    const COMPLETE = 2;
+    /**
+     * The field that this type preference was derived from.
+     *
+     * @var string
+     */
+    private $fromField;
 
     /**
      * The name of the type.
@@ -55,12 +50,14 @@ class Preference implements PreferenceInterface
     /**
      * Constructor
      *
+     * @param string $field
      * @param string $type
      * @param float $qFactor
      * @param int $precedence
      */
-    public function __construct($type, $qFactor, $precedence)
+    public function __construct($field, $type, $qFactor, $precedence)
     {
+        $this->fromField = $field;
         $this->type = $type;
         $this->qFactor = $qFactor;
         $this->precedence = $precedence;
@@ -94,6 +91,14 @@ class Preference implements PreferenceInterface
     public function getQualityFactor()
     {
         return $this->qFactor;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getFromField()
+    {
+        return $this->fromField;
     }
 
     /**

@@ -26,18 +26,20 @@ interface MatcherInterface
      *
      * @param PreferenceInterface[] $userTypeList
      * @param PreferenceInterface[] $appTypeList
+     * @param string $fromField
      *
      * @return CollectionInterface
      */
-    public function negotiateAll(array $userTypeList, array $appTypeList);
+    public function negotiateAll(array $userTypeList, array $appTypeList, $fromField);
 
     /**
      * Return the preferred type & product of application & user-agent quality factors.
      *
      * @param PreferenceInterface[] $userTypeList
      * @param PreferenceInterface[] $appTypeList
+     * @param string $fromField
      *
      * @return PreferenceInterface
      */
-    public function negotiateBest(array $userTypeList, array $appTypeList);
+    public function negotiateBest(array $userTypeList, array $appTypeList, $fromField);
 }

@@ -12,6 +12,7 @@
  */
 
 namespace ptlis\ConNeg\Parser;
+use ptlis\ConNeg\Preference\Preference;
 
 /**
  * Simple tokenizer
@@ -24,11 +25,11 @@ class FieldTokenizer
      * Note: we don't need to worry about multi-byte characters; HTTP fields must be ISO-8859-1 encoded.
      *
      * @param string $httpField
-     * @param bool $mimeField
+     * @param string $fromField
      *
      * @return array<string>
      */
-    public function tokenize($httpField, $mimeField = false)
+    public function tokenize($httpField, $fromField)
     {
         $quoteSeparators = array('"', "'");
         $tokenList = array();
@@ -59,7 +60,7 @@ class FieldTokenizer
                     break;
 
                 // Separators found, add previously accumulated string & separator to token list
-                case Tokens::isSeparator($chr, $mimeField):
+                case Tokens::isSeparator($chr, Preference::MIME === $fromField):
                     if (strlen($stringAccumulator)) {
                         $tokenList[] = $stringAccumulator;
                         $stringAccumulator = '';

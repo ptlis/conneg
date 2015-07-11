@@ -13,6 +13,7 @@
 
 namespace ptlis\ConNeg\Matcher;
 
+use ptlis\ConNeg\Preference\Builder\PreferenceBuilderInterface;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferences;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferencesCollection;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferencesInterface;
@@ -26,30 +27,19 @@ use ptlis\ConNeg\Preference\PreferenceInterface;
 class MimeMatcher implements MatcherInterface
 {
     /**
-     * Empty type instance, used when only user & app types are asymmetric.
-     *
-     * @var PreferenceInterface
+     * @var PreferenceBuilderInterface
      */
-    private $emptyType;
-
-    /**
-     * Instance of sorter than can reorder pairs.
-     *
-     * @var MatchedPreferencesSort
-     */
-    private $pairSort;
+    private $preferenceBuilder;
 
 
     /**
-     * Constructor.
+     * Constructor
      *
-     * @param PreferenceInterface $emptyType
-     * @param MatchedPreferencesSort $pairSort
+     * @param PreferenceBuilderInterface $preferenceBuilder
      */
-    public function __construct(PreferenceInterface $emptyType, MatchedPreferencesSort $pairSort)
+    public function __construct(PreferenceBuilderInterface $preferenceBuilder)
     {
-        $this->emptyType  = $emptyType;
-        $this->pairSort     = $pairSort;
+        $this->preferenceBuilder = $preferenceBuilder;
     }
 
     /**
@@ -57,22 +47,29 @@ class MimeMatcher implements MatcherInterface
      *
      * @param PreferenceInterface[] $userTypeList
      * @param PreferenceInterface[] $appTypeList
+     * @param string $fromField
      *
      * @return MatchedPreferencesCollection
      */
-    public function negotiateAll(array $userTypeList, array $appTypeList)
+    public function negotiateAll(array $userTypeList, array $appTypeList, $fromField)
     {
+        $emptyType = $this->preferenceBuilder
+            ->setFromField($fromField)
+            ->get();
+
+        $sort = new MatchedPreferencesSort(new MatchedPreferences($emptyType, $emptyType));
+
         $matchingList = array();
 
         foreach ($appTypeList as $appType) {
             $matchingList[$appType->getType()] = new MatchedPreferences(
-                $this->emptyType,
+                $emptyType,
                 $appType
             );
         }
 
-        $matchingList = $this->matchUserListToAppTypes($userTypeList, $matchingList);
-        $pairCollection = new MatchedPreferencesCollection($this->pairSort, $matchingList);
+        $matchingList = $this->matchUserListToAppTypes($userTypeList, $matchingList, $sort, $emptyType);
+        $pairCollection = new MatchedPreferencesCollection($sort, $matchingList);
 
         return $pairCollection->getDescending();
     }
@@ -82,12 +79,13 @@ class MimeMatcher implements MatcherInterface
      *
      * @param PreferenceInterface[] $userTypeList
      * @param PreferenceInterface[] $appTypeList
+     * @param string $fromField
      *
      * @return MatchedPreferences
      */
-    public function negotiateBest(array $userTypeList, array $appTypeList)
+    public function negotiateBest(array $userTypeList, array $appTypeList, $fromField)
     {
-        $pairCollection = $this->negotiateAll($userTypeList, $appTypeList);
+        $pairCollection = $this->negotiateAll($userTypeList, $appTypeList, $fromField);
 
         return $pairCollection->getBest();
     }
@@ -145,19 +143,20 @@ class MimeMatcher implements MatcherInterface
     /**
      * Attempt to match the given type to an existing type in typeList.
      *
-     * @param MatchedPreferencesInterface[]   $matchingList
-     * @param PreferenceInterface     $userType
+     * @param MatchedPreferencesInterface[] $matchingList
+     * @param PreferenceInterface $userType
+     * @param MatchedPreferencesSort $sort
      *
      * @return array<string,MatchedPreferencesInterface>
      */
-    private function matchExact(array $matchingList, PreferenceInterface $userType)
+    private function matchExact(array $matchingList, PreferenceInterface $userType, MatchedPreferencesSort $sort)
     {
         $newPair = new MatchedPreferences(
             $userType,
             $matchingList[$userType->getType()]->getAppType()
         );
 
-        if ($this->pairSort->compare($matchingList[$userType->getType()], $newPair) > 0) {
+        if ($sort->compare($matchingList[$userType->getType()], $newPair) > 0) {
             $matchingList[$userType->getType()] = $newPair;
         }
 
@@ -169,13 +168,19 @@ class MimeMatcher implements MatcherInterface
      *
      * @param PreferenceInterface[] $userTypeList
      * @param MatchedPreferencesInterface[] $matchingList
+     * @param MatchedPreferencesSort $sort
+     * @param PreferenceInterface $emptyType
      *
      * @return  array<string,MatchedPreferencesInterface>
      */
-    private function matchUserListToAppTypes(array $userTypeList, array $matchingList)
-    {
+    private function matchUserListToAppTypes(
+        array $userTypeList,
+        array $matchingList,
+        MatchedPreferencesSort $sort,
+        $emptyType
+    ) {
         foreach ($userTypeList as $userType) {
-            $matchingList = $this->matchUserToAppTypes($userType, $matchingList);
+            $matchingList = $this->matchUserToAppTypes($userType, $matchingList, $sort, $emptyType);
         }
 
         return $matchingList;
@@ -186,11 +191,17 @@ class MimeMatcher implements MatcherInterface
      *
      * @param PreferenceInterface $userType
      * @param MatchedPreferencesInterface[] $matchingList
+     * @param MatchedPreferencesSort $sort
+     * @param PreferenceInterface $emptyType
      *
      * @return  array<string,MatchedPreferencesInterface>
      */
-    private function matchUserToAppTypes(PreferenceInterface $userType, array $matchingList)
-    {
+    private function matchUserToAppTypes(
+        PreferenceInterface $userType,
+        array $matchingList,
+        MatchedPreferencesSort $sort,
+        $emptyType
+    ) {
         switch (true) {
             // Full Wildcard Match
             case Preference::WILDCARD === $userType->getPrecedence():
@@ -204,14 +215,14 @@ class MimeMatcher implements MatcherInterface
 
             // Exact Match
             case array_key_exists($userType->getType(), $matchingList):
-                $matchingList = $this->matchExact($matchingList, $userType);
+                $matchingList = $this->matchExact($matchingList, $userType, $sort);
                 break;
 
             // No match
             default:
                 $matchingList[$userType->getType()] = new MatchedPreferences(
                     $userType,
-                    $this->emptyType
+                    $emptyType
                 );
                 break;
         }

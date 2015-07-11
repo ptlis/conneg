@@ -66,9 +66,17 @@ class MimePreferenceBuilder extends AbstractPreferenceBuilder
 
     /**
      * @inheritDoc
+     *
+     * @throws \RuntimeException if the HTTP field was not provided
      */
     public function get()
     {
+        if (is_null($this->fromField)) {
+            throw new \RuntimeException(
+                'The HTTP field must be provided to the builder.'
+            );
+        }
+
         // Defaults for absent type
         $precedence = Preference::ABSENT_TYPE;
         $qFactor = 0;
@@ -91,6 +99,7 @@ class MimePreferenceBuilder extends AbstractPreferenceBuilder
         }
 
         return new Preference(
+            $this->fromField,
             $this->type,
             $qFactor,
             $precedence

@@ -13,6 +13,7 @@
 
 namespace ptlis\ConNeg\Matcher;
 
+use ptlis\ConNeg\Preference\Builder\PreferenceBuilderInterface;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferences;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferencesCollection;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferencesInterface;
@@ -26,30 +27,19 @@ use ptlis\ConNeg\Preference\PreferenceInterface;
 class Matcher implements MatcherInterface
 {
     /**
-     * Empty type instance, used when only user & app types are asymmetric.
-     *
-     * @var PreferenceInterface
+     * @var PreferenceBuilderInterface
      */
-    private $emptyType;
-
-    /**
-     * Instance of sorter than can reorder pairs.
-     *
-     * @var MatchedPreferencesSort
-     */
-    private $pairSort;
+    private $preferenceBuilder;
 
 
     /**
      * Constructor
      *
-     * @param PreferenceInterface $emptyType
-     * @param MatchedPreferencesSort $pairSort
+     * @param PreferenceBuilderInterface $preferenceBuilder
      */
-    public function __construct(PreferenceInterface $emptyType, MatchedPreferencesSort $pairSort)
+    public function __construct(PreferenceBuilderInterface $preferenceBuilder)
     {
-        $this->emptyType  = $emptyType;
-        $this->pairSort     = $pairSort;
+        $this->preferenceBuilder = $preferenceBuilder;
     }
 
     /**
@@ -57,27 +47,34 @@ class Matcher implements MatcherInterface
      *
      * @param PreferenceInterface[] $userTypeList
      * @param PreferenceInterface[] $appTypeList
+     * @param string $fromField
      *
      * @return MatchedPreferencesCollection
      */
-    public function negotiateAll(array $userTypeList, array $appTypeList)
+    public function negotiateAll(array $userTypeList, array $appTypeList, $fromField)
     {
+        $emptyType = $this->preferenceBuilder
+            ->setFromField($fromField)
+            ->get();
+
+        $sort = new MatchedPreferencesSort(new MatchedPreferences($emptyType, $emptyType));
+
         $matchingList = array();
 
         foreach ($appTypeList as $appType) {
             $matchingList[$appType->getType()] = new MatchedPreferences(
-                $this->emptyType,
+                $emptyType,
                 $appType
             );
         }
 
-        $matchingList = $this->matchUserToAppTypes($userTypeList, $matchingList);
+        $matchingList = $this->matchUserToAppTypes($userTypeList, $matchingList, $sort, $emptyType, $fromField);
 
         $pairList = array();
         foreach ($matchingList as $matching) {
             $pairList[] = $matching;
         }
-        $pairCollection = new MatchedPreferencesCollection($this->pairSort, $pairList);
+        $pairCollection = new MatchedPreferencesCollection($sort, $pairList);
 
         return $pairCollection->getDescending();
     }
@@ -87,12 +84,13 @@ class Matcher implements MatcherInterface
      *
      * @param PreferenceInterface[] $userTypeList
      * @param PreferenceInterface[] $appTypeList
+     * @param string $fromField
      *
      * @return MatchedPreferencesInterface
      */
-    public function negotiateBest(array $userTypeList, array $appTypeList)
+    public function negotiateBest(array $userTypeList, array $appTypeList, $fromField)
     {
-        $pairCollection = $this->negotiateAll($userTypeList, $appTypeList);
+        $pairCollection = $this->negotiateAll($userTypeList, $appTypeList, $fromField);
 
         return $pairCollection->getBest();
     }
@@ -102,31 +100,38 @@ class Matcher implements MatcherInterface
      *
      * @param PreferenceInterface[] $userTypeList
      * @param MatchedPreferences[] $matchingList
+     * @param MatchedPreferencesSort $sort
+     * @param PreferenceInterface $emptyType
+     * @param string $fromField
      *
      * @return MatchedPreferences[]
      */
-    private function matchUserToAppTypes(array $userTypeList, array $matchingList)
-    {
+    private function matchUserToAppTypes(
+        array $userTypeList,
+        array $matchingList,
+        MatchedPreferencesSort $sort,
+        $emptyType,
+        $fromField
+    ) {
         foreach ($userTypeList as $userType) {
 
             // Type match
             if (array_key_exists($userType->getType(), $matchingList)) {
-                $matchingList = $this->matchExact($matchingList, $userType);
+                $matchingList = $this->matchExact($matchingList, $userType, $sort);
 
             // Wildcard Match
             } elseif (Preference::WILDCARD === $userType->getPrecedence()) {
                 $matchingList = $this->matchFullWildcard($matchingList, $userType);
 
-            // App Partial Lang Match
-            // TODO: Only for Accept-Language field
-            } elseif ($this->listHasPartialLanguage($matchingList, $userType)) {
+            // App Partial Lang Match (Only for Language Types)
+            } elseif (Preference::LANGUAGE === $fromField && $this->listHasPartialLanguage($matchingList, $userType)) {
                 $matchingList = $this->matchAppPartialLanguage($matchingList, $userType);
 
             // No match
             } else {
                 $matchingList[$userType->getType()] = new MatchedPreferences(
                     $userType,
-                    $this->emptyType
+                    $emptyType
                 );
             }
         }
@@ -213,17 +218,18 @@ class Matcher implements MatcherInterface
      *
      * @param MatchedPreferences[]    $matchingList
      * @param PreferenceInterface $userType
+     * @param MatchedPreferencesSort $sort
      *
      * @return MatchedPreferences[]
      */
-    private function matchExact(array $matchingList, PreferenceInterface $userType)
+    private function matchExact(array $matchingList, PreferenceInterface $userType, MatchedPreferencesSort $sort)
     {
         $newPair = new MatchedPreferences(
             $userType,
             $matchingList[$userType->getType()]->getAppType()
         );
 
-        if ($this->pairSort->compare($matchingList[$userType->getType()], $newPair) > 0) {
+        if ($sort->compare($matchingList[$userType->getType()], $newPair) > 0) {
             $matchingList[$userType->getType()] = $newPair;
         }
 

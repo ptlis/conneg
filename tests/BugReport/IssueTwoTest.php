@@ -34,35 +34,35 @@ class IssueTwoTest extends \PHPUnit_Framework_TestCase
 
         $sort = new MatchedPreferencesSort(
             new MatchedPreferences(
-                new Preference('', 0, Preference::ABSENT_TYPE),
-                new Preference('', 0, Preference::ABSENT_TYPE)
+                new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE),
+                new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
             )
         );
 
         $pairList = array(
             new MatchedPreferences(
-                new Preference('text/turtle', 1, Preference::COMPLETE),
-                new Preference('', 0, Preference::ABSENT_TYPE)
+                new Preference(Preference::MIME, 'text/turtle', 1, Preference::COMPLETE),
+                new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
             ),
             new MatchedPreferences(
-                new Preference('application/rdf+json', 0.8, Preference::COMPLETE),
-                new Preference('', 0, Preference::ABSENT_TYPE)
+                new Preference(Preference::MIME, 'application/rdf+json', 0.8, Preference::COMPLETE),
+                new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
             ),
             new MatchedPreferences(
-                new Preference('application/rdf+xml', 0.8, Preference::COMPLETE),
-                new Preference('', 0, Preference::ABSENT_TYPE)
+                new Preference(Preference::MIME, 'application/rdf+xml', 0.8, Preference::COMPLETE),
+                new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
             ),
             new MatchedPreferences(
-                new Preference('text/n3', 0.8, Preference::COMPLETE),
-                new Preference('', 0, Preference::ABSENT_TYPE)
+                new Preference(Preference::MIME, 'text/n3', 0.8, Preference::COMPLETE),
+                new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
             ),
             new MatchedPreferences(
-                new Preference('text/rdf+n3', 0.8, Preference::COMPLETE),
-                new Preference('', 0, Preference::ABSENT_TYPE)
+                new Preference(Preference::MIME, 'text/rdf+n3', 0.8, Preference::COMPLETE),
+                new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
             ),
             new MatchedPreferences(
-                new Preference('application/ld+json', 0.5, Preference::COMPLETE),
-                new Preference('', 0, Preference::ABSENT_TYPE)
+                new Preference(Preference::MIME, 'application/ld+json', 0.5, Preference::COMPLETE),
+                new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
             )
         );
         $expectCollection = new MatchedPreferencesCollection($sort, $pairList);

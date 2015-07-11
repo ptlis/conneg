@@ -23,11 +23,12 @@ class MimePreferenceBuilderTest extends \PHPUnit_Framework_TestCase
 {
     public function testBuildTypeSuccess()
     {
-        $expected = new Preference('text/html', 1, Preference::COMPLETE);
+        $expected = new Preference(Preference::MIME, 'text/html', 1, Preference::COMPLETE);
 
         $builder = new MimePreferenceBuilder();
 
         $real = $builder
+            ->setFromField(Preference::MIME)
             ->setFromApp(true)
             ->setType('text/html')
             ->setQualityFactor(1)
@@ -38,11 +39,12 @@ class MimePreferenceBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testBuildUserWildcardTypeOnlyInvalid()
     {
-        $expected = new Preference('', 0, Preference::ABSENT_TYPE);
+        $expected = new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE);
 
         $builder = new MimePreferenceBuilder();
 
         $real = $builder
+            ->setFromField(Preference::MIME)
             ->setFromApp(false)
             ->setType('*/html')
             ->setQualityFactor(1)
@@ -53,11 +55,12 @@ class MimePreferenceBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testBuildUserTypeInvalid()
     {
-        $expected = new Preference('', 0, Preference::ABSENT_TYPE);
+        $expected = new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE);
 
         $builder = new MimePreferenceBuilder();
 
         $real = $builder
+            ->setFromField(Preference::MIME)
             ->setFromApp(false)
             ->setType('foo-bar')
             ->setQualityFactor(1)
@@ -76,6 +79,7 @@ class MimePreferenceBuilderTest extends \PHPUnit_Framework_TestCase
         $builder = new MimePreferenceBuilder();
 
         $builder
+            ->setFromField(Preference::MIME)
             ->setFromApp(true)
             ->setType('foo')
             ->setQualityFactor(1)
@@ -92,9 +96,26 @@ class MimePreferenceBuilderTest extends \PHPUnit_Framework_TestCase
         $builder = new MimePreferenceBuilder();
 
         $builder
+            ->setFromField(Preference::MIME)
             ->setFromApp(true)
             ->setType('text/*')
             ->setQualityFactor(1)
+            ->get();
+    }
+
+    public function testAppOmittedField()
+    {
+        $this->setExpectedException(
+            '\RuntimeException',
+            'The HTTP field must be provided to the builder.'
+        );
+
+        $builder = new MimePreferenceBuilder();
+
+        $builder
+            ->setFromApp(true)
+            ->setType('text/html')
+            ->setQualityFactor(0.5)
             ->get();
     }
 }

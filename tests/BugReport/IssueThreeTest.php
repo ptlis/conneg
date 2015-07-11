@@ -34,19 +34,19 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
 
         $sort = new MatchedPreferencesSort(
             new MatchedPreferences(
-                new Preference('', 0, Preference::ABSENT_TYPE),
-                new Preference('', 0, Preference::ABSENT_TYPE)
+                new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE),
+                new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
             )
         );
 
         $expectList = array(
             new MatchedPreferences(
-                new Preference('application/rdf+xml', 0.5, Preference::COMPLETE),
-                new Preference('', 0, Preference::ABSENT_TYPE)
+                new Preference(Preference::MIME, 'application/rdf+xml', 0.5, Preference::COMPLETE),
+                new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
             ),
             new MatchedPreferences(
-                new Preference('text/html', 0.3, Preference::COMPLETE),
-                new Preference('', 0, Preference::ABSENT_TYPE)
+                new Preference(Preference::MIME, 'text/html', 0.3, Preference::COMPLETE),
+                new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
             )
         );
 
@@ -69,15 +69,15 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
 
         $sort = new MatchedPreferencesSort(
             new MatchedPreferences(
-                new Preference('', 0, Preference::ABSENT_TYPE),
-                new Preference('', 0, Preference::ABSENT_TYPE)
+                new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE),
+                new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
             )
         );
 
         $pairList = array(
             new MatchedPreferences(
-                new Preference('application/xhtml+xml', 0.5, Preference::COMPLETE),
-                new Preference('', 0, Preference::ABSENT_TYPE)
+                new Preference(Preference::MIME, 'application/xhtml+xml', 0.5, Preference::COMPLETE),
+                new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
             )
         );
         $expectCollection = new MatchedPreferencesCollection($sort, $pairList);
@@ -99,19 +99,19 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
 
         $sort = new MatchedPreferencesSort(
             new MatchedPreferences(
-                new Preference('', 0, Preference::ABSENT_TYPE),
-                new Preference('', 0, Preference::ABSENT_TYPE)
+                new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE),
+                new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
             )
         );
 
         $pairList = array(
             new MatchedPreferences(
-                new Preference('application/rdf+xml', 0.5, Preference::COMPLETE),
-                new Preference('', 0, Preference::ABSENT_TYPE)
+                new Preference(Preference::MIME, 'application/rdf+xml', 0.5, Preference::COMPLETE),
+                new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
             ),
             new MatchedPreferences(
-                new Preference('text/html', 0.5, Preference::COMPLETE),
-                new Preference('', 0, Preference::ABSENT_TYPE)
+                new Preference(Preference::MIME, 'text/html', 0.5, Preference::COMPLETE),
+                new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
             )
         );
         $expectCollection = new MatchedPreferencesCollection($sort, $pairList);

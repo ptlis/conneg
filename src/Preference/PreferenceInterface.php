@@ -18,6 +18,32 @@ namespace ptlis\ConNeg\Preference;
  */
 interface PreferenceInterface
 {
+    /** Null/absent type, used as a placeholder for matched preferences. */
+    const ABSENT_TYPE = -1;
+
+    /** Wildcard match */
+    const WILDCARD = 0;
+
+    /** Partial wildcard (e.g. text/* or en-*) */
+    const PARTIAL_WILDCARD = 1;
+
+    /** Fully qualified type */
+    const COMPLETE = 2;
+
+
+    /** Charset type */
+    const CHARSET = 'Accept-Charset';
+
+    /** Encoding type */
+    const ENCODING = 'Accept-Encoding';
+
+    /** Language type */
+    const LANGUAGE = 'Accept-Language';
+
+    /** Mime type */
+    const MIME = 'Accept';
+
+
     /**
      * Return the full type as a string.
      *
@@ -38,6 +64,13 @@ interface PreferenceInterface
      * @return float
      */
     public function getQualityFactor();
+
+    /**
+     * Returns the HTTP field that the preference was derived from.
+     *
+     * @return string
+     */
+    public function getFromField();
 
     /**
      * Create string representation of type.

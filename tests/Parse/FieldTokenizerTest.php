@@ -14,6 +14,7 @@
 namespace ptlis\ConNeg\Test\Parse;
 
 use ptlis\ConNeg\Parser\FieldTokenizer;
+use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
  * Tests to ensure that the tokenizer behaves correctly.
@@ -40,7 +41,7 @@ class FieldTokenizerTest extends \PHPUnit_Framework_TestCase
         );
 
         $tokenizer = new FieldTokenizer();
-        $real = $tokenizer->tokenize($httpField);
+        $real = $tokenizer->tokenize($httpField, PreferenceInterface::CHARSET);
 
         $this->assertEquals($expected, $real);
     }
@@ -65,7 +66,7 @@ class FieldTokenizerTest extends \PHPUnit_Framework_TestCase
         );
 
         $tokenizer = new FieldTokenizer();
-        $real = $tokenizer->tokenize($httpField);
+        $real = $tokenizer->tokenize($httpField, PreferenceInterface::CHARSET);
 
         $this->assertEquals($expected, $real);
     }
@@ -111,7 +112,7 @@ class FieldTokenizerTest extends \PHPUnit_Framework_TestCase
         );
 
         $tokenizer = new FieldTokenizer();
-        $real = $tokenizer->tokenize($httpField, true);
+        $real = $tokenizer->tokenize($httpField, PreferenceInterface::MIME);
 
         $this->assertEquals($expected, $real);
     }
@@ -140,7 +141,7 @@ class FieldTokenizerTest extends \PHPUnit_Framework_TestCase
         );
 
         $tokenizer = new FieldTokenizer();
-        $real = $tokenizer->tokenize($httpField, true);
+        $real = $tokenizer->tokenize($httpField, PreferenceInterface::MIME);
 
         $this->assertEquals($expected, $real);
     }

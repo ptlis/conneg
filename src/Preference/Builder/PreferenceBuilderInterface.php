@@ -30,6 +30,15 @@ interface PreferenceBuilderInterface
     public function setFromApp($isFromApp);
 
     /**
+     * Sets the HTTP field that the preference was derived from.
+     *
+     * @param string $fromField
+     *
+     * @return $this
+     */
+    public function setFromField($fromField);
+
+    /**
      * Set the string representation of the type.
      *
      * @param string $type

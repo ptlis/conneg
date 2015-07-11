@@ -102,6 +102,14 @@ class MatchedPreferences implements MatchedPreferencesInterface
     }
 
     /**
+     * @inheritDoc
+     */
+    public function getFromField()
+    {
+        return $this->getAppType()->getFromField();
+    }
+
+    /**
      * Create string representation of type.
      *
      * @return string

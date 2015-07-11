@@ -23,15 +23,12 @@ class PreferenceBuilderTest extends \PHPUnit_Framework_TestCase
 {
     public function testBuildTypeSuccess()
     {
-        $expected = new Preference(
-            'utf-8',
-            1,
-            Preference::COMPLETE
-        );
+        $expected = new Preference(Preference::ENCODING, 'utf-8', 1, Preference::COMPLETE);
 
         $builder = new PreferenceBuilder();
 
         $real = $builder
+            ->setFromField(Preference::ENCODING)
             ->setFromApp(true)
             ->setType('utf-8')
             ->setQualityFactor(1)
@@ -43,11 +40,12 @@ class PreferenceBuilderTest extends \PHPUnit_Framework_TestCase
     public function testBuildAbsentTypeSuccess()
     {
         // Absent types should always have a quality factor of 0
-        $expected = new Preference('', 0, Preference::ABSENT_TYPE);
+        $expected = new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE);
 
         $builder = new PreferenceBuilder();
 
         $real = $builder
+            ->setFromField(Preference::LANGUAGE)
             ->setFromApp(true)
             ->setType('')
             ->setQualityFactor(1)
@@ -58,22 +56,25 @@ class PreferenceBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testBuildEmptyTypeSuccess()
     {
-        $expected = new Preference('', 0, Preference::ABSENT_TYPE);
+        $expected = new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE);
 
         $builder = new PreferenceBuilder();
 
-        $real = $builder->get();
+        $real = $builder
+            ->setFromField(Preference::MIME)
+            ->get();
 
         $this->assertEquals($expected, $real);
     }
 
     public function testBuildUserWildcardTypeSuccess()
     {
-        $expected = new Preference('*', 0.8, Preference::WILDCARD);
+        $expected = new Preference(Preference::LANGUAGE, '*', 0.8, Preference::WILDCARD);
 
         $builder = new PreferenceBuilder();
 
         $real = $builder
+            ->setFromField(Preference::LANGUAGE)
             ->setFromApp(false)
             ->setType('*')
             ->setQualityFactor(0.8)
@@ -92,6 +93,7 @@ class PreferenceBuilderTest extends \PHPUnit_Framework_TestCase
         $builder = new PreferenceBuilder();
 
         $builder
+            ->setFromField(Preference::LANGUAGE)
             ->setFromApp(true)
             ->setType('*')
             ->setQualityFactor(0.8)
@@ -100,11 +102,12 @@ class PreferenceBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testUserInvalidQualityFactorString()
     {
-        $expected = new Preference('utf-8', 1, Preference::COMPLETE);
+        $expected = new Preference(Preference::LANGUAGE, 'utf-8', 1, Preference::COMPLETE);
 
         $builder = new PreferenceBuilder();
 
         $real = $builder
+            ->setFromField(Preference::LANGUAGE)
             ->setFromApp(false)
             ->setType('utf-8')
             ->setQualityFactor('asdf')
@@ -123,6 +126,7 @@ class PreferenceBuilderTest extends \PHPUnit_Framework_TestCase
         $builder = new PreferenceBuilder();
 
         $builder
+            ->setFromField(Preference::LANGUAGE)
             ->setFromApp(true)
             ->setType('utf-8')
             ->setQualityFactor('asdf')
@@ -131,11 +135,12 @@ class PreferenceBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testUserInvalidQualityFactorTooLarge()
     {
-        $expected = new Preference('utf-8', 1, Preference::COMPLETE);
+        $expected = new Preference(Preference::LANGUAGE, 'utf-8', 1, Preference::COMPLETE);
 
         $builder = new PreferenceBuilder();
 
         $real = $builder
+            ->setFromField(Preference::LANGUAGE)
             ->setFromApp(false)
             ->setType('utf-8')
             ->setQualityFactor(7)
@@ -154,6 +159,7 @@ class PreferenceBuilderTest extends \PHPUnit_Framework_TestCase
         $builder = new PreferenceBuilder();
 
         $builder
+            ->setFromField(Preference::LANGUAGE)
             ->setFromApp(true)
             ->setType('utf-8')
             ->setQualityFactor(7)
@@ -162,11 +168,12 @@ class PreferenceBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testUserInvalidQualityFactorTooSmall()
     {
-        $expected = new Preference('utf-8', 0, Preference::COMPLETE);
+        $expected = new Preference(Preference::LANGUAGE, 'utf-8', 0, Preference::COMPLETE);
 
         $builder = new PreferenceBuilder();
 
         $real = $builder
+            ->setFromField(Preference::LANGUAGE)
             ->setFromApp(false)
             ->setType('utf-8')
             ->setQualityFactor(-1)
@@ -185,9 +192,26 @@ class PreferenceBuilderTest extends \PHPUnit_Framework_TestCase
         $builder = new PreferenceBuilder();
 
         $builder
+            ->setFromField(Preference::LANGUAGE)
             ->setFromApp(true)
             ->setType('utf-8')
             ->setQualityFactor(-1)
+            ->get();
+    }
+
+    public function testAppOmittedField()
+    {
+        $this->setExpectedException(
+            '\RuntimeException',
+            'The HTTP field must be provided to the builder.'
+        );
+
+        $builder = new PreferenceBuilder();
+
+        $builder
+            ->setFromApp(true)
+            ->setType('utf-8')
+            ->setQualityFactor(0.5)
             ->get();
     }
 }

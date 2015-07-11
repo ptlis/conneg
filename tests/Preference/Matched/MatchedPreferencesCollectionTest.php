@@ -25,19 +25,19 @@ class MatchedPreferencesCollectionTest extends \PHPUnit_Framework_TestCase
     {
         $pairSort = new MatchedPreferencesSort(
             new MatchedPreferences(
-                new Preference('', 0, Preference::ABSENT_TYPE),
-                new Preference('', 0, Preference::ABSENT_TYPE)
+                new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE),
+                new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE)
             )
         );
 
         $expectList = array(
             new MatchedPreferences(
-                new Preference('utf-8', 0.9, Preference::COMPLETE),
-                new Preference('utf-8', 1, Preference::COMPLETE)
+                new Preference(Preference::LANGUAGE, 'utf-8', 0.9, Preference::COMPLETE),
+                new Preference(Preference::LANGUAGE, 'utf-8', 1, Preference::COMPLETE)
             ),
             new MatchedPreferences(
-                new Preference('iso-8859-5', 0.8, Preference::COMPLETE),
-                new Preference('iso-8859-5', 0.8, Preference::COMPLETE)
+                new Preference(Preference::LANGUAGE, 'iso-8859-5', 0.8, Preference::COMPLETE),
+                new Preference(Preference::LANGUAGE, 'iso-8859-5', 0.8, Preference::COMPLETE)
             )
         );
 
@@ -54,19 +54,19 @@ class MatchedPreferencesCollectionTest extends \PHPUnit_Framework_TestCase
     {
         $pairSort = new MatchedPreferencesSort(
             new MatchedPreferences(
-                new Preference('', 0, Preference::ABSENT_TYPE),
-                new Preference('', 0, Preference::ABSENT_TYPE)
+                new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE),
+                new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE)
             )
         );
 
         $expectList = array(
             new MatchedPreferences(
-                new Preference('utf-8', 0.9, Preference::COMPLETE),
-                new Preference('utf-8', 1, Preference::COMPLETE)
+                new Preference(Preference::LANGUAGE, 'utf-8', 0.9, Preference::COMPLETE),
+                new Preference(Preference::LANGUAGE, 'utf-8', 1, Preference::COMPLETE)
             ),
             new MatchedPreferences(
-                new Preference('iso-8859-5', 0.8, Preference::COMPLETE),
-                new Preference('iso-8859-5', 0.8, Preference::COMPLETE)
+                new Preference(Preference::LANGUAGE, 'iso-8859-5', 0.8, Preference::COMPLETE),
+                new Preference(Preference::LANGUAGE, 'iso-8859-5', 0.8, Preference::COMPLETE)
             )
         );
 
@@ -96,19 +96,19 @@ class MatchedPreferencesCollectionTest extends \PHPUnit_Framework_TestCase
     {
         $pairSort = new MatchedPreferencesSort(
             new MatchedPreferences(
-                new Preference('', 0, Preference::ABSENT_TYPE),
-                new Preference('', 0, Preference::ABSENT_TYPE)
+                new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE),
+                new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE)
             )
         );
 
         $pairList = array(
             new MatchedPreferences(
-                new Preference('iso-8859-5', 0.8, Preference::COMPLETE),
-                new Preference('iso-8859-5', 0.8, Preference::COMPLETE)
+                new Preference(Preference::LANGUAGE, 'iso-8859-5', 0.8, Preference::COMPLETE),
+                new Preference(Preference::LANGUAGE, 'iso-8859-5', 0.8, Preference::COMPLETE)
             ),
             new MatchedPreferences(
-                new Preference('utf-8', 0.9, Preference::COMPLETE),
-                new Preference('utf-8', 1, Preference::COMPLETE)
+                new Preference(Preference::LANGUAGE, 'utf-8', 0.9, Preference::COMPLETE),
+                new Preference(Preference::LANGUAGE, 'utf-8', 1, Preference::COMPLETE)
             )
         );
         $collection = new MatchedPreferencesCollection($pairSort, $pairList);
@@ -137,26 +137,26 @@ class MatchedPreferencesCollectionTest extends \PHPUnit_Framework_TestCase
     {
         $pairSort = new MatchedPreferencesSort(
             new MatchedPreferences(
-                new Preference('', 0, Preference::ABSENT_TYPE),
-                new Preference('', 0, Preference::ABSENT_TYPE)
+                new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE),
+                new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE)
             )
         );
 
         $pairList = array(
             new MatchedPreferences(
-                new Preference('iso-8859-5', 0.8, Preference::COMPLETE),
-                new Preference('iso-8859-5', 0.8, Preference::COMPLETE)
+                new Preference(Preference::LANGUAGE, 'iso-8859-5', 0.8, Preference::COMPLETE),
+                new Preference(Preference::LANGUAGE, 'iso-8859-5', 0.8, Preference::COMPLETE)
             ),
             new MatchedPreferences(
-                new Preference('utf-8', 0.9, Preference::COMPLETE),
-                new Preference('utf-8', 1, Preference::COMPLETE)
+                new Preference(Preference::LANGUAGE, 'utf-8', 0.9, Preference::COMPLETE),
+                new Preference(Preference::LANGUAGE, 'utf-8', 1, Preference::COMPLETE)
             )
         );
         $collection = new MatchedPreferencesCollection($pairSort, $pairList);
 
         $expectPair = new MatchedPreferences(
-            new Preference('utf-8', 0.9, Preference::COMPLETE),
-            new Preference('utf-8', 1, Preference::COMPLETE)
+            new Preference(Preference::LANGUAGE, 'utf-8', 0.9, Preference::COMPLETE),
+            new Preference(Preference::LANGUAGE, 'utf-8', 1, Preference::COMPLETE)
         );
 
         $bestPair = $collection->getBest();
@@ -169,19 +169,19 @@ class MatchedPreferencesCollectionTest extends \PHPUnit_Framework_TestCase
     {
         $pairSort = new MatchedPreferencesSort(
             new MatchedPreferences(
-                new Preference('', 0, Preference::ABSENT_TYPE),
-                new Preference('', 0, Preference::ABSENT_TYPE)
+                new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE),
+                new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE)
             )
         );
 
         $pairList = array(
             new MatchedPreferences(
-                new Preference('iso-8859-5', 0.8, Preference::COMPLETE),
-                new Preference('iso-8859-5', 0.8, Preference::COMPLETE)
+                new Preference(Preference::LANGUAGE, 'iso-8859-5', 0.8, Preference::COMPLETE),
+                new Preference(Preference::LANGUAGE, 'iso-8859-5', 0.8, Preference::COMPLETE)
             ),
             new MatchedPreferences(
-                new Preference('utf-8', 0.9, Preference::COMPLETE),
-                new Preference('utf-8', 1, Preference::COMPLETE)
+                new Preference(Preference::LANGUAGE, 'utf-8', 0.9, Preference::COMPLETE),
+                new Preference(Preference::LANGUAGE, 'utf-8', 1, Preference::COMPLETE)
             )
         );
         $collection = new MatchedPreferencesCollection($pairSort, $pairList);
@@ -197,19 +197,19 @@ class MatchedPreferencesCollectionTest extends \PHPUnit_Framework_TestCase
     {
         $pairSort = new MatchedPreferencesSort(
             new MatchedPreferences(
-                new Preference('', 0, Preference::ABSENT_TYPE),
-                new Preference('', 0, Preference::ABSENT_TYPE)
+                new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE),
+                new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE)
             )
         );
 
         $pairList = array(
             new MatchedPreferences(
-                new Preference('iso-8859-5', 0.8, Preference::COMPLETE),
-                new Preference('iso-8859-5', 0.8, Preference::COMPLETE)
+                new Preference(Preference::LANGUAGE, 'iso-8859-5', 0.8, Preference::COMPLETE),
+                new Preference(Preference::LANGUAGE, 'iso-8859-5', 0.8, Preference::COMPLETE)
             ),
             new MatchedPreferences(
-                new Preference('utf-8', 0.9, Preference::COMPLETE),
-                new Preference('utf-8', 1, Preference::COMPLETE)
+                new Preference(Preference::LANGUAGE, 'utf-8', 0.9, Preference::COMPLETE),
+                new Preference(Preference::LANGUAGE, 'utf-8', 1, Preference::COMPLETE)
             )
         );
         $collection = new MatchedPreferencesCollection($pairSort, $pairList);
@@ -222,19 +222,19 @@ class MatchedPreferencesCollectionTest extends \PHPUnit_Framework_TestCase
     {
         $pairSort = new MatchedPreferencesSort(
             new MatchedPreferences(
-                new Preference('', 0, Preference::ABSENT_TYPE),
-                new Preference('', 0, Preference::ABSENT_TYPE)
+                new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE),
+                new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE)
             )
         );
 
         $pairList = array(
             new MatchedPreferences(
-                new Preference('iso-8859-5', 0.8, Preference::COMPLETE),
-                new Preference('iso-8859-5', 0.8, Preference::COMPLETE)
+                new Preference(Preference::LANGUAGE, 'iso-8859-5', 0.8, Preference::COMPLETE),
+                new Preference(Preference::LANGUAGE, 'iso-8859-5', 0.8, Preference::COMPLETE)
             ),
             new MatchedPreferences(
-                new Preference('utf-8', 0.9, Preference::COMPLETE),
-                new Preference('utf-8', 1, Preference::COMPLETE)
+                new Preference(Preference::LANGUAGE, 'utf-8', 0.9, Preference::COMPLETE),
+                new Preference(Preference::LANGUAGE, 'utf-8', 1, Preference::COMPLETE)
             )
         );
         $collection = new MatchedPreferencesCollection($pairSort, $pairList);
