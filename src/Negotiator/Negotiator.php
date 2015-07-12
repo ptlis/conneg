@@ -61,12 +61,7 @@ class Negotiator implements NegotiatorInterface
      */
     public function negotiateAll(array $userTypeList, array $appTypeList, $fromField)
     {
-        $builder = $this->stdPreferenceBuilder;
-        if (PreferenceInterface::MIME === $fromField) {
-            $builder = $this->mimePreferenceBuilder;
-        }
-
-        $emptyType = $builder
+        $emptyType = $this->getBuilder($fromField)
             ->setFromField($fromField)
             ->get();
 
@@ -155,5 +150,21 @@ class Negotiator implements NegotiatorInterface
         }
 
         return $matchingList;
+    }
+
+    /**
+     * Get a preference builder for the specified HTTP field.
+     *
+     * @param string $fromField
+     *
+     * @return PreferenceBuilderInterface
+     */
+    private function getBuilder($fromField)
+    {
+        if (PreferenceInterface::MIME === $fromField) {
+            return $this->mimePreferenceBuilder;
+        } else {
+            return $this->stdPreferenceBuilder;
+        }
     }
 }

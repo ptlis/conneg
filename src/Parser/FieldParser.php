@@ -123,12 +123,7 @@ class FieldParser
      */
     private function createType(array $typeTokenList, array $paramBundleList, $appField, $fromField)
     {
-        $builder = $this->stdPreferenceBuilder;
-        if (PreferenceInterface::MIME === $fromField) {
-            $builder = $this->mimePreferenceBuilder;
-        }
-
-        $builder = $builder
+        $builder = $this->getBuilder($fromField)
             ->setFromField($fromField)
             ->setFromApp($appField)
             ->setType(implode('', $typeTokenList));
@@ -256,6 +251,22 @@ class FieldParser
             throw new InvalidTypeException(
                 'Invalid count for parameters; expecting 1 or 3, got "' . count($paramBundle) . '"'
             );
+        }
+    }
+
+    /**
+     * Get a preference builder for the specified HTTP field.
+     *
+     * @param string $fromField
+     *
+     * @return PreferenceBuilderInterface
+     */
+    private function getBuilder($fromField)
+    {
+        if (PreferenceInterface::MIME === $fromField) {
+            return $this->mimePreferenceBuilder;
+        } else {
+            return $this->stdPreferenceBuilder;
         }
     }
 }
