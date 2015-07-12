@@ -27,11 +27,21 @@ class AbsentMatcher implements MatcherInterface
     private $emptyPreference;
 
     /**
-     * @param PreferenceInterface $emptyPreference
+     * @var PreferenceInterface
      */
-    public function __construct(PreferenceInterface $emptyPreference)
+    private $mimeEmptyPreference;
+
+
+    /**
+     * Constructor.
+     *
+     * @param PreferenceInterface $emptyPreference
+     * @param PreferenceInterface $mimeEmptyPreference
+     */
+    public function __construct(PreferenceInterface $emptyPreference, PreferenceInterface $mimeEmptyPreference)
     {
         $this->emptyPreference = $emptyPreference;
+        $this->mimeEmptyPreference = $mimeEmptyPreference;
     }
 
     /**
@@ -47,9 +57,14 @@ class AbsentMatcher implements MatcherInterface
      */
     public function doMatch(array $matchingList, PreferenceInterface $userPreference)
     {
+        $emptyPreference = $this->emptyPreference;
+        if (PreferenceInterface::MIME === $userPreference->getFromField()) {
+            $emptyPreference = $this->mimeEmptyPreference;
+        }
+
         $matchingList[$userPreference->getType()] = new MatchedPreferences(
             $userPreference,
-            $this->emptyPreference
+            $emptyPreference
         );
 
         return $matchingList;

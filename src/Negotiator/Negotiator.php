@@ -76,7 +76,7 @@ class Negotiator implements NegotiatorInterface
             );
         }
 
-        $matchingList = $this->matchUserListToAppTypes($userTypeList, $matchingList, $sort, $emptyType);
+        $matchingList = $this->matchUserListToAppTypes($userTypeList, $matchingList, $sort);
         $pairCollection = new MatchedPreferencesCollection($sort, $matchingList);
 
         return $pairCollection->getDescending();
@@ -98,18 +98,16 @@ class Negotiator implements NegotiatorInterface
      * @param PreferenceInterface[] $userTypeList
      * @param MatchedPreferencesInterface[] $matchingList
      * @param MatchedPreferencesSort $sort
-     * @param PreferenceInterface $emptyType
      *
      * @return MatchedPreferencesInterface[]
      */
     private function matchUserListToAppTypes(
         array $userTypeList,
         array $matchingList,
-        MatchedPreferencesSort $sort,
-        $emptyType
+        MatchedPreferencesSort $sort
     ) {
         foreach ($userTypeList as $userType) {
-            $matchingList = $this->matchUserToAppTypes($userType, $matchingList, $sort, $emptyType);
+            $matchingList = $this->matchUserToAppTypes($userType, $matchingList, $sort);
         }
 
         return $matchingList;
@@ -121,15 +119,13 @@ class Negotiator implements NegotiatorInterface
      * @param PreferenceInterface $userType
      * @param MatchedPreferencesInterface[] $matchingList
      * @param MatchedPreferencesSort $sort
-     * @param PreferenceInterface $emptyType
      *
      * @return  array<string,MatchedPreferencesInterface>
      */
     private function matchUserToAppTypes(
         PreferenceInterface $userType,
         array $matchingList,
-        MatchedPreferencesSort $sort,
-        $emptyType
+        MatchedPreferencesSort $sort
     ) {
 
         $matcherList = array(
@@ -137,7 +133,14 @@ class Negotiator implements NegotiatorInterface
             new PartialLanguageMatcher(),
             new SubtypeWildcardMatcher(),
             new ExactMatcher($sort),
-            new AbsentMatcher($emptyType)
+            new AbsentMatcher(
+                $this->stdPreferenceBuilder
+                    ->setFromField($userType->getFromField())
+                    ->get(),
+                $this->mimePreferenceBuilder
+                    ->setFromField($userType->getFromField())
+                    ->get()
+            )
         );
 
         /** @var MatcherInterface $matcher */
