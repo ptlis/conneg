@@ -22,6 +22,7 @@ use ptlis\ConNeg\Negotiator\Matcher\WildcardMatcher;
 use ptlis\ConNeg\Preference\Builder\PreferenceBuilderInterface;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferences;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferencesCollection;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferencesComparator;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferencesInterface;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferencesSort;
 use ptlis\ConNeg\Preference\PreferenceInterface;
@@ -76,7 +77,7 @@ class Negotiator implements NegotiatorInterface
             );
         }
 
-        $matchingList = $this->matchUserListToAppTypes($userTypeList, $matchingList, $sort);
+        $matchingList = $this->matchUserListToAppTypes($userTypeList, $matchingList);
         $pairCollection = new MatchedPreferencesCollection($sort, $matchingList);
 
         return $pairCollection->getDescending();
@@ -97,17 +98,12 @@ class Negotiator implements NegotiatorInterface
      *
      * @param PreferenceInterface[] $userTypeList
      * @param MatchedPreferencesInterface[] $matchingList
-     * @param MatchedPreferencesSort $sort
      *
      * @return MatchedPreferencesInterface[]
      */
-    private function matchUserListToAppTypes(
-        array $userTypeList,
-        array $matchingList,
-        MatchedPreferencesSort $sort
-    ) {
+    private function matchUserListToAppTypes(array $userTypeList, array $matchingList) {
         foreach ($userTypeList as $userType) {
-            $matchingList = $this->matchUserToAppTypes($userType, $matchingList, $sort);
+            $matchingList = $this->matchUserToAppTypes($userType, $matchingList);
         }
 
         return $matchingList;
@@ -118,21 +114,16 @@ class Negotiator implements NegotiatorInterface
      *
      * @param PreferenceInterface $userType
      * @param MatchedPreferencesInterface[] $matchingList
-     * @param MatchedPreferencesSort $sort
      *
      * @return  array<string,MatchedPreferencesInterface>
      */
-    private function matchUserToAppTypes(
-        PreferenceInterface $userType,
-        array $matchingList,
-        MatchedPreferencesSort $sort
-    ) {
+    private function matchUserToAppTypes(PreferenceInterface $userType, array $matchingList) {
 
         $matcherList = array(
             new WildcardMatcher(),
             new PartialLanguageMatcher(),
             new SubtypeWildcardMatcher(),
-            new ExactMatcher($sort),
+            new ExactMatcher(new MatchedPreferencesComparator()),
             new AbsentMatcher(
                 $this->stdPreferenceBuilder
                     ->setFromField($userType->getFromField())

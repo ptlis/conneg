@@ -14,6 +14,7 @@
 namespace ptlis\ConNeg\Negotiator\Matcher;
 
 use ptlis\ConNeg\Preference\Matched\MatchedPreferences;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferencesComparator;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferencesSort;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
@@ -23,19 +24,19 @@ use ptlis\ConNeg\Preference\PreferenceInterface;
 class ExactMatcher implements MatcherInterface
 {
     /**
-     * @var MatchedPreferencesSort
+     * @var MatchedPreferencesComparator
      */
-    private $sort;
+    private $comparator;
 
 
     /**
      * Constructor.
      *
-     * @param MatchedPreferencesSort $sort
+     * @param MatchedPreferencesComparator $comparator
      */
-    public function __construct(MatchedPreferencesSort $sort)
+    public function __construct(MatchedPreferencesComparator $comparator)
     {
-        $this->sort = $sort;
+        $this->comparator = $comparator;
     }
 
     /**
@@ -56,7 +57,7 @@ class ExactMatcher implements MatcherInterface
             $matchingList[$userPreference->getType()]->getAppPreference()
         );
 
-        if ($this->sort->compare($matchingList[$userPreference->getType()], $newMatch) > 0) {
+        if ($this->comparator->compare($matchingList[$userPreference->getType()], $newMatch) > 0) {
             $matchingList[$userPreference->getType()] = $newMatch;
         }
 
