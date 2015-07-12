@@ -27,14 +27,10 @@ class PartialLanguageMatcher implements MatcherInterface
     public function hasMatch(array $matchingList, PreferenceInterface $userPreference)
     {
         $hasMatch = false;
-        if (PreferenceInterface::LANGUAGE === $userPreference->getFromField()) {
-            foreach ($matchingList as $matching) {
-                if (
-                    $this->partialLangMatches($matching->getAppType(), $userPreference)
-                    && $userPreference->getPrecedence() > $matching->getUserType()->getPrecedence()
-                ) {
-                    $hasMatch = true;
-                }
+
+        foreach ($matchingList as $matching) {
+            if ($this->partialLangMatches($matching, $userPreference)) {
+                $hasMatch = true;
             }
         }
 
@@ -49,10 +45,7 @@ class PartialLanguageMatcher implements MatcherInterface
         $newMatchingList = array();
 
         foreach ($matchingList as $key => $matching) {
-            if (
-                $this->partialLangMatches($matching->getAppType(), $userPreference)
-                && $userPreference->getPrecedence() > $matching->getUserType()->getPrecedence()
-            ) {
+            if ($this->partialLangMatches($matching, $userPreference)) {
                 $newPair = new MatchedPreferences(
                     $userPreference,
                     $matching->getAppType()
@@ -73,19 +66,26 @@ class PartialLanguageMatcher implements MatcherInterface
      *
      * e.g. An application type of en-* would match en, en-US but not es-ES
      *
-     * @param PreferenceInterface $appPreference
-     * @param PreferenceInterface $userPreference
+     * @param MatchedPreferences $matchedPreferences
+     * @param PreferenceInterface $newUserPreference
      *
      * @return bool
      */
-    private function partialLangMatches(PreferenceInterface $appPreference, PreferenceInterface $userPreference)
-    {
+    private function partialLangMatches(
+        MatchedPreferences $matchedPreferences,
+        PreferenceInterface $newUserPreference
+    ) {
+        $appPreference = $matchedPreferences->getAppType();
+        $oldUserPreference = $matchedPreferences->getUserType();
+
         // Note that this only supports the simplest case of (e.g.) en-* matching en-GB and en-US, additional
         // Language tags are explicitly ignored
-        list($userMainLang) = explode('-', $userPreference->getType());
+        list($userMainLang) = explode('-', $newUserPreference->getType());
         list($appMainLang) = explode('-', $appPreference->getType());
 
-        return PreferenceInterface::PARTIAL_WILDCARD === $appPreference->getPrecedence()
-            && $userMainLang == $appMainLang;
+        return PreferenceInterface::LANGUAGE === $newUserPreference->getFromField()
+            && PreferenceInterface::PARTIAL_WILDCARD === $appPreference->getPrecedence()
+            && $userMainLang == $appMainLang
+            && $newUserPreference->getPrecedence() > $oldUserPreference->getPrecedence();
     }
 }
