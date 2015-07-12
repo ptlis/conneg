@@ -24,7 +24,7 @@ use ptlis\ConNeg\Preference\PreferenceInterface;
 /**
  * Matcher for charset, encoding & language types.
  */
-class Matcher implements MatcherInterface
+class Matcher extends AbstractMatcher
 {
     /**
      * @var PreferenceBuilderInterface
@@ -62,7 +62,7 @@ class Matcher implements MatcherInterface
             );
         }
 
-        $matchingList = $this->matchUserListToAppTypes($userTypeList, $matchingList, $sort, $emptyType, $fromField);
+        $matchingList = $this->matchUserListToAppTypes($userTypeList, $matchingList, $sort, $emptyType);
         $pairCollection = new MatchedPreferencesCollection($sort, $matchingList);
 
         return $pairCollection->getDescending();
@@ -82,39 +82,107 @@ class Matcher implements MatcherInterface
      * Match user types to app types.
      *
      * @param PreferenceInterface[] $userTypeList
-     * @param MatchedPreferences[] $matchingList
+     * @param MatchedPreferencesInterface[] $matchingList
      * @param MatchedPreferencesSort $sort
      * @param PreferenceInterface $emptyType
-     * @param string $fromField
      *
-     * @return MatchedPreferences[]
+     * @return MatchedPreferencesInterface[]
      */
     private function matchUserListToAppTypes(
         array $userTypeList,
         array $matchingList,
         MatchedPreferencesSort $sort,
-        $emptyType,
-        $fromField
+        $emptyType
     ) {
         foreach ($userTypeList as $userType) {
+            $matchingList = $this->matchUserToAppTypes($userType, $matchingList, $sort, $emptyType);
+        }
 
-            // Type match
-            if (array_key_exists($userType->getType(), $matchingList)) {
-                $matchingList = $this->matchExact($matchingList, $userType, $sort);
+        return $matchingList;
+    }
 
-            // Wildcard Match
-            } elseif (Preference::WILDCARD === $userType->getPrecedence()) {
+    /**
+     * Match a single user type to the application types.
+     *
+     * @param PreferenceInterface $userType
+     * @param MatchedPreferencesInterface[] $matchingList
+     * @param MatchedPreferencesSort $sort
+     * @param PreferenceInterface $emptyType
+     *
+     * @return  array<string,MatchedPreferencesInterface>
+     */
+    private function matchUserToAppTypes(
+        PreferenceInterface $userType,
+        array $matchingList,
+        MatchedPreferencesSort $sort,
+        $emptyType
+    ) {
+        switch (true) {
+            // Full wildcard match
+            case Preference::WILDCARD === $userType->getPrecedence():
                 $matchingList = $this->matchFullWildcard($matchingList, $userType);
+                break;
 
-            // App Partial Lang Match (Only for Language Types)
-            } elseif (Preference::LANGUAGE === $fromField && $this->listHasPartialLanguage($matchingList, $userType)) {
-                $matchingList = $this->matchAppPartialLanguage($matchingList, $userType);
+            // Partial wildcard match
+            case $this->listHasPartialMatch($matchingList, $userType):
+                $matchingList = $this->matchPartialWildcard($matchingList, $userType);
+                break;
+
+            // Exact match
+            case array_key_exists($userType->getType(), $matchingList):
+                $matchingList = $this->matchExact($matchingList, $userType, $sort);
+                break;
 
             // No match
-            } else {
+            default:
                 $matchingList[$userType->getType()] = new MatchedPreferences(
                     $userType,
                     $emptyType
+                );
+                break;
+        }
+
+        return $matchingList;
+    }
+
+    /**
+     * Attempt to find an exact match with type in matching list.
+     *
+     * @param MatchedPreferencesInterface[] $matchingList
+     * @param PreferenceInterface $userType
+     * @param MatchedPreferencesSort $sort
+     *
+     * @return MatchedPreferencesInterface[]
+     */
+    private function matchExact(array $matchingList, PreferenceInterface $userType, MatchedPreferencesSort $sort)
+    {
+        $newPair = new MatchedPreferences(
+            $userType,
+            $matchingList[$userType->getType()]->getAppType()
+        );
+
+        if ($sort->compare($matchingList[$userType->getType()], $newPair) > 0) {
+            $matchingList[$userType->getType()] = $newPair;
+        }
+
+        return $matchingList;
+    }
+
+    /**
+     * Attempt to match wildcard type against each item in matching list.
+     *
+     * @param MatchedPreferencesInterface[] $matchingList
+     * @param PreferenceInterface $userType
+     *
+     * @return MatchedPreferencesInterface[]
+     */
+    private function matchFullWildcard(array $matchingList, PreferenceInterface $userType)
+    {
+        foreach ($matchingList as $key => $matching) {
+            if ($userType->getPrecedence() > $matching->getUserType()->getPrecedence()) {
+                $matchingList[$key] = new MatchedPreferences(
+                    $userType,
+                    $matchingList[$key]->getAppType()
                 );
             }
         }
@@ -125,20 +193,22 @@ class Matcher implements MatcherInterface
     /**
      * Returns true if the user type matches an application-provided partial language.
      *
-     * @param MatchedPreferences[] $matchingList
+     * @param MatchedPreferencesInterface[] $matchingList
      * @param PreferenceInterface $userType
      *
      * @return boolean
      */
-    private function listHasPartialLanguage(array $matchingList, PreferenceInterface $userType)
+    private function listHasPartialMatch(array $matchingList, PreferenceInterface $userType)
     {
         $matches = false;
-        foreach ($matchingList as $matching) {
-            if (
-                $this->partialLangMatches($matching->getAppType(), $userType)
-                && $userType->getPrecedence() > $matching->getUserType()->getPrecedence()
-            ) {
-                $matches = true;
+        if (Preference::LANGUAGE === $userType->getFromField()) {
+            foreach ($matchingList as $matching) {
+                if (
+                    $this->partialLangMatches($matching->getAppType(), $userType)
+                    && $userType->getPrecedence() > $matching->getUserType()->getPrecedence()
+                ) {
+                    $matches = true;
+                }
             }
         }
 
@@ -167,12 +237,14 @@ class Matcher implements MatcherInterface
     }
 
     /**
-     * @param MatchedPreferences[]    $matchingList
+     * Match the provided user type to an application-provided Language partial wildcard (e.g. en-*).
+     *
+     * @param MatchedPreferences[] $matchingList
      * @param PreferenceInterface $userType
      *
      * @return MatchedPreferences[]
      */
-    private function matchAppPartialLanguage(array $matchingList, PreferenceInterface $userType)
+    private function matchPartialWildcard(array $matchingList, PreferenceInterface $userType)
     {
         $newMatchingList = array();
 
@@ -194,50 +266,5 @@ class Matcher implements MatcherInterface
         }
 
         return $newMatchingList;
-    }
-
-    /**
-     * Attempt to find an exact match with type in matching list.
-     *
-     * @param MatchedPreferences[]    $matchingList
-     * @param PreferenceInterface $userType
-     * @param MatchedPreferencesSort $sort
-     *
-     * @return MatchedPreferences[]
-     */
-    private function matchExact(array $matchingList, PreferenceInterface $userType, MatchedPreferencesSort $sort)
-    {
-        $newPair = new MatchedPreferences(
-            $userType,
-            $matchingList[$userType->getType()]->getAppType()
-        );
-
-        if ($sort->compare($matchingList[$userType->getType()], $newPair) > 0) {
-            $matchingList[$userType->getType()] = $newPair;
-        }
-
-        return $matchingList;
-    }
-
-    /**
-     * Attempt to match wildcard type against each item in matching list.
-     *
-     * @param MatchedPreferences[]    $matchingList
-     * @param PreferenceInterface $userType
-     *
-     * @return MatchedPreferences[]
-     */
-    private function matchFullWildcard(array $matchingList, PreferenceInterface $userType)
-    {
-        foreach ($matchingList as $key => $matching) {
-            if ($userType->getPrecedence() > $matching->getUserType()->getPrecedence()) {
-                $matchingList[$key] = new MatchedPreferences(
-                    $userType,
-                    $matchingList[$key]->getAppType()
-                );
-            }
-        }
-
-        return $matchingList;
     }
 }

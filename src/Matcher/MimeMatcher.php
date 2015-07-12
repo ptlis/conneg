@@ -24,7 +24,7 @@ use ptlis\ConNeg\Preference\PreferenceInterface;
 /**
  * Matcher for mime types.
  */
-class MimeMatcher implements MatcherInterface
+class MimeMatcher extends AbstractMatcher
 {
     /**
      * @var PreferenceBuilderInterface
@@ -79,79 +79,6 @@ class MimeMatcher implements MatcherInterface
     }
 
     /**
-     * Attempt to match wildcard type against each item in matching list.
-     *
-     * @param MatchedPreferencesInterface[]  $matchingList
-     * @param PreferenceInterface $userType
-     *
-     * @return MatchedPreferencesInterface[]
-     */
-    private function matchFullWildcard(array $matchingList, PreferenceInterface $userType)
-    {
-        foreach ($matchingList as $key => $matching) {
-            if ($userType->getPrecedence() > $matching->getUserType()->getPrecedence()) {
-                $matchingList[$key] = new MatchedPreferences(
-                    $userType,
-                    $matchingList[$key]->getAppType()
-                );
-            }
-        }
-
-        return $matchingList;
-    }
-
-    /**
-     * Attempt to match wildcard subtypes against each item in matching list with an identical type.
-     *
-     * @param MatchedPreferencesInterface[]   $matchingList
-     * @param PreferenceInterface     $userType
-     *
-     * @return MatchedPreferencesInterface[]
-     */
-    private function matchSubTypeWildcard(array $matchingList, PreferenceInterface $userType)
-    {
-        foreach ($matchingList as $key => $matching) {
-            $appType = $matching->getAppType();
-            list($userMimeType) = explode('/', $userType->getType());
-            list($appMimeType) = explode('/', $appType->getType());
-
-            if ($userMimeType == $appMimeType
-                    && $userType->getPrecedence() > $matching->getUserType()->getPrecedence()) {
-
-                $matchingList[$key] = new MatchedPreferences(
-                    $userType,
-                    $matchingList[$key]->getAppType()
-                );
-            }
-        }
-
-        return $matchingList;
-    }
-
-    /**
-     * Attempt to match the given type to an existing type in typeList.
-     *
-     * @param MatchedPreferencesInterface[] $matchingList
-     * @param PreferenceInterface $userType
-     * @param MatchedPreferencesSort $sort
-     *
-     * @return array<string,MatchedPreferencesInterface>
-     */
-    private function matchExact(array $matchingList, PreferenceInterface $userType, MatchedPreferencesSort $sort)
-    {
-        $newPair = new MatchedPreferences(
-            $userType,
-            $matchingList[$userType->getType()]->getAppType()
-        );
-
-        if ($sort->compare($matchingList[$userType->getType()], $newPair) > 0) {
-            $matchingList[$userType->getType()] = $newPair;
-        }
-
-        return $matchingList;
-    }
-
-    /**
      * Match user types to app types.
      *
      * @param PreferenceInterface[] $userTypeList
@@ -159,7 +86,7 @@ class MimeMatcher implements MatcherInterface
      * @param MatchedPreferencesSort $sort
      * @param PreferenceInterface $emptyType
      *
-     * @return  array<string,MatchedPreferencesInterface>
+     * @return MatchedPreferencesInterface[]
      */
     private function matchUserListToAppTypes(
         array $userTypeList,
@@ -191,17 +118,17 @@ class MimeMatcher implements MatcherInterface
         $emptyType
     ) {
         switch (true) {
-            // Full Wildcard Match
+            // Full wildcard match
             case Preference::WILDCARD === $userType->getPrecedence():
                 $matchingList = $this->matchFullWildcard($matchingList, $userType);
                 break;
 
-            // Wildcard SubType Match
-            case Preference::PARTIAL_WILDCARD === $userType->getPrecedence():
-                $matchingList = $this->matchSubTypeWildcard($matchingList, $userType);
+            // Partial wildcard match
+            case $this->listHasPartialMatch($matchingList, $userType):
+                $matchingList = $this->matchPartialWildcard($matchingList, $userType);
                 break;
 
-            // Exact Match
+            // Exact match
             case array_key_exists($userType->getType(), $matchingList):
                 $matchingList = $this->matchExact($matchingList, $userType, $sort);
                 break;
@@ -213,6 +140,92 @@ class MimeMatcher implements MatcherInterface
                     $emptyType
                 );
                 break;
+        }
+
+        return $matchingList;
+    }
+
+    /**
+     * Attempt to find an exact match with type in matching list.
+     *
+     * @param MatchedPreferencesInterface[] $matchingList
+     * @param PreferenceInterface $userType
+     * @param MatchedPreferencesSort $sort
+     *
+     * @return MatchedPreferencesInterface[]
+     */
+    private function matchExact(array $matchingList, PreferenceInterface $userType, MatchedPreferencesSort $sort)
+    {
+        $newPair = new MatchedPreferences(
+            $userType,
+            $matchingList[$userType->getType()]->getAppType()
+        );
+
+        if ($sort->compare($matchingList[$userType->getType()], $newPair) > 0) {
+            $matchingList[$userType->getType()] = $newPair;
+        }
+
+        return $matchingList;
+    }
+
+    /**
+     * Attempt to match wildcard type against each item in matching list.
+     *
+     * @param MatchedPreferencesInterface[] $matchingList
+     * @param PreferenceInterface $userType
+     *
+     * @return MatchedPreferencesInterface[]
+     */
+    private function matchFullWildcard(array $matchingList, PreferenceInterface $userType)
+    {
+        foreach ($matchingList as $key => $matching) {
+            if ($userType->getPrecedence() > $matching->getUserType()->getPrecedence()) {
+                $matchingList[$key] = new MatchedPreferences(
+                    $userType,
+                    $matchingList[$key]->getAppType()
+                );
+            }
+        }
+
+        return $matchingList;
+    }
+
+    /**
+     * Returns true if the user type matches an application-provided partial language.
+     *
+     * @param MatchedPreferencesInterface[] $matchingList
+     * @param PreferenceInterface $userType
+     *
+     * @return boolean
+     */
+    private function listHasPartialMatch(array $matchingList, PreferenceInterface $userType)
+    {
+        return Preference::PARTIAL_WILDCARD === $userType->getPrecedence();
+    }
+
+    /**
+     * Attempt to match wildcard subtypes against each item in matching list with an identical type.
+     *
+     * @param MatchedPreferencesInterface[]   $matchingList
+     * @param PreferenceInterface     $userType
+     *
+     * @return MatchedPreferencesInterface[]
+     */
+    private function matchPartialWildcard(array $matchingList, PreferenceInterface $userType)
+    {
+        foreach ($matchingList as $key => $matching) {
+            $appType = $matching->getAppType();
+            list($userMimeType) = explode('/', $userType->getType());
+            list($appMimeType) = explode('/', $appType->getType());
+
+            if ($userMimeType == $appMimeType
+                    && $userType->getPrecedence() > $matching->getUserType()->getPrecedence()) {
+
+                $matchingList[$key] = new MatchedPreferences(
+                    $userType,
+                    $matchingList[$key]->getAppType()
+                );
+            }
         }
 
         return $matchingList;
