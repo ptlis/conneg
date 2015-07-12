@@ -42,19 +42,39 @@ class Negotiator implements NegotiatorInterface
      */
     private $mimePreferenceBuilder;
 
+    /**
+     * @var MatcherInterface[]
+     */
+    private $matcherList;
+
 
     /**
      * Constructor.
      *
      * @param PreferenceBuilderInterface $stdPreferenceBuilder
      * @param PreferenceBuilderInterface $mimePreferenceBuilder
+     * @param MatcherInterface[] $matcherList Objects implementing MatcherInterface, matching is attempted in the order
+     *      of the matcher objects in the array. When a match is found no further match tests are done and the testing
+     *      loop will exit.
      */
     public function __construct(
         PreferenceBuilderInterface $stdPreferenceBuilder,
-        PreferenceBuilderInterface $mimePreferenceBuilder
+        PreferenceBuilderInterface $mimePreferenceBuilder,
+        array $matcherList = array()
     ) {
         $this->stdPreferenceBuilder = $stdPreferenceBuilder;
         $this->mimePreferenceBuilder = $mimePreferenceBuilder;
+
+        if (!count($matcherList)) {
+            $matcherList = array(
+                new WildcardMatcher(),
+                new PartialLanguageMatcher(),
+                new SubtypeWildcardMatcher(),
+                new ExactMatcher(new MatchedPreferencesComparator()),
+                new AbsentMatcher($this->stdPreferenceBuilder, $this->mimePreferenceBuilder)
+            );
+        }
+        $this->matcherList = $matcherList;
     }
 
     /**
@@ -117,18 +137,9 @@ class Negotiator implements NegotiatorInterface
      *
      * @return  array<string,MatchedPreferencesInterface>
      */
-    private function matchUserToAppTypes(PreferenceInterface $userType, array $matchingList) {
-
-        $matcherList = array(
-            new WildcardMatcher(),
-            new PartialLanguageMatcher(),
-            new SubtypeWildcardMatcher(),
-            new ExactMatcher(new MatchedPreferencesComparator()),
-            new AbsentMatcher($this->stdPreferenceBuilder, $this->mimePreferenceBuilder)
-        );
-
-        /** @var MatcherInterface $matcher */
-        foreach ($matcherList as $matcher) {
+    private function matchUserToAppTypes(PreferenceInterface $userType, array $matchingList)
+    {
+        foreach ($this->matcherList as $matcher) {
             if ($matcher->hasMatch($matchingList, $userType)) {
                 $matchingList = $matcher->doMatch($matchingList, $userType);
 
