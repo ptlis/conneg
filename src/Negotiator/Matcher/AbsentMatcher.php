@@ -29,7 +29,7 @@ class AbsentMatcher implements MatcherInterface
     /**
      * @param PreferenceInterface $emptyPreference
      */
-    function __construct(PreferenceInterface $emptyPreference)
+    public function __construct(PreferenceInterface $emptyPreference)
     {
         $this->emptyPreference = $emptyPreference;
     }

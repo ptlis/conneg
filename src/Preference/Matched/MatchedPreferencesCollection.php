@@ -15,7 +15,6 @@ namespace ptlis\ConNeg\Preference\Matched;
 
 use ArrayIterator;
 use ptlis\ConNeg\Preference\CollectionInterface;
-use Traversable;
 
 /**
  * Collection for TypePair instances, provides sort capabilities.

@@ -13,14 +13,15 @@
 
 namespace ptlis\ConNeg;
 
-use ptlis\ConNeg\Preference\Matched\MatchedPreferencesCollection;
 use ptlis\ConNeg\Negotiator\Negotiator;
 use ptlis\ConNeg\Parser\FieldParser;
 use ptlis\ConNeg\Parser\FieldTokenizer;
 use ptlis\ConNeg\Preference\Builder\MimePreferenceBuilder;
 use ptlis\ConNeg\Preference\Builder\PreferenceBuilder;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferences;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferencesCollection;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferencesInterface;
+use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
  * Class providing a simple API through which content negotiation is performed.
@@ -208,8 +209,8 @@ class Negotiation
      */
     private function genericBest($userField, $appField, $fromField)
     {
-        $userTypeList = $this->sharedUserPrefsToTypes($userField, $fromField);
-        $appTypeList = $this->sharedAppPrefsToTypes($appField, $fromField);
+        $userTypeList = $this->parseUserPreferences($userField, $fromField);
+        $appTypeList = $this->parseAppPreferences($appField, $fromField);
 
         if (MatchedPreferencesInterface::MIME === $fromField) {
             $best = $this->mimeNegotiator->negotiateBest($userTypeList, $appTypeList, $fromField);
@@ -233,8 +234,8 @@ class Negotiation
      */
     private function genericAll($userField, $appField, $fromField)
     {
-        $userTypeList = $this->sharedUserPrefsToTypes($userField, $fromField);
-        $appTypeList = $this->sharedAppPrefsToTypes($appField, $fromField);
+        $userTypeList = $this->parseUserPreferences($userField, $fromField);
+        $appTypeList = $this->parseAppPreferences($appField, $fromField);
 
         if (MatchedPreferencesInterface::MIME === $fromField) {
             $all = $this->mimeNegotiator->negotiateAll($userTypeList, $appTypeList, $fromField);
@@ -247,52 +248,52 @@ class Negotiation
     }
 
     /**
-     * Takes string serialization of user-agent type preferences and returns a collection of type objects.
+     * Parse user preferences and return an array of Preference instances
      *
      * @param string $userField
      * @param string $fromField
      *
-     * @return MatchedPreferencesInterface[]
+     * @return PreferenceInterface[]
      */
-    private function sharedUserPrefsToTypes($userField, $fromField)
+    private function parseUserPreferences($userField, $fromField)
     {
         $tokenList = $this->tokenizer->tokenize($userField, $fromField);
 
         if (MatchedPreferencesInterface::MIME === $fromField) {
-            $typeList = $this->mimeParser->parse($tokenList, false, $fromField);
+            $preferenceList = $this->mimeParser->parse($tokenList, false, $fromField);
 
         } else {
-            $typeList = $this->stdParser->parse($tokenList, false, $fromField);
+            $preferenceList = $this->stdParser->parse($tokenList, false, $fromField);
         }
 
-        return $typeList;
+        return $preferenceList;
     }
 
     /**
-     * Convert application type preferences to a TypeCollection.
+     * Parse application preferences and return an array of Preference instances
      *
      * @throws \LogicException
      *
      * @param string $appField
      * @param string $fromField
      *
-     * @return MatchedPreferencesInterface[]
+     * @return PreferenceInterface[]
      */
-    private function sharedAppPrefsToTypes($appField, $fromField)
+    private function parseAppPreferences($appField, $fromField)
     {
         if (gettype($appField) === 'string') {
             $tokenList = $this->tokenizer->tokenize($appField, $fromField);
             if (MatchedPreferencesInterface::MIME === $fromField) {
-                $appTypeList = $this->mimeParser->parse($tokenList, true, $fromField);
+                $preferenceList = $this->mimeParser->parse($tokenList, true, $fromField);
 
             } else {
-                $appTypeList = $this->stdParser->parse($tokenList, true, $fromField);
+                $preferenceList = $this->stdParser->parse($tokenList, true, $fromField);
             }
 
         } else {
             throw new \LogicException('Invalid application preferences passed to ' . __METHOD__);
         }
 
-        return $appTypeList;
+        return $preferenceList;
     }
 }

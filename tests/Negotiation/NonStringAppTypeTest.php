@@ -23,7 +23,7 @@ class NonStringAppTypeTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(
             '\LogicException',
-            'Invalid application preferences passed to ptlis\ConNeg\Negotiation::sharedAppPrefsToTypes'
+            'Invalid application preferences passed to ptlis\ConNeg\Negotiation::parseAppPreferences'
         );
 
         $negotiate = new Negotiation();
