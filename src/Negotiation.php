@@ -29,20 +29,6 @@ use ptlis\ConNeg\Preference\PreferenceInterface;
 class Negotiation
 {
     /**
-     * Negotiator for non-mime types.
-     *
-     * @var Negotiator
-     */
-    private $stdNegotiator;
-
-    /**
-     * Negotiator for mime types.
-     *
-     * @var Negotiator
-     */
-    private $mimeNegotiator;
-
-    /**
      * Tokenizer.
      *
      * @var FieldTokenizer
@@ -54,14 +40,14 @@ class Negotiation
      *
      * @var FieldParser
      */
-    private $stdParser;
+    private $parser;
 
     /**
-     * Parser for mime types.
+     * Negotiator for non-mime types.
      *
-     * @var FieldParser
+     * @var Negotiator
      */
-    private $mimeParser;
+    private $negotiator;
 
 
     /**
@@ -73,13 +59,8 @@ class Negotiation
         $mimeTypeBuilder = new MimePreferenceBuilder();
 
         $this->tokenizer = new FieldTokenizer();
-
-        $this->stdParser = new FieldParser($stdTypeBuilder);
-        $this->mimeParser = new FieldParser($mimeTypeBuilder);
-
-
-        $this->stdNegotiator = new Negotiator($stdTypeBuilder);
-        $this->mimeNegotiator = new Negotiator($mimeTypeBuilder);
+        $this->parser = new FieldParser($stdTypeBuilder, $mimeTypeBuilder);
+        $this->negotiator = new Negotiator($stdTypeBuilder, $mimeTypeBuilder);
     }
 
     /**
@@ -209,15 +190,10 @@ class Negotiation
      */
     private function genericBest($userField, $appField, $fromField)
     {
-        $userTypeList = $this->parseUserPreferences($userField, $fromField);
-        $appTypeList = $this->parseAppPreferences($appField, $fromField);
+        $userTypeList = $this->parsePreferences(false, $userField, $fromField);
+        $appTypeList = $this->parsePreferences(true, $appField, $fromField);
 
-        if (MatchedPreferencesInterface::MIME === $fromField) {
-            $best = $this->mimeNegotiator->negotiateBest($userTypeList, $appTypeList, $fromField);
-
-        } else {
-            $best = $this->stdNegotiator->negotiateBest($userTypeList, $appTypeList, $fromField);
-        }
+        $best = $this->negotiator->negotiateBest($userTypeList, $appTypeList, $fromField);
 
         return $best;
     }
@@ -234,15 +210,10 @@ class Negotiation
      */
     private function genericAll($userField, $appField, $fromField)
     {
-        $userTypeList = $this->parseUserPreferences($userField, $fromField);
-        $appTypeList = $this->parseAppPreferences($appField, $fromField);
+        $userTypeList = $this->parsePreferences(false, $userField, $fromField);
+        $appTypeList = $this->parsePreferences(true, $appField, $fromField);
 
-        if (MatchedPreferencesInterface::MIME === $fromField) {
-            $all = $this->mimeNegotiator->negotiateAll($userTypeList, $appTypeList, $fromField);
-
-        } else {
-            $all = $this->stdNegotiator->negotiateAll($userTypeList, $appTypeList, $fromField);
-        }
+        $all = $this->negotiator->negotiateAll($userTypeList, $appTypeList, $fromField);
 
         return $all;
     }
@@ -250,49 +221,17 @@ class Negotiation
     /**
      * Parse user preferences and return an array of Preference instances
      *
-     * @param string $userField
+     * @param bool $appField
+     * @param string $field
      * @param string $fromField
      *
      * @return PreferenceInterface[]
      */
-    private function parseUserPreferences($userField, $fromField)
+    private function parsePreferences($appField, $field, $fromField)
     {
-        $tokenList = $this->tokenizer->tokenize($userField, $fromField);
+        $tokenList = $this->tokenizer->tokenize($field, $fromField);
 
-        if (MatchedPreferencesInterface::MIME === $fromField) {
-            $preferenceList = $this->mimeParser->parse($tokenList, false, $fromField);
-
-        } else {
-            $preferenceList = $this->stdParser->parse($tokenList, false, $fromField);
-        }
-
-        return $preferenceList;
-    }
-
-    /**
-     * Parse application preferences and return an array of Preference instances
-     *
-     * @throws \LogicException
-     *
-     * @param string $appField
-     * @param string $fromField
-     *
-     * @return PreferenceInterface[]
-     */
-    private function parseAppPreferences($appField, $fromField)
-    {
-        if (gettype($appField) === 'string') {
-            $tokenList = $this->tokenizer->tokenize($appField, $fromField);
-            if (MatchedPreferencesInterface::MIME === $fromField) {
-                $preferenceList = $this->mimeParser->parse($tokenList, true, $fromField);
-
-            } else {
-                $preferenceList = $this->stdParser->parse($tokenList, true, $fromField);
-            }
-
-        } else {
-            throw new \LogicException('Invalid application preferences passed to ' . __METHOD__);
-        }
+        $preferenceList = $this->parser->parse($tokenList, $appField, $fromField);
 
         return $preferenceList;
     }

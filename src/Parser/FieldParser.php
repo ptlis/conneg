@@ -23,19 +23,28 @@ use ptlis\ConNeg\Preference\PreferenceInterface;
 class FieldParser
 {
     /**
-     * @var PreferenceBuilderInterface Simple builder that can be used to incrementally build & return a type.
+     * @var PreferenceBuilderInterface
      */
-    private $typeBuilder;
+    private $stdPreferenceBuilder;
+
+    /**
+     * @var PreferenceBuilderInterface
+     */
+    private $mimePreferenceBuilder;
 
 
     /**
      * Constructor.
      *
-     * @param PreferenceBuilderInterface $typeBuilder
+     * @param PreferenceBuilderInterface $stdPreferenceBuilder
+     * @param PreferenceBuilderInterface $mimePreferenceBuilder
      */
-    public function __construct(PreferenceBuilderInterface $typeBuilder)
-    {
-        $this->typeBuilder = $typeBuilder;
+    public function __construct(
+        PreferenceBuilderInterface $stdPreferenceBuilder,
+        PreferenceBuilderInterface $mimePreferenceBuilder
+    ) {
+        $this->stdPreferenceBuilder = $stdPreferenceBuilder;
+        $this->mimePreferenceBuilder = $mimePreferenceBuilder;
     }
 
     /**
@@ -114,7 +123,12 @@ class FieldParser
      */
     private function createType(array $typeTokenList, array $paramBundleList, $appField, $fromField)
     {
-        $builder = $this->typeBuilder
+        $builder = $this->stdPreferenceBuilder;
+        if (PreferenceInterface::MIME === $fromField) {
+            $builder = $this->mimePreferenceBuilder;
+        }
+
+        $builder = $builder
             ->setFromField($fromField)
             ->setFromApp($appField)
             ->setType(implode('', $typeTokenList));

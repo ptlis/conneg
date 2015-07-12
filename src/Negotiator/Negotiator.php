@@ -34,17 +34,26 @@ class Negotiator implements NegotiatorInterface
     /**
      * @var PreferenceBuilderInterface
      */
-    private $preferenceBuilder;
+    private $stdPreferenceBuilder;
+
+    /**
+     * @var PreferenceBuilderInterface
+     */
+    private $mimePreferenceBuilder;
 
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param PreferenceBuilderInterface $preferenceBuilder
+     * @param PreferenceBuilderInterface $stdPreferenceBuilder
+     * @param PreferenceBuilderInterface $mimePreferenceBuilder
      */
-    public function __construct(PreferenceBuilderInterface $preferenceBuilder)
-    {
-        $this->preferenceBuilder = $preferenceBuilder;
+    public function __construct(
+        PreferenceBuilderInterface $stdPreferenceBuilder,
+        PreferenceBuilderInterface $mimePreferenceBuilder
+    ) {
+        $this->stdPreferenceBuilder = $stdPreferenceBuilder;
+        $this->mimePreferenceBuilder = $mimePreferenceBuilder;
     }
 
     /**
@@ -52,7 +61,12 @@ class Negotiator implements NegotiatorInterface
      */
     public function negotiateAll(array $userTypeList, array $appTypeList, $fromField)
     {
-        $emptyType = $this->preferenceBuilder
+        $builder = $this->stdPreferenceBuilder;
+        if (PreferenceInterface::MIME === $fromField) {
+            $builder = $this->mimePreferenceBuilder;
+        }
+
+        $emptyType = $builder
             ->setFromField($fromField)
             ->get();
 

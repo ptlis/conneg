@@ -53,8 +53,7 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             new Preference(Preference::MIME, 'application/rss+xml', 1, Preference::COMPLETE)
         );
 
-        $builder = new MimePreferenceBuilder();
-        $parser = new FieldParser($builder, true);
+        $parser = new FieldParser(new PreferenceBuilder(), new MimePreferenceBuilder());
 
         $real = $parser->parse($mimeTokens, true, Preference::MIME);
 
@@ -95,8 +94,7 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             new Preference(Preference::MIME, 'application/rss+xml', 1, Preference::COMPLETE)
         );
 
-        $builder = new MimePreferenceBuilder();
-        $parser = new FieldParser($builder, true);
+        $parser = new FieldParser(new PreferenceBuilder(), new MimePreferenceBuilder());
 
         $real = $parser->parse($mimeTokens, true, Preference::MIME);
 
@@ -139,8 +137,7 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             new Preference(Preference::MIME, 'application/rss+xml', 1, Preference::COMPLETE)
         );
 
-        $builder = new MimePreferenceBuilder();
-        $parser = new FieldParser($builder, true);
+        $parser = new FieldParser(new PreferenceBuilder(), new MimePreferenceBuilder());
 
         $real = $parser->parse($mimeTokens, true, Preference::MIME);
 
@@ -185,8 +182,7 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             new Preference(Preference::MIME, 'application/rss+xml', 1, Preference::COMPLETE)
         );
 
-        $builder = new MimePreferenceBuilder();
-        $parser = new FieldParser($builder, true);
+        $parser = new FieldParser(new PreferenceBuilder(), new MimePreferenceBuilder());
 
         $real = $parser->parse($mimeTokens, true, Preference::MIME);
 
@@ -229,8 +225,7 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             'rss+xml',
         );
 
-        $builder = new MimePreferenceBuilder();
-        $parser = new FieldParser($builder, true);
+        $parser = new FieldParser(new PreferenceBuilder(), new MimePreferenceBuilder());
 
         $parser->parse($mimeTokens, true, Preference::MIME);
     }
@@ -272,8 +267,7 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             new Preference(Preference::MIME, 'application/rss+xml', 1, Preference::COMPLETE)
         );
 
-        $builder = new MimePreferenceBuilder();
-        $parser = new FieldParser($builder, true);
+        $parser = new FieldParser(new PreferenceBuilder(), new MimePreferenceBuilder());
 
         $real = $parser->parse($mimeTokens, false, Preference::MIME);
 
@@ -301,8 +295,7 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             new Preference(Preference::LANGUAGE, 'es-ES', 0.9, Preference::COMPLETE)
         );
 
-        $builder = new PreferenceBuilder();
-        $parser = new FieldParser($builder, false);
+        $parser = new FieldParser(new PreferenceBuilder(), new MimePreferenceBuilder());
 
         $real = $parser->parse($tokens, true, Preference::LANGUAGE);
 
@@ -321,8 +314,7 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             '/'
         );
 
-        $builder = new MimePreferenceBuilder();
-        $parser = new FieldParser($builder, true);
+        $parser = new FieldParser(new PreferenceBuilder(), new MimePreferenceBuilder());
 
         $parser->parse($mimeTokens, true, Preference::MIME);
     }
@@ -343,8 +335,7 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             '0.8'
         );
 
-        $builder = new MimePreferenceBuilder();
-        $parser = new FieldParser($builder, true);
+        $parser = new FieldParser(new PreferenceBuilder(), new MimePreferenceBuilder());
 
         $parser->parse($mimeTokens, true, Preference::MIME);
     }
@@ -365,8 +356,7 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             '='
         );
 
-        $builder = new MimePreferenceBuilder();
-        $parser = new FieldParser($builder, true);
+        $parser = new FieldParser(new PreferenceBuilder(), new MimePreferenceBuilder());
 
         $parser->parse($mimeTokens, true, Preference::MIME);
     }
@@ -388,8 +378,7 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             new Preference(Preference::CHARSET, 'utf-8', 0.9, Preference::COMPLETE),
         );
 
-        $builder = new PreferenceBuilder();
-        $parser = new FieldParser($builder, false);
+        $parser = new FieldParser(new PreferenceBuilder(), new MimePreferenceBuilder());
 
         $real = $parser->parse($stdTokens, true, Preference::CHARSET);
 
@@ -414,8 +403,7 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             new Preference(Preference::CHARSET, 'utf-8', 0.9, Preference::COMPLETE),
         );
 
-        $builder = new PreferenceBuilder();
-        $parser = new FieldParser($builder, false);
+        $parser = new FieldParser(new PreferenceBuilder(), new MimePreferenceBuilder());
 
         $real = $parser->parse($stdTokens, true, Preference::CHARSET);
 
@@ -440,8 +428,7 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
             new Preference(Preference::CHARSET, 'utf-8', 0.9, Preference::COMPLETE),
         );
 
-        $builder = new PreferenceBuilder();
-        $parser = new FieldParser($builder, false);
+        $parser = new FieldParser(new PreferenceBuilder(), new MimePreferenceBuilder());
 
         $real = $parser->parse($stdTokens, true, Preference::CHARSET);
 
