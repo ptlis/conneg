@@ -13,8 +13,8 @@
 
 namespace ptlis\ConNeg\Test\Negotiation;
 
-use ptlis\ConNeg\Preference\CollectionInterface;
 use ptlis\ConNeg\Negotiation;
+use ptlis\ConNeg\Preference\Matched\CollectionInterface;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
 class MimeTest extends NegotiationDataProvider

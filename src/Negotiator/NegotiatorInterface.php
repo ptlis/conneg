@@ -13,7 +13,7 @@
 
 namespace ptlis\ConNeg\Negotiator;
 
-use ptlis\ConNeg\Preference\CollectionInterface;
+use ptlis\ConNeg\Preference\Matched\CollectionInterface;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
