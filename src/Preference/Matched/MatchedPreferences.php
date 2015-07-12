@@ -50,7 +50,7 @@ class MatchedPreferences implements MatchedPreferencesInterface
     /**
      * @inheritDoc
      */
-    public function getUserType()
+    public function getUserPreference()
     {
         return $this->userType;
     }
@@ -58,7 +58,7 @@ class MatchedPreferences implements MatchedPreferencesInterface
     /**
      * @inheritDoc
      */
-    public function getAppType()
+    public function getAppPreference()
     {
         return $this->appType;
     }
@@ -94,7 +94,7 @@ class MatchedPreferences implements MatchedPreferencesInterface
      */
     public function getPrecedence()
     {
-        return $this->getAppType()->getPrecedence() + $this->getUserType()->getPrecedence();
+        return $this->getAppPreference()->getPrecedence() + $this->getUserPreference()->getPrecedence();
     }
 
     /**
@@ -102,7 +102,7 @@ class MatchedPreferences implements MatchedPreferencesInterface
      */
     public function getFromField()
     {
-        return $this->getAppType()->getFromField();
+        return $this->getAppPreference()->getFromField();
     }
 
     /**

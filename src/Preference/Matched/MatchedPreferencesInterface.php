@@ -21,16 +21,16 @@ use ptlis\ConNeg\Preference\PreferenceInterface;
 interface MatchedPreferencesInterface extends PreferenceInterface
 {
     /**
-     * Returns the user's preferred type or an instance of AbsentType.
+     * Returns the user's preference.
      *
      * @return PreferenceInterface
      */
-    public function getUserType();
+    public function getUserPreference();
 
     /**
-     * Returns the application's preferred type or an instance of AbsentType.
+     * Returns the application's preference.
      *
      * @return PreferenceInterface
      */
-    public function getAppType();
+    public function getAppPreference();
 }

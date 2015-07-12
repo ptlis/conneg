@@ -53,7 +53,7 @@ class ExactMatcher implements MatcherInterface
     {
         $newMatch = new MatchedPreferences(
             $userPreference,
-            $matchingList[$userPreference->getType()]->getAppType()
+            $matchingList[$userPreference->getType()]->getAppPreference()
         );
 
         if ($this->sort->compare($matchingList[$userPreference->getType()], $newMatch) > 0) {

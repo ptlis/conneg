@@ -36,16 +36,16 @@ class SubtypeWildcardMatcher implements MatcherInterface
     public function doMatch(array $matchingList, PreferenceInterface $userPreference)
     {
         foreach ($matchingList as $key => $matching) {
-            $appPreference = $matching->getAppType();
+            $appPreference = $matching->getAppPreference();
             list($userMimeType) = explode('/', $userPreference->getType());
             list($appMimeType) = explode('/', $appPreference->getType());
 
             if ($userMimeType == $appMimeType
-                && $userPreference->getPrecedence() > $matching->getUserType()->getPrecedence()) {
+                && $userPreference->getPrecedence() > $matching->getUserPreference()->getPrecedence()) {
 
                 $matchingList[$key] = new MatchedPreferences(
                     $userPreference,
-                    $matchingList[$key]->getAppType()
+                    $matchingList[$key]->getAppPreference()
                 );
             }
         }

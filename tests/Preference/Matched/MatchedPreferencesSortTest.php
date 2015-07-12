@@ -52,8 +52,8 @@ class MatchedPreferencesSortTest extends \PHPUnit_Framework_TestCase
 
         $i = 0;
         foreach ($newCollection as $typePair) {
-            $this->assertSame($expectAppType[$i], $typePair->getAppType()->__toString());
-            $this->assertSame($expectUserType[$i], $typePair->getUserType()->__toString());
+            $this->assertSame($expectAppType[$i], $typePair->getAppPreference()->__toString());
+            $this->assertSame($expectUserType[$i], $typePair->getUserPreference()->__toString());
             $i++;
         }
     }
@@ -91,8 +91,8 @@ class MatchedPreferencesSortTest extends \PHPUnit_Framework_TestCase
 
         $i = 0;
         foreach ($newCollection as $typePair) {
-            $this->assertSame($expectAppType[$i], $typePair->getAppType()->__toString());
-            $this->assertSame($expectUserType[$i], $typePair->getUserType()->__toString());
+            $this->assertSame($expectAppType[$i], $typePair->getAppPreference()->__toString());
+            $this->assertSame($expectUserType[$i], $typePair->getUserPreference()->__toString());
             $i++;
         }
     }
@@ -132,8 +132,8 @@ class MatchedPreferencesSortTest extends \PHPUnit_Framework_TestCase
 
         $i = 0;
         foreach ($newCollection as $typePair) {
-            $this->assertSame($expectAppType[$i], $typePair->getAppType()->__toString());
-            $this->assertSame($expectUserType[$i], $typePair->getUserType()->__toString());
+            $this->assertSame($expectAppType[$i], $typePair->getAppPreference()->__toString());
+            $this->assertSame($expectUserType[$i], $typePair->getUserPreference()->__toString());
             $i++;
         }
     }
@@ -172,8 +172,8 @@ class MatchedPreferencesSortTest extends \PHPUnit_Framework_TestCase
 
         $i = 0;
         foreach ($newCollection as $typePair) {
-            $this->assertSame($expectAppType[$i], $typePair->getAppType()->__toString());
-            $this->assertSame($expectUserType[$i], $typePair->getUserType()->__toString());
+            $this->assertSame($expectAppType[$i], $typePair->getAppPreference()->__toString());
+            $this->assertSame($expectUserType[$i], $typePair->getUserPreference()->__toString());
             $i++;
         }
     }
@@ -212,8 +212,8 @@ class MatchedPreferencesSortTest extends \PHPUnit_Framework_TestCase
 
         $i = 0;
         foreach ($newCollection as $typePair) {
-            $this->assertSame($expectAppType[$i], $typePair->getAppType()->__toString());
-            $this->assertSame($expectUserType[$i], $typePair->getUserType()->__toString());
+            $this->assertSame($expectAppType[$i], $typePair->getAppPreference()->__toString());
+            $this->assertSame($expectUserType[$i], $typePair->getUserPreference()->__toString());
             $i++;
         }
     }
@@ -252,8 +252,8 @@ class MatchedPreferencesSortTest extends \PHPUnit_Framework_TestCase
 
         $i = 0;
         foreach ($newCollection as $typePair) {
-            $this->assertSame($expectAppType[$i], $typePair->getAppType()->__toString());
-            $this->assertSame($expectUserType[$i], $typePair->getUserType()->__toString());
+            $this->assertSame($expectAppType[$i], $typePair->getAppPreference()->__toString());
+            $this->assertSame($expectUserType[$i], $typePair->getUserPreference()->__toString());
             $i++;
         }
     }
@@ -292,8 +292,8 @@ class MatchedPreferencesSortTest extends \PHPUnit_Framework_TestCase
 
         $i = 0;
         foreach ($newCollection as $typePair) {
-            $this->assertSame($expectAppType[$i], $typePair->getAppType()->__toString());
-            $this->assertSame($expectUserType[$i], $typePair->getUserType()->__toString());
+            $this->assertSame($expectAppType[$i], $typePair->getAppPreference()->__toString());
+            $this->assertSame($expectUserType[$i], $typePair->getUserPreference()->__toString());
             $i++;
         }
     }
@@ -332,8 +332,8 @@ class MatchedPreferencesSortTest extends \PHPUnit_Framework_TestCase
 
         $i = 0;
         foreach ($newCollection as $typePair) {
-            $this->assertSame($expectAppType[$i], $typePair->getAppType()->__toString());
-            $this->assertSame($expectUserType[$i], $typePair->getUserType()->__toString());
+            $this->assertSame($expectAppType[$i], $typePair->getAppPreference()->__toString());
+            $this->assertSame($expectUserType[$i], $typePair->getUserPreference()->__toString());
             $i++;
         }
     }

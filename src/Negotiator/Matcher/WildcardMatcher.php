@@ -36,10 +36,10 @@ class WildcardMatcher implements MatcherInterface
     public function doMatch(array $matchingList, PreferenceInterface $userPreference)
     {
         foreach ($matchingList as $key => $matching) {
-            if ($userPreference->getPrecedence() > $matching->getUserType()->getPrecedence()) {
+            if ($userPreference->getPrecedence() > $matching->getUserPreference()->getPrecedence()) {
                 $matchingList[$key] = new MatchedPreferences(
                     $userPreference,
-                    $matchingList[$key]->getAppType()
+                    $matchingList[$key]->getAppPreference()
                 );
             }
         }

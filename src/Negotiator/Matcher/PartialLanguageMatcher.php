@@ -48,7 +48,7 @@ class PartialLanguageMatcher implements MatcherInterface
             if ($this->partialLangMatches($matching, $userPreference)) {
                 $newPair = new MatchedPreferences(
                     $userPreference,
-                    $matching->getAppType()
+                    $matching->getAppPreference()
                 );
 
                 $newMatchingList[$key] = $newPair;
@@ -75,8 +75,8 @@ class PartialLanguageMatcher implements MatcherInterface
         MatchedPreferences $matchedPreferences,
         PreferenceInterface $newUserPreference
     ) {
-        $appPreference = $matchedPreferences->getAppType();
-        $oldUserPreference = $matchedPreferences->getUserType();
+        $appPreference = $matchedPreferences->getAppPreference();
+        $oldUserPreference = $matchedPreferences->getUserPreference();
 
         // Note that this only supports the simplest case of (e.g.) en-* matching en-GB and en-US, additional
         // Language tags are explicitly ignored

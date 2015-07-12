@@ -154,12 +154,12 @@ class MatchedPreferencesSort
                 'right' => $rTypePair
             ),
             array(
-                'left' => $lTypePair->getUserType(),
-                'right' => $rTypePair->getUserType()
+                'left' => $lTypePair->getUserPreference(),
+                'right' => $rTypePair->getUserPreference()
             ),
             array(
-                'left' => $lTypePair->getAppType(),
-                'right' => $rTypePair->getAppType()
+                'left' => $lTypePair->getAppPreference(),
+                'right' => $rTypePair->getAppPreference()
             )
         );
 
