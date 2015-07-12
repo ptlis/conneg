@@ -135,7 +135,7 @@ class Negotiator implements NegotiatorInterface
      * @param PreferenceInterface $userType
      * @param MatchedPreferencesInterface[] $matchingList
      *
-     * @return  array<string,MatchedPreferencesInterface>
+     * @return MatchedPreferencesInterface[]
      */
     private function matchUserToAppTypes(PreferenceInterface $userType, array $matchingList)
     {

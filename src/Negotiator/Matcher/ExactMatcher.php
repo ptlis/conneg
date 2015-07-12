@@ -15,7 +15,6 @@ namespace ptlis\ConNeg\Negotiator\Matcher;
 
 use ptlis\ConNeg\Preference\Matched\MatchedPreferences;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferencesComparator;
-use ptlis\ConNeg\Preference\Matched\MatchedPreferencesSort;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**

@@ -13,8 +13,6 @@
 
 namespace ptlis\ConNeg\Preference\Matched;
 
-use ptlis\ConNeg\Preference\PreferenceInterface;
-
 /**
  * Helper class encoding the rules governing the sorting of MatchedPreferenceCollections.
  */
