@@ -24,22 +24,22 @@ interface NegotiatorInterface
     /**
      * Return a collection of types sorted by preference.
      *
-     * @param PreferenceInterface[] $userTypeList
-     * @param PreferenceInterface[] $appTypeList
+     * @param PreferenceInterface[] $userPreferenceList
+     * @param PreferenceInterface[] $appPreferenceList
      * @param string $fromField
      *
      * @return CollectionInterface
      */
-    public function negotiateAll(array $userTypeList, array $appTypeList, $fromField);
+    public function negotiateAll(array $userPreferenceList, array $appPreferenceList, $fromField);
 
     /**
      * Return the preferred type & product of application & user-agent quality factors.
      *
-     * @param PreferenceInterface[] $userTypeList
-     * @param PreferenceInterface[] $appTypeList
+     * @param PreferenceInterface[] $userPreferenceList
+     * @param PreferenceInterface[] $appPreferenceList
      * @param string $fromField
      *
      * @return PreferenceInterface
      */
-    public function negotiateBest(array $userTypeList, array $appTypeList, $fromField);
+    public function negotiateBest(array $userPreferenceList, array $appPreferenceList, $fromField);
 }

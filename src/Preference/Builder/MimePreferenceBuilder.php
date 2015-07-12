@@ -17,7 +17,7 @@ use ptlis\ConNeg\Exception\InvalidTypeException;
 use ptlis\ConNeg\Preference\Preference;
 
 /**
- * MIME type builder.
+ * MIME preference builder.
  */
 class MimePreferenceBuilder extends AbstractPreferenceBuilder
 {
@@ -34,7 +34,7 @@ class MimePreferenceBuilder extends AbstractPreferenceBuilder
                 throw new InvalidTypeException('"' . $type . '" is not a valid mime type');
             }
 
-            // Wildcards disallowed in app types
+            // Wildcards disallowed in app preferences
             if (in_array('*', $typeParts)) {
                 throw new InvalidTypeException('Wildcards are not allowed in application-provided types.');
             }
@@ -48,7 +48,7 @@ class MimePreferenceBuilder extends AbstractPreferenceBuilder
     {
         $typeParts = explode('/', $type);
 
-        // Ignore misformatted types
+        // Ignore malformed preferences
         if (2 !== count($typeParts)) {
             $type = '';
 
@@ -77,7 +77,7 @@ class MimePreferenceBuilder extends AbstractPreferenceBuilder
             );
         }
 
-        // Defaults for absent type
+        // Defaults for absent preference
         $precedence = Preference::ABSENT_TYPE;
         $qFactor = 0;
 

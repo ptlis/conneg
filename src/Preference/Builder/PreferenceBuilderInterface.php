@@ -16,7 +16,7 @@ namespace ptlis\ConNeg\Preference\Builder;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
- * Interface for type builders.
+ * Interface for preference builders.
  */
 interface PreferenceBuilderInterface
 {
@@ -57,7 +57,7 @@ interface PreferenceBuilderInterface
     public function setQualityFactor($qFactor);
 
     /**
-     * Get the hydrated type object.
+     * Get the hydrated preference object.
      *
      * @return PreferenceInterface
      */

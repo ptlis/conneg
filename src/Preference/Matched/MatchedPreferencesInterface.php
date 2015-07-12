@@ -16,7 +16,7 @@ namespace ptlis\ConNeg\Preference\Matched;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
- * Interface for types.
+ * Interface for preferences.
  */
 interface MatchedPreferencesInterface extends PreferenceInterface
 {

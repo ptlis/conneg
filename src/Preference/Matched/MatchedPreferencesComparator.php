@@ -16,7 +16,7 @@ namespace ptlis\ConNeg\Preference\Matched;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
- * Comparator used to order the type preferences.
+ * Comparator used to order the preferences.
  */
 class MatchedPreferencesComparator
 {
@@ -85,7 +85,7 @@ class MatchedPreferencesComparator
     }
 
     /**
-     * Compare quality factors of types.
+     * Compare quality factors of preferences.
      *
      * @param PreferenceInterface $lValue
      * @param PreferenceInterface $rValue
@@ -104,7 +104,7 @@ class MatchedPreferencesComparator
     }
 
     /**
-     * Compare precedences of types.
+     * Compare precedences of preferences.
      *
      * @param PreferenceInterface $lValue
      * @param PreferenceInterface $rValue
@@ -123,7 +123,7 @@ class MatchedPreferencesComparator
     }
 
     /**
-     * Compare types alphabetically
+     * Compare preferences alphabetically
      *
      * @param MatchedPreferencesInterface $lValue
      * @param MatchedPreferencesInterface $rValue

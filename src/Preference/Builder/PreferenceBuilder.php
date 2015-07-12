@@ -17,7 +17,7 @@ use ptlis\ConNeg\Exception\InvalidTypeException;
 use ptlis\ConNeg\Preference\Preference;
 
 /**
- * Shared type builder (handles Charset, Encoding & Language).
+ * Shared preference builder (handles Charset, Encoding & Language).
  */
 class PreferenceBuilder extends AbstractPreferenceBuilder
 {

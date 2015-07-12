@@ -16,7 +16,7 @@ namespace ptlis\ConNeg\Preference\Builder;
 use ptlis\ConNeg\Exception\InvalidTypeException;
 
 /**
- * Shared type building implementation.
+ * Shared preference building implementation.
  */
 abstract class AbstractPreferenceBuilder implements PreferenceBuilderInterface
 {

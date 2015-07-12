@@ -35,7 +35,7 @@ class Negotiator implements NegotiatorInterface
     /**
      * @var PreferenceBuilderInterface
      */
-    private $stdPreferenceBuilder;
+    private $preferenceBuilder;
 
     /**
      * @var PreferenceBuilderInterface
@@ -51,18 +51,18 @@ class Negotiator implements NegotiatorInterface
     /**
      * Constructor.
      *
-     * @param PreferenceBuilderInterface $stdPreferenceBuilder
+     * @param PreferenceBuilderInterface $preferenceBuilder
      * @param PreferenceBuilderInterface $mimePreferenceBuilder
      * @param MatcherInterface[] $matcherList Objects implementing MatcherInterface, matching is attempted in the order
      *      of the matcher objects in the array. When a match is found no further match tests are done and the testing
      *      loop will exit.
      */
     public function __construct(
-        PreferenceBuilderInterface $stdPreferenceBuilder,
+        PreferenceBuilderInterface $preferenceBuilder,
         PreferenceBuilderInterface $mimePreferenceBuilder,
         array $matcherList = array()
     ) {
-        $this->stdPreferenceBuilder = $stdPreferenceBuilder;
+        $this->preferenceBuilder = $preferenceBuilder;
         $this->mimePreferenceBuilder = $mimePreferenceBuilder;
 
         if (!count($matcherList)) {
@@ -71,7 +71,7 @@ class Negotiator implements NegotiatorInterface
                 new PartialLanguageMatcher(),
                 new SubtypeWildcardMatcher(),
                 new ExactMatcher(new MatchedPreferencesComparator()),
-                new AbsentMatcher($this->stdPreferenceBuilder, $this->mimePreferenceBuilder)
+                new AbsentMatcher($this->preferenceBuilder, $this->mimePreferenceBuilder)
             );
         }
         $this->matcherList = $matcherList;
@@ -80,24 +80,24 @@ class Negotiator implements NegotiatorInterface
     /**
      * @inheritDoc
      */
-    public function negotiateAll(array $userTypeList, array $appTypeList, $fromField)
+    public function negotiateAll(array $userPreferenceList, array $appPreferenceList, $fromField)
     {
-        $emptyType = $this->getBuilder($fromField)
+        $emptyPreference = $this->getBuilder($fromField)
             ->setFromField($fromField)
             ->get();
 
-        $sort = new MatchedPreferencesSort(new MatchedPreferences($emptyType, $emptyType));
+        $sort = new MatchedPreferencesSort(new MatchedPreferences($emptyPreference, $emptyPreference));
 
         $matchingList = array();
 
-        foreach ($appTypeList as $appType) {
-            $matchingList[$appType->getType()] = new MatchedPreferences(
-                $emptyType,
-                $appType
+        foreach ($appPreferenceList as $appPreference) {
+            $matchingList[$appPreference->getType()] = new MatchedPreferences(
+                $emptyPreference,
+                $appPreference
             );
         }
 
-        $matchingList = $this->matchUserListToAppTypes($userTypeList, $matchingList);
+        $matchingList = $this->matchUserListToAppPreferences($userPreferenceList, $matchingList);
         $pairCollection = new MatchedPreferencesCollection($sort, $matchingList);
 
         return $pairCollection->getDescending();
@@ -106,9 +106,9 @@ class Negotiator implements NegotiatorInterface
     /**
      * @inheritDoc
      */
-    public function negotiateBest(array $userTypeList, array $appTypeList, $fromField)
+    public function negotiateBest(array $userPreferenceList, array $appPreferenceList, $fromField)
     {
-        $pairCollection = $this->negotiateAll($userTypeList, $appTypeList, $fromField);
+        $pairCollection = $this->negotiateAll($userPreferenceList, $appPreferenceList, $fromField);
 
         return $pairCollection->getBest();
     }
@@ -116,14 +116,14 @@ class Negotiator implements NegotiatorInterface
     /**
      * Match user types to app types.
      *
-     * @param PreferenceInterface[] $userTypeList
+     * @param PreferenceInterface[] $userPreferenceList
      * @param MatchedPreferencesInterface[] $matchingList
      *
      * @return MatchedPreferencesInterface[]
      */
-    private function matchUserListToAppTypes(array $userTypeList, array $matchingList) {
-        foreach ($userTypeList as $userType) {
-            $matchingList = $this->matchUserToAppTypes($userType, $matchingList);
+    private function matchUserListToAppPreferences(array $userPreferenceList, array $matchingList) {
+        foreach ($userPreferenceList as $userPreference) {
+            $matchingList = $this->matchUserToAppPreferences($userPreference, $matchingList);
         }
 
         return $matchingList;
@@ -132,16 +132,16 @@ class Negotiator implements NegotiatorInterface
     /**
      * Match a single user type to the application types.
      *
-     * @param PreferenceInterface $userType
+     * @param PreferenceInterface $userPreference
      * @param MatchedPreferencesInterface[] $matchingList
      *
      * @return MatchedPreferencesInterface[]
      */
-    private function matchUserToAppTypes(PreferenceInterface $userType, array $matchingList)
+    private function matchUserToAppPreferences(PreferenceInterface $userPreference, array $matchingList)
     {
         foreach ($this->matcherList as $matcher) {
-            if ($matcher->hasMatch($matchingList, $userType)) {
-                $matchingList = $matcher->doMatch($matchingList, $userType);
+            if ($matcher->hasMatch($matchingList, $userPreference)) {
+                $matchingList = $matcher->doMatch($matchingList, $userPreference);
 
                 break;
             }
@@ -162,7 +162,7 @@ class Negotiator implements NegotiatorInterface
         if (PreferenceInterface::MIME === $fromField) {
             return $this->mimePreferenceBuilder;
         } else {
-            return $this->stdPreferenceBuilder;
+            return $this->preferenceBuilder;
         }
     }
 }

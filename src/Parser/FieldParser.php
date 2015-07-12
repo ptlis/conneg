@@ -25,7 +25,7 @@ class FieldParser
     /**
      * @var PreferenceBuilderInterface
      */
-    private $stdPreferenceBuilder;
+    private $preferenceBuilder;
 
     /**
      * @var PreferenceBuilderInterface
@@ -36,14 +36,14 @@ class FieldParser
     /**
      * Constructor.
      *
-     * @param PreferenceBuilderInterface $stdPreferenceBuilder
+     * @param PreferenceBuilderInterface $preferenceBuilder
      * @param PreferenceBuilderInterface $mimePreferenceBuilder
      */
     public function __construct(
-        PreferenceBuilderInterface $stdPreferenceBuilder,
+        PreferenceBuilderInterface $preferenceBuilder,
         PreferenceBuilderInterface $mimePreferenceBuilder
     ) {
-        $this->stdPreferenceBuilder = $stdPreferenceBuilder;
+        $this->preferenceBuilder = $preferenceBuilder;
         $this->mimePreferenceBuilder = $mimePreferenceBuilder;
     }
 
@@ -65,12 +65,12 @@ class FieldParser
         // Bundle tokens by type.
         $bundleList = $this->bundleTokens($tokenList, Tokens::TYPE_SEPARATOR);
 
-        $typeList = array();
+        $preferenceList = array();
         foreach ($bundleList as $bundle) {
-            $typeList[] = $this->parseBundle($bundle, $appField, $fromField);
+            $preferenceList[] = $this->parseBundle($bundle, $appField, $fromField);
         }
 
-        return $typeList;
+        return $preferenceList;
     }
 
     /**
@@ -86,7 +86,7 @@ class FieldParser
      */
     private function parseBundle(array $tokenBundle, $appField, $fromField)
     {
-        $type = null;
+        $preference = null;
         try {
             if (PreferenceInterface::MIME === $fromField) {
                 $this->validateBundleMimeType($tokenBundle);
@@ -100,7 +100,7 @@ class FieldParser
             $paramBundleList = $this->bundleTokens($paramTokenList, Tokens::PARAMS_SEPARATOR);
             $this->validateParamBundleList($paramBundleList, $appField);
 
-            $type = $this->createType($typeTokenList, $paramBundleList, $appField, $fromField);
+            $preference = $this->createPreference($typeTokenList, $paramBundleList, $appField, $fromField);
 
         } catch (InvalidTypeException $e) {
             if ($appField) {
@@ -108,7 +108,7 @@ class FieldParser
             }
         }
 
-        return $type;
+        return $preference;
     }
 
     /**
@@ -121,7 +121,7 @@ class FieldParser
      *
      * @return PreferenceInterface
      */
-    private function createType(array $typeTokenList, array $paramBundleList, $appField, $fromField)
+    private function createPreference(array $typeTokenList, array $paramBundleList, $appField, $fromField)
     {
         $builder = $this->getBuilder($fromField)
             ->setFromField($fromField)
@@ -266,7 +266,7 @@ class FieldParser
         if (PreferenceInterface::MIME === $fromField) {
             return $this->mimePreferenceBuilder;
         } else {
-            return $this->stdPreferenceBuilder;
+            return $this->preferenceBuilder;
         }
     }
 }

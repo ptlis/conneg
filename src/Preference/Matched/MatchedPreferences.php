@@ -16,35 +16,35 @@ namespace ptlis\ConNeg\Preference\Matched;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
- * Class for type pairs.
+ * Class for matched preferences.
  */
 class MatchedPreferences implements MatchedPreferencesInterface
 {
     /**
-     * The type from the User-Agent.
+     * The preference from the User-Agent.
      *
      * @var PreferenceInterface
      */
-    private $userType;
+    private $userPreference;
 
     /**
-     * The type from the Application.
+     * The preference from the Application.
      *
      * @var PreferenceInterface
      */
-    private $appType;
+    private $appPreference;
 
 
     /**
      * Constructor.
      *
-     * @param PreferenceInterface $appType
-     * @param PreferenceInterface $userType
+     * @param PreferenceInterface $appPreference
+     * @param PreferenceInterface $userPreference
      */
-    public function __construct(PreferenceInterface $userType, PreferenceInterface $appType)
+    public function __construct(PreferenceInterface $userPreference, PreferenceInterface $appPreference)
     {
-        $this->userType = $userType;
-        $this->appType  = $appType;
+        $this->userPreference = $userPreference;
+        $this->appPreference  = $appPreference;
     }
 
     /**
@@ -52,7 +52,7 @@ class MatchedPreferences implements MatchedPreferencesInterface
      */
     public function getUserPreference()
     {
-        return $this->userType;
+        return $this->userPreference;
     }
 
     /**
@@ -60,7 +60,7 @@ class MatchedPreferences implements MatchedPreferencesInterface
      */
     public function getAppPreference()
     {
-        return $this->appType;
+        return $this->appPreference;
     }
 
     /**
@@ -70,10 +70,10 @@ class MatchedPreferences implements MatchedPreferencesInterface
      */
     public function getType()
     {
-        if (strlen($this->userType->getType()) && !strstr($this->userType->getType(), '*')) {
-            return $this->userType->getType();
+        if (strlen($this->userPreference->getType()) && !strstr($this->userPreference->getType(), '*')) {
+            return $this->userPreference->getType();
         } else {
-            return $this->appType->getType();
+            return $this->appPreference->getType();
         }
     }
 
@@ -84,7 +84,7 @@ class MatchedPreferences implements MatchedPreferencesInterface
      */
     public function getQualityFactor()
     {
-        return $this->userType->getQualityFactor() * $this->appType->getQualityFactor();
+        return $this->userPreference->getQualityFactor() * $this->appPreference->getQualityFactor();
     }
 
     /**
@@ -106,7 +106,7 @@ class MatchedPreferences implements MatchedPreferencesInterface
     }
 
     /**
-     * Create string representation of type.
+     * Create string representation of the preference.
      *
      * @return string
      */

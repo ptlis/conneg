@@ -38,7 +38,7 @@ class MatchedPreferencesSort
     }
 
     /**
-     * Sort the array of typePairs in ascending order.
+     * Sort the array of MatchedPreferences in ascending order.
      *
      * @param MatchedPreferencesInterface[] $preferencesList
      *
