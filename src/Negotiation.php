@@ -14,15 +14,13 @@
 namespace ptlis\ConNeg;
 
 use ptlis\ConNeg\Preference\Matched\MatchedPreferencesCollection;
-use ptlis\ConNeg\Matcher\MimeMatcher;
-use ptlis\ConNeg\Matcher\Matcher;
+use ptlis\ConNeg\Negotiator\Negotiator;
 use ptlis\ConNeg\Parser\FieldParser;
 use ptlis\ConNeg\Parser\FieldTokenizer;
 use ptlis\ConNeg\Preference\Builder\MimePreferenceBuilder;
 use ptlis\ConNeg\Preference\Builder\PreferenceBuilder;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferences;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferencesInterface;
-use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
  * Class providing a simple API through which content negotiation is performed.
@@ -32,14 +30,14 @@ class Negotiation
     /**
      * Negotiator for non-mime types.
      *
-     * @var Matcher
+     * @var Negotiator
      */
     private $stdNegotiator;
 
     /**
      * Negotiator for mime types.
      *
-     * @var MimeMatcher
+     * @var Negotiator
      */
     private $mimeNegotiator;
 
@@ -79,8 +77,8 @@ class Negotiation
         $this->mimeParser = new FieldParser($mimeTypeBuilder);
 
 
-        $this->stdNegotiator = new Matcher($stdTypeBuilder);
-        $this->mimeNegotiator = new MimeMatcher($mimeTypeBuilder);
+        $this->stdNegotiator = new Negotiator($stdTypeBuilder);
+        $this->mimeNegotiator = new Negotiator($mimeTypeBuilder);
     }
 
     /**
@@ -93,7 +91,7 @@ class Negotiation
      */
     public function charsetBest($userField, $appField)
     {
-        return $this->genericBest($userField, $appField, PreferenceInterface::CHARSET);
+        return $this->genericBest($userField, $appField, MatchedPreferencesInterface::CHARSET);
     }
 
     /**
@@ -109,7 +107,7 @@ class Negotiation
      */
     public function charsetAll($userField, $appField)
     {
-        return $this->genericAll($userField, $appField, PreferenceInterface::CHARSET);
+        return $this->genericAll($userField, $appField, MatchedPreferencesInterface::CHARSET);
     }
 
     /**
@@ -122,7 +120,7 @@ class Negotiation
      */
     public function encodingBest($userField, $appField)
     {
-        return $this->genericBest($userField, $appField, PreferenceInterface::ENCODING);
+        return $this->genericBest($userField, $appField, MatchedPreferencesInterface::ENCODING);
     }
 
     /**
@@ -138,7 +136,7 @@ class Negotiation
      */
     public function encodingAll($userField, $appField)
     {
-        return $this->genericAll($userField, $appField, PreferenceInterface::ENCODING);
+        return $this->genericAll($userField, $appField, MatchedPreferencesInterface::ENCODING);
     }
 
     /**
@@ -151,7 +149,7 @@ class Negotiation
      */
     public function languageBest($userField, $appField)
     {
-        return $this->genericBest($userField, $appField, PreferenceInterface::LANGUAGE);
+        return $this->genericBest($userField, $appField, MatchedPreferencesInterface::LANGUAGE);
     }
 
     /**
@@ -167,7 +165,7 @@ class Negotiation
      */
     public function languageAll($userField, $appField)
     {
-        return $this->genericAll($userField, $appField, PreferenceInterface::LANGUAGE);
+        return $this->genericAll($userField, $appField, MatchedPreferencesInterface::LANGUAGE);
     }
 
     /**
@@ -180,7 +178,7 @@ class Negotiation
      */
     public function mimeBest($userField, $appField)
     {
-        return $this->genericBest($userField, $appField, PreferenceInterface::MIME);
+        return $this->genericBest($userField, $appField, MatchedPreferencesInterface::MIME);
     }
 
     /**
@@ -196,7 +194,7 @@ class Negotiation
      */
     public function mimeAll($userField, $appField)
     {
-        return $this->genericAll($userField, $appField, PreferenceInterface::MIME);
+        return $this->genericAll($userField, $appField, MatchedPreferencesInterface::MIME);
     }
 
     /**
@@ -213,7 +211,7 @@ class Negotiation
         $userTypeList = $this->sharedUserPrefsToTypes($userField, $fromField);
         $appTypeList = $this->sharedAppPrefsToTypes($appField, $fromField);
 
-        if (PreferenceInterface::MIME === $fromField) {
+        if (MatchedPreferencesInterface::MIME === $fromField) {
             $best = $this->mimeNegotiator->negotiateBest($userTypeList, $appTypeList, $fromField);
 
         } else {
@@ -238,7 +236,7 @@ class Negotiation
         $userTypeList = $this->sharedUserPrefsToTypes($userField, $fromField);
         $appTypeList = $this->sharedAppPrefsToTypes($appField, $fromField);
 
-        if (PreferenceInterface::MIME === $fromField) {
+        if (MatchedPreferencesInterface::MIME === $fromField) {
             $all = $this->mimeNegotiator->negotiateAll($userTypeList, $appTypeList, $fromField);
 
         } else {
@@ -254,13 +252,13 @@ class Negotiation
      * @param string $userField
      * @param string $fromField
      *
-     * @return PreferenceInterface[]
+     * @return MatchedPreferencesInterface[]
      */
     private function sharedUserPrefsToTypes($userField, $fromField)
     {
         $tokenList = $this->tokenizer->tokenize($userField, $fromField);
 
-        if (PreferenceInterface::MIME === $fromField) {
+        if (MatchedPreferencesInterface::MIME === $fromField) {
             $typeList = $this->mimeParser->parse($tokenList, false, $fromField);
 
         } else {
@@ -278,13 +276,13 @@ class Negotiation
      * @param string $appField
      * @param string $fromField
      *
-     * @return PreferenceInterface[]
+     * @return MatchedPreferencesInterface[]
      */
     private function sharedAppPrefsToTypes($appField, $fromField)
     {
         if (gettype($appField) === 'string') {
             $tokenList = $this->tokenizer->tokenize($appField, $fromField);
-            if (PreferenceInterface::MIME === $fromField) {
+            if (MatchedPreferencesInterface::MIME === $fromField) {
                 $appTypeList = $this->mimeParser->parse($tokenList, true, $fromField);
 
             } else {

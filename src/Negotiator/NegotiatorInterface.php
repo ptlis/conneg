@@ -11,15 +11,15 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\ConNeg\Matcher;
+namespace ptlis\ConNeg\Negotiator;
 
 use ptlis\ConNeg\Preference\CollectionInterface;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
- * Interface class that matching engines must implement.
+ * Interface class that negotiators must implement.
  */
-interface MatcherInterface
+interface NegotiatorInterface
 {
     /**
      * Return a collection of types sorted by preference.
