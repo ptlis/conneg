@@ -13,6 +13,7 @@
 
 namespace ptlis\ConNeg\Negotiator\Matcher;
 
+use ptlis\ConNeg\Preference\Builder\PreferenceBuilderInterface;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferences;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
@@ -22,26 +23,28 @@ use ptlis\ConNeg\Preference\PreferenceInterface;
 class AbsentMatcher implements MatcherInterface
 {
     /**
-     * @var PreferenceInterface
+     * @var PreferenceBuilderInterface
      */
-    private $emptyPreference;
+    private $preferenceBuilder;
 
     /**
-     * @var PreferenceInterface
+     * @var PreferenceBuilderInterface
      */
-    private $mimeEmptyPreference;
+    private $mimePreferenceBuilder;
 
 
     /**
      * Constructor.
      *
-     * @param PreferenceInterface $emptyPreference
-     * @param PreferenceInterface $mimeEmptyPreference
+     * @param PreferenceBuilderInterface $preferenceBuilder
+     * @param PreferenceBuilderInterface $mimePreferenceBuilder
      */
-    public function __construct(PreferenceInterface $emptyPreference, PreferenceInterface $mimeEmptyPreference)
-    {
-        $this->emptyPreference = $emptyPreference;
-        $this->mimeEmptyPreference = $mimeEmptyPreference;
+    public function __construct(
+        PreferenceBuilderInterface $preferenceBuilder,
+        PreferenceBuilderInterface $mimePreferenceBuilder
+    ) {
+        $this->preferenceBuilder = $preferenceBuilder;
+        $this->mimePreferenceBuilder = $mimePreferenceBuilder;
     }
 
     /**
@@ -57,10 +60,14 @@ class AbsentMatcher implements MatcherInterface
      */
     public function doMatch(array $matchingList, PreferenceInterface $userPreference)
     {
-        $emptyPreference = $this->emptyPreference;
+        $builder = $this->preferenceBuilder;
         if (PreferenceInterface::MIME === $userPreference->getFromField()) {
-            $emptyPreference = $this->mimeEmptyPreference;
+            $builder = $this->mimePreferenceBuilder;
         }
+
+        $emptyPreference = $builder
+            ->setFromField($userPreference->getFromField())
+            ->get();
 
         $matchingList[$userPreference->getType()] = new MatchedPreferences(
             $userPreference,

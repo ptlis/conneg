@@ -124,14 +124,7 @@ class Negotiator implements NegotiatorInterface
             new PartialLanguageMatcher(),
             new SubtypeWildcardMatcher(),
             new ExactMatcher(new MatchedPreferencesComparator()),
-            new AbsentMatcher(
-                $this->stdPreferenceBuilder
-                    ->setFromField($userType->getFromField())
-                    ->get(),
-                $this->mimePreferenceBuilder
-                    ->setFromField($userType->getFromField())
-                    ->get()
-            )
+            new AbsentMatcher($this->stdPreferenceBuilder, $this->mimePreferenceBuilder)
         );
 
         /** @var MatcherInterface $matcher */
