@@ -77,18 +77,46 @@ class MimePreferenceBuilder extends AbstractPreferenceBuilder
             );
         }
 
-        // Defaults for absent preference
-        $precedence = Preference::ABSENT_TYPE;
+        return new Preference(
+            $this->fromField,
+            $this->type,
+            $this->getQualityFactor(),
+            $this->getPrecedence()
+        );
+    }
+
+    /**
+     * Get the type's quality factor, defaulting to 0 on absent types.
+     *
+     * @return float
+     */
+    private function getQualityFactor()
+    {
         $qFactor = 0;
 
-        // A type was present
+        if (2 === count(explode('/', $this->type))) {
+            $qFactor = $this->qFactor;
+        }
+
+        return $qFactor;
+    }
+
+    /**
+     * Determine the precedence from the type.
+     *
+     * @return int
+     */
+    private function getPrecedence()
+    {
+        $precedence = Preference::ABSENT_TYPE;
+
+        // A type is present
         $explodedType = explode('/', $this->type);
         if (2 === count($explodedType)) {
 
             list($mimeType, $subType) = $explodedType;
 
             $precedence = Preference::COMPLETE;
-            $qFactor = $this->qFactor;
 
             if ('*' === $mimeType) {
                 $precedence = Preference::WILDCARD;
@@ -98,11 +126,6 @@ class MimePreferenceBuilder extends AbstractPreferenceBuilder
             }
         }
 
-        return new Preference(
-            $this->fromField,
-            $this->type,
-            $qFactor,
-            $precedence
-        );
+        return $precedence;
     }
 }
