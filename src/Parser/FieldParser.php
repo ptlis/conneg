@@ -170,21 +170,22 @@ class FieldParser
 
         foreach ($tokenList as $token) {
 
-            // Collect tokens
-            if ($targetToken !== $token) {
-                $bundle[] = $token;
-
             // On type separator add bundle to list & re-initialize empty bundle
-            } elseif (count($bundle)) {
+            if ($targetToken === $token) {
                 $bundleList[] = $bundle;
                 $bundle = array();
+
+            // Otherwise collect tokens
+            } else {
+                $bundle[] = $token;
             }
         }
 
         // Handle trailing type
-        if (count($bundle)) {
-            $bundleList[] = $bundle;
-        }
+        $bundleList[] = $bundle;
+
+        // Remove empty types
+        $bundleList = array_filter($bundleList);
 
         return $bundleList;
     }
