@@ -32,19 +32,19 @@ class MatchedPreferencesCollection implements CollectionInterface
      *
      * @var MatchedPreferencesInterface[]
      */
-    private $matchedPreferenceList;
+    private $matchedPrefList;
 
 
     /**
      * Constructor.
      *
      * @param MatchedPreferencesSort $pairSort
-     * @param MatchedPreferencesInterface[] $matchedPreferenceList
+     * @param MatchedPreferencesInterface[] $matchedPrefList
      */
-    public function __construct(MatchedPreferencesSort $pairSort, array $matchedPreferenceList)
+    public function __construct(MatchedPreferencesSort $pairSort, array $matchedPrefList)
     {
         $this->pairSort     = $pairSort;
-        $this->matchedPreferenceList = array_values($matchedPreferenceList);
+        $this->matchedPrefList = array_values($matchedPrefList);
     }
 
     /**
@@ -52,7 +52,7 @@ class MatchedPreferencesCollection implements CollectionInterface
      */
     public function count()
     {
-        return count($this->matchedPreferenceList);
+        return count($this->matchedPrefList);
     }
 
     /**
@@ -60,7 +60,7 @@ class MatchedPreferencesCollection implements CollectionInterface
      */
     public function getIterator()
     {
-        return new ArrayIterator($this->matchedPreferenceList);
+        return new ArrayIterator($this->matchedPrefList);
     }
 
     /**
@@ -68,7 +68,7 @@ class MatchedPreferencesCollection implements CollectionInterface
      */
     public function getAscending()
     {
-        return $this->pairSort->sortAscending($this->matchedPreferenceList);
+        return $this->pairSort->sortAscending($this->matchedPrefList);
     }
 
     /**
@@ -76,7 +76,7 @@ class MatchedPreferencesCollection implements CollectionInterface
      */
     public function getDescending()
     {
-        return $this->pairSort->sortDescending($this->matchedPreferenceList);
+        return $this->pairSort->sortDescending($this->matchedPrefList);
     }
 
     /**
@@ -84,7 +84,7 @@ class MatchedPreferencesCollection implements CollectionInterface
      */
     public function getBest()
     {
-        $bestPair = $this->pairSort->getBest($this->matchedPreferenceList);
+        $bestPair = $this->pairSort->getBest($this->matchedPrefList);
 
         return $bestPair;
     }
@@ -94,6 +94,6 @@ class MatchedPreferencesCollection implements CollectionInterface
      */
     public function __toString()
     {
-        return implode(',', $this->matchedPreferenceList);
+        return implode(',', $this->matchedPrefList);
     }
 }

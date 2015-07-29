@@ -25,26 +25,26 @@ class FieldParser
     /**
      * @var PreferenceBuilderInterface
      */
-    private $preferenceBuilder;
+    private $prefBuilder;
 
     /**
      * @var PreferenceBuilderInterface
      */
-    private $mimePreferenceBuilder;
+    private $mimePrefBuilder;
 
 
     /**
      * Constructor.
      *
-     * @param PreferenceBuilderInterface $preferenceBuilder
-     * @param PreferenceBuilderInterface $mimePreferenceBuilder
+     * @param PreferenceBuilderInterface $prefBuilder
+     * @param PreferenceBuilderInterface $mimePrefBuilder
      */
     public function __construct(
-        PreferenceBuilderInterface $preferenceBuilder,
-        PreferenceBuilderInterface $mimePreferenceBuilder
+        PreferenceBuilderInterface $prefBuilder,
+        PreferenceBuilderInterface $mimePrefBuilder
     ) {
-        $this->preferenceBuilder = $preferenceBuilder;
-        $this->mimePreferenceBuilder = $mimePreferenceBuilder;
+        $this->prefBuilder = $prefBuilder;
+        $this->mimePrefBuilder = $mimePrefBuilder;
     }
 
     /**
@@ -264,9 +264,9 @@ class FieldParser
     private function getBuilder($fromField)
     {
         if (PreferenceInterface::MIME === $fromField) {
-            return $this->mimePreferenceBuilder;
+            return $this->mimePrefBuilder;
         } else {
-            return $this->preferenceBuilder;
+            return $this->prefBuilder;
         }
     }
 }

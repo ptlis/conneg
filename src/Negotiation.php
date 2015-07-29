@@ -49,12 +49,12 @@ class Negotiation
      */
     public function __construct()
     {
-        $preferenceBuilder = new PreferenceBuilder();
-        $mimePreferenceBuilder = new MimePreferenceBuilder();
+        $prefBuilder = new PreferenceBuilder();
+        $mimePrefBuilder = new MimePreferenceBuilder();
 
         $this->tokenizer = new FieldTokenizer();
-        $this->parser = new FieldParser($preferenceBuilder, $mimePreferenceBuilder);
-        $this->negotiator = new Negotiator($preferenceBuilder, $mimePreferenceBuilder);
+        $this->parser = new FieldParser($prefBuilder, $mimePrefBuilder);
+        $this->negotiator = new Negotiator($prefBuilder, $mimePrefBuilder);
     }
 
     /**
