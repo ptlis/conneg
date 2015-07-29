@@ -15,6 +15,7 @@ namespace ptlis\ConNeg\Negotiator\Matcher;
 
 use ptlis\ConNeg\Preference\Matched\MatchedPreferences;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferencesComparator;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferencesInterface;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
@@ -43,7 +44,7 @@ class ExactMatcher implements MatcherInterface
      */
     public function hasMatch(array $matchingList, PreferenceInterface $userPreference)
     {
-        return array_key_exists($userPreference->getType(), $matchingList);
+        return $this->getMatchingTypes($matchingList, $userPreference) >= 0;
     }
 
     /**
@@ -51,15 +52,41 @@ class ExactMatcher implements MatcherInterface
      */
     public function doMatch(array $matchingList, PreferenceInterface $userPreference)
     {
-        $newMatch = new MatchedPreferences(
-            $userPreference,
-            $matchingList[$userPreference->getType()]->getAppPreference()
-        );
+        $matchIndex = $this->getMatchingTypes($matchingList, $userPreference);
 
-        if ($this->comparator->compare($matchingList[$userPreference->getType()], $newMatch) > 0) {
-            $matchingList[$userPreference->getType()] = $newMatch;
+        if ($matchIndex >= 0) {
+
+            $newMatch = new MatchedPreferences(
+                $userPreference,
+                $matchingList[$matchIndex]->getAppPreference()
+            );
+
+            if ($this->comparator->compare($matchingList[$matchIndex], $newMatch) > 0) {
+                $matchingList[$matchIndex] = $newMatch;
+            }
         }
 
         return $matchingList;
+    }
+
+    /**
+     * Returns the first index containing a matching type.
+     *
+     * @param MatchedPreferencesInterface[] $matchingList
+     * @param PreferenceInterface $preference
+     *
+     * @return int
+     */
+    private function getMatchingTypes(array $matchingList, PreferenceInterface $preference)
+    {
+        $index = -1;
+
+        foreach ($matchingList as $key => $match) {
+            if ($match->getType() === $preference->getType()) {
+                $index = $key;
+            }
+        }
+
+        return $index;
     }
 }

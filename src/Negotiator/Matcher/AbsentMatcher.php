@@ -69,7 +69,7 @@ class AbsentMatcher implements MatcherInterface
             ->setFromField($userPreference->getFromField())
             ->get();
 
-        $matchingList[$userPreference->getType()] = new MatchedPreferences(
+        $matchingList[] = new MatchedPreferences(
             $userPreference,
             $emptyPreference
         );

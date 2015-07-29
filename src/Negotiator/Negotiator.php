@@ -91,7 +91,7 @@ class Negotiator implements NegotiatorInterface
         $matchingList = array();
 
         foreach ($appPreferenceList as $appPreference) {
-            $matchingList[$appPreference->getType()] = new MatchedPreferences(
+            $matchingList[] = new MatchedPreferences(
                 $emptyPreference,
                 $appPreference
             );
