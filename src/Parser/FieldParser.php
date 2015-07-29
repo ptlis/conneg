@@ -88,14 +88,7 @@ class FieldParser
     {
         $preference = null;
         try {
-            if (PreferenceInterface::MIME === $fromField) {
-                $this->validateBundleMimeType($tokenBundle);
-                $typeTokenList = array_slice($tokenBundle, 0, 3);
-                $paramTokenList = array_slice($tokenBundle, 3);
-            } else {
-                $typeTokenList = array_slice($tokenBundle, 0, 1);
-                $paramTokenList = array_slice($tokenBundle, 1);
-            }
+            list($typeTokenList, $paramTokenList) = $this->splitTypeAndParamTokens($tokenBundle, $fromField);
 
             $paramBundleList = $this->bundleTokens($paramTokenList, Tokens::PARAMS_SEPARATOR);
             $this->validateParamBundleList($paramBundleList, $appField);
@@ -109,6 +102,30 @@ class FieldParser
         }
 
         return $preference;
+    }
+
+    /**
+     * Splits the token list into type & parameter arrays.
+     *
+     * @throws InvalidTypeException
+     *
+     * @param array<string> $tokenBundle
+     * @param string $fromField
+     *
+     * @return string[][]
+     */
+    private function splitTypeAndParamTokens(array $tokenBundle, $fromField)
+    {
+        if (PreferenceInterface::MIME === $fromField) {
+            $this->validateBundleMimeType($tokenBundle);
+            $typeTokenList = array_slice($tokenBundle, 0, 3);
+            $paramTokenList = array_slice($tokenBundle, 3);
+        } else {
+            $typeTokenList = array_slice($tokenBundle, 0, 1);
+            $paramTokenList = array_slice($tokenBundle, 1);
+        }
+
+        return array($typeTokenList, $paramTokenList);
     }
 
     /**
