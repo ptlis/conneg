@@ -44,26 +44,52 @@ class PreferenceBuilder extends AbstractPreferenceBuilder
             );
         }
 
-        $precedence = Preference::COMPLETE;
-        $qFactor = $this->qFactor;
+        return new Preference(
+            $this->fromField,
+            $this->type,
+            $this->getQualityFactor(),
+            $this->getPrecedence()
+        );
+    }
 
+    /**
+     * Get the type's quality factor, defaulting to 0 on absent types.
+     *
+     * @return float
+     */
+    private function getQualityFactor()
+    {
+        $qFactor = 0;
+
+        if (strlen($this->type)) {
+            $qFactor = $this->qFactor;
+        }
+
+        return $qFactor;
+    }
+
+    /**
+     * Determine the precedence from the type.
+     *
+     * @return int
+     */
+    private function getPrecedence()
+    {
+        $precedence = Preference::ABSENT_TYPE;
+
+        // Wildcards
         if ('*' === $this->type) {
             $precedence = Preference::WILDCARD;
-
-        } elseif (!strlen($this->type)) {
-            $precedence = Preference::ABSENT_TYPE;
-            $qFactor = 0;
 
         // Special handling for Accept-Language field
         } elseif (Preference::LANGUAGE === $this->fromField && '-*' === substr($this->type, -2, 2)) {
             $precedence = Preference::PARTIAL_WILDCARD;
+
+        // Full match
+        } else if (strlen($this->type)) {
+            $precedence = Preference::COMPLETE;
         }
 
-        return new Preference(
-            $this->fromField,
-            $this->type,
-            $qFactor,
-            $precedence
-        );
+        return $precedence;
     }
 }
