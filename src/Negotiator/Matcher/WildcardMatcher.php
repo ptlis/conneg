@@ -24,22 +24,22 @@ class WildcardMatcher implements MatcherInterface
     /**
      * @inheritDoc
      */
-    public function hasMatch(array $matchingList, PreferenceInterface $userPreference)
+    public function hasMatch(array $matchingList, PreferenceInterface $clientPref)
     {
         // TODO: Check to see if there is an actual match?
-        return PreferenceInterface::WILDCARD === $userPreference->getPrecedence();
+        return PreferenceInterface::WILDCARD === $clientPref->getPrecedence();
     }
 
     /**
      * @inheritDoc
      */
-    public function doMatch(array $matchingList, PreferenceInterface $userPreference)
+    public function doMatch(array $matchingList, PreferenceInterface $clientPref)
     {
         foreach ($matchingList as $key => $matching) {
-            if ($userPreference->getPrecedence() > $matching->getUserPreference()->getPrecedence()) {
+            if ($clientPref->getPrecedence() > $matching->getClientPreference()->getPrecedence()) {
                 $matchingList[$key] = new MatchedPreferences(
-                    $userPreference,
-                    $matchingList[$key]->getAppPreference()
+                    $clientPref,
+                    $matchingList[$key]->getServerPreference()
                 );
             }
         }

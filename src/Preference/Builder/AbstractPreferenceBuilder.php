@@ -23,7 +23,7 @@ abstract class AbstractPreferenceBuilder implements PreferenceBuilderInterface
     /**
      * @var bool
      */
-    protected $isFromApp = false;
+    protected $isFromServer = false;
 
     /**
      * @var string
@@ -44,10 +44,10 @@ abstract class AbstractPreferenceBuilder implements PreferenceBuilderInterface
     /**
      * @inheritDoc
      */
-    public function setFromApp($isFromApp)
+    public function setFromServer($isFromServer)
     {
         $clone = clone $this;
-        $clone->isFromApp = $isFromApp;
+        $clone->isFromServer = $isFromServer;
 
         return $clone;
     }
@@ -70,7 +70,7 @@ abstract class AbstractPreferenceBuilder implements PreferenceBuilderInterface
      */
     public function setType($type)
     {
-        if ($this->isFromApp) {
+        if ($this->isFromServer) {
             $this->validateType($type);
         }
 
@@ -83,12 +83,12 @@ abstract class AbstractPreferenceBuilder implements PreferenceBuilderInterface
     /**
      * @inheritDoc
      *
-     * @throws InvalidTypeException If an invalid quality factor in encountered when building an application type.
+     * @throws InvalidTypeException If an invalid quality factor in encountered when building an server type.
      */
     public function setQualityFactor($qFactor)
     {
-        if ($this->isFromApp && !$this->validQualityFactor($qFactor)) {
-            throw new InvalidTypeException('Invalid quality factor "' . $qFactor . '" in application preferences');
+        if ($this->isFromServer && !$this->validQualityFactor($qFactor)) {
+            throw new InvalidTypeException('Invalid quality factor "' . $qFactor . '" in server preferences');
         }
 
         $qFactor = $this->normalizeQualityFactor($qFactor);

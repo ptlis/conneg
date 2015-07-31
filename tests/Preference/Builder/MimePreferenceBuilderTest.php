@@ -29,7 +29,7 @@ class MimePreferenceBuilderTest extends \PHPUnit_Framework_TestCase
 
         $real = $builder
             ->setFromField(Preference::MIME)
-            ->setFromApp(true)
+            ->setFromServer(true)
             ->setType('text/html')
             ->setQualityFactor(1)
             ->get();
@@ -37,7 +37,7 @@ class MimePreferenceBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $real);
     }
 
-    public function testBuildUserWildcardTypeOnlyInvalid()
+    public function testBuildClientWildcardTypeOnlyInvalid()
     {
         $expected = new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE);
 
@@ -45,7 +45,7 @@ class MimePreferenceBuilderTest extends \PHPUnit_Framework_TestCase
 
         $real = $builder
             ->setFromField(Preference::MIME)
-            ->setFromApp(false)
+            ->setFromServer(false)
             ->setType('*/html')
             ->setQualityFactor(1)
             ->get();
@@ -53,7 +53,7 @@ class MimePreferenceBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $real);
     }
 
-    public function testBuildUserTypeInvalid()
+    public function testBuildClientTypeInvalid()
     {
         $expected = new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE);
 
@@ -61,7 +61,7 @@ class MimePreferenceBuilderTest extends \PHPUnit_Framework_TestCase
 
         $real = $builder
             ->setFromField(Preference::MIME)
-            ->setFromApp(false)
+            ->setFromServer(false)
             ->setType('foo-bar')
             ->setQualityFactor(1)
             ->get();
@@ -69,7 +69,7 @@ class MimePreferenceBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $real);
     }
 
-    public function testBuildAppInvalidType()
+    public function testBuildServerInvalidType()
     {
         $this->setExpectedException(
             '\ptlis\ConNeg\Exception\InvalidTypeException',
@@ -80,30 +80,30 @@ class MimePreferenceBuilderTest extends \PHPUnit_Framework_TestCase
 
         $builder
             ->setFromField(Preference::MIME)
-            ->setFromApp(true)
+            ->setFromServer(true)
             ->setType('foo')
             ->setQualityFactor(1)
             ->get();
     }
 
-    public function testBuildAppWildcardInvalid()
+    public function testBuildServerWildcardInvalid()
     {
         $this->setExpectedException(
             '\ptlis\ConNeg\Exception\InvalidTypeException',
-            'Wildcards are not allowed in application-provided types.'
+            'Wildcards are not allowed in server-provided types.'
         );
 
         $builder = new MimePreferenceBuilder();
 
         $builder
             ->setFromField(Preference::MIME)
-            ->setFromApp(true)
+            ->setFromServer(true)
             ->setType('text/*')
             ->setQualityFactor(1)
             ->get();
     }
 
-    public function testAppOmittedField()
+    public function testServerOmittedField()
     {
         $this->setExpectedException(
             '\RuntimeException',
@@ -113,7 +113,7 @@ class MimePreferenceBuilderTest extends \PHPUnit_Framework_TestCase
         $builder = new MimePreferenceBuilder();
 
         $builder
-            ->setFromApp(true)
+            ->setFromServer(true)
             ->setType('text/html')
             ->setQualityFactor(0.5)
             ->get();

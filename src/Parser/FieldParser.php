@@ -52,25 +52,25 @@ class FieldParser
      *
      * @throws InvalidTypeException
      *
-     * @param array<string> $tokenList   An array of types from a User-Agent; needed as we must be more tolerant of
-     *                              malformed fields with incoming data than from the application.
-     * @param bool $appField        If true the field came from the application & we error on malformed data otherwise
-     *                              we suppress errors for user-agent types.
+     * @param array<string> $tokenList An array of types from the client; needed as we must be more tolerant of
+     *                                 malformed fields with incoming data than from the server.
+     * @param bool $serverField If true the field came from the server & we error on malformed data otherwise we
+     *                          suppress errors for client types.
      * @param string $fromField Which field the tokens came from
      *
      * @return PreferenceInterface[]
      */
-    public function parse(array $tokenList, $appField, $fromField)
+    public function parse(array $tokenList, $serverField, $fromField)
     {
         // Bundle tokens by type.
         $bundleList = $this->bundleTokens($tokenList, Tokens::TYPE_SEPARATOR);
 
-        $preferenceList = array();
+        $prefList = array();
         foreach ($bundleList as $bundle) {
-            $preferenceList[] = $this->parseBundle($bundle, $appField, $fromField);
+            $prefList[] = $this->parseBundle($bundle, $serverField, $fromField);
         }
 
-        return $preferenceList;
+        return $prefList;
     }
 
     /**
@@ -79,29 +79,29 @@ class FieldParser
      * @throws InvalidTypeException
      *
      * @param array<string> $tokenBundle
-     * @param bool $appField
+     * @param bool $serverField
      * @param string $fromField
      *
      * @return null|PreferenceInterface
      */
-    private function parseBundle(array $tokenBundle, $appField, $fromField)
+    private function parseBundle(array $tokenBundle, $serverField, $fromField)
     {
-        $preference = null;
+        $pref = null;
         try {
             list($typeTokenList, $paramTokenList) = $this->splitTypeAndParamTokens($tokenBundle, $fromField);
 
             $paramBundleList = $this->bundleTokens($paramTokenList, Tokens::PARAMS_SEPARATOR);
-            $this->validateParamBundleList($paramBundleList, $appField);
+            $this->validateParamBundleList($paramBundleList, $serverField);
 
-            $preference = $this->createPreference($typeTokenList, $paramBundleList, $appField, $fromField);
+            $pref = $this->createPreference($typeTokenList, $paramBundleList, $serverField, $fromField);
 
         } catch (InvalidTypeException $e) {
-            if ($appField) {
+            if ($serverField) {
                 throw $e;
             }
         }
 
-        return $preference;
+        return $pref;
     }
 
     /**
@@ -133,16 +133,16 @@ class FieldParser
      *
      * @param array<string> $typeTokenList
      * @param array<array<string>> $paramBundleList
-     * @param bool $appField
+     * @param bool $serverField
      * @param string $fromField
      *
      * @return PreferenceInterface
      */
-    private function createPreference(array $typeTokenList, array $paramBundleList, $appField, $fromField)
+    private function createPreference(array $typeTokenList, array $paramBundleList, $serverField, $fromField)
     {
         $builder = $this->getBuilder($fromField)
             ->setFromField($fromField)
-            ->setFromApp($appField)
+            ->setFromServer($serverField)
             ->setType(implode('', $typeTokenList));
 
         // Look for quality factor, discarding accept-extens
@@ -234,10 +234,10 @@ class FieldParser
      * @throws InvalidTypeException
      *
      * @param array<array<string>> $paramBundleList
-     * @param bool $appField        If true the field came from the application & we error on malformed data otherwise
-     *                              we suppress errors for user-agent types.
+     * @param bool $serverField     If true the field came from the server & we error on malformed data otherwise
+     *                              we suppress errors for client types.
      */
-    private function validateParamBundleList(array $paramBundleList, $appField)
+    private function validateParamBundleList(array $paramBundleList, $serverField)
     {
         foreach ($paramBundleList as $paramBundle) {
 
@@ -245,8 +245,8 @@ class FieldParser
                 $this->validateParamBundle($paramBundle);
             } catch (InvalidTypeException $e) {
 
-                // Rethrow exception only if the field was provided by the application
-                if ($appField) {
+                // Rethrow exception only if the field was provided by the server
+                if ($serverField) {
                     throw $e;
                 }
             }

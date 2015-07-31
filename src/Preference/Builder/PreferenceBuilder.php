@@ -26,8 +26,8 @@ class PreferenceBuilder extends AbstractPreferenceBuilder
      */
     protected function validateType($type)
     {
-        if ($this->isFromApp && '*' === $type) {
-            throw new InvalidTypeException('Wildcards are not allowed in application-provided types.');
+        if ($this->isFromServer && '*' === $type) {
+            throw new InvalidTypeException('Wildcards are not allowed in server-provided types.');
         }
     }
 

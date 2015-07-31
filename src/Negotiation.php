@@ -58,170 +58,170 @@ class Negotiation
     }
 
     /**
-     * Parse the Accept-Charset field & negotiate against application types, returns the preferred type.
+     * Parse the Accept-Charset field & negotiate against server types, returns the preferred type.
      *
-     * @param string $userField
-     * @param string $appField
+     * @param string $clientField
+     * @param string $serverField
      *
      * @return MatchedPreferencesInterface
      */
-    public function charsetBest($userField, $appField)
+    public function charsetBest($clientField, $serverField)
     {
-        return $this->genericBest($userField, $appField, MatchedPreferencesInterface::CHARSET);
+        return $this->genericBest($clientField, $serverField, MatchedPreferencesInterface::CHARSET);
     }
 
     /**
-     * Parse the Accept-Charset field & negotiate against application types, returns a sorted array of preferences.
+     * Parse the Accept-Charset field & negotiate against server types, returns a sorted array of preferences.
      *
-     * @param string $userField
-     * @param string $appField
+     * @param string $clientField
+     * @param string $serverField
      *
      * @throws \LogicException
      *
      * @return MatchedPreferencesCollection
      */
-    public function charsetAll($userField, $appField)
+    public function charsetAll($clientField, $serverField)
     {
-        return $this->genericAll($userField, $appField, MatchedPreferencesInterface::CHARSET);
+        return $this->genericAll($clientField, $serverField, MatchedPreferencesInterface::CHARSET);
     }
 
     /**
-     * Parse the Accept-Encoding field & negotiate against application types, returns the preferred type.
+     * Parse the Accept-Encoding field & negotiate against server types, returns the preferred type.
      *
-     * @param string $userField
-     * @param string $appField
+     * @param string $clientField
+     * @param string $serverField
      *
      * @return MatchedPreferencesInterface
      */
-    public function encodingBest($userField, $appField)
+    public function encodingBest($clientField, $serverField)
     {
-        return $this->genericBest($userField, $appField, MatchedPreferencesInterface::ENCODING);
+        return $this->genericBest($clientField, $serverField, MatchedPreferencesInterface::ENCODING);
     }
 
     /**
-     * Parse the Accept-Encoding field & negotiate against application types, returns a sorted array of preferences.
+     * Parse the Accept-Encoding field & negotiate against server types, returns a sorted array of preferences.
      *
-     * @param string $userField
-     * @param string $appField
+     * @param string $clientField
+     * @param string $serverField
      *
      * @throws \LogicException
      *
      * @return MatchedPreferencesCollection
      */
-    public function encodingAll($userField, $appField)
+    public function encodingAll($clientField, $serverField)
     {
-        return $this->genericAll($userField, $appField, MatchedPreferencesInterface::ENCODING);
+        return $this->genericAll($clientField, $serverField, MatchedPreferencesInterface::ENCODING);
     }
 
     /**
-     * Parse the Accept-Language field & negotiate against application types, returns the preferred type.
+     * Parse the Accept-Language field & negotiate against server types, returns the preferred type.
      *
-     * @param string $userField
-     * @param string $appField
+     * @param string $clientField
+     * @param string $serverField
      *
      * @return MatchedPreferencesInterface
      */
-    public function languageBest($userField, $appField)
+    public function languageBest($clientField, $serverField)
     {
-        return $this->genericBest($userField, $appField, MatchedPreferencesInterface::LANGUAGE);
+        return $this->genericBest($clientField, $serverField, MatchedPreferencesInterface::LANGUAGE);
     }
 
     /**
-     * Parse the Accept-Language field & negotiate against application types, returns a sorted array of preferences.
+     * Parse the Accept-Language field & negotiate against server types, returns a sorted array of preferences.
      *
-     * @param string $userField
-     * @param string $appField
+     * @param string $clientField
+     * @param string $serverField
      *
      * @throws \LogicException
      *
      * @return MatchedPreferencesCollection
      */
-    public function languageAll($userField, $appField)
+    public function languageAll($clientField, $serverField)
     {
-        return $this->genericAll($userField, $appField, MatchedPreferencesInterface::LANGUAGE);
+        return $this->genericAll($clientField, $serverField, MatchedPreferencesInterface::LANGUAGE);
     }
 
     /**
-     * Parse the Accept field & negotiate against application types, returns the preferred type.
+     * Parse the Accept field & negotiate against server types, returns the preferred type.
      *
-     * @param string $userField
-     * @param string $appField
+     * @param string $clientField
+     * @param string $serverField
      *
      * @return MatchedPreferencesInterface
      */
-    public function mimeBest($userField, $appField)
+    public function mimeBest($clientField, $serverField)
     {
-        return $this->genericBest($userField, $appField, MatchedPreferencesInterface::MIME);
+        return $this->genericBest($clientField, $serverField, MatchedPreferencesInterface::MIME);
     }
 
     /**
-     * Parse the Accept field & negotiate against application types, returns a sorted array of preferences.
+     * Parse the Accept field & negotiate against server types, returns a sorted array of preferences.
      *
-     * @param string $userField
-     * @param string $appField
+     * @param string $clientField
+     * @param string $serverField
      *
      * @throws \LogicException
      *
      * @return MatchedPreferencesCollection
      */
-    public function mimeAll($userField, $appField)
+    public function mimeAll($clientField, $serverField)
     {
-        return $this->genericAll($userField, $appField, MatchedPreferencesInterface::MIME);
+        return $this->genericAll($clientField, $serverField, MatchedPreferencesInterface::MIME);
     }
 
     /**
-     * Shared code to parse an Accept* field & negotiate against application types, returns the preferred type.
+     * Shared code to parse an Accept* field & negotiate against server types, returns the preferred type.
      *
-     * @param string $userField
-     * @param string $appField
+     * @param string $clientField
+     * @param string $serverField
      * @param string $fromField
      *
      * @return MatchedPreferences|MatchedPreferencesInterface
      */
-    private function genericBest($userField, $appField, $fromField)
+    private function genericBest($clientField, $serverField, $fromField)
     {
-        $userPreferenceList = $this->parsePreferences(false, $userField, $fromField);
-        $appPreferenceList = $this->parsePreferences(true, $appField, $fromField);
+        $clientPrefList = $this->parsePreferences(false, $clientField, $fromField);
+        $serverPrefList = $this->parsePreferences(true, $serverField, $fromField);
 
-        $best = $this->negotiator->negotiateBest($userPreferenceList, $appPreferenceList, $fromField);
+        $best = $this->negotiator->negotiateBest($clientPrefList, $serverPrefList, $fromField);
 
         return $best;
     }
 
     /**
-     * Shared code to parse an Accept* field & negotiate against application types, returns an array of preferences.
+     * Shared code to parse an Accept* field & negotiate against server types, returns an array of preferences.
      *
-     * @param string $userField
-     * @param string $appField
+     * @param string $clientField
+     * @param string $serverField
      * @param string $fromField
      *
      * @return MatchedPreferencesCollection
      */
-    private function genericAll($userField, $appField, $fromField)
+    private function genericAll($clientField, $serverField, $fromField)
     {
-        $userPreferenceList = $this->parsePreferences(false, $userField, $fromField);
-        $appPreferenceList = $this->parsePreferences(true, $appField, $fromField);
+        $clientPrefList = $this->parsePreferences(false, $clientField, $fromField);
+        $serverPrefList = $this->parsePreferences(true, $serverField, $fromField);
 
-        $all = $this->negotiator->negotiateAll($userPreferenceList, $appPreferenceList, $fromField);
+        $all = $this->negotiator->negotiateAll($clientPrefList, $serverPrefList, $fromField);
 
         return $all;
     }
 
     /**
-     * Parse user preferences and return an array of Preference instances
+     * Parse client preferences and return an array of Preference instances
      *
-     * @param bool $appField
+     * @param bool $serverField
      * @param string $field
      * @param string $fromField
      *
      * @return PreferenceInterface[]
      */
-    private function parsePreferences($appField, $field, $fromField)
+    private function parsePreferences($serverField, $field, $fromField)
     {
         $tokenList = $this->tokenizer->tokenize($field, $fromField);
 
-        $preferenceList = $this->parser->parse($tokenList, $appField, $fromField);
+        $prefList = $this->parser->parse($tokenList, $serverField, $fromField);
 
-        return $preferenceList;
+        return $prefList;
     }
 }

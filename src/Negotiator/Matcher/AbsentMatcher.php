@@ -18,7 +18,7 @@ use ptlis\ConNeg\Preference\Matched\MatchedPreferences;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
- * Matcher creating MatchedPreferences with an absent application preference.
+ * Matcher creating MatchedPreferences with an absent server preference.
  */
 class AbsentMatcher implements MatcherInterface
 {
@@ -50,7 +50,7 @@ class AbsentMatcher implements MatcherInterface
     /**
      * @inheritDoc
      */
-    public function hasMatch(array $matchingList, PreferenceInterface $userPreference)
+    public function hasMatch(array $matchingList, PreferenceInterface $clientPref)
     {
         return true; // Claim to always match
     }
@@ -58,20 +58,20 @@ class AbsentMatcher implements MatcherInterface
     /**
      * @inheritDoc
      */
-    public function doMatch(array $matchingList, PreferenceInterface $userPreference)
+    public function doMatch(array $matchingList, PreferenceInterface $clientPref)
     {
         $builder = $this->prefBuilder;
-        if (PreferenceInterface::MIME === $userPreference->getFromField()) {
+        if (PreferenceInterface::MIME === $clientPref->getFromField()) {
             $builder = $this->mimePrefBuilder;
         }
 
-        $emptyPreference = $builder
-            ->setFromField($userPreference->getFromField())
+        $emptyPref = $builder
+            ->setFromField($clientPref->getFromField())
             ->get();
 
         $matchingList[] = new MatchedPreferences(
-            $userPreference,
-            $emptyPreference
+            $clientPref,
+            $emptyPref
         );
 
         return $matchingList;

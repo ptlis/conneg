@@ -22,15 +22,15 @@ class LanguageTest extends NegotiationDataProvider
     /**
      * @dataProvider languageProvider
      *
-     * @param string $userField
-     * @param string $appField
+     * @param string $clientField
+     * @param string $serverField
      * @param PreferenceInterface $best
      * @param CollectionInterface $all
      */
-    public function testBest($userField, $appField, PreferenceInterface $best, CollectionInterface $all)
+    public function testBest($clientField, $serverField, PreferenceInterface $best, CollectionInterface $all)
     {
         $negotiate = new Negotiation();
-        $resultType = $negotiate->languageBest($userField, $appField);
+        $resultType = $negotiate->languageBest($clientField, $serverField);
 
         $this->assertEquals($best, $resultType);
     }
@@ -38,15 +38,15 @@ class LanguageTest extends NegotiationDataProvider
     /**
      * @dataProvider languageProvider
      *
-     * @param string $userField
-     * @param string $appField
+     * @param string $clientField
+     * @param string $serverField
      * @param PreferenceInterface $best
      * @param CollectionInterface $all
      */
-    public function testAll($userField, $appField, PreferenceInterface $best, CollectionInterface $all)
+    public function testAll($clientField, $serverField, PreferenceInterface $best, CollectionInterface $all)
     {
         $negotiate = new Negotiation();
-        $collection = $negotiate->languageAll($userField, $appField);
+        $collection = $negotiate->languageAll($clientField, $serverField);
 
         $this->assertEquals($all, $collection);
     }

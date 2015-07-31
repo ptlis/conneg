@@ -30,7 +30,7 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
     public function testOne()
     {
         $httpField = 'application/rdf+xml;q=0.5,text/html;q=.3';
-        $appPrefs = '';
+        $serverPrefs = '';
 
         $sort = new MatchedPreferencesSort(
             new MatchedPreferences(
@@ -53,7 +53,7 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new MatchedPreferencesCollection($sort, $expectList);
 
         $negotiate = new Negotiation();
-        $resultCollection = $negotiate->mimeAll($httpField, $appPrefs);
+        $resultCollection = $negotiate->mimeAll($httpField, $serverPrefs);
 
         $this->assertEquals($expectCollection, $resultCollection);
     }
@@ -65,7 +65,7 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
     public function testTwo()
     {
         $httpField = 'application/xhtml+xml;q=0.5';
-        $appPrefs = '';
+        $serverPrefs = '';
 
         $sort = new MatchedPreferencesSort(
             new MatchedPreferences(
@@ -83,7 +83,7 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new MatchedPreferencesCollection($sort, $pairList);
 
         $negotiate = new Negotiation();
-        $resultCollection = $negotiate->mimeAll($httpField, $appPrefs);
+        $resultCollection = $negotiate->mimeAll($httpField, $serverPrefs);
 
         $this->assertEquals($expectCollection, $resultCollection);
     }
@@ -95,7 +95,7 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
     public function testThree()
     {
         $httpField = 'application/rdf+xml;q=0.5,text/html;q=.5';
-        $appPrefs = '';
+        $serverPrefs = '';
 
         $sort = new MatchedPreferencesSort(
             new MatchedPreferences(
@@ -117,7 +117,7 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new MatchedPreferencesCollection($sort, $pairList);
 
         $negotiate = new Negotiation();
-        $resultCollection = $negotiate->mimeAll($httpField, $appPrefs);
+        $resultCollection = $negotiate->mimeAll($httpField, $serverPrefs);
 
         $this->assertEquals($expectCollection, $resultCollection);
     }

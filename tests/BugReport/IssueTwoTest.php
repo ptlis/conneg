@@ -30,7 +30,7 @@ class IssueTwoTest extends \PHPUnit_Framework_TestCase
     public function testOne()
     {
         $httpField = 'text/rdf+n3; q=0.8, application/rdf+json; q=0.8, text/turtle; q=1.0, text/n3; q=0.8, application/ld+json; q=0.5, application/rdf+xml; q=0.8';
-        $appPrefs = '';
+        $serverPrefs = '';
 
         $sort = new MatchedPreferencesSort(
             new MatchedPreferences(
@@ -68,7 +68,7 @@ class IssueTwoTest extends \PHPUnit_Framework_TestCase
         $expectCollection = new MatchedPreferencesCollection($sort, $pairList);
 
         $negotiate = new Negotiation();
-        $resultCollection = $negotiate->mimeAll($httpField, $appPrefs);
+        $resultCollection = $negotiate->mimeAll($httpField, $serverPrefs);
 
         $this->assertEquals($expectCollection, $resultCollection);
     }

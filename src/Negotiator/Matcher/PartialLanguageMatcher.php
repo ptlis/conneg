@@ -17,19 +17,19 @@ use ptlis\ConNeg\Preference\Matched\MatchedPreferences;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
- * Matcher for application-provided partial languages (e.g. 'en-*').
+ * Matcher for server-provided partial languages (e.g. 'en-*').
  */
 class PartialLanguageMatcher implements MatcherInterface
 {
     /**
      * @inheritDoc
      */
-    public function hasMatch(array $matchingList, PreferenceInterface $userPreference)
+    public function hasMatch(array $matchingList, PreferenceInterface $clientPref)
     {
         $hasMatch = false;
 
         foreach ($matchingList as $matching) {
-            if ($this->partialLangMatches($matching, $userPreference)) {
+            if ($this->partialLangMatches($matching, $clientPref)) {
                 $hasMatch = true;
             }
         }
@@ -40,15 +40,15 @@ class PartialLanguageMatcher implements MatcherInterface
     /**
      * @inheritDoc
      */
-    public function doMatch(array $matchingList, PreferenceInterface $userPreference)
+    public function doMatch(array $matchingList, PreferenceInterface $clientPref)
     {
         $newMatchingList = array();
 
         foreach ($matchingList as $key => $matching) {
-            if ($this->partialLangMatches($matching, $userPreference)) {
+            if ($this->partialLangMatches($matching, $clientPref)) {
                 $newPair = new MatchedPreferences(
-                    $userPreference,
-                    $matching->getAppPreference()
+                    $clientPref,
+                    $matching->getServerPreference()
                 );
 
                 $newMatchingList[$key] = $newPair;
@@ -62,30 +62,28 @@ class PartialLanguageMatcher implements MatcherInterface
     }
 
     /**
-     * Returns true if the app preference contains a partial language that matches the language in the user preference.
+     * Returns true if the server preference contains a partial language that matches the language in the client
+     * preference.
      *
-     * e.g. An application type of en-* would match en, en-US but not es-ES
+     * e.g. An server type of en-* would match en, en-US but not es-ES
      *
      * @param MatchedPreferences $matchedPreferences
-     * @param PreferenceInterface $newUserPreference
+     * @param PreferenceInterface $newClientPref
      *
      * @return bool
      */
-    private function partialLangMatches(
-        MatchedPreferences $matchedPreferences,
-        PreferenceInterface $newUserPreference
-    ) {
-        $appPreference = $matchedPreferences->getAppPreference();
-        $oldUserPreference = $matchedPreferences->getUserPreference();
+    private function partialLangMatches(MatchedPreferences $matchedPreferences, PreferenceInterface $newClientPref) {
+        $serverPref = $matchedPreferences->getServerPreference();
+        $oldClientPref = $matchedPreferences->getClientPreference();
 
         // Note that this only supports the simplest case of (e.g.) en-* matching en-GB and en-US, additional
         // Language tags are explicitly ignored
-        list($userMainLang) = explode('-', $newUserPreference->getType());
-        list($appMainLang) = explode('-', $appPreference->getType());
+        list($clientMainLang) = explode('-', $newClientPref->getType());
+        list($serverMainLang) = explode('-', $serverPref->getType());
 
-        return PreferenceInterface::LANGUAGE === $newUserPreference->getFromField()
-            && PreferenceInterface::PARTIAL_WILDCARD === $appPreference->getPrecedence()
-            && $userMainLang == $appMainLang
-            && $newUserPreference->getPrecedence() > $oldUserPreference->getPrecedence();
+        return PreferenceInterface::LANGUAGE === $newClientPref->getFromField()
+            && PreferenceInterface::PARTIAL_WILDCARD === $serverPref->getPrecedence()
+            && $clientMainLang == $serverMainLang
+            && $newClientPref->getPrecedence() > $oldClientPref->getPrecedence();
     }
 }

@@ -21,46 +21,46 @@ use ptlis\ConNeg\Preference\PreferenceInterface;
 class MatchedPreferences implements MatchedPreferencesInterface
 {
     /**
-     * The preference from the User-Agent.
+     * The preference from the client.
      *
      * @var PreferenceInterface
      */
-    private $userPreference;
+    private $clientPref;
 
     /**
-     * The preference from the Application.
+     * The preference from the server.
      *
      * @var PreferenceInterface
      */
-    private $appPreference;
+    private $serverPref;
 
 
     /**
      * Constructor.
      *
-     * @param PreferenceInterface $appPreference
-     * @param PreferenceInterface $userPreference
+     * @param PreferenceInterface $serverPref
+     * @param PreferenceInterface $clientPref
      */
-    public function __construct(PreferenceInterface $userPreference, PreferenceInterface $appPreference)
+    public function __construct(PreferenceInterface $clientPref, PreferenceInterface $serverPref)
     {
-        $this->userPreference = $userPreference;
-        $this->appPreference  = $appPreference;
+        $this->clientPref = $clientPref;
+        $this->serverPref  = $serverPref;
     }
 
     /**
      * @inheritDoc
      */
-    public function getUserPreference()
+    public function getClientPreference()
     {
-        return $this->userPreference;
+        return $this->clientPref;
     }
 
     /**
      * @inheritDoc
      */
-    public function getAppPreference()
+    public function getServerPreference()
     {
-        return $this->appPreference;
+        return $this->serverPref;
     }
 
     /**
@@ -70,21 +70,21 @@ class MatchedPreferences implements MatchedPreferencesInterface
      */
     public function getType()
     {
-        if (strlen($this->userPreference->getType()) && !strstr($this->userPreference->getType(), '*')) {
-            return $this->userPreference->getType();
+        if (strlen($this->clientPref->getType()) && !strstr($this->clientPref->getType(), '*')) {
+            return $this->clientPref->getType();
         } else {
-            return $this->appPreference->getType();
+            return $this->serverPref->getType();
         }
     }
 
     /**
-     * Returns the product of the application & user-agent quality factors.
+     * Returns the product of the server & client quality factors.
      *
      * @return float
      */
     public function getQualityFactor()
     {
-        return $this->userPreference->getQualityFactor() * $this->appPreference->getQualityFactor();
+        return $this->clientPref->getQualityFactor() * $this->serverPref->getQualityFactor();
     }
 
     /**
@@ -94,7 +94,8 @@ class MatchedPreferences implements MatchedPreferencesInterface
      */
     public function getPrecedence()
     {
-        return $this->getAppPreference()->getPrecedence() + $this->getUserPreference()->getPrecedence();
+        // TODO: Wrong behaviour? Perhaps return the lowest precedence...
+        return $this->getServerPreference()->getPrecedence() + $this->getClientPreference()->getPrecedence();
     }
 
     /**
@@ -102,7 +103,7 @@ class MatchedPreferences implements MatchedPreferencesInterface
      */
     public function getFromField()
     {
-        return $this->getAppPreference()->getFromField();
+        return $this->getServerPreference()->getFromField();
     }
 
     /**

@@ -34,7 +34,7 @@ class Tokens
     const MIME_SEPARATOR = '/';
 
     /**
-     * Token that splits params into keys and values (where applicable)
+     * Token that splits params into keys and values.
      */
     const PARAMS_KV_SEPARATOR = '=';
 

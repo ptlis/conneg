@@ -26,7 +26,7 @@ class MimePreferenceBuilder extends AbstractPreferenceBuilder
      */
     protected function validateType($type)
     {
-        if ($this->isFromApp && strlen($type) > 0) {
+        if ($this->isFromServer && strlen($type) > 0) {
             $typeParts = explode('/', $type);
 
             // Too many/few slashes
@@ -34,9 +34,9 @@ class MimePreferenceBuilder extends AbstractPreferenceBuilder
                 throw new InvalidTypeException('"' . $type . '" is not a valid mime type');
             }
 
-            // Wildcards disallowed in app preferences
+            // Wildcards disallowed in server preferences
             if (in_array('*', $typeParts)) {
-                throw new InvalidTypeException('Wildcards are not allowed in application-provided types.');
+                throw new InvalidTypeException('Wildcards are not allowed in server-provided types.');
             }
         }
     }

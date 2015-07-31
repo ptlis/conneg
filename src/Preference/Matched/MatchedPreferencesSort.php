@@ -40,22 +40,22 @@ class MatchedPreferencesSort
     /**
      * Sort the array of MatchedPreferences in ascending order.
      *
-     * @param MatchedPreferencesInterface[] $preferencesList
+     * @param MatchedPreferencesInterface[] $prefList
      *
      * @return MatchedPreferencesCollection
      */
-    public function sortAscending(array $preferencesList)
+    public function sortAscending(array $prefList)
     {
         $comparator = new MatchedPreferencesComparator();
 
         usort(
-            $preferencesList,
+            $prefList,
             function (MatchedPreferencesInterface $lValue, MatchedPreferencesInterface $rValue) use ($comparator) {
                 return -1 * $comparator->compare($lValue, $rValue);
             }
         );
 
-        $newCollection = new MatchedPreferencesCollection($this, $preferencesList);
+        $newCollection = new MatchedPreferencesCollection($this, $prefList);
 
         return $newCollection;
     }
@@ -63,22 +63,22 @@ class MatchedPreferencesSort
     /**
      * Sort the array of MatchedPreferences in descending order.
      *
-     * @param MatchedPreferencesInterface[] $preferencesList
+     * @param MatchedPreferencesInterface[] $prefList
      *
      * @return MatchedPreferencesCollection
      */
-    public function sortDescending(array $preferencesList)
+    public function sortDescending(array $prefList)
     {
         $comparator = new MatchedPreferencesComparator();
 
         usort(
-            $preferencesList,
+            $prefList,
             function (MatchedPreferencesInterface $lValue, MatchedPreferencesInterface $rValue) use ($comparator) {
                 return $comparator->compare($lValue, $rValue);
             }
         );
 
-        $newCollection = new MatchedPreferencesCollection($this, $preferencesList);
+        $newCollection = new MatchedPreferencesCollection($this, $prefList);
 
         return $newCollection;
     }
@@ -86,23 +86,23 @@ class MatchedPreferencesSort
     /**
      * Get the best matching MatchedPreferences.
      *
-     * @param MatchedPreferencesInterface[] $preferencesList
+     * @param MatchedPreferencesInterface[] $prefList
      *
      * @return MatchedPreferencesInterface
      */
-    public function getBest(array $preferencesList)
+    public function getBest(array $prefList)
     {
         $comparator = new MatchedPreferencesComparator();
 
         usort(
-            $preferencesList,
+            $prefList,
             function (MatchedPreferencesInterface $lValue, MatchedPreferencesInterface $rValue) use ($comparator) {
                 return $comparator->compare($lValue, $rValue);
             }
         );
 
-        if (count($preferencesList)) {
-            $bestPair = $preferencesList[0];
+        if (count($prefList)) {
+            $bestPair = $prefList[0];
 
         } else {
             $bestPair = $this->absentPreferences;

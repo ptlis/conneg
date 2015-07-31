@@ -40,20 +40,20 @@ class MatchedPreferencesSortTest extends \PHPUnit_Framework_TestCase
 
         $newCollection = $sort->sortAscending($typePairList);
 
-        $expectAppType = array(
+        $expectServerType = array(
             'fr;q=0.8',
             'en-gb;q=1'
         );
 
-        $expectUserType = array(
+        $expectClientType = array(
             'fr;q=0.8',
             'en-gb;q=0.9'
         );
 
         $i = 0;
         foreach ($newCollection as $typePair) {
-            $this->assertSame($expectAppType[$i], $typePair->getAppPreference()->__toString());
-            $this->assertSame($expectUserType[$i], $typePair->getUserPreference()->__toString());
+            $this->assertSame($expectServerType[$i], $typePair->getServerPreference()->__toString());
+            $this->assertSame($expectClientType[$i], $typePair->getClientPreference()->__toString());
             $i++;
         }
     }
@@ -79,20 +79,20 @@ class MatchedPreferencesSortTest extends \PHPUnit_Framework_TestCase
 
         $newCollection = $sort->sortAscending($typePairList);
 
-        $expectAppType = array(
+        $expectServerType = array(
             'en-gb;q=0.5',
             'fr;q=0.8'
         );
 
-        $expectUserType = array(
+        $expectClientType = array(
             'en-gb;q=0.9',
             'fr;q=0.8'
         );
 
         $i = 0;
         foreach ($newCollection as $typePair) {
-            $this->assertSame($expectAppType[$i], $typePair->getAppPreference()->__toString());
-            $this->assertSame($expectUserType[$i], $typePair->getUserPreference()->__toString());
+            $this->assertSame($expectServerType[$i], $typePair->getServerPreference()->__toString());
+            $this->assertSame($expectClientType[$i], $typePair->getClientPreference()->__toString());
             $i++;
         }
     }
@@ -120,20 +120,20 @@ class MatchedPreferencesSortTest extends \PHPUnit_Framework_TestCase
 
         $newCollection = $sort->sortAscending($typePairList);
 
-        $expectAppType = array(
+        $expectServerType = array(
             'fr;q=0.9',
             'en-gb;q=0.9'
         );
 
-        $expectUserType = array(
+        $expectClientType = array(
             'fr;q=0.8',
             'en-gb;q=0.8'
         );
 
         $i = 0;
         foreach ($newCollection as $typePair) {
-            $this->assertSame($expectAppType[$i], $typePair->getAppPreference()->__toString());
-            $this->assertSame($expectUserType[$i], $typePair->getUserPreference()->__toString());
+            $this->assertSame($expectServerType[$i], $typePair->getServerPreference()->__toString());
+            $this->assertSame($expectClientType[$i], $typePair->getClientPreference()->__toString());
             $i++;
         }
     }
@@ -160,20 +160,20 @@ class MatchedPreferencesSortTest extends \PHPUnit_Framework_TestCase
 
         $newCollection = $sort->sortAscending($typePairList);
 
-        $expectAppType = array(
+        $expectServerType = array(
             'fr;q=0.9',
             'en-gb;q=0.8'
         );
 
-        $expectUserType = array(
+        $expectClientType = array(
             'fr;q=0.8',
             'en-gb;q=0.9'
         );
 
         $i = 0;
         foreach ($newCollection as $typePair) {
-            $this->assertSame($expectAppType[$i], $typePair->getAppPreference()->__toString());
-            $this->assertSame($expectUserType[$i], $typePair->getUserPreference()->__toString());
+            $this->assertSame($expectServerType[$i], $typePair->getServerPreference()->__toString());
+            $this->assertSame($expectClientType[$i], $typePair->getClientPreference()->__toString());
             $i++;
         }
     }
@@ -200,20 +200,20 @@ class MatchedPreferencesSortTest extends \PHPUnit_Framework_TestCase
 
         $newCollection = $sort->sortAscending($typePairList);
 
-        $expectAppType = array(
+        $expectServerType = array(
             'en-gb;q=0.9',
             'fr;q=0.8'
         );
 
-        $expectUserType = array(
+        $expectClientType = array(
             'en-gb;q=0.8',
             'fr;q=0.9'
         );
 
         $i = 0;
         foreach ($newCollection as $typePair) {
-            $this->assertSame($expectAppType[$i], $typePair->getAppPreference()->__toString());
-            $this->assertSame($expectUserType[$i], $typePair->getUserPreference()->__toString());
+            $this->assertSame($expectServerType[$i], $typePair->getServerPreference()->__toString());
+            $this->assertSame($expectClientType[$i], $typePair->getClientPreference()->__toString());
             $i++;
         }
     }
@@ -240,20 +240,20 @@ class MatchedPreferencesSortTest extends \PHPUnit_Framework_TestCase
 
         $newCollection = $sort->sortAscending($typePairList);
 
-        $expectAppType = array(
+        $expectServerType = array(
             'fr;q=0.8',
             'en-gb;q=0.9'
         );
 
-        $expectUserType = array(
+        $expectClientType = array(
             '',
             ''
         );
 
         $i = 0;
         foreach ($newCollection as $typePair) {
-            $this->assertSame($expectAppType[$i], $typePair->getAppPreference()->__toString());
-            $this->assertSame($expectUserType[$i], $typePair->getUserPreference()->__toString());
+            $this->assertSame($expectServerType[$i], $typePair->getServerPreference()->__toString());
+            $this->assertSame($expectClientType[$i], $typePair->getClientPreference()->__toString());
             $i++;
         }
     }
@@ -280,20 +280,20 @@ class MatchedPreferencesSortTest extends \PHPUnit_Framework_TestCase
 
         $newCollection = $sort->sortAscending($typePairList);
 
-        $expectAppType = array(
+        $expectServerType = array(
             '',
             ''
         );
 
-        $expectUserType = array(
+        $expectClientType = array(
             'fr;q=0.8',
             'en-gb;q=0.9'
         );
 
         $i = 0;
         foreach ($newCollection as $typePair) {
-            $this->assertSame($expectAppType[$i], $typePair->getAppPreference()->__toString());
-            $this->assertSame($expectUserType[$i], $typePair->getUserPreference()->__toString());
+            $this->assertSame($expectServerType[$i], $typePair->getServerPreference()->__toString());
+            $this->assertSame($expectClientType[$i], $typePair->getClientPreference()->__toString());
             $i++;
         }
     }
@@ -320,20 +320,20 @@ class MatchedPreferencesSortTest extends \PHPUnit_Framework_TestCase
 
         $newCollection = $sort->sortDescending($typePairList);
 
-        $expectAppType = array(
+        $expectServerType = array(
             'fr;q=0.8',
             'en-gb;q=0.9'
         );
 
-        $expectUserType = array(
+        $expectClientType = array(
             'fr;q=0.9',
             'en-gb;q=0.8'
         );
 
         $i = 0;
         foreach ($newCollection as $typePair) {
-            $this->assertSame($expectAppType[$i], $typePair->getAppPreference()->__toString());
-            $this->assertSame($expectUserType[$i], $typePair->getUserPreference()->__toString());
+            $this->assertSame($expectServerType[$i], $typePair->getServerPreference()->__toString());
+            $this->assertSame($expectClientType[$i], $typePair->getClientPreference()->__toString());
             $i++;
         }
     }

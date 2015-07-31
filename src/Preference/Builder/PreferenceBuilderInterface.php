@@ -21,13 +21,13 @@ use ptlis\ConNeg\Preference\PreferenceInterface;
 interface PreferenceBuilderInterface
 {
     /**
-     * Set whether the build type is application-defined or user-defined.
+     * Set whether the type originates from the server.
      *
-     * @param bool $isFromApp
+     * @param bool $isFromServer
      *
      * @return $this
      */
-    public function setFromApp($isFromApp);
+    public function setFromServer($isFromServer);
 
     /**
      * Sets the HTTP field that the preference was derived from.

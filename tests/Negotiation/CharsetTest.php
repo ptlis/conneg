@@ -22,15 +22,15 @@ class CharsetDataProvider extends NegotiationDataProvider
     /**
      * @dataProvider charsetProvider
      *
-     * @param string $userField
-     * @param string $appField
+     * @param string $clientField
+     * @param string $serverField
      * @param PreferenceInterface $best
      * @param CollectionInterface $all
      */
-    public function testBest($userField, $appField, PreferenceInterface $best, CollectionInterface $all)
+    public function testBest($clientField, $serverField, PreferenceInterface $best, CollectionInterface $all)
     {
         $negotiate = new Negotiation();
-        $resultType = $negotiate->charsetBest($userField, $appField);
+        $resultType = $negotiate->charsetBest($clientField, $serverField);
 
         $this->assertEquals($best, $resultType);
     }
@@ -38,15 +38,15 @@ class CharsetDataProvider extends NegotiationDataProvider
     /**
      * @dataProvider charsetProvider
      *
-     * @param string $userField
-     * @param string $appField
+     * @param string $clientField
+     * @param string $serverField
      * @param PreferenceInterface $best
      * @param CollectionInterface $all
      */
-    public function testAll($userField, $appField, PreferenceInterface $best, CollectionInterface $all)
+    public function testAll($clientField, $serverField, PreferenceInterface $best, CollectionInterface $all)
     {
         $negotiate = new Negotiation();
-        $collection = $negotiate->charsetAll($userField, $appField);
+        $collection = $negotiate->charsetAll($clientField, $serverField);
 
         $this->assertEquals($all, $collection);
     }

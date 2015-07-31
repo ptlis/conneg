@@ -50,14 +50,14 @@ use ptlis\ConNeg\Negotiation;
 $negotiation = new Negotiation();
 ```
 
-The Negotiation instance we've created here provides methods to negotiate on preferences provided by the client and application.
+The Negotiation instance we've created here provides methods to negotiate on preferences provided by the client and server.
 
 Methods are available for negotiation on mime types, languages, charsets and encodings ([Accept](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1), [Accept-Language](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4), [Accept-Charset](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.2) and [Accept-Encoding](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3) HTTP fields respectively) 
 
 In most cases your application will only care about the computed best match, in which case use the *Best() methods, for example:
 
 ```php
-$bestMime     = $negotiation->mimeBest($_SERVER['ACCEPT'], $appMimePrefs);
+$bestMime     = $negotiation->mimeBest($_SERVER['ACCEPT'], $serverMimePrefs);
 ```
 
 These will return objects implementing MatchedPreferencesInterface - in most cases you will only want the calculated type:
@@ -79,16 +79,16 @@ $qualityFactor = $mime->getPrecedence(); //Sum of client & server precedences
 // Returns an object implementing PreferenceInterface that represents the client's
 // preference. You may then call the getQualityFactor() and getPrecedence() on this
 // instance
-$clientPref = $mime->getUserPreference();
+$clientPref = $mime->getClientPreference();
 
 // As above but for the server's preference
-$serverPref = $mime->getAppPreference();
+$serverPref = $mime->getServerPreference();
 ```
 
 Additionally, you may use the *All() methods to get a collection containing the computed intersection between client & server preferences:
 
 ```php
-$mimeList = $negotiation->mimeAll($_SERVER['ACCEPT'], $appMimePrefs);
+$mimeList = $negotiation->mimeAll($_SERVER['ACCEPT'], $serverMimePrefs);
 ```
 
 These methods return an instance of MatchedPreferencesCollection containing sort methods and allowing iteration with ```foreach```.

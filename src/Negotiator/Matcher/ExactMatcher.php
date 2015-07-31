@@ -42,23 +42,23 @@ class ExactMatcher implements MatcherInterface
     /**
      * @inheritDoc
      */
-    public function hasMatch(array $matchingList, PreferenceInterface $userPreference)
+    public function hasMatch(array $matchingList, PreferenceInterface $clientPref)
     {
-        return $this->getMatchingTypes($matchingList, $userPreference) >= 0;
+        return $this->getMatchingTypes($matchingList, $clientPref) >= 0;
     }
 
     /**
      * @inheritDoc
      */
-    public function doMatch(array $matchingList, PreferenceInterface $userPreference)
+    public function doMatch(array $matchingList, PreferenceInterface $clientPref)
     {
-        $matchIndex = $this->getMatchingTypes($matchingList, $userPreference);
+        $matchIndex = $this->getMatchingTypes($matchingList, $clientPref);
 
         if ($matchIndex >= 0) {
 
             $newMatch = new MatchedPreferences(
-                $userPreference,
-                $matchingList[$matchIndex]->getAppPreference()
+                $clientPref,
+                $matchingList[$matchIndex]->getServerPreference()
             );
 
             if ($this->comparator->compare($matchingList[$matchIndex], $newMatch) > 0) {
@@ -73,16 +73,16 @@ class ExactMatcher implements MatcherInterface
      * Returns the first index containing a matching type.
      *
      * @param MatchedPreferencesInterface[] $matchingList
-     * @param PreferenceInterface $preference
+     * @param PreferenceInterface $pref
      *
      * @return int
      */
-    private function getMatchingTypes(array $matchingList, PreferenceInterface $preference)
+    private function getMatchingTypes(array $matchingList, PreferenceInterface $pref)
     {
         $index = -1;
 
         foreach ($matchingList as $key => $match) {
-            if ($match->getType() === $preference->getType()) {
+            if ($match->getType() === $pref->getType()) {
                 $index = $key;
             }
         }

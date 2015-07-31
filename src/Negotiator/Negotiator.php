@@ -35,12 +35,12 @@ class Negotiator implements NegotiatorInterface
     /**
      * @var PreferenceBuilderInterface
      */
-    private $preferenceBuilder;
+    private $prefBuilder;
 
     /**
      * @var PreferenceBuilderInterface
      */
-    private $mimePreferenceBuilder;
+    private $mimePrefBuilder;
 
     /**
      * @var MatcherInterface[]
@@ -51,19 +51,19 @@ class Negotiator implements NegotiatorInterface
     /**
      * Constructor.
      *
-     * @param PreferenceBuilderInterface $preferenceBuilder
-     * @param PreferenceBuilderInterface $mimePreferenceBuilder
+     * @param PreferenceBuilderInterface $prefBuilder
+     * @param PreferenceBuilderInterface $mimePrefBuilder
      * @param MatcherInterface[] $matcherList Objects implementing MatcherInterface, matching is attempted in the order
      *      of the matcher objects in the array. When a match is found no further match tests are done and the testing
      *      loop will exit.
      */
     public function __construct(
-        PreferenceBuilderInterface $preferenceBuilder,
-        PreferenceBuilderInterface $mimePreferenceBuilder,
+        PreferenceBuilderInterface $prefBuilder,
+        PreferenceBuilderInterface $mimePrefBuilder,
         array $matcherList = array()
     ) {
-        $this->preferenceBuilder = $preferenceBuilder;
-        $this->mimePreferenceBuilder = $mimePreferenceBuilder;
+        $this->prefBuilder = $prefBuilder;
+        $this->mimePrefBuilder = $mimePrefBuilder;
 
         if (!count($matcherList)) {
             $matcherList = array(
@@ -71,7 +71,7 @@ class Negotiator implements NegotiatorInterface
                 new PartialLanguageMatcher(),
                 new SubtypeWildcardMatcher(),
                 new ExactMatcher(new MatchedPreferencesComparator()),
-                new AbsentMatcher($this->preferenceBuilder, $this->mimePreferenceBuilder)
+                new AbsentMatcher($this->prefBuilder, $this->mimePrefBuilder)
             );
         }
         $this->matcherList = $matcherList;
@@ -80,24 +80,24 @@ class Negotiator implements NegotiatorInterface
     /**
      * @inheritDoc
      */
-    public function negotiateAll(array $userPreferenceList, array $appPreferenceList, $fromField)
+    public function negotiateAll(array $clientPrefList, array $serverPrefList, $fromField)
     {
-        $emptyPreference = $this->getBuilder($fromField)
+        $emptyPref = $this->getBuilder($fromField)
             ->setFromField($fromField)
             ->get();
 
-        $sort = new MatchedPreferencesSort(new MatchedPreferences($emptyPreference, $emptyPreference));
+        $sort = new MatchedPreferencesSort(new MatchedPreferences($emptyPref, $emptyPref));
 
         $matchingList = array();
 
-        foreach ($appPreferenceList as $appPreference) {
+        foreach ($serverPrefList as $serverPref) {
             $matchingList[] = new MatchedPreferences(
-                $emptyPreference,
-                $appPreference
+                $emptyPref,
+                $serverPref
             );
         }
 
-        $matchingList = $this->matchUserListToAppPreferences($userPreferenceList, $matchingList);
+        $matchingList = $this->matchClientPreferences($clientPrefList, $matchingList);
         $pairCollection = new MatchedPreferencesCollection($sort, $matchingList);
 
         return $pairCollection->getDescending();
@@ -106,42 +106,42 @@ class Negotiator implements NegotiatorInterface
     /**
      * @inheritDoc
      */
-    public function negotiateBest(array $userPreferenceList, array $appPreferenceList, $fromField)
+    public function negotiateBest(array $clientPrefList, array $serverPrefList, $fromField)
     {
-        $pairCollection = $this->negotiateAll($userPreferenceList, $appPreferenceList, $fromField);
+        $pairCollection = $this->negotiateAll($clientPrefList, $serverPrefList, $fromField);
 
         return $pairCollection->getBest();
     }
 
     /**
-     * Match user types to app types.
+     * Match client types to server types.
      *
-     * @param PreferenceInterface[] $userPreferenceList
+     * @param PreferenceInterface[] $clientPrefList
      * @param MatchedPreferencesInterface[] $matchingList
      *
      * @return MatchedPreferencesInterface[]
      */
-    private function matchUserListToAppPreferences(array $userPreferenceList, array $matchingList) {
-        foreach ($userPreferenceList as $userPreference) {
-            $matchingList = $this->matchUserToAppPreferences($userPreference, $matchingList);
+    private function matchClientPreferences(array $clientPrefList, array $matchingList) {
+        foreach ($clientPrefList as $clientPref) {
+            $matchingList = $this->matchSingleClientPreference($clientPref, $matchingList);
         }
 
         return $matchingList;
     }
 
     /**
-     * Match a single user type to the application types.
+     * Match a single client type to the server types.
      *
-     * @param PreferenceInterface $userPreference
+     * @param PreferenceInterface $clientPreference
      * @param MatchedPreferencesInterface[] $matchingList
      *
      * @return MatchedPreferencesInterface[]
      */
-    private function matchUserToAppPreferences(PreferenceInterface $userPreference, array $matchingList)
+    private function matchSingleClientPreference(PreferenceInterface $clientPreference, array $matchingList)
     {
         foreach ($this->matcherList as $matcher) {
-            if ($matcher->hasMatch($matchingList, $userPreference)) {
-                $matchingList = $matcher->doMatch($matchingList, $userPreference);
+            if ($matcher->hasMatch($matchingList, $clientPreference)) {
+                $matchingList = $matcher->doMatch($matchingList, $clientPreference);
 
                 break;
             }
@@ -160,9 +160,9 @@ class Negotiator implements NegotiatorInterface
     private function getBuilder($fromField)
     {
         if (PreferenceInterface::MIME === $fromField) {
-            return $this->mimePreferenceBuilder;
+            return $this->mimePrefBuilder;
         } else {
-            return $this->preferenceBuilder;
+            return $this->prefBuilder;
         }
     }
 }

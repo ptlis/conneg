@@ -55,19 +55,19 @@ class MatchedPreferencesComparator
      */
     private function compareQualityFactorPair(MatchedPreferencesInterface $lValue, MatchedPreferencesInterface $rValue) {
         // Build a list of quality factor comparisons to perform; highest preference given to quality factor products,
-        // followed by those provided by the user agent & finally the application provided.
+        // followed by those provided by the client & finally the server provided.
         $compareList = array(
             array(
                 'left' => $lValue,
                 'right' => $rValue
             ),
             array(
-                'left' => $lValue->getUserPreference(),
-                'right' => $rValue->getUserPreference()
+                'left' => $lValue->getClientPreference(),
+                'right' => $rValue->getClientPreference()
             ),
             array(
-                'left' => $lValue->getAppPreference(),
-                'right' => $rValue->getAppPreference()
+                'left' => $lValue->getServerPreference(),
+                'right' => $rValue->getServerPreference()
             )
         );
 

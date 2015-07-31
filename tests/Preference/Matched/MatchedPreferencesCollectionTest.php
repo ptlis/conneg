@@ -72,11 +72,11 @@ class MatchedPreferencesCollectionTest extends \PHPUnit_Framework_TestCase
 
         $expectCollection = new MatchedPreferencesCollection($pairSort, $expectList);
 
-        $expectAppType = array(
+        $expectServerType = array(
             'iso-8859-5;q=0.8',
             'utf-8;q=1'
         );
-        $expectUserType = array(
+        $expectClientType = array(
             'iso-8859-5;q=0.8',
             'utf-8;q=0.9'
         );
@@ -85,8 +85,8 @@ class MatchedPreferencesCollectionTest extends \PHPUnit_Framework_TestCase
 
         $i = 0;
         foreach ($newCollection as $typePair) {
-            $this->assertSame($expectAppType[$i], $typePair->getAppPreference()->__toString());
-            $this->assertSame($expectUserType[$i], $typePair->getUserPreference()->__toString());
+            $this->assertSame($expectServerType[$i], $typePair->getServerPreference()->__toString());
+            $this->assertSame($expectClientType[$i], $typePair->getClientPreference()->__toString());
             $i++;
         }
     }
@@ -113,11 +113,11 @@ class MatchedPreferencesCollectionTest extends \PHPUnit_Framework_TestCase
         );
         $collection = new MatchedPreferencesCollection($pairSort, $pairList);
 
-        $expectAppType = array(
+        $expectServerType = array(
             'utf-8;q=1',
             'iso-8859-5;q=0.8'
         );
-        $expectUserType = array(
+        $expectClientType = array(
             'utf-8;q=0.9',
             'iso-8859-5;q=0.8'
         );
@@ -126,8 +126,8 @@ class MatchedPreferencesCollectionTest extends \PHPUnit_Framework_TestCase
 
         $i = 0;
         foreach ($newCollection as $typePair) {
-            $this->assertSame($expectAppType[$i], $typePair->getAppPreference()->__toString());
-            $this->assertSame($expectUserType[$i], $typePair->getUserPreference()->__toString());
+            $this->assertSame($expectServerType[$i], $typePair->getServerPreference()->__toString());
+            $this->assertSame($expectClientType[$i], $typePair->getClientPreference()->__toString());
             $i++;
         }
     }

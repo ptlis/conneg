@@ -24,28 +24,28 @@ class SubtypeWildcardMatcher implements MatcherInterface
     /**
      * @inheritDoc
      */
-    public function hasMatch(array $matchingList, PreferenceInterface $userPreference)
+    public function hasMatch(array $matchingList, PreferenceInterface $clientPref)
     {
-        return PreferenceInterface::MIME === $userPreference->getFromField()
-            && PreferenceInterface::PARTIAL_WILDCARD === $userPreference->getPrecedence();
+        return PreferenceInterface::MIME === $clientPref->getFromField()
+            && PreferenceInterface::PARTIAL_WILDCARD === $clientPref->getPrecedence();
     }
 
     /**
      * @inheritDoc
      */
-    public function doMatch(array $matchingList, PreferenceInterface $userPreference)
+    public function doMatch(array $matchingList, PreferenceInterface $clientPref)
     {
         foreach ($matchingList as $key => $matching) {
-            $appPreference = $matching->getAppPreference();
-            list($userMimeType) = explode('/', $userPreference->getType());
-            list($appMimeType) = explode('/', $appPreference->getType());
+            $serverPref = $matching->getServerPreference();
+            list($clientMimeType) = explode('/', $clientPref->getType());
+            list($serverMimeType) = explode('/', $serverPref->getType());
 
-            if ($userMimeType == $appMimeType
-                && $userPreference->getPrecedence() > $matching->getUserPreference()->getPrecedence()) {
+            if ($clientMimeType == $serverMimeType
+                && $clientPref->getPrecedence() > $matching->getClientPreference()->getPrecedence()) {
 
                 $matchingList[$key] = new MatchedPreferences(
-                    $userPreference,
-                    $matchingList[$key]->getAppPreference()
+                    $clientPref,
+                    $matchingList[$key]->getServerPreference()
                 );
             }
         }

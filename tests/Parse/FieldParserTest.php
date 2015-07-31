@@ -189,7 +189,7 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $real);
     }
 
-    public function testParseAppAcceptWithInvalidExtens()
+    public function testParseServerAcceptWithInvalidExtens()
     {
         $this->setExpectedException(
             '\ptlis\ConNeg\Exception\InvalidTypeException',
@@ -230,7 +230,7 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         $parser->parse($mimeTokens, true, Preference::MIME);
     }
 
-    public function testParseUserAcceptWithInvalidExtens()
+    public function testParseClientAcceptWithInvalidExtens()
     {
         $mimeTokens = array(
             'application',
@@ -274,7 +274,7 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $real);
     }
 
-    public function testParseAppPartialLang()
+    public function testParseServerPartialLang()
     {
         $tokens = array(
             'es-*',

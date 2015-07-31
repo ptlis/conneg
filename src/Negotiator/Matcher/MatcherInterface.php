@@ -22,22 +22,22 @@ use ptlis\ConNeg\Preference\PreferenceInterface;
 interface MatcherInterface
 {
     /**
-     * Returns true if this matcher can do matching for the user preference.
+     * Returns true if this matcher can do matching for the client preference.
      *
      * @param MatchedPreferencesInterface[] $matchingList
-     * @param PreferenceInterface $userPreference
+     * @param PreferenceInterface $clientPref
      *
      * @return bool
      */
-    public function hasMatch(array $matchingList, PreferenceInterface $userPreference);
+    public function hasMatch(array $matchingList, PreferenceInterface $clientPref);
 
     /**
-     * Perform the matching of user preference to application provided preference.
+     * Perform the matching of client preference to server-provided preference.
      *
      * @param MatchedPreferencesInterface[] $matchingList
-     * @param PreferenceInterface $userPreference
+     * @param PreferenceInterface $clientPref
      *
      * @return MatchedPreferencesInterface[]
      */
-    public function doMatch(array $matchingList, PreferenceInterface $userPreference);
+    public function doMatch(array $matchingList, PreferenceInterface $clientPref);
 }
