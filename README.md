@@ -66,25 +66,25 @@ In most cases your application will only care about the computed best match, in 
 These will return objects implementing MatchedPreferencesInterface - in most cases you will only want the calculated type:
 
 ```php
-    $mime = $bestMime->getType();
-    // E.g. $mime === 'text/html'
+$mime = $bestMime->getType();
+// E.g. $mime === 'text/html'
 ```
 
 In more advanced cases you may need the metadata associated with the type:
 
 ```php
-    $qualityFactor = $mime->getQualityFactor(); // Get the product of the client & server preferences
-    // E.g. $qualityFactor === 0.75;
-    
-    $qualityFactor = $mime->getPrecedence(); // Get the sum of client & server precedences
-    // E.g. $qualityFactor === 3;
-    
-    // Returns an object implementing PreferenceInterface that represents the client's preference
-    // You may call the getQualityFactor() and getPrecedence
-    $clientPref = $mime->getUserPreference();
-    
-    // As above but for the server's preference
-    $serverPref = $mime->getAppPreference();
+$qualityFactor = $mime->getQualityFactor(); // Get the product of the client & server preferences
+// E.g. $qualityFactor === 0.75;
+
+$qualityFactor = $mime->getPrecedence(); // Get the sum of client & server precedences
+// E.g. $qualityFactor === 3;
+
+// Returns an object implementing PreferenceInterface that represents the client's preference
+// You may call the getQualityFactor() and getPrecedence
+$clientPref = $mime->getUserPreference();
+
+// As above but for the server's preference
+$serverPref = $mime->getAppPreference();
 ```
 
 
