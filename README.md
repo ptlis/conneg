@@ -58,9 +58,9 @@ In most cases your application will only care about the computed best match, in 
 
 ```php
 $bestMime     = $negotiation->mimeBest($_SERVER['ACCEPT'], $appMimePrefs);
-$bestLanguage = $negotiation->languageBest($_SERVER['ACCEPT_LANGUAGE'], $appLanguagePrefs);
+$bestLanguage = $negotiation->languageBest($_SERVER['ACCEPT_LANGUAGE'], $appLangPrefs);
 $bestCharset  = $negotiation->charsetBest($_SERVER['ACCEPT_CHARSET'], $appCharsetPrefs);
-$bestEncoding = $negotiation->encodingBest($_SERVER['ACCEPT_ENCODING'], $appEncodingPrefs);
+$bestEncoding = $negotiation->encodingBest($_SERVER['ACCEPT_ENCODING'], $appEncPrefs);
 ```
 
 These will return objects implementing MatchedPreferencesInterface - in most cases you will only want the calculated type:
@@ -73,14 +73,15 @@ $mime = $bestMime->getType();
 In more advanced cases you may need the metadata associated with the type:
 
 ```php
-$qualityFactor = $mime->getQualityFactor(); // Get the product of the client & server preferences
+$qualityFactor = $mime->getQualityFactor(); // Product of the client & server preferences
 // E.g. $qualityFactor === 0.75;
 
-$qualityFactor = $mime->getPrecedence(); // Get the sum of client & server precedences
+$qualityFactor = $mime->getPrecedence(); //Sum of client & server precedences
 // E.g. $qualityFactor === 3;
 
-// Returns an object implementing PreferenceInterface that represents the client's preference
-// You may call the getQualityFactor() and getPrecedence
+// Returns an object implementing PreferenceInterface that represents the client's
+// preference. You may then call the getQualityFactor() and getPrecedence() on this
+// instance
 $clientPref = $mime->getUserPreference();
 
 // As above but for the server's preference
