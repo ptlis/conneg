@@ -57,10 +57,10 @@ Methods are available for negotiation on mime types, languages, charsets and enc
 In most cases your application will only care about the computed best match, in which case use the best* methods:
 
 ```php
-    $bestMime     = $negotiation->mimeBest($_SERVER['ACCEPT'], $appMimePrefs);
-    $bestLanguage = $negotiation->languageBest($_SERVER['ACCEPT_LANGUAGE'], $appLanguagePrefs);
-    $bestCharset  = $negotiation->charsetBest($_SERVER['ACCEPT_CHARSET'], $appCharsetPrefs);
-    $bestEncoding = $negotiation->encodingBest($_SERVER['ACCEPT_ENCODING'], $appEncodingPrefs);
+$bestMime     = $negotiation->mimeBest($_SERVER['ACCEPT'], $appMimePrefs);
+$bestLanguage = $negotiation->languageBest($_SERVER['ACCEPT_LANGUAGE'], $appLanguagePrefs);
+$bestCharset  = $negotiation->charsetBest($_SERVER['ACCEPT_CHARSET'], $appCharsetPrefs);
+$bestEncoding = $negotiation->encodingBest($_SERVER['ACCEPT_ENCODING'], $appEncodingPrefs);
 ```
 
 These will return objects implementing MatchedPreferencesInterface - in most cases you will only want the calculated type:
