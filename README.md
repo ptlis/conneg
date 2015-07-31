@@ -13,32 +13,82 @@ Supports negotiation on the  [Accept](http://www.w3.org/Protocols/rfc2616/rfc261
 Either from the console:
 
 ```shell
-    $ composer require ptlis/conneg:~3.0.0
+$ composer require ptlis/conneg:~4.0.0.alpha.1
 ```
 
-Or by Editing composer.json:
+Or by manually editing your composer.json:
 
 ```javascript
-    {
-        "require": {
-            ...
-            "ptlis/conneg": "~3.0.0",
-            ...
-        }
+{
+    "require": {
+        "ptlis/conneg": "~4.0.0.alpha.1"
     }
+}
 ```
 
 Followed by a composer update:
 
 ```shell
-    $ composer update
+$ composer update
 ```
 
-Use negotiator:
+## Usage
+
+
+### In a PSR-7 Complaint Project
+
+If your application supports PSR-7 then the simplest way to get content negotiation is via the middlewares provided by [ptlis/psr7-conneg](https://github.com/ptlis/psr7-conneg).
+
+
+### In non PSR-7 Projects & Advanced Use-Cases
+
+Create a negotiator instance:
 
 ```php
-    use ptlis\ConNeg\Negotiate;
+use ptlis\ConNeg\Negotiation;
+
+$negotiation = new Negotiation();
 ```
+
+The Negotiation instance we've created here provides methods to negotiate on preferences provided by the client and application.
+
+Methods are available for negotiation on mime types, languages, charsets and encodings ([Accept](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1), [Accept-Language](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4), [Accept-Charset](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.2) and [Accept-Encoding](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3) HTTP fields respectively) 
+
+In most cases your application will only care about the computed best match, in which case use the best* methods:
+
+```php
+    $bestMime     = $negotiation->mimeBest($_SERVER['ACCEPT'], $appMimePrefs);
+    $bestLanguage = $negotiation->languageBest($_SERVER['ACCEPT_LANGUAGE'], $appLanguagePrefs);
+    $bestCharset  = $negotiation->charsetBest($_SERVER['ACCEPT_CHARSET'], $appCharsetPrefs);
+    $bestEncoding = $negotiation->encodingBest($_SERVER['ACCEPT_ENCODING'], $appEncodingPrefs);
+```
+
+These will return objects implementing MatchedPreferencesInterface - in most cases you will only want the calculated type:
+
+```php
+    $mime = $bestMime->getType();
+    // E.g. $mime === 'text/html'
+```
+
+In more advanced cases you may need the metadata associated with the type:
+
+```php
+    $qualityFactor = $mime->getQualityFactor(); // Get the product of the client & server preferences
+    // E.g. $qualityFactor === 0.75;
+    
+    $qualityFactor = $mime->getPrecedence(); // Get the sum of client & server precedences
+    // E.g. $qualityFactor === 3;
+    
+    // Returns an object implementing PreferenceInterface that represents the client's preference
+    // You may call the getQualityFactor() and getPrecedence
+    $clientPref = $mime->getUserPreference();
+    
+    // As above but for the server's preference
+    $serverPref = $mime->getAppPreference();
+```
+
+
+
 
 ## Documentation
 
