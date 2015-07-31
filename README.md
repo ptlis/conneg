@@ -54,30 +54,27 @@ The Negotiation instance we've created here provides methods to negotiate on pre
 
 Methods are available for negotiation on mime types, languages, charsets and encodings ([Accept](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1), [Accept-Language](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4), [Accept-Charset](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.2) and [Accept-Encoding](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3) HTTP fields respectively) 
 
-In most cases your application will only care about the computed best match, in which case use the best* methods:
+In most cases your application will only care about the computed best match, in which case use the *Best() methods, for example:
 
 ```php
 $bestMime     = $negotiation->mimeBest($_SERVER['ACCEPT'], $appMimePrefs);
-$bestLanguage = $negotiation->languageBest($_SERVER['ACCEPT_LANGUAGE'], $appLangPrefs);
-$bestCharset  = $negotiation->charsetBest($_SERVER['ACCEPT_CHARSET'], $appCharsetPrefs);
-$bestEncoding = $negotiation->encodingBest($_SERVER['ACCEPT_ENCODING'], $appEncPrefs);
 ```
 
 These will return objects implementing MatchedPreferencesInterface - in most cases you will only want the calculated type:
 
 ```php
 $mime = $bestMime->getType();
-// E.g. $mime === 'text/html'
+// $mime === 'text/html'
 ```
 
 In more advanced cases you may need the metadata associated with the type:
 
 ```php
 $qualityFactor = $mime->getQualityFactor(); // Product of the client & server preferences
-// E.g. $qualityFactor === 0.75;
+// $qualityFactor === 0.75;
 
 $qualityFactor = $mime->getPrecedence(); //Sum of client & server precedences
-// E.g. $qualityFactor === 3;
+// $qualityFactor === 3;
 
 // Returns an object implementing PreferenceInterface that represents the client's
 // preference. You may then call the getQualityFactor() and getPrecedence() on this
@@ -88,6 +85,13 @@ $clientPref = $mime->getUserPreference();
 $serverPref = $mime->getAppPreference();
 ```
 
+Additionally, you may use the *All() methods to get a collection containing the computed intersection between client & server preferences:
+
+```php
+$mimeList = $negotiation->mimeAll($_SERVER['ACCEPT'], $appMimePrefs);
+```
+
+These methods return an instance of MatchedPreferencesCollection containing sort methods and allowing iteration with ```foreach```.
 
 
 
