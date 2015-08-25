@@ -28,7 +28,8 @@ class MatchedPreferencesComparator
      *
      * @return int -1, 0, 1 (see usort() callback for meaning)
      */
-    public function compare(MatchedPreferencesInterface $lValue, MatchedPreferencesInterface $rValue) {
+    public function compare(MatchedPreferencesInterface $lValue, MatchedPreferencesInterface $rValue)
+    {
         // Compare by quality factors - highest quality factor has precedence.
         $result = $this->compareQualityFactorPair($lValue, $rValue);
 
@@ -53,7 +54,10 @@ class MatchedPreferencesComparator
      *
      * @return int -1, 0, 1 (see usort() callback for meaning)
      */
-    private function compareQualityFactorPair(MatchedPreferencesInterface $lValue, MatchedPreferencesInterface $rValue) {
+    private function compareQualityFactorPair(
+        MatchedPreferencesInterface $lValue,
+        MatchedPreferencesInterface $rValue
+    ) {
         // Build a list of quality factor comparisons to perform; highest preference given to quality factor products,
         // followed by those provided by the client & finally the server provided.
         $compareList = array(

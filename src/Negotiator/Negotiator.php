@@ -121,7 +121,8 @@ class Negotiator implements NegotiatorInterface
      *
      * @return MatchedPreferencesInterface[]
      */
-    private function matchClientPreferences(array $clientPrefList, array $matchingList) {
+    private function matchClientPreferences(array $clientPrefList, array $matchingList)
+    {
         foreach ($clientPrefList as $clientPref) {
             $matchingList = $this->matchSingleClientPreference($clientPref, $matchingList);
         }

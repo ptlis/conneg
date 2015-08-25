@@ -15,8 +15,8 @@ namespace ptlis\ConNeg\Test\Parse;
 
 use ptlis\ConNeg\Parser\FieldParser;
 use ptlis\ConNeg\Preference\Preference;
-use ptlis\ConNeg\Preference\Builder\MimePreferenceBuilder;
-use ptlis\ConNeg\Preference\Builder\PreferenceBuilder;
+use ptlis\ConNeg\Preference\Bob\MimePreferenceBuilder;
+use ptlis\ConNeg\Preference\Bob\PreferenceBuilder;
 
 /**
  * Tests to ensure that the parser behaves correctly.

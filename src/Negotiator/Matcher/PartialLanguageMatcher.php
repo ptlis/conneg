@@ -72,7 +72,8 @@ class PartialLanguageMatcher implements MatcherInterface
      *
      * @return bool
      */
-    private function partialLangMatches(MatchedPreferences $matchedPreferences, PreferenceInterface $newClientPref) {
+    private function partialLangMatches(MatchedPreferences $matchedPreferences, PreferenceInterface $newClientPref)
+    {
         $serverPref = $matchedPreferences->getServerPreference();
         $oldClientPref = $matchedPreferences->getClientPreference();
 

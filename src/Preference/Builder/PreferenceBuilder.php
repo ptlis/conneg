@@ -59,7 +59,7 @@ class PreferenceBuilder extends AbstractPreferenceBuilder
      */
     private function getQualityFactor()
     {
-        $qFactor = 0;
+        $qFactor = 0.0;
 
         if (strlen($this->type)) {
             $qFactor = $this->qFactor;
@@ -86,7 +86,7 @@ class PreferenceBuilder extends AbstractPreferenceBuilder
             $precedence = Preference::PARTIAL_WILDCARD;
 
         // Full match
-        } else if (strlen($this->type)) {
+        } elseif (strlen($this->type)) {
             $precedence = Preference::COMPLETE;
         }
 

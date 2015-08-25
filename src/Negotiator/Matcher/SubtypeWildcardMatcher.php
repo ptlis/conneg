@@ -41,8 +41,8 @@ class SubtypeWildcardMatcher implements MatcherInterface
             list($serverMimeType) = explode('/', $serverPref->getType());
 
             if ($clientMimeType == $serverMimeType
-                && $clientPref->getPrecedence() > $matching->getClientPreference()->getPrecedence()) {
-
+                && $clientPref->getPrecedence() > $matching->getClientPreference()->getPrecedence()
+            ) {
                 $matchingList[$key] = new MatchedPreferences(
                     $clientPref,
                     $matchingList[$key]->getServerPreference()

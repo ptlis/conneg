@@ -12,6 +12,7 @@
  */
 
 namespace ptlis\ConNeg\Parser;
+
 use ptlis\ConNeg\Preference\Preference;
 
 /**

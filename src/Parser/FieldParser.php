@@ -147,7 +147,6 @@ class FieldParser
 
         // Look for quality factor, discarding accept-extens
         foreach ($paramBundleList as $paramBundle) {
-
             // Correct format for quality factor
             if ($this->isQualityFactor($paramBundle)) {
                 $builder = $builder->setQualityFactor($paramBundle[2]);
@@ -186,7 +185,6 @@ class FieldParser
         $bundle = array();
 
         foreach ($tokenList as $token) {
-
             // On type separator add bundle to list & re-initialize empty bundle
             if ($targetToken === $token) {
                 $bundleList[] = $bundle;
@@ -216,8 +214,7 @@ class FieldParser
      */
     private function validateBundleMimeType(array $bundle)
     {
-        if (
-            count($bundle) < 3                          // Too few items in bundle
+        if (count($bundle) < 3                          // Too few items in bundle
             || Tokens::MIME_SEPARATOR !== $bundle[1]    // Invalid separator
             || Tokens::isSeparator($bundle[0], true)    // Invalid type
             || Tokens::isSeparator($bundle[2], true)    // Invalid subtype
@@ -240,11 +237,9 @@ class FieldParser
     private function validateParamBundleList(array $paramBundleList, $serverField)
     {
         foreach ($paramBundleList as $paramBundle) {
-
             try {
                 $this->validateParamBundle($paramBundle);
             } catch (InvalidTypeException $e) {
-
                 // Rethrow exception only if the field was provided by the server
                 if ($serverField) {
                     throw $e;

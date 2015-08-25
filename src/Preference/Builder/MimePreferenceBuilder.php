@@ -53,7 +53,6 @@ class MimePreferenceBuilder extends AbstractPreferenceBuilder
             $type = '';
 
         } else {
-
             // Types in form of */foo aren't valid
             list($mimeType, $subType) = $typeParts;
             if ('*' === $mimeType && '*' !== $subType) {
@@ -92,7 +91,7 @@ class MimePreferenceBuilder extends AbstractPreferenceBuilder
      */
     private function getQualityFactor()
     {
-        $qFactor = 0;
+        $qFactor = 0.0;
 
         if (2 === count(explode('/', $this->type))) {
             $qFactor = $this->qFactor;
@@ -113,7 +112,6 @@ class MimePreferenceBuilder extends AbstractPreferenceBuilder
         // A type is present
         $explodedType = explode('/', $this->type);
         if (2 === count($explodedType)) {
-
             list($mimeType, $subType) = $explodedType;
 
             $precedence = Preference::COMPLETE;

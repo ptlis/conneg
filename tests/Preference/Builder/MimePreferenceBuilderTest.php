@@ -14,7 +14,7 @@
 namespace ptlis\ConNeg\Test\Preference\Builder;
 
 use ptlis\ConNeg\Preference\Preference;
-use ptlis\ConNeg\Preference\Builder\MimePreferenceBuilder;
+use ptlis\ConNeg\Preference\Bob\MimePreferenceBuilder;
 
 /**
  * Tests for mime type builder
