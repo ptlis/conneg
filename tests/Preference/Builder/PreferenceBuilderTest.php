@@ -13,8 +13,8 @@
 
 namespace ptlis\ConNeg\Test\Preference\Builder;
 
+use ptlis\ConNeg\Preference\Builder\PreferenceBuilder;
 use ptlis\ConNeg\Preference\Preference;
-use ptlis\ConNeg\Preference\Bob\PreferenceBuilder;
 
 /**
  * Tests for standard type builder
