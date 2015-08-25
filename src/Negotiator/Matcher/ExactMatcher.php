@@ -50,7 +50,7 @@ class ExactMatcher implements MatcherInterface
     /**
      * @inheritDoc
      */
-    public function doMatch(array $matchingList, PreferenceInterface $clientPref)
+    public function match(array $matchingList, PreferenceInterface $clientPref)
     {
         $matchIndex = $this->getMatchingTypes($matchingList, $clientPref);
 

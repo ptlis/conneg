@@ -58,7 +58,7 @@ class AbsentMatcher implements MatcherInterface
     /**
      * @inheritDoc
      */
-    public function doMatch(array $matchingList, PreferenceInterface $clientPref)
+    public function match(array $matchingList, PreferenceInterface $clientPref)
     {
         $builder = $this->prefBuilder;
         if (PreferenceInterface::MIME === $clientPref->getFromField()) {

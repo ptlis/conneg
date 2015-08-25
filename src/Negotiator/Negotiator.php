@@ -142,7 +142,7 @@ class Negotiator implements NegotiatorInterface
     {
         foreach ($this->matcherList as $matcher) {
             if ($matcher->hasMatch($matchingList, $clientPreference)) {
-                $matchingList = $matcher->doMatch($matchingList, $clientPreference);
+                $matchingList = $matcher->match($matchingList, $clientPreference);
 
                 break;
             }

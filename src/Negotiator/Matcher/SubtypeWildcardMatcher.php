@@ -33,7 +33,7 @@ class SubtypeWildcardMatcher implements MatcherInterface
     /**
      * @inheritDoc
      */
-    public function doMatch(array $matchingList, PreferenceInterface $clientPref)
+    public function match(array $matchingList, PreferenceInterface $clientPref)
     {
         foreach ($matchingList as $key => $matching) {
             $serverPref = $matching->getServerPreference();

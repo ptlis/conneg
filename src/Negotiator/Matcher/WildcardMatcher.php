@@ -33,7 +33,7 @@ class WildcardMatcher implements MatcherInterface
     /**
      * @inheritDoc
      */
-    public function doMatch(array $matchingList, PreferenceInterface $clientPref)
+    public function match(array $matchingList, PreferenceInterface $clientPref)
     {
         foreach ($matchingList as $key => $matching) {
             if ($clientPref->getPrecedence() > $matching->getClientPreference()->getPrecedence()) {

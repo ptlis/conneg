@@ -32,12 +32,13 @@ interface MatcherInterface
     public function hasMatch(array $matchingList, PreferenceInterface $clientPref);
 
     /**
-     * Perform the matching of client preference to server-provided preference.
+     * Perform the matching of client preference to server-provided preference, returning a new array containing the
+     * result of the matching operation.
      *
      * @param MatchedPreferencesInterface[] $matchingList
      * @param PreferenceInterface $clientPref
      *
      * @return MatchedPreferencesInterface[]
      */
-    public function doMatch(array $matchingList, PreferenceInterface $clientPref);
+    public function match(array $matchingList, PreferenceInterface $clientPref);
 }
