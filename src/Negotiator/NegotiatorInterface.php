@@ -39,7 +39,7 @@ interface NegotiatorInterface
      * @param PreferenceInterface[] $serverPrefList
      * @param string $fromField
      *
-     * @return MatchedPreferencesInterface[] Array containing preference intersection, descending order.
+     * @return MatchedPreferencesInterface Array containing preference intersection, descending order.
      */
     public function negotiateBest(array $clientPrefList, array $serverPrefList, $fromField);
 }
