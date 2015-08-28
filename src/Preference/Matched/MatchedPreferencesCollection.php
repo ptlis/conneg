@@ -14,11 +14,13 @@
 namespace ptlis\ConNeg\Preference\Matched;
 
 use ArrayIterator;
+use Countable;
+use IteratorAggregate;
 
 /**
  * Collection for MatchedPreferences instances, provides sort capabilities.
  */
-class MatchedPreferencesCollection implements CollectionInterface
+class MatchedPreferencesCollection implements Countable, IteratorAggregate
 {
     /**
      * Instance of sorter than can reorder pairs.
