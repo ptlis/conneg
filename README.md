@@ -10,26 +10,10 @@ Supports negotiation on the  [Accept](http://www.w3.org/Protocols/rfc2616/rfc261
 
 ## Install
 
-Either from the console:
+With composer:
 
 ```shell
 $ composer require ptlis/conneg:~4.0.0.alpha.1
-```
-
-Or by manually editing your composer.json:
-
-```javascript
-{
-    "require": {
-        "ptlis/conneg": "~4.0.0.alpha.1"
-    }
-}
-```
-
-Followed by a composer update:
-
-```shell
-$ composer update
 ```
 
 ## Usage
@@ -50,30 +34,30 @@ use ptlis\ConNeg\Negotiation;
 $negotiation = new Negotiation();
 ```
 
-The Negotiation instance we've created here provides methods to negotiate on preferences provided by the client and server.
+This provides methods to negotiate on preferences provided by the client and server.
 
-Methods are available for negotiation on mime types, languages, charsets and encodings ([Accept](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1), [Accept-Language](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4), [Accept-Charset](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.2) and [Accept-Encoding](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3) HTTP fields respectively)
+Negotiation can be done for mime types, languages, charsets and encodings ([Accept](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1), [Accept-Language](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4), [Accept-Charset](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.2) and [Accept-Encoding](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3) HTTP fields respectively)
 
-In most cases your application will only care about the computed best match, in which case use the *Best() methods, for example:
+In most cases your application will need the calculated best match, to do this use the *Best() methods. For example:
 
 ```php
 $bestMime     = $negotiation->mimeBest($_SERVER['ACCEPT'], $serverMimePrefs);
 ```
 
-These will return objects implementing MatchedPreferencesInterface - in most cases you will only want the calculated type:
+These methods return a value object encoding preference metadata, in most cases you're only interested in the calculated type:
 
 ```php
 $mime = $bestMime->getType();
 // $mime === 'text/html'
 ```
 
-In more advanced cases you may need the metadata associated with the type:
+However, in more advanced cases you may need the metadata associated with the type:
 
 ```php
 $qualityFactor = $mime->getQualityFactor(); // Product of the client & server preferences
 // $qualityFactor === 0.75;
 
-$qualityFactor = $mime->getPrecedence(); //Sum of client & server precedences
+$qualityFactor = $mime->getPrecedence(); // Sum of client & server precedences
 // $qualityFactor === 3;
 
 // Returns an object implementing PreferenceInterface that represents the client's
@@ -85,7 +69,7 @@ $clientPref = $mime->getClientPreference();
 $serverPref = $mime->getServerPreference();
 ```
 
-Additionally, you may use the *All() methods to get a sorted (descending) array containing the computed intersection between client & server preferences:
+Additionally, *All() methods are available, returning a sorted (descending) array containing the computed intersection between client & server preferences:
 
 ```php
 $mimeList = $negotiation->mimeAll($_SERVER['ACCEPT'], $serverMimePrefs);
