@@ -1,7 +1,7 @@
 # ConNeg
 
 Content Negotiation for PHP.
- 
+
 This framework-independent library provides tooling to allow you to support content negotiation in your applications.
 
 Supports negotiation on the  [Accept](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1), [Accept-Charset](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.2), [Accept-Encoding](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3) and [Accept-Language](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4) fields in a HTTP header.
@@ -52,7 +52,7 @@ $negotiation = new Negotiation();
 
 The Negotiation instance we've created here provides methods to negotiate on preferences provided by the client and server.
 
-Methods are available for negotiation on mime types, languages, charsets and encodings ([Accept](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1), [Accept-Language](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4), [Accept-Charset](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.2) and [Accept-Encoding](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3) HTTP fields respectively) 
+Methods are available for negotiation on mime types, languages, charsets and encodings ([Accept](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1), [Accept-Language](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4), [Accept-Charset](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.2) and [Accept-Encoding](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3) HTTP fields respectively)
 
 In most cases your application will only care about the computed best match, in which case use the *Best() methods, for example:
 
@@ -85,13 +85,11 @@ $clientPref = $mime->getClientPreference();
 $serverPref = $mime->getServerPreference();
 ```
 
-Additionally, you may use the *All() methods to get a collection containing the computed intersection between client & server preferences:
+Additionally, you may use the *All() methods to get a sorted (descending) array containing the computed intersection between client & server preferences:
 
 ```php
 $mimeList = $negotiation->mimeAll($_SERVER['ACCEPT'], $serverMimePrefs);
 ```
-
-These methods return an instance of MatchedPreferencesCollection containing sort methods and allowing iteration with ```foreach```.
 
 
 
