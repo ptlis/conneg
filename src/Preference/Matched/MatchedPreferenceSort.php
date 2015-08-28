@@ -16,22 +16,22 @@ namespace ptlis\ConNeg\Preference\Matched;
 /**
  * Helper class encoding the rules governing the sorting of MatchedPreferenceCollections.
  */
-class MatchedPreferencesSort
+class MatchedPreferenceSort
 {
     /**
-     * Sort the array of MatchedPreferences in ascending order.
+     * Sort the array of MatchedPreference instances in ascending order.
      *
-     * @param MatchedPreferencesInterface[] $prefList
+     * @param MatchedPreferenceInterface[] $prefList
      *
-     * @return MatchedPreferencesInterface[]
+     * @return MatchedPreferenceInterface[]
      */
     public function sortAscending(array $prefList)
     {
-        $comparator = new MatchedPreferencesComparator();
+        $comparator = new MatchedPreferenceComparator();
 
         usort(
             $prefList,
-            function (MatchedPreferencesInterface $lValue, MatchedPreferencesInterface $rValue) use ($comparator) {
+            function (MatchedPreferenceInterface $lValue, MatchedPreferenceInterface $rValue) use ($comparator) {
                 return -1 * $comparator->compare($lValue, $rValue);
             }
         );
@@ -40,19 +40,19 @@ class MatchedPreferencesSort
     }
 
     /**
-     * Sort the array of MatchedPreferences in descending order.
+     * Sort the array of MatchedPreference instances in descending order.
      *
-     * @param MatchedPreferencesInterface[] $prefList
+     * @param MatchedPreferenceInterface[] $prefList
      *
-     * @return MatchedPreferencesInterface[]
+     * @return MatchedPreferenceInterface[]
      */
     public function sortDescending(array $prefList)
     {
-        $comparator = new MatchedPreferencesComparator();
+        $comparator = new MatchedPreferenceComparator();
 
         usort(
             $prefList,
-            function (MatchedPreferencesInterface $lValue, MatchedPreferencesInterface $rValue) use ($comparator) {
+            function (MatchedPreferenceInterface $lValue, MatchedPreferenceInterface $rValue) use ($comparator) {
                 return $comparator->compare($lValue, $rValue);
             }
         );

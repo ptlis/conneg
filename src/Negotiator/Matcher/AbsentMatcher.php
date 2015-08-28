@@ -14,11 +14,11 @@
 namespace ptlis\ConNeg\Negotiator\Matcher;
 
 use ptlis\ConNeg\Preference\Builder\PreferenceBuilderInterface;
-use ptlis\ConNeg\Preference\Matched\MatchedPreferences;
+use ptlis\ConNeg\Preference\Matched\MatchedPreference;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
- * Matcher creating MatchedPreferences with an absent server preference.
+ * Matcher creating MatchedPreference instances with an absent server preference.
  */
 class AbsentMatcher implements MatcherInterface
 {
@@ -69,7 +69,7 @@ class AbsentMatcher implements MatcherInterface
             ->setFromField($clientPref->getFromField())
             ->get();
 
-        $matchingList[] = new MatchedPreferences(
+        $matchingList[] = new MatchedPreference(
             $clientPref,
             $emptyPref
         );

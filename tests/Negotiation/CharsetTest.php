@@ -14,7 +14,7 @@
 namespace ptlis\ConNeg\Test\Negotiation;
 
 use ptlis\ConNeg\Negotiation;
-use ptlis\ConNeg\Preference\Matched\MatchedPreferencesInterface;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferenceInterface;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
 class CharsetDataProvider extends NegotiationDataProvider
@@ -25,7 +25,7 @@ class CharsetDataProvider extends NegotiationDataProvider
      * @param string $clientField
      * @param string $serverField
      * @param PreferenceInterface $best
-     * @param MatchedPreferencesInterface[] $all
+     * @param MatchedPreferenceInterface[] $all
      */
     public function testBest($clientField, $serverField, PreferenceInterface $best, array $all)
     {
@@ -41,7 +41,7 @@ class CharsetDataProvider extends NegotiationDataProvider
      * @param string $clientField
      * @param string $serverField
      * @param PreferenceInterface $best
-     * @param MatchedPreferencesInterface[] $all
+     * @param MatchedPreferenceInterface[] $all
      */
     public function testAll($clientField, $serverField, PreferenceInterface $best, array $all)
     {

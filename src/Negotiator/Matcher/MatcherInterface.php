@@ -13,7 +13,7 @@
 
 namespace ptlis\ConNeg\Negotiator\Matcher;
 
-use ptlis\ConNeg\Preference\Matched\MatchedPreferencesInterface;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferenceInterface;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
@@ -24,7 +24,7 @@ interface MatcherInterface
     /**
      * Returns true if this matcher can do matching for the client preference.
      *
-     * @param MatchedPreferencesInterface[] $matchingList
+     * @param MatchedPreferenceInterface[] $matchingList
      * @param PreferenceInterface $clientPref
      *
      * @return bool
@@ -35,10 +35,10 @@ interface MatcherInterface
      * Perform the matching of client preference to server-provided preference, returning a new array containing the
      * result of the matching operation.
      *
-     * @param MatchedPreferencesInterface[] $matchingList
+     * @param MatchedPreferenceInterface[] $matchingList
      * @param PreferenceInterface $clientPref
      *
-     * @return MatchedPreferencesInterface[]
+     * @return MatchedPreferenceInterface[]
      */
     public function match(array $matchingList, PreferenceInterface $clientPref);
 }

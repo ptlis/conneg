@@ -18,17 +18,17 @@ use ptlis\ConNeg\Preference\PreferenceInterface;
 /**
  * Comparator used to order the preferences.
  */
-class MatchedPreferencesComparator
+class MatchedPreferenceComparator
 {
     /**
      * Comparison function used for ordering matched preferences.
      *
-     * @param MatchedPreferencesInterface $lValue
-     * @param MatchedPreferencesInterface $rValue
+     * @param MatchedPreferenceInterface $lValue
+     * @param MatchedPreferenceInterface $rValue
      *
      * @return int -1, 0, 1 (see usort() callback for meaning)
      */
-    public function compare(MatchedPreferencesInterface $lValue, MatchedPreferencesInterface $rValue)
+    public function compare(MatchedPreferenceInterface $lValue, MatchedPreferenceInterface $rValue)
     {
         // Compare by quality factors - highest quality factor has precedence.
         $result = $this->compareQualityFactorPair($lValue, $rValue);
@@ -49,14 +49,14 @@ class MatchedPreferencesComparator
     /**
      * Comparison function for quality factors of matched preferences.
      *
-     * @param MatchedPreferencesInterface $lValue
-     * @param MatchedPreferencesInterface $rValue
+     * @param MatchedPreferenceInterface $lValue
+     * @param MatchedPreferenceInterface $rValue
      *
      * @return int -1, 0, 1 (see usort() callback for meaning)
      */
     private function compareQualityFactorPair(
-        MatchedPreferencesInterface $lValue,
-        MatchedPreferencesInterface $rValue
+        MatchedPreferenceInterface $lValue,
+        MatchedPreferenceInterface $rValue
     ) {
         // Build a list of quality factor comparisons to perform; highest preference given to quality factor products,
         // followed by those provided by the client & finally the server provided.
@@ -129,12 +129,12 @@ class MatchedPreferencesComparator
     /**
      * Compare preferences alphabetically
      *
-     * @param MatchedPreferencesInterface $lValue
-     * @param MatchedPreferencesInterface $rValue
+     * @param MatchedPreferenceInterface $lValue
+     * @param MatchedPreferenceInterface $rValue
      *
      * @return int -1, 0, 1 (see usort() callback for meaning)
      */
-    private function compareType(MatchedPreferencesInterface $lValue, MatchedPreferencesInterface $rValue)
+    private function compareType(MatchedPreferenceInterface $lValue, MatchedPreferenceInterface $rValue)
     {
         return strcasecmp($lValue->getType(), $rValue->getType());
     }

@@ -13,25 +13,25 @@
 
 namespace ptlis\ConNeg\Test\Preference\Matched;
 
-use ptlis\ConNeg\Preference\Matched\MatchedPreferencesSort;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferenceSort;
 use ptlis\ConNeg\Preference\Preference;
-use ptlis\ConNeg\Preference\Matched\MatchedPreferences;
+use ptlis\ConNeg\Preference\Matched\MatchedPreference;
 
-class MatchedPreferencesSortTest extends \PHPUnit_Framework_TestCase
+class MatchedPreferenceSortTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetAscendingOne()
     {
         $typePairList = array();
-        $typePairList[] = new MatchedPreferences(
+        $typePairList[] = new MatchedPreference(
             new Preference(Preference::LANGUAGE, 'en-gb', 0.9, Preference::COMPLETE),
             new Preference(Preference::LANGUAGE, 'en-gb', 1, Preference::COMPLETE)
         );
-        $typePairList[] = new MatchedPreferences(
+        $typePairList[] = new MatchedPreference(
             new Preference(Preference::LANGUAGE, 'fr', 0.8, Preference::COMPLETE),
             new Preference(Preference::LANGUAGE, 'fr', 0.8, Preference::COMPLETE)
         );
 
-        $sort = new MatchedPreferencesSort();
+        $sort = new MatchedPreferenceSort();
 
         $newCollection = $sort->sortAscending($typePairList);
 
@@ -56,16 +56,16 @@ class MatchedPreferencesSortTest extends \PHPUnit_Framework_TestCase
     public function testGetAscendingTwo()
     {
         $typePairList = array();
-        $typePairList[] = new MatchedPreferences(
+        $typePairList[] = new MatchedPreference(
             new Preference(Preference::LANGUAGE, 'en-gb', 0.9, Preference::COMPLETE),
             new Preference(Preference::LANGUAGE, 'en-gb', 0.5, Preference::COMPLETE)
         );
-        $typePairList[] = new MatchedPreferences(
+        $typePairList[] = new MatchedPreference(
             new Preference(Preference::LANGUAGE, 'fr', 0.8, Preference::COMPLETE),
             new Preference(Preference::LANGUAGE, 'fr', 0.8, Preference::COMPLETE)
         );
 
-        $sort = new MatchedPreferencesSort();
+        $sort = new MatchedPreferenceSort();
 
         $newCollection = $sort->sortAscending($typePairList);
 
@@ -92,16 +92,16 @@ class MatchedPreferencesSortTest extends \PHPUnit_Framework_TestCase
     public function testGetAscendingThree()
     {
         $typePairList = array();
-        $typePairList[] = new MatchedPreferences(
+        $typePairList[] = new MatchedPreference(
             new Preference(Preference::LANGUAGE, 'en-gb', 0.8, Preference::COMPLETE),
             new Preference(Preference::LANGUAGE, 'en-gb', 0.9, Preference::COMPLETE)
         );
-        $typePairList[] = new MatchedPreferences(
+        $typePairList[] = new MatchedPreference(
             new Preference(Preference::LANGUAGE, 'fr', 0.8, Preference::COMPLETE),
             new Preference(Preference::LANGUAGE, 'fr', 0.9, Preference::COMPLETE)
         );
 
-        $sort = new MatchedPreferencesSort();
+        $sort = new MatchedPreferenceSort();
 
         $newCollection = $sort->sortAscending($typePairList);
 
@@ -127,16 +127,16 @@ class MatchedPreferencesSortTest extends \PHPUnit_Framework_TestCase
     public function testGetAscendingFour()
     {
         $typePairList = array();
-        $typePairList[] = new MatchedPreferences(
+        $typePairList[] = new MatchedPreference(
             new Preference(Preference::LANGUAGE, 'en-gb', 0.9, Preference::COMPLETE),
             new Preference(Preference::LANGUAGE, 'en-gb', 0.8, Preference::COMPLETE)
         );
-        $typePairList[] = new MatchedPreferences(
+        $typePairList[] = new MatchedPreference(
             new Preference(Preference::LANGUAGE, 'fr', 0.8, Preference::COMPLETE),
             new Preference(Preference::LANGUAGE, 'fr', 0.9, Preference::COMPLETE)
         );
 
-        $sort = new MatchedPreferencesSort();
+        $sort = new MatchedPreferenceSort();
 
         $newCollection = $sort->sortAscending($typePairList);
 
@@ -162,16 +162,16 @@ class MatchedPreferencesSortTest extends \PHPUnit_Framework_TestCase
     public function testGetAscendingFive()
     {
         $typePairList = array();
-        $typePairList[] = new MatchedPreferences(
+        $typePairList[] = new MatchedPreference(
             new Preference(Preference::LANGUAGE, 'en-gb', 0.8, Preference::COMPLETE),
             new Preference(Preference::LANGUAGE, 'en-gb', 0.9, Preference::COMPLETE)
         );
-        $typePairList[] = new MatchedPreferences(
+        $typePairList[] = new MatchedPreference(
             new Preference(Preference::LANGUAGE, 'fr', 0.9, Preference::COMPLETE),
             new Preference(Preference::LANGUAGE, 'fr', 0.8, Preference::COMPLETE)
         );
 
-        $sort = new MatchedPreferencesSort();
+        $sort = new MatchedPreferenceSort();
 
         $newCollection = $sort->sortAscending($typePairList);
 
@@ -197,16 +197,16 @@ class MatchedPreferencesSortTest extends \PHPUnit_Framework_TestCase
     public function testGetAscendingSix()
     {
         $typePairList = array();
-        $typePairList[] = new MatchedPreferences(
+        $typePairList[] = new MatchedPreference(
             new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE),
             new Preference(Preference::LANGUAGE, 'en-gb', 0.9, Preference::COMPLETE)
         );
-        $typePairList[] = new MatchedPreferences(
+        $typePairList[] = new MatchedPreference(
             new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE),
             new Preference(Preference::LANGUAGE, 'fr', 0.8, Preference::COMPLETE)
         );
 
-        $sort = new MatchedPreferencesSort();
+        $sort = new MatchedPreferenceSort();
 
         $newCollection = $sort->sortAscending($typePairList);
 
@@ -232,16 +232,16 @@ class MatchedPreferencesSortTest extends \PHPUnit_Framework_TestCase
     public function testGetAscendingSeven()
     {
         $typePairList = array();
-        $typePairList[] = new MatchedPreferences(
+        $typePairList[] = new MatchedPreference(
             new Preference(Preference::LANGUAGE, 'en-gb', 0.9, Preference::COMPLETE),
             new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE)
         );
-        $typePairList[] = new MatchedPreferences(
+        $typePairList[] = new MatchedPreference(
             new Preference(Preference::LANGUAGE, 'fr', 0.8, Preference::COMPLETE),
             new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE)
         );
 
-        $sort = new MatchedPreferencesSort();
+        $sort = new MatchedPreferenceSort();
 
         $newCollection = $sort->sortAscending($typePairList);
 
@@ -267,16 +267,16 @@ class MatchedPreferencesSortTest extends \PHPUnit_Framework_TestCase
     public function testGetDescending()
     {
         $typePairList = array();
-        $typePairList[] = new MatchedPreferences(
+        $typePairList[] = new MatchedPreference(
             new Preference(Preference::LANGUAGE, 'en-gb', 0.8, Preference::COMPLETE),
             new Preference(Preference::LANGUAGE, 'en-gb', 0.9, Preference::COMPLETE)
         );
-        $typePairList[] = new MatchedPreferences(
+        $typePairList[] = new MatchedPreference(
             new Preference(Preference::LANGUAGE, 'fr', 0.9, Preference::COMPLETE),
             new Preference(Preference::LANGUAGE, 'fr', 0.8, Preference::COMPLETE)
         );
 
-        $sort = new MatchedPreferencesSort();
+        $sort = new MatchedPreferenceSort();
 
         $newCollection = $sort->sortDescending($typePairList);
 

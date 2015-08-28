@@ -13,7 +13,7 @@
 
 namespace ptlis\ConNeg\Negotiator\Matcher;
 
-use ptlis\ConNeg\Preference\Matched\MatchedPreferences;
+use ptlis\ConNeg\Preference\Matched\MatchedPreference;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
@@ -46,7 +46,7 @@ class PartialLanguageMatcher implements MatcherInterface
 
         foreach ($matchingList as $key => $matching) {
             if ($this->partialLangMatches($matching, $clientPref)) {
-                $newPair = new MatchedPreferences(
+                $newPair = new MatchedPreference(
                     $clientPref,
                     $matching->getServerPreference()
                 );
@@ -67,15 +67,15 @@ class PartialLanguageMatcher implements MatcherInterface
      *
      * e.g. An server type of en-* would match en, en-US but not es-ES
      *
-     * @param MatchedPreferences $matchedPreferences
+     * @param MatchedPreference $matchedPreference
      * @param PreferenceInterface $newClientPref
      *
      * @return bool
      */
-    private function partialLangMatches(MatchedPreferences $matchedPreferences, PreferenceInterface $newClientPref)
+    private function partialLangMatches(MatchedPreference $matchedPreference, PreferenceInterface $newClientPref)
     {
-        $serverPref = $matchedPreferences->getServerPreference();
-        $oldClientPref = $matchedPreferences->getClientPreference();
+        $serverPref = $matchedPreference->getServerPreference();
+        $oldClientPref = $matchedPreference->getClientPreference();
 
         // Note that this only supports the simplest case of (e.g.) en-* matching en-GB and en-US, additional
         // Language tags are explicitly ignored

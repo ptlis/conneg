@@ -13,9 +13,9 @@
 
 namespace ptlis\ConNeg\Negotiator\Matcher;
 
-use ptlis\ConNeg\Preference\Matched\MatchedPreferences;
-use ptlis\ConNeg\Preference\Matched\MatchedPreferencesComparator;
-use ptlis\ConNeg\Preference\Matched\MatchedPreferencesInterface;
+use ptlis\ConNeg\Preference\Matched\MatchedPreference;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferenceComparator;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferenceInterface;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
@@ -24,7 +24,7 @@ use ptlis\ConNeg\Preference\PreferenceInterface;
 class ExactMatcher implements MatcherInterface
 {
     /**
-     * @var MatchedPreferencesComparator
+     * @var MatchedPreferenceComparator
      */
     private $comparator;
 
@@ -32,9 +32,9 @@ class ExactMatcher implements MatcherInterface
     /**
      * Constructor.
      *
-     * @param MatchedPreferencesComparator $comparator
+     * @param MatchedPreferenceComparator $comparator
      */
-    public function __construct(MatchedPreferencesComparator $comparator)
+    public function __construct(MatchedPreferenceComparator $comparator)
     {
         $this->comparator = $comparator;
     }
@@ -55,7 +55,7 @@ class ExactMatcher implements MatcherInterface
         $matchIndex = $this->getMatchingTypes($matchingList, $clientPref);
 
         if ($matchIndex >= 0) {
-            $newMatch = new MatchedPreferences(
+            $newMatch = new MatchedPreference(
                 $clientPref,
                 $matchingList[$matchIndex]->getServerPreference()
             );
@@ -71,7 +71,7 @@ class ExactMatcher implements MatcherInterface
     /**
      * Returns the first index containing a matching type.
      *
-     * @param MatchedPreferencesInterface[] $matchingList
+     * @param MatchedPreferenceInterface[] $matchingList
      * @param PreferenceInterface $pref
      *
      * @return int

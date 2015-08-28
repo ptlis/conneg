@@ -16,13 +16,13 @@
 namespace ptlis\ConNeg\Test\Preference\Matched;
 
 use ptlis\ConNeg\Preference\Preference;
-use ptlis\ConNeg\Preference\Matched\MatchedPreferences;
+use ptlis\ConNeg\Preference\Matched\MatchedPreference;
 
-class MatchedPreferencesTest extends \PHPUnit_Framework_TestCase
+class MatchedPreferenceTest extends \PHPUnit_Framework_TestCase
 {
     public function testNewCharsetTypeOne()
     {
-        $pair = new MatchedPreferences(
+        $pair = new MatchedPreference(
             new Preference(Preference::CHARSET, 'utf-8', 0.5, Preference::COMPLETE),
             new Preference(Preference::CHARSET, '*', 0.3, Preference::WILDCARD)
         );
@@ -36,7 +36,7 @@ class MatchedPreferencesTest extends \PHPUnit_Framework_TestCase
 
     public function testNewCharsetTypeTwo()
     {
-        $pair = new MatchedPreferences(
+        $pair = new MatchedPreference(
             new Preference(Preference::CHARSET, '*', 0.3, Preference::WILDCARD),
             new Preference(Preference::CHARSET, 'utf-8', 0.5, Preference::COMPLETE)
         );

@@ -15,7 +15,7 @@ namespace ptlis\ConNeg\Test\BugReport;
 
 use ptlis\ConNeg\Negotiation;
 use ptlis\ConNeg\Preference\Preference;
-use ptlis\ConNeg\Preference\Matched\MatchedPreferences;
+use ptlis\ConNeg\Preference\Matched\MatchedPreference;
 
 /**
  * Regression tests for Issue #2.
@@ -31,27 +31,27 @@ class IssueTwoTest extends \PHPUnit_Framework_TestCase
         $serverPrefs = '';
 
         $expectList = array(
-            new MatchedPreferences(
+            new MatchedPreference(
                 new Preference(Preference::MIME, 'text/turtle', 1, Preference::COMPLETE),
                 new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
             ),
-            new MatchedPreferences(
+            new MatchedPreference(
                 new Preference(Preference::MIME, 'application/rdf+json', 0.8, Preference::COMPLETE),
                 new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
             ),
-            new MatchedPreferences(
+            new MatchedPreference(
                 new Preference(Preference::MIME, 'application/rdf+xml', 0.8, Preference::COMPLETE),
                 new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
             ),
-            new MatchedPreferences(
+            new MatchedPreference(
                 new Preference(Preference::MIME, 'text/n3', 0.8, Preference::COMPLETE),
                 new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
             ),
-            new MatchedPreferences(
+            new MatchedPreference(
                 new Preference(Preference::MIME, 'text/rdf+n3', 0.8, Preference::COMPLETE),
                 new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
             ),
-            new MatchedPreferences(
+            new MatchedPreference(
                 new Preference(Preference::MIME, 'application/ld+json', 0.5, Preference::COMPLETE),
                 new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
             )

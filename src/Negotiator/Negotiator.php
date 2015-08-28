@@ -20,10 +20,10 @@ use ptlis\ConNeg\Negotiator\Matcher\PartialLanguageMatcher;
 use ptlis\ConNeg\Negotiator\Matcher\SubtypeWildcardMatcher;
 use ptlis\ConNeg\Negotiator\Matcher\WildcardMatcher;
 use ptlis\ConNeg\Preference\Builder\PreferenceBuilderInterface;
-use ptlis\ConNeg\Preference\Matched\MatchedPreferences;
-use ptlis\ConNeg\Preference\Matched\MatchedPreferencesComparator;
-use ptlis\ConNeg\Preference\Matched\MatchedPreferencesInterface;
-use ptlis\ConNeg\Preference\Matched\MatchedPreferencesSort;
+use ptlis\ConNeg\Preference\Matched\MatchedPreference;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferenceComparator;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferenceInterface;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferenceSort;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
@@ -69,7 +69,7 @@ class Negotiator implements NegotiatorInterface
                 new WildcardMatcher(),
                 new PartialLanguageMatcher(),
                 new SubtypeWildcardMatcher(),
-                new ExactMatcher(new MatchedPreferencesComparator()),
+                new ExactMatcher(new MatchedPreferenceComparator()),
                 new AbsentMatcher($this->prefBuilder, $this->mimePrefBuilder)
             );
         }
@@ -85,12 +85,12 @@ class Negotiator implements NegotiatorInterface
             ->setFromField($fromField)
             ->get();
 
-        $sort = new MatchedPreferencesSort();
+        $sort = new MatchedPreferenceSort();
 
         $matchingList = array();
 
         foreach ($serverPrefList as $serverPref) {
-            $matchingList[] = new MatchedPreferences(
+            $matchingList[] = new MatchedPreference(
                 $emptyPref,
                 $serverPref
             );
@@ -115,7 +115,7 @@ class Negotiator implements NegotiatorInterface
                 ->setFromField($fromField)
                 ->get();
 
-            $best = new MatchedPreferences($emptyPref, $emptyPref);
+            $best = new MatchedPreference($emptyPref, $emptyPref);
         }
 
         return $best;
@@ -125,9 +125,9 @@ class Negotiator implements NegotiatorInterface
      * Match client types to server types.
      *
      * @param PreferenceInterface[] $clientPrefList
-     * @param MatchedPreferencesInterface[] $matchingList
+     * @param MatchedPreferenceInterface[] $matchingList
      *
-     * @return MatchedPreferencesInterface[]
+     * @return MatchedPreferenceInterface[]
      */
     private function matchClientPreferences(array $clientPrefList, array $matchingList)
     {
@@ -142,9 +142,9 @@ class Negotiator implements NegotiatorInterface
      * Match a single client type to the server types.
      *
      * @param PreferenceInterface $clientPreference
-     * @param MatchedPreferencesInterface[] $matchingList
+     * @param MatchedPreferenceInterface[] $matchingList
      *
-     * @return MatchedPreferencesInterface[]
+     * @return MatchedPreferenceInterface[]
      */
     private function matchSingleClientPreference(PreferenceInterface $clientPreference, array $matchingList)
     {

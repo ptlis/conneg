@@ -18,8 +18,8 @@ use ptlis\ConNeg\Parser\FieldParser;
 use ptlis\ConNeg\Parser\FieldTokenizer;
 use ptlis\ConNeg\Preference\Builder\MimePreferenceBuilder;
 use ptlis\ConNeg\Preference\Builder\PreferenceBuilder;
-use ptlis\ConNeg\Preference\Matched\MatchedPreferences;
-use ptlis\ConNeg\Preference\Matched\MatchedPreferencesInterface;
+use ptlis\ConNeg\Preference\Matched\MatchedPreference;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferenceInterface;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
@@ -62,11 +62,11 @@ class Negotiation
      * @param string $clientField
      * @param string $serverField
      *
-     * @return MatchedPreferencesInterface
+     * @return MatchedPreferenceInterface
      */
     public function charsetBest($clientField, $serverField)
     {
-        return $this->genericBest($clientField, $serverField, MatchedPreferencesInterface::CHARSET);
+        return $this->genericBest($clientField, $serverField, MatchedPreferenceInterface::CHARSET);
     }
 
     /**
@@ -77,11 +77,11 @@ class Negotiation
      *
      * @throws \LogicException
      *
-     * @return MatchedPreferencesInterface[]
+     * @return MatchedPreferenceInterface[]
      */
     public function charsetAll($clientField, $serverField)
     {
-        return $this->genericAll($clientField, $serverField, MatchedPreferencesInterface::CHARSET);
+        return $this->genericAll($clientField, $serverField, MatchedPreferenceInterface::CHARSET);
     }
 
     /**
@@ -90,11 +90,11 @@ class Negotiation
      * @param string $clientField
      * @param string $serverField
      *
-     * @return MatchedPreferencesInterface
+     * @return MatchedPreferenceInterface
      */
     public function encodingBest($clientField, $serverField)
     {
-        return $this->genericBest($clientField, $serverField, MatchedPreferencesInterface::ENCODING);
+        return $this->genericBest($clientField, $serverField, MatchedPreferenceInterface::ENCODING);
     }
 
     /**
@@ -105,11 +105,11 @@ class Negotiation
      *
      * @throws \LogicException
      *
-     * @return MatchedPreferencesInterface[]
+     * @return MatchedPreferenceInterface[]
      */
     public function encodingAll($clientField, $serverField)
     {
-        return $this->genericAll($clientField, $serverField, MatchedPreferencesInterface::ENCODING);
+        return $this->genericAll($clientField, $serverField, MatchedPreferenceInterface::ENCODING);
     }
 
     /**
@@ -118,11 +118,11 @@ class Negotiation
      * @param string $clientField
      * @param string $serverField
      *
-     * @return MatchedPreferencesInterface
+     * @return MatchedPreferenceInterface
      */
     public function languageBest($clientField, $serverField)
     {
-        return $this->genericBest($clientField, $serverField, MatchedPreferencesInterface::LANGUAGE);
+        return $this->genericBest($clientField, $serverField, MatchedPreferenceInterface::LANGUAGE);
     }
 
     /**
@@ -133,11 +133,11 @@ class Negotiation
      *
      * @throws \LogicException
      *
-     * @return MatchedPreferencesInterface[]
+     * @return MatchedPreferenceInterface[]
      */
     public function languageAll($clientField, $serverField)
     {
-        return $this->genericAll($clientField, $serverField, MatchedPreferencesInterface::LANGUAGE);
+        return $this->genericAll($clientField, $serverField, MatchedPreferenceInterface::LANGUAGE);
     }
 
     /**
@@ -146,11 +146,11 @@ class Negotiation
      * @param string $clientField
      * @param string $serverField
      *
-     * @return MatchedPreferencesInterface
+     * @return MatchedPreferenceInterface
      */
     public function mimeBest($clientField, $serverField)
     {
-        return $this->genericBest($clientField, $serverField, MatchedPreferencesInterface::MIME);
+        return $this->genericBest($clientField, $serverField, MatchedPreferenceInterface::MIME);
     }
 
     /**
@@ -161,11 +161,11 @@ class Negotiation
      *
      * @throws \LogicException
      *
-     * @return MatchedPreferencesInterface[]
+     * @return MatchedPreferenceInterface[]
      */
     public function mimeAll($clientField, $serverField)
     {
-        return $this->genericAll($clientField, $serverField, MatchedPreferencesInterface::MIME);
+        return $this->genericAll($clientField, $serverField, MatchedPreferenceInterface::MIME);
     }
 
     /**
@@ -175,7 +175,7 @@ class Negotiation
      * @param string $serverField
      * @param string $fromField
      *
-     * @return MatchedPreferences|MatchedPreferencesInterface
+     * @return MatchedPreference|MatchedPreferenceInterface
      */
     private function genericBest($clientField, $serverField, $fromField)
     {
@@ -192,7 +192,7 @@ class Negotiation
      * @param string $serverField
      * @param string $fromField
      *
-     * @return MatchedPreferencesInterface[]
+     * @return MatchedPreferenceInterface[]
      */
     private function genericAll($clientField, $serverField, $fromField)
     {

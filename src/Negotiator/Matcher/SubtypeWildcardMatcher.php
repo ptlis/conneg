@@ -13,7 +13,7 @@
 
 namespace ptlis\ConNeg\Negotiator\Matcher;
 
-use ptlis\ConNeg\Preference\Matched\MatchedPreferences;
+use ptlis\ConNeg\Preference\Matched\MatchedPreference;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
@@ -43,7 +43,7 @@ class SubtypeWildcardMatcher implements MatcherInterface
             if ($clientMimeType == $serverMimeType
                 && $clientPref->getPrecedence() > $matching->getClientPreference()->getPrecedence()
             ) {
-                $matchingList[$key] = new MatchedPreferences(
+                $matchingList[$key] = new MatchedPreference(
                     $clientPref,
                     $matchingList[$key]->getServerPreference()
                 );

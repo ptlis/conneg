@@ -18,7 +18,7 @@ use ptlis\ConNeg\Preference\PreferenceInterface;
 /**
  * Class for matched preferences.
  */
-class MatchedPreferences implements MatchedPreferencesInterface
+class MatchedPreference implements MatchedPreferenceInterface
 {
     /**
      * The preference from the client.
