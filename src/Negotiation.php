@@ -19,7 +19,6 @@ use ptlis\ConNeg\Parser\FieldTokenizer;
 use ptlis\ConNeg\Preference\Builder\MimePreferenceBuilder;
 use ptlis\ConNeg\Preference\Builder\PreferenceBuilder;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferences;
-use ptlis\ConNeg\Preference\Matched\MatchedPreferencesCollection;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferencesInterface;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
@@ -78,7 +77,7 @@ class Negotiation
      *
      * @throws \LogicException
      *
-     * @return MatchedPreferencesCollection
+     * @return MatchedPreferencesInterface[]
      */
     public function charsetAll($clientField, $serverField)
     {
@@ -106,7 +105,7 @@ class Negotiation
      *
      * @throws \LogicException
      *
-     * @return MatchedPreferencesCollection
+     * @return MatchedPreferencesInterface[]
      */
     public function encodingAll($clientField, $serverField)
     {
@@ -134,7 +133,7 @@ class Negotiation
      *
      * @throws \LogicException
      *
-     * @return MatchedPreferencesCollection
+     * @return MatchedPreferencesInterface[]
      */
     public function languageAll($clientField, $serverField)
     {
@@ -162,7 +161,7 @@ class Negotiation
      *
      * @throws \LogicException
      *
-     * @return MatchedPreferencesCollection
+     * @return MatchedPreferencesInterface[]
      */
     public function mimeAll($clientField, $serverField)
     {
@@ -183,9 +182,7 @@ class Negotiation
         $clientPrefList = $this->parsePreferences(false, $clientField, $fromField);
         $serverPrefList = $this->parsePreferences(true, $serverField, $fromField);
 
-        $best = $this->negotiator->negotiateBest($clientPrefList, $serverPrefList, $fromField);
-
-        return $best;
+        return $this->negotiator->negotiateBest($clientPrefList, $serverPrefList, $fromField);
     }
 
     /**
@@ -195,16 +192,14 @@ class Negotiation
      * @param string $serverField
      * @param string $fromField
      *
-     * @return MatchedPreferencesCollection
+     * @return MatchedPreferencesInterface[]
      */
     private function genericAll($clientField, $serverField, $fromField)
     {
         $clientPrefList = $this->parsePreferences(false, $clientField, $fromField);
         $serverPrefList = $this->parsePreferences(true, $serverField, $fromField);
 
-        $all = $this->negotiator->negotiateAll($clientPrefList, $serverPrefList, $fromField);
-
-        return $all;
+        return $this->negotiator->negotiateAll($clientPrefList, $serverPrefList, $fromField);
     }
 
     /**
@@ -220,8 +215,6 @@ class Negotiation
     {
         $tokenList = $this->tokenizer->tokenize($field, $fromField);
 
-        $prefList = $this->parser->parse($tokenList, $serverField, $fromField);
-
-        return $prefList;
+        return $this->parser->parse($tokenList, $serverField, $fromField);
     }
 }

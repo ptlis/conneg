@@ -14,7 +14,7 @@
 namespace ptlis\ConNeg\Test\Negotiation;
 
 use ptlis\ConNeg\Negotiation;
-use ptlis\ConNeg\Preference\Matched\MatchedPreferencesCollection;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferencesInterface;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
 class LanguageTest extends NegotiationDataProvider
@@ -25,9 +25,9 @@ class LanguageTest extends NegotiationDataProvider
      * @param string $clientField
      * @param string $serverField
      * @param PreferenceInterface $best
-     * @param MatchedPreferencesCollection $all
+     * @param MatchedPreferencesInterface[] $all
      */
-    public function testBest($clientField, $serverField, PreferenceInterface $best, MatchedPreferencesCollection $all)
+    public function testBest($clientField, $serverField, PreferenceInterface $best, array $all)
     {
         $negotiate = new Negotiation();
         $resultType = $negotiate->languageBest($clientField, $serverField);
@@ -41,9 +41,9 @@ class LanguageTest extends NegotiationDataProvider
      * @param string $clientField
      * @param string $serverField
      * @param PreferenceInterface $best
-     * @param MatchedPreferencesCollection $all
+     * @param MatchedPreferencesInterface[] $all
      */
-    public function testAll($clientField, $serverField, PreferenceInterface $best, MatchedPreferencesCollection $all)
+    public function testAll($clientField, $serverField, PreferenceInterface $best, array $all)
     {
         $negotiate = new Negotiation();
         $collection = $negotiate->languageAll($clientField, $serverField);

@@ -21,7 +21,6 @@ use ptlis\ConNeg\Negotiator\Matcher\SubtypeWildcardMatcher;
 use ptlis\ConNeg\Negotiator\Matcher\WildcardMatcher;
 use ptlis\ConNeg\Preference\Builder\PreferenceBuilderInterface;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferences;
-use ptlis\ConNeg\Preference\Matched\MatchedPreferencesCollection;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferencesComparator;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferencesInterface;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferencesSort;
@@ -86,7 +85,7 @@ class Negotiator implements NegotiatorInterface
             ->setFromField($fromField)
             ->get();
 
-        $sort = new MatchedPreferencesSort(new MatchedPreferences($emptyPref, $emptyPref));
+        $sort = new MatchedPreferencesSort();
 
         $matchingList = array();
 
@@ -98,9 +97,8 @@ class Negotiator implements NegotiatorInterface
         }
 
         $matchingList = $this->matchClientPreferences($clientPrefList, $matchingList);
-        $pairCollection = new MatchedPreferencesCollection($sort, $matchingList);
 
-        return $pairCollection->getDescending();
+        return $sort->sortDescending($matchingList);
     }
 
     /**
@@ -110,7 +108,17 @@ class Negotiator implements NegotiatorInterface
     {
         $pairCollection = $this->negotiateAll($clientPrefList, $serverPrefList, $fromField);
 
-        return $pairCollection->getBest();
+        if (count($pairCollection)) {
+            $best = $pairCollection[0];
+        } else {
+            $emptyPref = $this->getBuilder($fromField)
+                ->setFromField($fromField)
+                ->get();
+
+            $best = new MatchedPreferences($emptyPref, $emptyPref);
+        }
+
+        return $best;
     }
 
     /**

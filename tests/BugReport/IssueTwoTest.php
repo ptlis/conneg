@@ -13,8 +13,6 @@
 
 namespace ptlis\ConNeg\Test\BugReport;
 
-use ptlis\ConNeg\Preference\Matched\MatchedPreferencesCollection;
-use ptlis\ConNeg\Preference\Matched\MatchedPreferencesSort;
 use ptlis\ConNeg\Negotiation;
 use ptlis\ConNeg\Preference\Preference;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferences;
@@ -32,14 +30,7 @@ class IssueTwoTest extends \PHPUnit_Framework_TestCase
         $httpField = 'text/rdf+n3; q=0.8, application/rdf+json; q=0.8, text/turtle; q=1.0, text/n3; q=0.8, application/ld+json; q=0.5, application/rdf+xml; q=0.8';
         $serverPrefs = '';
 
-        $sort = new MatchedPreferencesSort(
-            new MatchedPreferences(
-                new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE),
-                new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
-            )
-        );
-
-        $pairList = array(
+        $expectList = array(
             new MatchedPreferences(
                 new Preference(Preference::MIME, 'text/turtle', 1, Preference::COMPLETE),
                 new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
@@ -65,11 +56,10 @@ class IssueTwoTest extends \PHPUnit_Framework_TestCase
                 new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
             )
         );
-        $expectCollection = new MatchedPreferencesCollection($sort, $pairList);
 
         $negotiate = new Negotiation();
-        $resultCollection = $negotiate->mimeAll($httpField, $serverPrefs);
+        $resultList = $negotiate->mimeAll($httpField, $serverPrefs);
 
-        $this->assertEquals($expectCollection, $resultCollection);
+        $this->assertEquals($expectList, $resultList);
     }
 }

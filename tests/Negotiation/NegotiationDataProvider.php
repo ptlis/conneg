@@ -13,7 +13,7 @@
 
 namespace ptlis\ConNeg\Test\Negotiation;
 
-use ptlis\ConNeg\Preference\Matched\MatchedPreferencesCollection;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferencesInterface;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferencesSort;
 use ptlis\ConNeg\Preference\Preference;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferences;
@@ -22,13 +22,6 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
 {
     public function charsetProvider()
     {
-        $sort = new MatchedPreferencesSort(
-            new MatchedPreferences(
-                new Preference(Preference::CHARSET, '', 0, Preference::ABSENT_TYPE),
-                new Preference(Preference::CHARSET, '', 0, Preference::ABSENT_TYPE)
-            )
-        );
-
         return array(
             // There is nothing sensible we can do in this case
             'client_empty_server_empty' => array(
@@ -38,7 +31,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                     new Preference(Preference::CHARSET, '', 0, Preference::ABSENT_TYPE),
                     new Preference(Preference::CHARSET, '', 0, Preference::ABSENT_TYPE)
                 ),
-                'all' => new MatchedPreferencesCollection($sort, array())
+                'all' => array()
             ),
 
             // Pair must contain server type with highest quality factor
@@ -49,17 +42,14 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                     new Preference(Preference::CHARSET, 'utf-8', 1.0, Preference::COMPLETE),
                     new Preference(Preference::CHARSET, '', 0, Preference::ABSENT_TYPE)
                 ),
-                'all' => new MatchedPreferencesCollection(
-                    $sort,
-                    array(
-                        new MatchedPreferences(
-                            new Preference(Preference::CHARSET, 'utf-8', 1.0, Preference::COMPLETE),
-                            new Preference(Preference::CHARSET, '', 0, Preference::ABSENT_TYPE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::CHARSET, 'iso-8859-5', 0.75, Preference::COMPLETE),
-                            new Preference(Preference::CHARSET, '', 0, Preference::ABSENT_TYPE)
-                        )
+                'all' => array(
+                    new MatchedPreferences(
+                        new Preference(Preference::CHARSET, 'utf-8', 1.0, Preference::COMPLETE),
+                        new Preference(Preference::CHARSET, '', 0, Preference::ABSENT_TYPE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::CHARSET, 'iso-8859-5', 0.75, Preference::COMPLETE),
+                        new Preference(Preference::CHARSET, '', 0, Preference::ABSENT_TYPE)
                     )
                 )
             ),
@@ -72,17 +62,14 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                     new Preference(Preference::CHARSET, '', 0, Preference::ABSENT_TYPE),
                     new Preference(Preference::CHARSET, 'iso-8859-1', 1.0, Preference::COMPLETE)
                 ),
-                'all' => new MatchedPreferencesCollection(
-                    $sort,
-                    array(
-                        new MatchedPreferences(
-                            new Preference(Preference::CHARSET, '', 0, Preference::ABSENT_TYPE),
-                            new Preference(Preference::CHARSET, 'iso-8859-1', 1.0, Preference::COMPLETE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::CHARSET, '', 0, Preference::ABSENT_TYPE),
-                            new Preference(Preference::CHARSET, 'utf-8', 0.5, Preference::COMPLETE)
-                        )
+                'all' => array(
+                    new MatchedPreferences(
+                        new Preference(Preference::CHARSET, '', 0, Preference::ABSENT_TYPE),
+                        new Preference(Preference::CHARSET, 'iso-8859-1', 1.0, Preference::COMPLETE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::CHARSET, '', 0, Preference::ABSENT_TYPE),
+                        new Preference(Preference::CHARSET, 'utf-8', 0.5, Preference::COMPLETE)
                     )
                 )
             ),
@@ -96,17 +83,14 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                     new Preference(Preference::CHARSET, '', 0, Preference::ABSENT_TYPE),
                     new Preference(Preference::CHARSET, 'iso-8859-1', 0.5, Preference::COMPLETE)
                 ),
-                'all' => new MatchedPreferencesCollection(
-                    $sort,
-                    array(
-                        new MatchedPreferences(
-                            new Preference(Preference::CHARSET, '', 0, Preference::ABSENT_TYPE),
-                            new Preference(Preference::CHARSET, 'iso-8859-1', 0.5, Preference::COMPLETE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::CHARSET, '', 0, Preference::ABSENT_TYPE),
-                            new Preference(Preference::CHARSET, 'utf-8', 0.5, Preference::COMPLETE)
-                        )
+                'all' => array(
+                    new MatchedPreferences(
+                        new Preference(Preference::CHARSET, '', 0, Preference::ABSENT_TYPE),
+                        new Preference(Preference::CHARSET, 'iso-8859-1', 0.5, Preference::COMPLETE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::CHARSET, '', 0, Preference::ABSENT_TYPE),
+                        new Preference(Preference::CHARSET, 'utf-8', 0.5, Preference::COMPLETE)
                     )
                 )
             ),
@@ -120,25 +104,22 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                     new Preference(Preference::CHARSET, 'utf-8', 0.3, Preference::COMPLETE),
                     new Preference(Preference::CHARSET, 'utf-8', 0.6, Preference::COMPLETE)
                 ),
-                'all' => new MatchedPreferencesCollection(
-                    $sort,
-                    array(
-                        new MatchedPreferences(
-                            new Preference(Preference::CHARSET, 'utf-8', 0.3, Preference::COMPLETE),
-                            new Preference(Preference::CHARSET, 'utf-8', 0.6, Preference::COMPLETE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::CHARSET, 'iso-8859-1', 0.5, Preference::COMPLETE),
-                            new Preference(Preference::CHARSET, 'iso-8859-1', 0.3, Preference::COMPLETE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::CHARSET, 'windows-1250', 0.8, Preference::COMPLETE),
-                            new Preference(Preference::CHARSET, '', 0, Preference::ABSENT_TYPE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::CHARSET, '', 0, Preference::ABSENT_TYPE),
-                            new Preference(Preference::CHARSET, 'iso-8859-5', 0.9, Preference::COMPLETE)
-                        )
+                'all' => array(
+                    new MatchedPreferences(
+                        new Preference(Preference::CHARSET, 'utf-8', 0.3, Preference::COMPLETE),
+                        new Preference(Preference::CHARSET, 'utf-8', 0.6, Preference::COMPLETE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::CHARSET, 'iso-8859-1', 0.5, Preference::COMPLETE),
+                        new Preference(Preference::CHARSET, 'iso-8859-1', 0.3, Preference::COMPLETE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::CHARSET, 'windows-1250', 0.8, Preference::COMPLETE),
+                        new Preference(Preference::CHARSET, '', 0, Preference::ABSENT_TYPE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::CHARSET, '', 0, Preference::ABSENT_TYPE),
+                        new Preference(Preference::CHARSET, 'iso-8859-5', 0.9, Preference::COMPLETE)
                     )
                 )
             ),
@@ -151,21 +132,18 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                     new Preference(Preference::CHARSET, '*', 0.5, Preference::WILDCARD),
                     new Preference(Preference::CHARSET, 'windows-1250', 1, Preference::COMPLETE)
                 ),
-                'all' => new MatchedPreferencesCollection(
-                    $sort,
-                    array(
-                        new MatchedPreferences(
-                            new Preference(Preference::CHARSET, '*', 0.5, Preference::WILDCARD),
-                            new Preference(Preference::CHARSET, 'windows-1250', 1, Preference::COMPLETE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::CHARSET, 'iso-8859-5', 0.3, Preference::COMPLETE),
-                            new Preference(Preference::CHARSET, 'iso-8859-5', 1, Preference::COMPLETE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::CHARSET, 'utf-8', 0.9, Preference::COMPLETE),
-                            new Preference(Preference::CHARSET, '', 0, Preference::ABSENT_TYPE)
-                        )
+                'all' => array(
+                    new MatchedPreferences(
+                        new Preference(Preference::CHARSET, '*', 0.5, Preference::WILDCARD),
+                        new Preference(Preference::CHARSET, 'windows-1250', 1, Preference::COMPLETE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::CHARSET, 'iso-8859-5', 0.3, Preference::COMPLETE),
+                        new Preference(Preference::CHARSET, 'iso-8859-5', 1, Preference::COMPLETE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::CHARSET, 'utf-8', 0.9, Preference::COMPLETE),
+                        new Preference(Preference::CHARSET, '', 0, Preference::ABSENT_TYPE)
                     )
                 )
             ),
@@ -178,17 +156,14 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                     new Preference(Preference::CHARSET, 'iso-8859-5', 0.5, Preference::COMPLETE),
                     new Preference(Preference::CHARSET, 'iso-8859-5', 1, Preference::COMPLETE)
                 ),
-                'all' => new MatchedPreferencesCollection(
-                    $sort,
-                    array(
-                        new MatchedPreferences(
-                            new Preference(Preference::CHARSET, 'iso-8859-5', 0.5, Preference::COMPLETE),
-                            new Preference(Preference::CHARSET, 'iso-8859-5', 1, Preference::COMPLETE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::CHARSET, '*', 0.5, Preference::WILDCARD),
-                            new Preference(Preference::CHARSET, 'windows-1250', 1, Preference::COMPLETE)
-                        )
+                'all' => array(
+                    new MatchedPreferences(
+                        new Preference(Preference::CHARSET, 'iso-8859-5', 0.5, Preference::COMPLETE),
+                        new Preference(Preference::CHARSET, 'iso-8859-5', 1, Preference::COMPLETE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::CHARSET, '*', 0.5, Preference::WILDCARD),
+                        new Preference(Preference::CHARSET, 'windows-1250', 1, Preference::COMPLETE)
                     )
                 )
             )
@@ -197,13 +172,6 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
 
     public function encodingProvider()
     {
-        $sort = new MatchedPreferencesSort(
-            new MatchedPreferences(
-                new Preference(Preference::ENCODING, '', 0, Preference::ABSENT_TYPE),
-                new Preference(Preference::ENCODING, '', 0, Preference::ABSENT_TYPE)
-            )
-        );
-
         return array(
             // There is nothing sensible we can do in this case
             'client_empty_server_empty' => array(
@@ -213,7 +181,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                     new Preference(Preference::ENCODING, '', 0, Preference::ABSENT_TYPE),
                     new Preference(Preference::ENCODING, '', 0, Preference::ABSENT_TYPE)
                 ),
-                'all' => new MatchedPreferencesCollection($sort, array())
+                'all' => array()
             ),
 
             // Pair must contain server type with highest quality factor
@@ -224,17 +192,14 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                     new Preference(Preference::ENCODING, '7zip', 1.0, Preference::COMPLETE),
                     new Preference(Preference::ENCODING, '', 0, Preference::ABSENT_TYPE)
                 ),
-                'all' => new MatchedPreferencesCollection(
-                    $sort,
-                    array(
-                        new MatchedPreferences(
-                            new Preference(Preference::ENCODING, '7zip', 1.0, Preference::COMPLETE),
-                            new Preference(Preference::ENCODING, '', 0, Preference::ABSENT_TYPE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::ENCODING, 'gzip', 0.75, Preference::COMPLETE),
-                            new Preference(Preference::ENCODING, '', 0, Preference::ABSENT_TYPE)
-                        )
+                'all' => array(
+                    new MatchedPreferences(
+                        new Preference(Preference::ENCODING, '7zip', 1.0, Preference::COMPLETE),
+                        new Preference(Preference::ENCODING, '', 0, Preference::ABSENT_TYPE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::ENCODING, 'gzip', 0.75, Preference::COMPLETE),
+                        new Preference(Preference::ENCODING, '', 0, Preference::ABSENT_TYPE)
                     )
                 )
             ),
@@ -247,17 +212,14 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                     new Preference(Preference::ENCODING, '', 0, Preference::ABSENT_TYPE),
                     new Preference(Preference::ENCODING, 'compress', 1.0, Preference::COMPLETE)
                 ),
-                'all' => new MatchedPreferencesCollection(
-                    $sort,
-                    array(
-                        new MatchedPreferences(
-                            new Preference(Preference::ENCODING, '', 0, Preference::ABSENT_TYPE),
-                            new Preference(Preference::ENCODING, 'compress', 1.0, Preference::COMPLETE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::ENCODING, '', 0, Preference::ABSENT_TYPE),
-                            new Preference(Preference::ENCODING, '7zip', 0.5, Preference::COMPLETE)
-                        )
+                'all' => array(
+                    new MatchedPreferences(
+                        new Preference(Preference::ENCODING, '', 0, Preference::ABSENT_TYPE),
+                        new Preference(Preference::ENCODING, 'compress', 1.0, Preference::COMPLETE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::ENCODING, '', 0, Preference::ABSENT_TYPE),
+                        new Preference(Preference::ENCODING, '7zip', 0.5, Preference::COMPLETE)
                     )
                 )
             ),
@@ -271,17 +233,14 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                     new Preference(Preference::ENCODING, '', 0, Preference::ABSENT_TYPE),
                     new Preference(Preference::ENCODING, '7zip', 0.5, Preference::COMPLETE)
                 ),
-                'all' => new MatchedPreferencesCollection(
-                    $sort,
-                    array(
-                        new MatchedPreferences(
-                            new Preference(Preference::ENCODING, '', 0, Preference::ABSENT_TYPE),
-                            new Preference(Preference::ENCODING, '7zip', 0.5, Preference::COMPLETE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::ENCODING, '', 0, Preference::ABSENT_TYPE),
-                            new Preference(Preference::ENCODING, 'compress', 0.5, Preference::COMPLETE)
-                        )
+                'all' => array(
+                    new MatchedPreferences(
+                        new Preference(Preference::ENCODING, '', 0, Preference::ABSENT_TYPE),
+                        new Preference(Preference::ENCODING, '7zip', 0.5, Preference::COMPLETE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::ENCODING, '', 0, Preference::ABSENT_TYPE),
+                        new Preference(Preference::ENCODING, 'compress', 0.5, Preference::COMPLETE)
                     )
                 )
             ),
@@ -295,25 +254,22 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                     new Preference(Preference::ENCODING, '7zip', 0.3, Preference::COMPLETE),
                     new Preference(Preference::ENCODING, '7zip', 0.6, Preference::COMPLETE)
                 ),
-                'all' => new MatchedPreferencesCollection(
-                    $sort,
-                    array(
-                        new MatchedPreferences(
-                            new Preference(Preference::ENCODING, '7zip', 0.3, Preference::COMPLETE),
-                            new Preference(Preference::ENCODING, '7zip', 0.6, Preference::COMPLETE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::ENCODING, 'deflate', 0.5, Preference::COMPLETE),
-                            new Preference(Preference::ENCODING, 'deflate', 0.3, Preference::COMPLETE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::ENCODING, 'compress', 0.8, Preference::COMPLETE),
-                            new Preference(Preference::ENCODING, '', 0, Preference::ABSENT_TYPE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::ENCODING, '', 0, Preference::ABSENT_TYPE),
-                            new Preference(Preference::ENCODING, 'x-propriatary', 0.9, Preference::COMPLETE)
-                        )
+                'all' => array(
+                    new MatchedPreferences(
+                        new Preference(Preference::ENCODING, '7zip', 0.3, Preference::COMPLETE),
+                        new Preference(Preference::ENCODING, '7zip', 0.6, Preference::COMPLETE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::ENCODING, 'deflate', 0.5, Preference::COMPLETE),
+                        new Preference(Preference::ENCODING, 'deflate', 0.3, Preference::COMPLETE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::ENCODING, 'compress', 0.8, Preference::COMPLETE),
+                        new Preference(Preference::ENCODING, '', 0, Preference::ABSENT_TYPE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::ENCODING, '', 0, Preference::ABSENT_TYPE),
+                        new Preference(Preference::ENCODING, 'x-propriatary', 0.9, Preference::COMPLETE)
                     )
                 )
             ),
@@ -326,21 +282,18 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                     new Preference(Preference::ENCODING, '*', 0.5, Preference::WILDCARD),
                     new Preference(Preference::ENCODING, 'deflate', 1, Preference::COMPLETE)
                 ),
-                'all' => new MatchedPreferencesCollection(
-                    $sort,
-                    array(
-                        new MatchedPreferences(
-                            new Preference(Preference::ENCODING, '*', 0.5, Preference::WILDCARD),
-                            new Preference(Preference::ENCODING, 'deflate', 1, Preference::COMPLETE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::ENCODING, 'compress', 0.3, Preference::COMPLETE),
-                            new Preference(Preference::ENCODING, 'compress', 1, Preference::COMPLETE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::ENCODING, '7zip', 0.9, Preference::COMPLETE),
-                            new Preference(Preference::ENCODING, '', 0, Preference::ABSENT_TYPE)
-                        )
+                'all' => array(
+                    new MatchedPreferences(
+                        new Preference(Preference::ENCODING, '*', 0.5, Preference::WILDCARD),
+                        new Preference(Preference::ENCODING, 'deflate', 1, Preference::COMPLETE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::ENCODING, 'compress', 0.3, Preference::COMPLETE),
+                        new Preference(Preference::ENCODING, 'compress', 1, Preference::COMPLETE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::ENCODING, '7zip', 0.9, Preference::COMPLETE),
+                        new Preference(Preference::ENCODING, '', 0, Preference::ABSENT_TYPE)
                     )
                 )
             ),
@@ -353,17 +306,14 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                     new Preference(Preference::ENCODING, '7zip', 0.5, Preference::COMPLETE),
                     new Preference(Preference::ENCODING, '7zip', 1, Preference::COMPLETE)
                 ),
-                'all' => new MatchedPreferencesCollection(
-                    $sort,
-                    array(
-                        new MatchedPreferences(
-                            new Preference(Preference::ENCODING, '7zip', 0.5, Preference::COMPLETE),
-                            new Preference(Preference::ENCODING, '7zip', 1, Preference::COMPLETE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::ENCODING, '*', 0.5, Preference::WILDCARD),
-                            new Preference(Preference::ENCODING, 'compress', 1, Preference::COMPLETE)
-                        )
+                'all' => array(
+                    new MatchedPreferences(
+                        new Preference(Preference::ENCODING, '7zip', 0.5, Preference::COMPLETE),
+                        new Preference(Preference::ENCODING, '7zip', 1, Preference::COMPLETE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::ENCODING, '*', 0.5, Preference::WILDCARD),
+                        new Preference(Preference::ENCODING, 'compress', 1, Preference::COMPLETE)
                     )
                 )
             )
@@ -372,13 +322,6 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
 
     public function languageProvider()
     {
-        $sort = new MatchedPreferencesSort(
-            new MatchedPreferences(
-                new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE),
-                new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE)
-            )
-        );
-
         return array(
             // There is nothing sensible we can do in this case
             'client_empty_server_empty' => array(
@@ -388,7 +331,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                     new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE),
                     new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE)
                 ),
-                'all' => new MatchedPreferencesCollection($sort, array())
+                'all' => array()
             ),
 
             // Pair must contain server type with highest quality factor
@@ -399,17 +342,14 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                     new Preference(Preference::LANGUAGE, 'en-GB', 1.0, Preference::COMPLETE),
                     new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE)
                 ),
-                'all' => new MatchedPreferencesCollection(
-                    $sort,
-                    array(
-                        new MatchedPreferences(
-                            new Preference(Preference::LANGUAGE, 'en-GB', 1.0, Preference::COMPLETE),
-                            new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::LANGUAGE, 'es', 0.75, Preference::COMPLETE),
-                            new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE)
-                        )
+                'all' => array(
+                    new MatchedPreferences(
+                        new Preference(Preference::LANGUAGE, 'en-GB', 1.0, Preference::COMPLETE),
+                        new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::LANGUAGE, 'es', 0.75, Preference::COMPLETE),
+                        new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE)
                     )
                 )
             ),
@@ -422,17 +362,14 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                     new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE),
                     new Preference(Preference::LANGUAGE, 'de', 1.0, Preference::COMPLETE)
                 ),
-                'all' => new MatchedPreferencesCollection(
-                    $sort,
-                    array(
-                        new MatchedPreferences(
-                            new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE),
-                            new Preference(Preference::LANGUAGE, 'de', 1.0, Preference::COMPLETE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE),
-                            new Preference(Preference::LANGUAGE, 'fr', 0.5, Preference::COMPLETE)
-                        )
+                'all' => array(
+                    new MatchedPreferences(
+                        new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE),
+                        new Preference(Preference::LANGUAGE, 'de', 1.0, Preference::COMPLETE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE),
+                        new Preference(Preference::LANGUAGE, 'fr', 0.5, Preference::COMPLETE)
                     )
                 )
             ),
@@ -446,17 +383,14 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                     new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE),
                     new Preference(Preference::LANGUAGE, 'af', 0.5, Preference::COMPLETE)
                 ),
-                'all' => new MatchedPreferencesCollection(
-                    $sort,
-                    array(
-                        new MatchedPreferences(
-                            new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE),
-                            new Preference(Preference::LANGUAGE, 'af', 0.5, Preference::COMPLETE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE),
-                            new Preference(Preference::LANGUAGE, 'bg', 0.5, Preference::COMPLETE)
-                        )
+                'all' => array(
+                    new MatchedPreferences(
+                        new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE),
+                        new Preference(Preference::LANGUAGE, 'af', 0.5, Preference::COMPLETE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE),
+                        new Preference(Preference::LANGUAGE, 'bg', 0.5, Preference::COMPLETE)
                     )
                 )
             ),
@@ -470,25 +404,22 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                     new Preference(Preference::LANGUAGE, 'en-GB', 0.3, Preference::COMPLETE),
                     new Preference(Preference::LANGUAGE, 'en-GB', 0.6, Preference::COMPLETE)
                 ),
-                'all' => new MatchedPreferencesCollection(
-                    $sort,
-                    array(
-                        new MatchedPreferences(
-                            new Preference(Preference::LANGUAGE, 'en-GB', 0.3, Preference::COMPLETE),
-                            new Preference(Preference::LANGUAGE, 'en-GB', 0.6, Preference::COMPLETE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::LANGUAGE, 'de', 0.5, Preference::COMPLETE),
-                            new Preference(Preference::LANGUAGE, 'de', 0.3, Preference::COMPLETE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::LANGUAGE, 'en', 0.8, Preference::COMPLETE),
-                            new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE),
-                            new Preference(Preference::LANGUAGE, 'cs', 0.9, Preference::COMPLETE)
-                        )
+                'all' => array(
+                    new MatchedPreferences(
+                        new Preference(Preference::LANGUAGE, 'en-GB', 0.3, Preference::COMPLETE),
+                        new Preference(Preference::LANGUAGE, 'en-GB', 0.6, Preference::COMPLETE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::LANGUAGE, 'de', 0.5, Preference::COMPLETE),
+                        new Preference(Preference::LANGUAGE, 'de', 0.3, Preference::COMPLETE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::LANGUAGE, 'en', 0.8, Preference::COMPLETE),
+                        new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE),
+                        new Preference(Preference::LANGUAGE, 'cs', 0.9, Preference::COMPLETE)
                     )
                 )
             ),
@@ -501,21 +432,18 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                     new Preference(Preference::LANGUAGE, '*', 0.5, Preference::WILDCARD),
                     new Preference(Preference::LANGUAGE, 'fr', 1, Preference::COMPLETE)
                 ),
-                'all' => new MatchedPreferencesCollection(
-                    $sort,
-                    array(
-                        new MatchedPreferences(
-                            new Preference(Preference::LANGUAGE, '*', 0.5, Preference::WILDCARD),
-                            new Preference(Preference::LANGUAGE, 'fr', 1, Preference::COMPLETE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::LANGUAGE, 'en-GB', 0.3, Preference::COMPLETE),
-                            new Preference(Preference::LANGUAGE, 'en-GB', 1, Preference::COMPLETE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::LANGUAGE, 'de', 0.9, Preference::COMPLETE),
-                            new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE)
-                        )
+                'all' => array(
+                    new MatchedPreferences(
+                        new Preference(Preference::LANGUAGE, '*', 0.5, Preference::WILDCARD),
+                        new Preference(Preference::LANGUAGE, 'fr', 1, Preference::COMPLETE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::LANGUAGE, 'en-GB', 0.3, Preference::COMPLETE),
+                        new Preference(Preference::LANGUAGE, 'en-GB', 1, Preference::COMPLETE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::LANGUAGE, 'de', 0.9, Preference::COMPLETE),
+                        new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE)
                     )
                 )
             ),
@@ -528,17 +456,14 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                     new Preference(Preference::LANGUAGE, 'en-GB', 0.5, Preference::COMPLETE),
                     new Preference(Preference::LANGUAGE, 'en-GB', 1, Preference::COMPLETE)
                 ),
-                'all' => new MatchedPreferencesCollection(
-                    $sort,
-                    array(
-                        new MatchedPreferences(
-                            new Preference(Preference::LANGUAGE, 'en-GB', 0.5, Preference::COMPLETE),
-                            new Preference(Preference::LANGUAGE, 'en-GB', 1, Preference::COMPLETE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::LANGUAGE, '*', 0.5, Preference::WILDCARD),
-                            new Preference(Preference::LANGUAGE, 'en-US', 1, Preference::COMPLETE)
-                        )
+                'all' => array(
+                    new MatchedPreferences(
+                        new Preference(Preference::LANGUAGE, 'en-GB', 0.5, Preference::COMPLETE),
+                        new Preference(Preference::LANGUAGE, 'en-GB', 1, Preference::COMPLETE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::LANGUAGE, '*', 0.5, Preference::WILDCARD),
+                        new Preference(Preference::LANGUAGE, 'en-US', 1, Preference::COMPLETE)
                     )
                 )
             ),
@@ -551,25 +476,22 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                     new Preference(Preference::LANGUAGE, 'es', 1, Preference::COMPLETE),
                     new Preference(Preference::LANGUAGE, 'es-*', 0.75, Preference::PARTIAL_WILDCARD)
                 ),
-                'all' => new MatchedPreferencesCollection(
-                    $sort,
-                    array(
-                        new MatchedPreferences(
-                            new Preference(Preference::LANGUAGE, 'es', 1, Preference::COMPLETE),
-                            new Preference(Preference::LANGUAGE, 'es-*', 0.75, Preference::PARTIAL_WILDCARD)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::LANGUAGE, 'en-GB', 1, Preference::COMPLETE),
-                            new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE),
-                            new Preference(Preference::LANGUAGE, 'es-419', 1, Preference::COMPLETE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE),
-                            new Preference(Preference::LANGUAGE, 'es-ES', 1, Preference::COMPLETE)
-                        )
+                'all' => array(
+                    new MatchedPreferences(
+                        new Preference(Preference::LANGUAGE, 'es', 1, Preference::COMPLETE),
+                        new Preference(Preference::LANGUAGE, 'es-*', 0.75, Preference::PARTIAL_WILDCARD)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::LANGUAGE, 'en-GB', 1, Preference::COMPLETE),
+                        new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE),
+                        new Preference(Preference::LANGUAGE, 'es-419', 1, Preference::COMPLETE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE),
+                        new Preference(Preference::LANGUAGE, 'es-ES', 1, Preference::COMPLETE)
                     )
                 )
             ),
@@ -582,21 +504,18 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                     new Preference(Preference::LANGUAGE, 'es-ES', 1, Preference::COMPLETE),
                     new Preference(Preference::LANGUAGE, 'es-ES', 1, Preference::COMPLETE)
                 ),
-                'all' => new MatchedPreferencesCollection(
-                    $sort,
-                    array(
-                        new MatchedPreferences(
-                            new Preference(Preference::LANGUAGE, 'es-ES', 1, Preference::COMPLETE),
-                            new Preference(Preference::LANGUAGE, 'es-ES', 1, Preference::COMPLETE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::LANGUAGE, 'es-CO', 1, Preference::COMPLETE),
-                            new Preference(Preference::LANGUAGE, 'es-*', 0.75, Preference::PARTIAL_WILDCARD)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE),
-                            new Preference(Preference::LANGUAGE, 'es-419', 1, Preference::COMPLETE)
-                        )
+                'all' => array(
+                    new MatchedPreferences(
+                        new Preference(Preference::LANGUAGE, 'es-ES', 1, Preference::COMPLETE),
+                        new Preference(Preference::LANGUAGE, 'es-ES', 1, Preference::COMPLETE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::LANGUAGE, 'es-CO', 1, Preference::COMPLETE),
+                        new Preference(Preference::LANGUAGE, 'es-*', 0.75, Preference::PARTIAL_WILDCARD)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE),
+                        new Preference(Preference::LANGUAGE, 'es-419', 1, Preference::COMPLETE)
                     )
                 )
             )
@@ -606,13 +525,6 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
 
     public function mimeProvider()
     {
-        $sort = new MatchedPreferencesSort(
-            new MatchedPreferences(
-                new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE),
-                new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
-            )
-        );
-
         return array(
             // There is nothing sensible we can do in this case
             'client_empty_server_empty' => array(
@@ -622,7 +534,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                     new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE),
                     new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
                 ),
-                'all' => new MatchedPreferencesCollection($sort, array())
+                'all' => array()
             ),
 
             // Pair must contain server type with highest quality factor
@@ -633,17 +545,14 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                     new Preference(Preference::MIME, 'text/html', 1.0, Preference::COMPLETE),
                     new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
                 ),
-                'all' => new MatchedPreferencesCollection(
-                    $sort,
-                    array(
-                        new MatchedPreferences(
-                            new Preference(Preference::MIME, 'text/html', 1.0, Preference::COMPLETE),
-                            new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::MIME, 'application/xml', 0.75, Preference::COMPLETE),
-                            new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
-                        )
+                'all' => array(
+                    new MatchedPreferences(
+                        new Preference(Preference::MIME, 'text/html', 1.0, Preference::COMPLETE),
+                        new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::MIME, 'application/xml', 0.75, Preference::COMPLETE),
+                        new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
                     )
                 )
             ),
@@ -656,17 +565,14 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                     new Preference(Preference::MIME, 'application/rdf+xml', 1, Preference::COMPLETE),
                     new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
                 ),
-                'all' => new MatchedPreferencesCollection(
-                    $sort,
-                    array(
-                        new MatchedPreferences(
-                            new Preference(Preference::MIME, 'application/rdf+xml', 1, Preference::COMPLETE),
-                            new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::MIME, 'text/n3', 0.5, Preference::COMPLETE),
-                            new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
-                        )
+                'all' => array(
+                    new MatchedPreferences(
+                        new Preference(Preference::MIME, 'application/rdf+xml', 1, Preference::COMPLETE),
+                        new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::MIME, 'text/n3', 0.5, Preference::COMPLETE),
+                        new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
                     )
                 )
             ),
@@ -680,17 +586,14 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                     new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE),
                     new Preference(Preference::MIME, 'text/html', 0.5, Preference::COMPLETE)
                 ),
-                'all' => new MatchedPreferencesCollection(
-                    $sort,
-                    array(
-                        new MatchedPreferences(
-                            new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE),
-                            new Preference(Preference::MIME, 'text/html', 0.5, Preference::COMPLETE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE),
-                            new Preference(Preference::MIME, 'text/n3', 0.5, Preference::COMPLETE)
-                        )
+                'all' => array(
+                    new MatchedPreferences(
+                        new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE),
+                        new Preference(Preference::MIME, 'text/html', 0.5, Preference::COMPLETE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE),
+                        new Preference(Preference::MIME, 'text/n3', 0.5, Preference::COMPLETE)
                     )
                 )
             ),
@@ -704,25 +607,22 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                     new Preference(Preference::MIME, 'application/json', 0.3, Preference::COMPLETE),
                     new Preference(Preference::MIME, 'application/json', 0.6, Preference::COMPLETE)
                 ),
-                'all' => new MatchedPreferencesCollection(
-                    $sort,
-                    array(
-                        new MatchedPreferences(
-                            new Preference(Preference::MIME, 'application/json', 0.3, Preference::COMPLETE),
-                            new Preference(Preference::MIME, 'application/json', 0.6, Preference::COMPLETE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::MIME, 'text/html', 0.5, Preference::COMPLETE),
-                            new Preference(Preference::MIME, 'text/html', 0.3, Preference::COMPLETE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::MIME, 'application/xml', 0.8, Preference::COMPLETE),
-                            new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE),
-                            new Preference(Preference::MIME, 'text/n3', 0.9, Preference::COMPLETE)
-                        )
+                'all' => array(
+                    new MatchedPreferences(
+                        new Preference(Preference::MIME, 'application/json', 0.3, Preference::COMPLETE),
+                        new Preference(Preference::MIME, 'application/json', 0.6, Preference::COMPLETE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::MIME, 'text/html', 0.5, Preference::COMPLETE),
+                        new Preference(Preference::MIME, 'text/html', 0.3, Preference::COMPLETE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::MIME, 'application/xml', 0.8, Preference::COMPLETE),
+                        new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE),
+                        new Preference(Preference::MIME, 'text/n3', 0.9, Preference::COMPLETE)
                     )
                 )
             ),
@@ -735,21 +635,18 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                     new Preference(Preference::MIME, 'text/*', 0.8, Preference::PARTIAL_WILDCARD),
                     new Preference(Preference::MIME, 'text/html', 1, Preference::COMPLETE)
                 ),
-                'all' => new MatchedPreferencesCollection(
-                    $sort,
-                    array(
-                        new MatchedPreferences(
-                            new Preference(Preference::MIME, 'text/*', 0.8, Preference::PARTIAL_WILDCARD),
-                            new Preference(Preference::MIME, 'text/html', 1, Preference::COMPLETE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::MIME, 'application/xml', 0.9, Preference::COMPLETE),
-                            new Preference(Preference::MIME, 'application/xml', 0.7, Preference::COMPLETE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::MIME, 'text/*', 0.8, Preference::PARTIAL_WILDCARD),
-                            new Preference(Preference::MIME, 'text/n3', 0.3, Preference::COMPLETE)
-                        )
+                'all' => array(
+                    new MatchedPreferences(
+                        new Preference(Preference::MIME, 'text/*', 0.8, Preference::PARTIAL_WILDCARD),
+                        new Preference(Preference::MIME, 'text/html', 1, Preference::COMPLETE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::MIME, 'application/xml', 0.9, Preference::COMPLETE),
+                        new Preference(Preference::MIME, 'application/xml', 0.7, Preference::COMPLETE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::MIME, 'text/*', 0.8, Preference::PARTIAL_WILDCARD),
+                        new Preference(Preference::MIME, 'text/n3', 0.3, Preference::COMPLETE)
                     )
                 )
             ),
@@ -763,21 +660,18 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                     new Preference(Preference::MIME, 'text/html', 1, Preference::COMPLETE),
                     new Preference(Preference::MIME, 'text/html', 0.75, Preference::COMPLETE)
                 ),
-                'all' => new MatchedPreferencesCollection(
-                    $sort,
-                    array(
-                        new MatchedPreferences(
-                            new Preference(Preference::MIME, 'text/html', 1, Preference::COMPLETE),
-                            new Preference(Preference::MIME, 'text/html', 0.75, Preference::COMPLETE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::MIME, 'text/*', 0.75, Preference::PARTIAL_WILDCARD),
-                            new Preference(Preference::MIME, 'text/plain', 1, Preference::COMPLETE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE),
-                            new Preference(Preference::MIME, 'application/xml', 0.9, Preference::COMPLETE)
-                        )
+                'all' => array(
+                    new MatchedPreferences(
+                        new Preference(Preference::MIME, 'text/html', 1, Preference::COMPLETE),
+                        new Preference(Preference::MIME, 'text/html', 0.75, Preference::COMPLETE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::MIME, 'text/*', 0.75, Preference::PARTIAL_WILDCARD),
+                        new Preference(Preference::MIME, 'text/plain', 1, Preference::COMPLETE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE),
+                        new Preference(Preference::MIME, 'application/xml', 0.9, Preference::COMPLETE)
                     )
                 )
             ),
@@ -790,21 +684,18 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                     new Preference(Preference::MIME, 'text/html', 1, Preference::COMPLETE),
                     new Preference(Preference::MIME, 'text/html', 0.75, Preference::COMPLETE)
                 ),
-                'all' => new MatchedPreferencesCollection(
-                    $sort,
-                    array(
-                        new MatchedPreferences(
-                            new Preference(Preference::MIME, 'text/html', 1, Preference::COMPLETE),
-                            new Preference(Preference::MIME, 'text/html', 0.75, Preference::COMPLETE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::MIME, '*/*', 0.75, Preference::WILDCARD),
-                            new Preference(Preference::MIME, 'text/plain', 1, Preference::COMPLETE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::MIME, '*/*', 0.75, Preference::WILDCARD),
-                            new Preference(Preference::MIME, 'application/xml', 0.9, Preference::COMPLETE)
-                        )
+                'all' => array(
+                    new MatchedPreferences(
+                        new Preference(Preference::MIME, 'text/html', 1, Preference::COMPLETE),
+                        new Preference(Preference::MIME, 'text/html', 0.75, Preference::COMPLETE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::MIME, '*/*', 0.75, Preference::WILDCARD),
+                        new Preference(Preference::MIME, 'text/plain', 1, Preference::COMPLETE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::MIME, '*/*', 0.75, Preference::WILDCARD),
+                        new Preference(Preference::MIME, 'application/xml', 0.9, Preference::COMPLETE)
                     )
                 )
             ),
@@ -819,21 +710,18 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                     new Preference(Preference::MIME, 'text/html', 1, Preference::COMPLETE),
                     new Preference(Preference::MIME, 'text/html', 1, Preference::COMPLETE)
                 ),
-                'all' => new MatchedPreferencesCollection(
-                    $sort,
-                    array(
-                        new MatchedPreferences(
-                            new Preference(Preference::MIME, 'text/html', 1, Preference::COMPLETE),
-                            new Preference(Preference::MIME, 'text/html', 1, Preference::COMPLETE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::MIME, 'text/*', 1, Preference::PARTIAL_WILDCARD),
-                            new Preference(Preference::MIME, 'text/plain', 1, Preference::COMPLETE)
-                        ),
-                        new MatchedPreferences(
-                            new Preference(Preference::MIME, '*/*', 1, Preference::WILDCARD),
-                            new Preference(Preference::MIME, 'application/xml', 1, Preference::COMPLETE)
-                        )
+                'all' => array(
+                    new MatchedPreferences(
+                        new Preference(Preference::MIME, 'text/html', 1, Preference::COMPLETE),
+                        new Preference(Preference::MIME, 'text/html', 1, Preference::COMPLETE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::MIME, 'text/*', 1, Preference::PARTIAL_WILDCARD),
+                        new Preference(Preference::MIME, 'text/plain', 1, Preference::COMPLETE)
+                    ),
+                    new MatchedPreferences(
+                        new Preference(Preference::MIME, '*/*', 1, Preference::WILDCARD),
+                        new Preference(Preference::MIME, 'application/xml', 1, Preference::COMPLETE)
                     )
                 )
             ),

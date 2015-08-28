@@ -13,7 +13,7 @@
 
 namespace ptlis\ConNeg\Negotiator;
 
-use ptlis\ConNeg\Preference\Matched\MatchedPreferencesCollection;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferencesInterface;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
@@ -28,7 +28,7 @@ interface NegotiatorInterface
      * @param PreferenceInterface[] $serverPrefList
      * @param string $fromField
      *
-     * @return MatchedPreferencesCollection
+     * @return MatchedPreferencesInterface[] Array containing preference intersection, descending order.
      */
     public function negotiateAll(array $clientPrefList, array $serverPrefList, $fromField);
 
@@ -39,7 +39,7 @@ interface NegotiatorInterface
      * @param PreferenceInterface[] $serverPrefList
      * @param string $fromField
      *
-     * @return PreferenceInterface
+     * @return MatchedPreferencesInterface[] Array containing preference intersection, descending order.
      */
     public function negotiateBest(array $clientPrefList, array $serverPrefList, $fromField);
 }

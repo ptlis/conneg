@@ -19,30 +19,11 @@ namespace ptlis\ConNeg\Preference\Matched;
 class MatchedPreferencesSort
 {
     /**
-     * Default MatchedPreferences returned by 'best' negotiation when a collection is empty.
-     *
-     * @var MatchedPreferencesInterface
-     */
-    private $absentPreferences;
-
-
-    /**
-     * Constructor.
-     *
-     * @param MatchedPreferencesInterface $absentPreferences  Default MatchedPreferences used for 'best' negotiation
-     *      where the collection is empty.
-     */
-    public function __construct(MatchedPreferencesInterface $absentPreferences)
-    {
-        $this->absentPreferences = $absentPreferences;
-    }
-
-    /**
      * Sort the array of MatchedPreferences in ascending order.
      *
      * @param MatchedPreferencesInterface[] $prefList
      *
-     * @return MatchedPreferencesCollection
+     * @return MatchedPreferencesInterface[]
      */
     public function sortAscending(array $prefList)
     {
@@ -55,9 +36,7 @@ class MatchedPreferencesSort
             }
         );
 
-        $newCollection = new MatchedPreferencesCollection($this, $prefList);
-
-        return $newCollection;
+        return $prefList;
     }
 
     /**
@@ -65,7 +44,7 @@ class MatchedPreferencesSort
      *
      * @param MatchedPreferencesInterface[] $prefList
      *
-     * @return MatchedPreferencesCollection
+     * @return MatchedPreferencesInterface[]
      */
     public function sortDescending(array $prefList)
     {
@@ -78,36 +57,6 @@ class MatchedPreferencesSort
             }
         );
 
-        $newCollection = new MatchedPreferencesCollection($this, $prefList);
-
-        return $newCollection;
-    }
-
-    /**
-     * Get the best matching MatchedPreferences.
-     *
-     * @param MatchedPreferencesInterface[] $prefList
-     *
-     * @return MatchedPreferencesInterface
-     */
-    public function getBest(array $prefList)
-    {
-        $comparator = new MatchedPreferencesComparator();
-
-        usort(
-            $prefList,
-            function (MatchedPreferencesInterface $lValue, MatchedPreferencesInterface $rValue) use ($comparator) {
-                return $comparator->compare($lValue, $rValue);
-            }
-        );
-
-        if (count($prefList)) {
-            $bestPair = $prefList[0];
-
-        } else {
-            $bestPair = $this->absentPreferences;
-        }
-
-        return $bestPair;
+        return $prefList;
     }
 }
