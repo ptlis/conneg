@@ -42,7 +42,7 @@ class ExactMatcher implements MatcherInterface
     /**
      * @inheritDoc
      */
-    public function hasMatch(array $matchingList, PreferenceInterface $clientPref)
+    public function hasMatch($fromField, array $matchingList, PreferenceInterface $clientPref)
     {
         return $this->getMatchingTypes($matchingList, $clientPref) >= 0;
     }
@@ -50,7 +50,7 @@ class ExactMatcher implements MatcherInterface
     /**
      * @inheritDoc
      */
-    public function match(array $matchingList, PreferenceInterface $clientPref)
+    public function match($fromField, array $matchingList, PreferenceInterface $clientPref)
     {
         $matchIndex = $this->getMatchingTypes($matchingList, $clientPref);
 

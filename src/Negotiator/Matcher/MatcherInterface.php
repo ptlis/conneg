@@ -24,21 +24,23 @@ interface MatcherInterface
     /**
      * Returns true if this matcher can do matching for the client preference.
      *
+     * @parma string $fromField
      * @param MatchedPreferenceInterface[] $matchingList
      * @param PreferenceInterface $clientPref
      *
      * @return bool
      */
-    public function hasMatch(array $matchingList, PreferenceInterface $clientPref);
+    public function hasMatch($fromField, array $matchingList, PreferenceInterface $clientPref);
 
     /**
      * Perform the matching of client preference to server-provided preference, returning a new array containing the
      * result of the matching operation.
      *
+     * @parma string $fromField
      * @param MatchedPreferenceInterface[] $matchingList
      * @param PreferenceInterface $clientPref
      *
      * @return MatchedPreferenceInterface[]
      */
-    public function match(array $matchingList, PreferenceInterface $clientPref);
+    public function match($fromField, array $matchingList, PreferenceInterface $clientPref);
 }

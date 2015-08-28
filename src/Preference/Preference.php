@@ -90,14 +90,6 @@ class Preference implements PreferenceInterface
     /**
      * @inheritDoc
      */
-    public function getFromField()
-    {
-        return $this->fromField;
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function __toString()
     {
         $str = '';

@@ -99,14 +99,6 @@ class MatchedPreference implements MatchedPreferenceInterface
     }
 
     /**
-     * @inheritDoc
-     */
-    public function getFromField()
-    {
-        return $this->getServerPreference()->getFromField();
-    }
-
-    /**
      * Create string representation of the preference.
      *
      * @return string

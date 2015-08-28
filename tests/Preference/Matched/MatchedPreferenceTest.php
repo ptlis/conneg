@@ -29,7 +29,6 @@ class MatchedPreferenceTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame('utf-8', $pair->getType());
         $this->assertSame(2, $pair->getPrecedence());
-        $this->assertSame(Preference::CHARSET, $pair->getFromField());
         $this->assertSame('utf-8;q=0.15', $pair->__toString());
     }
 
@@ -43,7 +42,6 @@ class MatchedPreferenceTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame('utf-8', $pair->getType());
         $this->assertSame(2, $pair->getPrecedence());
-        $this->assertSame(Preference::CHARSET, $pair->getFromField());
         $this->assertSame('utf-8;q=0.15', $pair->__toString());
     }
 }

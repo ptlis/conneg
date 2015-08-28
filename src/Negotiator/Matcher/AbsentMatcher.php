@@ -50,7 +50,7 @@ class AbsentMatcher implements MatcherInterface
     /**
      * @inheritDoc
      */
-    public function hasMatch(array $matchingList, PreferenceInterface $clientPref)
+    public function hasMatch($fromField, array $matchingList, PreferenceInterface $clientPref)
     {
         return true; // Claim to always match
     }
@@ -58,15 +58,15 @@ class AbsentMatcher implements MatcherInterface
     /**
      * @inheritDoc
      */
-    public function match(array $matchingList, PreferenceInterface $clientPref)
+    public function match($fromField, array $matchingList, PreferenceInterface $clientPref)
     {
         $builder = $this->prefBuilder;
-        if (PreferenceInterface::MIME === $clientPref->getFromField()) {
+        if (PreferenceInterface::MIME === $fromField) {
             $builder = $this->mimePrefBuilder;
         }
 
         $emptyPref = $builder
-            ->setFromField($clientPref->getFromField())
+            ->setFromField($fromField)
             ->get();
 
         $matchingList[] = new MatchedPreference(

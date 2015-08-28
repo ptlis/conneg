@@ -96,7 +96,7 @@ class Negotiator implements NegotiatorInterface
             );
         }
 
-        $matchingList = $this->matchClientPreferences($clientPrefList, $matchingList);
+        $matchingList = $this->matchClientPreferences($fromField, $clientPrefList, $matchingList);
 
         return $sort->sortDescending($matchingList);
     }
@@ -124,15 +124,16 @@ class Negotiator implements NegotiatorInterface
     /**
      * Match client types to server types.
      *
+     * @param string $fromField
      * @param PreferenceInterface[] $clientPrefList
      * @param MatchedPreferenceInterface[] $matchingList
      *
      * @return MatchedPreferenceInterface[]
      */
-    private function matchClientPreferences(array $clientPrefList, array $matchingList)
+    private function matchClientPreferences($fromField, array $clientPrefList, array $matchingList)
     {
         foreach ($clientPrefList as $clientPref) {
-            $matchingList = $this->matchSingleClientPreference($clientPref, $matchingList);
+            $matchingList = $this->matchSingleClientPreference($fromField, $clientPref, $matchingList);
         }
 
         return $matchingList;
@@ -141,16 +142,17 @@ class Negotiator implements NegotiatorInterface
     /**
      * Match a single client type to the server types.
      *
+     * @parma string $fromField
      * @param PreferenceInterface $clientPreference
      * @param MatchedPreferenceInterface[] $matchingList
      *
      * @return MatchedPreferenceInterface[]
      */
-    private function matchSingleClientPreference(PreferenceInterface $clientPreference, array $matchingList)
+    private function matchSingleClientPreference($fromField, PreferenceInterface $clientPreference, array $matchingList)
     {
         foreach ($this->matcherList as $matcher) {
-            if ($matcher->hasMatch($matchingList, $clientPreference)) {
-                $matchingList = $matcher->match($matchingList, $clientPreference);
+            if ($matcher->hasMatch($fromField, $matchingList, $clientPreference)) {
+                $matchingList = $matcher->match($fromField, $matchingList, $clientPreference);
 
                 break;
             }

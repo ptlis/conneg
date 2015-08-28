@@ -24,12 +24,12 @@ class PartialLanguageMatcher implements MatcherInterface
     /**
      * @inheritDoc
      */
-    public function hasMatch(array $matchingList, PreferenceInterface $clientPref)
+    public function hasMatch($fromField, array $matchingList, PreferenceInterface $clientPref)
     {
         $hasMatch = false;
 
         foreach ($matchingList as $matching) {
-            if ($this->partialLangMatches($matching, $clientPref)) {
+            if ($this->partialLangMatches($fromField, $matching, $clientPref)) {
                 $hasMatch = true;
             }
         }
@@ -40,12 +40,12 @@ class PartialLanguageMatcher implements MatcherInterface
     /**
      * @inheritDoc
      */
-    public function match(array $matchingList, PreferenceInterface $clientPref)
+    public function match($fromField, array $matchingList, PreferenceInterface $clientPref)
     {
         $newMatchingList = array();
 
         foreach ($matchingList as $key => $matching) {
-            if ($this->partialLangMatches($matching, $clientPref)) {
+            if ($this->partialLangMatches($fromField, $matching, $clientPref)) {
                 $newPair = new MatchedPreference(
                     $clientPref,
                     $matching->getServerPreference()
@@ -67,13 +67,17 @@ class PartialLanguageMatcher implements MatcherInterface
      *
      * e.g. An server type of en-* would match en, en-US but not es-ES
      *
+     * @param string $fromField
      * @param MatchedPreference $matchedPreference
      * @param PreferenceInterface $newClientPref
      *
      * @return bool
      */
-    private function partialLangMatches(MatchedPreference $matchedPreference, PreferenceInterface $newClientPref)
-    {
+    private function partialLangMatches(
+        $fromField,
+        MatchedPreference $matchedPreference,
+        PreferenceInterface $newClientPref
+    ) {
         $serverPref = $matchedPreference->getServerPreference();
         $oldClientPref = $matchedPreference->getClientPreference();
 
@@ -82,7 +86,7 @@ class PartialLanguageMatcher implements MatcherInterface
         list($clientMainLang) = explode('-', $newClientPref->getType());
         list($serverMainLang) = explode('-', $serverPref->getType());
 
-        return PreferenceInterface::LANGUAGE === $newClientPref->getFromField()
+        return PreferenceInterface::LANGUAGE === $fromField
             && PreferenceInterface::PARTIAL_WILDCARD === $serverPref->getPrecedence()
             && $clientMainLang == $serverMainLang
             && $newClientPref->getPrecedence() > $oldClientPref->getPrecedence();

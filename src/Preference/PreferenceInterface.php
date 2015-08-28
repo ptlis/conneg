@@ -66,13 +66,6 @@ interface PreferenceInterface
     public function getQualityFactor();
 
     /**
-     * Returns the HTTP field that the preference was derived from.
-     *
-     * @return string
-     */
-    public function getFromField();
-
-    /**
      * Create string representation of type.
      *
      * @return string

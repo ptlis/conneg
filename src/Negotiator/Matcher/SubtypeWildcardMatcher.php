@@ -24,16 +24,16 @@ class SubtypeWildcardMatcher implements MatcherInterface
     /**
      * @inheritDoc
      */
-    public function hasMatch(array $matchingList, PreferenceInterface $clientPref)
+    public function hasMatch($fromField, array $matchingList, PreferenceInterface $clientPref)
     {
-        return PreferenceInterface::MIME === $clientPref->getFromField()
+        return PreferenceInterface::MIME === $fromField
             && PreferenceInterface::PARTIAL_WILDCARD === $clientPref->getPrecedence();
     }
 
     /**
      * @inheritDoc
      */
-    public function match(array $matchingList, PreferenceInterface $clientPref)
+    public function match($fromField, array $matchingList, PreferenceInterface $clientPref)
     {
         foreach ($matchingList as $key => $matching) {
             $serverPref = $matching->getServerPreference();
