@@ -17,13 +17,13 @@ Variants of the same resource may vary by language, character encoding, mime typ
 
 Quality factors are used to indicate preferences for particular variant of a resource, they range from 1 for the ideal representation to 0 for a completely degraded representation of the resource. [RFC2295 Sec 5.3](http://tools.ietf.org/html/rfc2295#section-5.3) provides a guide to assigning quality factors:
 
-~~~ plain
-    1.000  perfect representation
-    0.900  threshold of noticeable loss of quality
-    0.800  noticeable, but acceptable quality reduction
-    0.500  barely acceptable quality
-    0.300  severely degraded quality
-    0.000  completely degraded quality
+~~~markdown
+1.000  perfect representation
+0.900  threshold of noticeable loss of quality
+0.800  noticeable, but acceptable quality reduction
+0.500  barely acceptable quality
+0.300  severely degraded quality
+0.000  completely degraded quality
 ~~~
 
 ## Type Preference Encodings
