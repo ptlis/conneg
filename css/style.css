@@ -23,6 +23,7 @@
 
 #main_navigation.navbar a {
     color: #fff;
+    background-color: #0078ff;
 }
 
 #main_navigation.navbar a:hover {
@@ -31,6 +32,7 @@
 
 #main_navigation.navbar .active a {
     color: #fff;
+    background-color: #0066D8;
 }
 
 .container h2 {
@@ -48,11 +50,13 @@
 }
 
 .container pre {
-    padding: 0 15px 15px 15px;
+    padding: 0 15px;
+    background-color: #354454;
 }
 
 body {
     overflow-y: scroll;
+    margin-bottom: 60px;
 }
 
 code * {
