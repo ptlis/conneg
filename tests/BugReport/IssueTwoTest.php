@@ -32,26 +32,32 @@ class IssueTwoTest extends \PHPUnit_Framework_TestCase
 
         $expectList = array(
             new MatchedPreference(
+                Preference::MIME,
                 new Preference('text/turtle', 1, Preference::COMPLETE),
                 new Preference('', 0, Preference::ABSENT)
             ),
             new MatchedPreference(
+                Preference::MIME,
                 new Preference('application/rdf+json', 0.8, Preference::COMPLETE),
                 new Preference('', 0, Preference::ABSENT)
             ),
             new MatchedPreference(
+                Preference::MIME,
                 new Preference('application/rdf+xml', 0.8, Preference::COMPLETE),
                 new Preference('', 0, Preference::ABSENT)
             ),
             new MatchedPreference(
+                Preference::MIME,
                 new Preference('text/n3', 0.8, Preference::COMPLETE),
                 new Preference('', 0, Preference::ABSENT)
             ),
             new MatchedPreference(
+                Preference::MIME,
                 new Preference('text/rdf+n3', 0.8, Preference::COMPLETE),
                 new Preference('', 0, Preference::ABSENT)
             ),
             new MatchedPreference(
+                Preference::MIME,
                 new Preference('application/ld+json', 0.5, Preference::COMPLETE),
                 new Preference('', 0, Preference::ABSENT)
             )

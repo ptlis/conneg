@@ -56,6 +56,7 @@ class ExactMatcher implements MatcherInterface
 
         if ($matchIndex >= 0) {
             $newMatch = new MatchedPreference(
+                $fromField,
                 $clientPref,
                 $matchingList[$matchIndex]->getServerPreference()
             );

@@ -23,10 +23,12 @@ class MatchedPreferenceSortTest extends \PHPUnit_Framework_TestCase
     {
         $typePairList = array();
         $typePairList[] = new MatchedPreference(
+            Preference::LANGUAGE,
             new Preference('en-gb', 0.9, Preference::COMPLETE),
             new Preference('en-gb', 1, Preference::COMPLETE)
         );
         $typePairList[] = new MatchedPreference(
+            Preference::LANGUAGE,
             new Preference('fr', 0.8, Preference::COMPLETE),
             new Preference('fr', 0.8, Preference::COMPLETE)
         );
@@ -57,10 +59,12 @@ class MatchedPreferenceSortTest extends \PHPUnit_Framework_TestCase
     {
         $typePairList = array();
         $typePairList[] = new MatchedPreference(
+            Preference::LANGUAGE,
             new Preference('en-gb', 0.9, Preference::COMPLETE),
             new Preference('en-gb', 0.5, Preference::COMPLETE)
         );
         $typePairList[] = new MatchedPreference(
+            Preference::LANGUAGE,
             new Preference('fr', 0.8, Preference::COMPLETE),
             new Preference('fr', 0.8, Preference::COMPLETE)
         );
@@ -93,10 +97,12 @@ class MatchedPreferenceSortTest extends \PHPUnit_Framework_TestCase
     {
         $typePairList = array();
         $typePairList[] = new MatchedPreference(
+            Preference::LANGUAGE,
             new Preference('en-gb', 0.8, Preference::COMPLETE),
             new Preference('en-gb', 0.9, Preference::COMPLETE)
         );
         $typePairList[] = new MatchedPreference(
+            Preference::LANGUAGE,
             new Preference('fr', 0.8, Preference::COMPLETE),
             new Preference('fr', 0.9, Preference::COMPLETE)
         );
@@ -128,10 +134,12 @@ class MatchedPreferenceSortTest extends \PHPUnit_Framework_TestCase
     {
         $typePairList = array();
         $typePairList[] = new MatchedPreference(
+            Preference::LANGUAGE,
             new Preference('en-gb', 0.9, Preference::COMPLETE),
             new Preference('en-gb', 0.8, Preference::COMPLETE)
         );
         $typePairList[] = new MatchedPreference(
+            Preference::LANGUAGE,
             new Preference('fr', 0.8, Preference::COMPLETE),
             new Preference('fr', 0.9, Preference::COMPLETE)
         );
@@ -163,10 +171,12 @@ class MatchedPreferenceSortTest extends \PHPUnit_Framework_TestCase
     {
         $typePairList = array();
         $typePairList[] = new MatchedPreference(
+            Preference::LANGUAGE,
             new Preference('en-gb', 0.8, Preference::COMPLETE),
             new Preference('en-gb', 0.9, Preference::COMPLETE)
         );
         $typePairList[] = new MatchedPreference(
+            Preference::LANGUAGE,
             new Preference('fr', 0.9, Preference::COMPLETE),
             new Preference('fr', 0.8, Preference::COMPLETE)
         );
@@ -198,10 +208,12 @@ class MatchedPreferenceSortTest extends \PHPUnit_Framework_TestCase
     {
         $typePairList = array();
         $typePairList[] = new MatchedPreference(
+            Preference::LANGUAGE,
             new Preference('', 0, Preference::ABSENT),
             new Preference('en-gb', 0.9, Preference::COMPLETE)
         );
         $typePairList[] = new MatchedPreference(
+            Preference::LANGUAGE,
             new Preference('', 0, Preference::ABSENT),
             new Preference('fr', 0.8, Preference::COMPLETE)
         );
@@ -233,10 +245,12 @@ class MatchedPreferenceSortTest extends \PHPUnit_Framework_TestCase
     {
         $typePairList = array();
         $typePairList[] = new MatchedPreference(
+            Preference::LANGUAGE,
             new Preference('en-gb', 0.9, Preference::COMPLETE),
             new Preference('', 0, Preference::ABSENT)
         );
         $typePairList[] = new MatchedPreference(
+            Preference::LANGUAGE,
             new Preference('fr', 0.8, Preference::COMPLETE),
             new Preference('', 0, Preference::ABSENT)
         );
@@ -268,10 +282,12 @@ class MatchedPreferenceSortTest extends \PHPUnit_Framework_TestCase
     {
         $typePairList = array();
         $typePairList[] = new MatchedPreference(
+            Preference::LANGUAGE,
             new Preference('en-gb', 0.8, Preference::COMPLETE),
             new Preference('en-gb', 0.9, Preference::COMPLETE)
         );
         $typePairList[] = new MatchedPreference(
+            Preference::LANGUAGE,
             new Preference('fr', 0.9, Preference::COMPLETE),
             new Preference('fr', 0.8, Preference::COMPLETE)
         );

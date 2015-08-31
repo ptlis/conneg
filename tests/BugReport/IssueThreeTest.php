@@ -32,10 +32,12 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
 
         $expectList = array(
             new MatchedPreference(
+                Preference::MIME,
                 new Preference('application/rdf+xml', 0.5, Preference::COMPLETE),
                 new Preference('', 0, Preference::ABSENT)
             ),
             new MatchedPreference(
+                Preference::MIME,
                 new Preference('text/html', 0.3, Preference::COMPLETE),
                 new Preference('', 0, Preference::ABSENT)
             )
@@ -58,6 +60,7 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
 
         $expectList = array(
             new MatchedPreference(
+                Preference::MIME,
                 new Preference('application/xhtml+xml', 0.5, Preference::COMPLETE),
                 new Preference('', 0, Preference::ABSENT)
             )
@@ -80,10 +83,12 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
 
         $expectList = array(
             new MatchedPreference(
+                Preference::MIME,
                 new Preference('application/rdf+xml', 0.5, Preference::COMPLETE),
                 new Preference('', 0, Preference::ABSENT)
             ),
             new MatchedPreference(
+                Preference::MIME,
                 new Preference('text/html', 0.5, Preference::COMPLETE),
                 new Preference('', 0, Preference::ABSENT)
             )

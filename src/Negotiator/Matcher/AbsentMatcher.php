@@ -70,6 +70,7 @@ class AbsentMatcher implements MatcherInterface
             ->get();
 
         $matchingList[] = new MatchedPreference(
+            $fromField,
             $clientPref,
             $emptyPref
         );

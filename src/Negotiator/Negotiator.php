@@ -91,6 +91,7 @@ class Negotiator implements NegotiatorInterface
 
         foreach ($serverPrefList as $serverPref) {
             $matchingList[] = new MatchedPreference(
+                $fromField,
                 $emptyPref,
                 $serverPref
             );
@@ -115,7 +116,7 @@ class Negotiator implements NegotiatorInterface
                 ->setFromField($fromField)
                 ->get();
 
-            $best = new MatchedPreference($emptyPref, $emptyPref);
+            $best = new MatchedPreference($fromField, $emptyPref, $emptyPref);
         }
 
         return $best;

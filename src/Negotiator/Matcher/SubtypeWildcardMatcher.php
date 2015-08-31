@@ -41,6 +41,7 @@ class SubtypeWildcardMatcher implements MatcherInterface
 
         foreach ($matchingIndexList as $matchingIndex) {
             $matchingList[$matchingIndex] = new MatchedPreference(
+                $fromField,
                 $clientPref,
                 $matchingList[$matchingIndex]->getServerPreference()
             );

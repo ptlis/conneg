@@ -21,6 +21,13 @@ use ptlis\ConNeg\Preference\PreferenceInterface;
 class MatchedPreference implements MatchedPreferenceInterface
 {
     /**
+     * Which HTTP field the match relates to.
+     *
+     * @var string
+     */
+    private $fromField;
+
+    /**
      * The preference from the client.
      *
      * @var PreferenceInterface
@@ -38,11 +45,13 @@ class MatchedPreference implements MatchedPreferenceInterface
     /**
      * Constructor.
      *
+     * @param string $fromField
      * @param PreferenceInterface $serverPref
      * @param PreferenceInterface $clientPref
      */
-    public function __construct(PreferenceInterface $clientPref, PreferenceInterface $serverPref)
+    public function __construct($fromField, PreferenceInterface $clientPref, PreferenceInterface $serverPref)
     {
+        $this->fromField = $fromField;
         $this->clientPref = $clientPref;
         $this->serverPref  = $serverPref;
     }
