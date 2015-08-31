@@ -27,10 +27,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
             'client_empty_server_empty' => array(
                 'client' => '',
                 'server' => '',
-                'best' => new MatchedPreference(
-                    new Preference(Preference::CHARSET, '', 0, Preference::ABSENT),
-                    new Preference(Preference::CHARSET, '', 0, Preference::ABSENT)
-                ),
+                'best' => '',
                 'all' => array()
             ),
 
@@ -38,10 +35,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
             'server_empty' => array(
                 'client' => 'utf-8,iso-8859-5;q=0.75',
                 'server' => '',
-                'best' => new MatchedPreference(
-                    new Preference(Preference::CHARSET, 'utf-8', 1.0, Preference::COMPLETE),
-                    new Preference(Preference::CHARSET, '', 0, Preference::ABSENT)
-                ),
+                'best' => 'utf-8',
                 'all' => array(
                     new MatchedPreference(
                         new Preference(Preference::CHARSET, 'utf-8', 1.0, Preference::COMPLETE),
@@ -58,10 +52,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
             'client_empty' => array(
                 'client' => '',
                 'server' => 'iso-8859-1;q=1,utf-8;q=0.5',
-                'best' => new MatchedPreference(
-                    new Preference(Preference::CHARSET, '', 0, Preference::ABSENT),
-                    new Preference(Preference::CHARSET, 'iso-8859-1', 1.0, Preference::COMPLETE)
-                ),
+                'best' => 'iso-8859-1',
                 'all' => array(
                     new MatchedPreference(
                         new Preference(Preference::CHARSET, '', 0, Preference::ABSENT),
@@ -79,10 +70,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
             'client_empty_server_identical_quality' => array(
                 'client' => '',
                 'server' => 'utf-8;q=0.5,iso-8859-1;q=0.5',
-                'best' => new MatchedPreference(
-                    new Preference(Preference::CHARSET, '', 0, Preference::ABSENT),
-                    new Preference(Preference::CHARSET, 'iso-8859-1', 0.5, Preference::COMPLETE)
-                ),
+                'best' => 'iso-8859-1',
                 'all' => array(
                     new MatchedPreference(
                         new Preference(Preference::CHARSET, '', 0, Preference::ABSENT),
@@ -100,10 +88,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
             'multiple_matching_types' => array(
                 'client' => 'windows-1250;q=0.8,utf-8;q=0.3,iso-8859-1;q=0.5',
                 'server' => 'utf-8;q=0.6,iso-8859-5;q=0.9,iso-8859-1;q=0.3',
-                'best' => new MatchedPreference(
-                    new Preference(Preference::CHARSET, 'utf-8', 0.3, Preference::COMPLETE),
-                    new Preference(Preference::CHARSET, 'utf-8', 0.6, Preference::COMPLETE)
-                ),
+                'best' => 'utf-8',
                 'all' => array(
                     new MatchedPreference(
                         new Preference(Preference::CHARSET, 'utf-8', 0.3, Preference::COMPLETE),
@@ -128,10 +113,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
             'test_wildcard_qualities' => array(
                 'client' => 'iso-8859-5;q=0.3,utf-8;q=0.9,*;q=0.5',
                 'server' => 'iso-8859-5,windows-1250',
-                'best' => new MatchedPreference(
-                    new Preference(Preference::CHARSET, '*', 0.5, Preference::WILDCARD),
-                    new Preference(Preference::CHARSET, 'windows-1250', 1, Preference::COMPLETE)
-                ),
+                'best' => 'windows-1250',
                 'all' => array(
                     new MatchedPreference(
                         new Preference(Preference::CHARSET, '*', 0.5, Preference::WILDCARD),
@@ -152,10 +134,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
             'test_wildcard_precedence' => array(
                 'client' => '*;q=0.5,iso-8859-5;q=0.5',
                 'server' => 'iso-8859-5,windows-1250',
-                'best' => new MatchedPreference(
-                    new Preference(Preference::CHARSET, 'iso-8859-5', 0.5, Preference::COMPLETE),
-                    new Preference(Preference::CHARSET, 'iso-8859-5', 1, Preference::COMPLETE)
-                ),
+                'best' => 'iso-8859-5',
                 'all' => array(
                     new MatchedPreference(
                         new Preference(Preference::CHARSET, 'iso-8859-5', 0.5, Preference::COMPLETE),
@@ -177,10 +156,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
             'client_empty_server_empty' => array(
                 'client' => '',
                 'server' => '',
-                'best' => new MatchedPreference(
-                    new Preference(Preference::ENCODING, '', 0, Preference::ABSENT),
-                    new Preference(Preference::ENCODING, '', 0, Preference::ABSENT)
-                ),
+                'best' => '',
                 'all' => array()
             ),
 
@@ -188,10 +164,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
             'server_empty' => array(
                 'client' => '7zip,gzip;q=0.75',
                 'server' => '',
-                'best' => new MatchedPreference(
-                    new Preference(Preference::ENCODING, '7zip', 1.0, Preference::COMPLETE),
-                    new Preference(Preference::ENCODING, '', 0, Preference::ABSENT)
-                ),
+                'best' => '7zip',
                 'all' => array(
                     new MatchedPreference(
                         new Preference(Preference::ENCODING, '7zip', 1.0, Preference::COMPLETE),
@@ -208,10 +181,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
             'client_empty' => array(
                 'client' => '',
                 'server' => 'compress;q=1,7zip;q=0.5',
-                'best' => new MatchedPreference(
-                    new Preference(Preference::ENCODING, '', 0, Preference::ABSENT),
-                    new Preference(Preference::ENCODING, 'compress', 1.0, Preference::COMPLETE)
-                ),
+                'best' => 'compress',
                 'all' => array(
                     new MatchedPreference(
                         new Preference(Preference::ENCODING, '', 0, Preference::ABSENT),
@@ -229,10 +199,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
             'client_empty_server_identical_quality' => array(
                 'client' => '',
                 'server' => 'compress;q=0.5, 7zip;q=0.5',
-                'best' => new MatchedPreference(
-                    new Preference(Preference::ENCODING, '', 0, Preference::ABSENT),
-                    new Preference(Preference::ENCODING, '7zip', 0.5, Preference::COMPLETE)
-                ),
+                'best' => '7zip',
                 'all' => array(
                     new MatchedPreference(
                         new Preference(Preference::ENCODING, '', 0, Preference::ABSENT),
@@ -250,10 +217,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
             'multiple_matching_types' => array(
                 'client' => 'compress;q=0.8,7zip;q=0.3,deflate;q=0.5',
                 'server' => '7zip;q=0.6,x-propriatary;q=0.9,deflate;q=0.3',
-                'best' => new MatchedPreference(
-                    new Preference(Preference::ENCODING, '7zip', 0.3, Preference::COMPLETE),
-                    new Preference(Preference::ENCODING, '7zip', 0.6, Preference::COMPLETE)
-                ),
+                'best' => '7zip',
                 'all' => array(
                     new MatchedPreference(
                         new Preference(Preference::ENCODING, '7zip', 0.3, Preference::COMPLETE),
@@ -278,10 +242,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
             'test_wildcard_qualities' => array(
                 'client' => 'compress;q=0.3,7zip;q=0.9,*;q=0.5',
                 'server' => 'compress,deflate',
-                'best' => new MatchedPreference(
-                    new Preference(Preference::ENCODING, '*', 0.5, Preference::WILDCARD),
-                    new Preference(Preference::ENCODING, 'deflate', 1, Preference::COMPLETE)
-                ),
+                'best' => 'deflate',
                 'all' => array(
                     new MatchedPreference(
                         new Preference(Preference::ENCODING, '*', 0.5, Preference::WILDCARD),
@@ -302,10 +263,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
             'test_wildcard_precedence' => array(
                 'client' => '*;q=0.5,7zip;q=0.5',
                 'server' => '7zip,compress',
-                'best' => new MatchedPreference(
-                    new Preference(Preference::ENCODING, '7zip', 0.5, Preference::COMPLETE),
-                    new Preference(Preference::ENCODING, '7zip', 1, Preference::COMPLETE)
-                ),
+                'best' => '7zip',
                 'all' => array(
                     new MatchedPreference(
                         new Preference(Preference::ENCODING, '7zip', 0.5, Preference::COMPLETE),
@@ -327,10 +285,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
             'client_empty_server_empty' => array(
                 'client' => '',
                 'server' => '',
-                'best' => new MatchedPreference(
-                    new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT),
-                    new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT)
-                ),
+                'best' => '',
                 'all' => array()
             ),
 
@@ -338,10 +293,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
             'server_empty' => array(
                 'client' => 'en-GB,es;q=0.75',
                 'server' => '',
-                'best' => new MatchedPreference(
-                    new Preference(Preference::LANGUAGE, 'en-GB', 1.0, Preference::COMPLETE),
-                    new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT)
-                ),
+                'best' => 'en-GB',
                 'all' => array(
                     new MatchedPreference(
                         new Preference(Preference::LANGUAGE, 'en-GB', 1.0, Preference::COMPLETE),
@@ -358,10 +310,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
             'client_empty' => array(
                 'client' => '',
                 'server' => 'de;q=1,fr;q=0.5',
-                'best' => new MatchedPreference(
-                    new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT),
-                    new Preference(Preference::LANGUAGE, 'de', 1.0, Preference::COMPLETE)
-                ),
+                'best' => 'de',
                 'all' => array(
                     new MatchedPreference(
                         new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT),
@@ -379,10 +328,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
             'client_empty_server_identical_quality' => array(
                 'client' => '',
                 'server' => 'af;q=0.5, bg;q=0.5',
-                'best' => new MatchedPreference(
-                    new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT),
-                    new Preference(Preference::LANGUAGE, 'af', 0.5, Preference::COMPLETE)
-                ),
+                'best' => 'af',
                 'all' => array(
                     new MatchedPreference(
                         new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT),
@@ -400,10 +346,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
             'multiple_matching_types' => array(
                 'client' => 'en;q=0.8,en-GB;q=0.3,de;q=0.5',
                 'server' => 'en-GB;q=0.6,cs;q=0.9,de;q=0.3',
-                'best' => new MatchedPreference(
-                    new Preference(Preference::LANGUAGE, 'en-GB', 0.3, Preference::COMPLETE),
-                    new Preference(Preference::LANGUAGE, 'en-GB', 0.6, Preference::COMPLETE)
-                ),
+                'best' => 'en-GB',
                 'all' => array(
                     new MatchedPreference(
                         new Preference(Preference::LANGUAGE, 'en-GB', 0.3, Preference::COMPLETE),
@@ -428,10 +371,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
             'test_wildcard_qualities' => array(
                 'client' => 'en-GB;q=0.3,de;q=0.9,*;q=0.5',
                 'server' => 'en-GB,fr',
-                'best' => new MatchedPreference(
-                    new Preference(Preference::LANGUAGE, '*', 0.5, Preference::WILDCARD),
-                    new Preference(Preference::LANGUAGE, 'fr', 1, Preference::COMPLETE)
-                ),
+                'best' => 'fr',
                 'all' => array(
                     new MatchedPreference(
                         new Preference(Preference::LANGUAGE, '*', 0.5, Preference::WILDCARD),
@@ -452,10 +392,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
             'test_wildcard_precedence' => array(
                 'client' => '*;q=0.5,en-GB;q=0.5',
                 'server' => 'en-GB,en-US',
-                'best' => new MatchedPreference(
-                    new Preference(Preference::LANGUAGE, 'en-GB', 0.5, Preference::COMPLETE),
-                    new Preference(Preference::LANGUAGE, 'en-GB', 1, Preference::COMPLETE)
-                ),
+                'best' => 'en-GB',
                 'all' => array(
                     new MatchedPreference(
                         new Preference(Preference::LANGUAGE, 'en-GB', 0.5, Preference::COMPLETE),
@@ -472,10 +409,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
             'test_partial_language' => array(
                 'client' => 'en-GB,es',
                 'server' => 'es-*;q=0.75,es-ES,es-419',
-                'best' => new MatchedPreference(
-                    new Preference(Preference::LANGUAGE, 'es', 1, Preference::COMPLETE),
-                    new Preference(Preference::LANGUAGE, 'es-*', 0.75, Preference::PARTIAL_WILDCARD)
-                ),
+                'best' => 'es',
                 'all' => array(
                     new MatchedPreference(
                         new Preference(Preference::LANGUAGE, 'es', 1, Preference::COMPLETE),
@@ -500,10 +434,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
             'test_partial_language_subtype' => array(
                 'client' => 'es-CO,es-ES',
                 'server' => 'es-*;q=0.75,es-ES,es-419',
-                'best' => new MatchedPreference(
-                    new Preference(Preference::LANGUAGE, 'es-ES', 1, Preference::COMPLETE),
-                    new Preference(Preference::LANGUAGE, 'es-ES', 1, Preference::COMPLETE)
-                ),
+                'best' => 'es-ES',
                 'all' => array(
                     new MatchedPreference(
                         new Preference(Preference::LANGUAGE, 'es-ES', 1, Preference::COMPLETE),
@@ -530,10 +461,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
             'client_empty_server_empty' => array(
                 'client' => '',
                 'server' => '',
-                'best' => new MatchedPreference(
-                    new Preference(Preference::MIME, '', 0, Preference::ABSENT),
-                    new Preference(Preference::MIME, '', 0, Preference::ABSENT)
-                ),
+                'best' => '',
                 'all' => array()
             ),
 
@@ -541,10 +469,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
             'server_empty' => array(
                 'client' => 'text/html,application/xml;q=0.75',
                 'server' => '',
-                'best' => new MatchedPreference(
-                    new Preference(Preference::MIME, 'text/html', 1.0, Preference::COMPLETE),
-                    new Preference(Preference::MIME, '', 0, Preference::ABSENT)
-                ),
+                'best' => 'text/html',
                 'all' => array(
                     new MatchedPreference(
                         new Preference(Preference::MIME, 'text/html', 1.0, Preference::COMPLETE),
@@ -561,10 +486,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
             'client_empty' => array(
                 'client' => 'application/rdf+xml;q=1,text/n3;q=0.5',
                 'server' => '',
-                'best' => new MatchedPreference(
-                    new Preference(Preference::MIME, 'application/rdf+xml', 1, Preference::COMPLETE),
-                    new Preference(Preference::MIME, '', 0, Preference::ABSENT)
-                ),
+                'best' => 'application/rdf+xml',
                 'all' => array(
                     new MatchedPreference(
                         new Preference(Preference::MIME, 'application/rdf+xml', 1, Preference::COMPLETE),
@@ -582,10 +504,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
             'client_empty_server_identical_quality' => array(
                 'client' => '',
                 'server' => 'text/n3;q=0.5,text/html;q=0.5',
-                'best' => new MatchedPreference(
-                    new Preference(Preference::MIME, '', 0, Preference::ABSENT),
-                    new Preference(Preference::MIME, 'text/html', 0.5, Preference::COMPLETE)
-                ),
+                'best' => 'text/html',
                 'all' => array(
                     new MatchedPreference(
                         new Preference(Preference::MIME, '', 0, Preference::ABSENT),
@@ -603,10 +522,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
             'multiple_matching_types' => array(
                 'client' => 'application/xml;q=0.8,application/json;q=0.3,text/html;q=0.5',
                 'server' => 'application/json;q=0.6,text/n3;q=0.9,text/html;q=0.3',
-                'best' => new MatchedPreference(
-                    new Preference(Preference::MIME, 'application/json', 0.3, Preference::COMPLETE),
-                    new Preference(Preference::MIME, 'application/json', 0.6, Preference::COMPLETE)
-                ),
+                'best' => 'application/json',
                 'all' => array(
                     new MatchedPreference(
                         new Preference(Preference::MIME, 'application/json', 0.3, Preference::COMPLETE),
@@ -631,10 +547,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
             'subtype_wildcard' => array(
                 'client' => 'text/*;q=0.8,application/xml;q=0.9',
                 'server' => 'text/html,application/xml;q=0.7,text/n3;q=0.3',
-                'best' => new MatchedPreference(
-                    new Preference(Preference::MIME, 'text/*', 0.8, Preference::PARTIAL_WILDCARD),
-                    new Preference(Preference::MIME, 'text/html', 1, Preference::COMPLETE)
-                ),
+                'best' => 'text/html',
                 'all' => array(
                     new MatchedPreference(
                         new Preference(Preference::MIME, 'text/*', 0.8, Preference::PARTIAL_WILDCARD),
@@ -656,10 +569,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
             'subtype_wildcard_precedence' => array(
                 'client' => 'text/*;q=0.75,text/html',
                 'server' => 'text/plain,text/html;q=0.75,application/xml;q=0.9',
-                'best' => new MatchedPreference(
-                    new Preference(Preference::MIME, 'text/html', 1, Preference::COMPLETE),
-                    new Preference(Preference::MIME, 'text/html', 0.75, Preference::COMPLETE)
-                ),
+                'best' => 'text/html',
                 'all' => array(
                     new MatchedPreference(
                         new Preference(Preference::MIME, 'text/html', 1, Preference::COMPLETE),
@@ -680,10 +590,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
             'full_wildcard' => array(
                 'client' => '*/*;q=0.75,text/html',
                 'server' => 'text/plain,text/html;q=0.75,application/xml;q=0.9',
-                'best' => new MatchedPreference(
-                    new Preference(Preference::MIME, 'text/html', 1, Preference::COMPLETE),
-                    new Preference(Preference::MIME, 'text/html', 0.75, Preference::COMPLETE)
-                ),
+                'best' => 'text/html',
                 'all' => array(
                     new MatchedPreference(
                         new Preference(Preference::MIME, 'text/html', 1, Preference::COMPLETE),
@@ -706,10 +613,7 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
             'full_wildcard_precedence' => array(
                 'client' => '*/*,text/*,text/html',
                 'server' => 'text/plain,text/html,application/xml',
-                'best' => new MatchedPreference(
-                    new Preference(Preference::MIME, 'text/html', 1, Preference::COMPLETE),
-                    new Preference(Preference::MIME, 'text/html', 1, Preference::COMPLETE)
-                ),
+                'best' => 'text/html',
                 'all' => array(
                     new MatchedPreference(
                         new Preference(Preference::MIME, 'text/html', 1, Preference::COMPLETE),

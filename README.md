@@ -38,42 +38,53 @@ This provides methods to negotiate on preferences provided by the client and ser
 
 Negotiation can be done for mime types, languages, charsets and encodings ([Accept](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1), [Accept-Language](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4), [Accept-Charset](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.2) and [Accept-Encoding](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3) HTTP fields respectively)
 
+
+#### Best Match Only
+
 In most cases your application will need the calculated best match, to do this use the *Best() methods. For example:
 
 ```php
 $bestMime     = $negotiation->mimeBest($_SERVER['ACCEPT'], $serverMimePrefs);
 ```
 
-These methods return a value object encoding preference metadata, in most cases you're only interested in the calculated type:
+These methods return a string value for the preferred variant (e.g. 'text/html', 'utf-8', etc).
 
-```php
-$mime = $bestMime->getType();
-// $mime === 'text/html'
-```
 
-However, in more advanced cases you may need the metadata associated with the type:
+#### All Matches 
 
-```php
-$qualityFactor = $mime->getQualityFactor(); // Product of the client & server preferences
-// $qualityFactor === 0.75;
-
-$qualityFactor = $mime->getPrecedence(); // Sum of client & server precedences
-// $qualityFactor === 3;
-
-// Returns an object implementing PreferenceInterface that represents the client's
-// preference. You may then call the getQualityFactor() and getPrecedence() on this
-// instance
-$clientPref = $mime->getClientPreference();
-
-// As above but for the server's preference
-$serverPref = $mime->getServerPreference();
-```
-
-Additionally, *All() methods are available, returning a sorted (descending) array containing the computed intersection between client & server preferences:
+Additionally the *All() methods are available. These return all variant matches as a sorted (descending) array of MatchedPreference instances, encoding client & server preference data:
 
 ```php
 $mimeList = $negotiation->mimeAll($_SERVER['ACCEPT'], $serverMimePrefs);
 ```
+
+As the returned array is ordered and never empty, we can grab the preferred variant from the zeroth element:
+
+```php
+$bestVariant = $mimeList[0];
+```
+
+Generated data can then be accessed via getters:
+
+```php
+$variant = $bestVariant->getVariant();
+// $variant === 'text/html';
+
+$qualityFactor = $bestVariant->getQualityFactor(); // Product of the client & server preferences
+// $qualityFactor === 0.75;
+
+$precedence = $bestVariant->getPrecedence(); // Sum of client & server precedences
+// $precedence === 3;
+
+// Returns an object implementing PreferenceInterface that represents the client's
+// preference. You may then call the getQualityFactor() and getPrecedence() on this
+// instance
+$clientPref = $bestVariant->getClientPreference();
+
+// As above but for the server's preference
+$serverPref = $bestVariant->getServerPreference();
+```
+
 
 
 

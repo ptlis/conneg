@@ -62,7 +62,7 @@ class Negotiation
      * @param string $clientField
      * @param string $serverField
      *
-     * @return MatchedPreferenceInterface
+     * @return string
      */
     public function charsetBest($clientField, $serverField)
     {
@@ -90,7 +90,7 @@ class Negotiation
      * @param string $clientField
      * @param string $serverField
      *
-     * @return MatchedPreferenceInterface
+     * @return string
      */
     public function encodingBest($clientField, $serverField)
     {
@@ -118,7 +118,7 @@ class Negotiation
      * @param string $clientField
      * @param string $serverField
      *
-     * @return MatchedPreferenceInterface
+     * @return string
      */
     public function languageBest($clientField, $serverField)
     {
@@ -146,7 +146,7 @@ class Negotiation
      * @param string $clientField
      * @param string $serverField
      *
-     * @return MatchedPreferenceInterface
+     * @return string
      */
     public function mimeBest($clientField, $serverField)
     {
@@ -175,14 +175,14 @@ class Negotiation
      * @param string $serverField
      * @param string $fromField
      *
-     * @return MatchedPreference|MatchedPreferenceInterface
+     * @return string
      */
     private function genericBest($clientField, $serverField, $fromField)
     {
         $clientPrefList = $this->parsePreferences(false, $clientField, $fromField);
         $serverPrefList = $this->parsePreferences(true, $serverField, $fromField);
 
-        return $this->negotiator->negotiateBest($clientPrefList, $serverPrefList, $fromField);
+        return $this->negotiator->negotiateBest($clientPrefList, $serverPrefList, $fromField)->getVariant();
     }
 
     /**

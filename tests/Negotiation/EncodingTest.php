@@ -24,10 +24,10 @@ class EncodingTest extends NegotiationDataProvider
      *
      * @param string $clientField
      * @param string $serverField
-     * @param PreferenceInterface $best
+     * @param string $best
      * @param MatchedPreferenceInterface[] $all
      */
-    public function testBest($clientField, $serverField, PreferenceInterface $best, array $all)
+    public function testBest($clientField, $serverField, $best, array $all)
     {
         $negotiate = new Negotiation();
         $resultType = $negotiate->encodingBest($clientField, $serverField);
@@ -40,10 +40,10 @@ class EncodingTest extends NegotiationDataProvider
      *
      * @param string $clientField
      * @param string $serverField
-     * @param PreferenceInterface $best
+     * @param string $best
      * @param MatchedPreferenceInterface[] $all
      */
-    public function testAll($clientField, $serverField, PreferenceInterface $best, array $all)
+    public function testAll($clientField, $serverField, $best, array $all)
     {
         $negotiate = new Negotiation();
         $collection = $negotiate->encodingAll($clientField, $serverField);
