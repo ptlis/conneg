@@ -35,14 +35,136 @@
     background-color: #0066D8;
 }
 
+
+
+/**
+ * Table of contents
+ */
+
+#markdown-toc {
+    border: 1px solid #515151;
+    list-style-type: none;
+    padding: 10px 20px;
+    margin-top: 20px;
+}
+
+@media screen and (min-width: 786px) {
+    #markdown-toc {
+        display: block;
+        float: right;
+        margin: 10px 0 10px 20px;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    #markdown-toc {
+        margin-top: 30px;
+    }
+}
+
+#markdown-toc ul {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+#markdown-toc > li > ul {
+    counter-reset: toc2;
+}
+#markdown-toc > li > ul > li > a:before {
+    counter-increment: toc2;
+    content: counter(toc2) ". ";
+}
+
+#markdown-toc > li > ul > li > ul {
+    counter-reset: toc3;
+}
+#markdown-toc > li > ul > li > ul > li > a:before {
+    counter-increment: toc3;
+    content: counter(toc2) "." counter(toc3) ". ";
+}
+
+#markdown-toc > li > ul > li > ul > li > ul {
+    counter-reset: toc4;
+}
+#markdown-toc > li > ul > li > ul > li > ul > li > a:before {
+    counter-increment: toc4;
+    content: counter(toc2) "." counter(toc3) "." counter(toc4) ". ";
+}
+
+#markdown-toc > li > ul > li > ul > li > ul > li > ul {
+    counter-reset: toc5;
+}
+#markdown-toc > li > ul > li > ul > li > ul > li > ul > li > a:before {
+    counter-increment: toc5;
+    content: counter(toc2) "." counter(toc3) "." counter(toc4) "." counter(toc5) ". ";
+}
+
+#markdown-toc > li > ul > li > ul > li > ul > li > ul > li > ul {
+    counter-reset: toc6;
+}
+#markdown-toc > li > ul > li > ul > li > ul > li > ul > li > ul > li > a:before {
+    counter-increment: toc6;
+    content: counter(toc2) "." counter(toc3) "." counter(toc4) "." counter(toc5) "." counter(toc6) ". ";
+}
+
+
+
+/**
+ * Header styling
+ */
+
+body {counter-reset: h2}
+h2 {counter-reset: h3}
+h3 {counter-reset: h4}
+h4 {counter-reset: h5}
+h5 {counter-reset: h6}
+h2:before {counter-increment: h2; content: counter(h2) ". "}
+h3:before {counter-increment: h3; content: counter(h2) "." counter(h3) ". "}
+h4:before {counter-increment: h4; content: counter(h2) "." counter(h3) "." counter(h4) ". "}
+h5:before {counter-increment: h5; content: counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) ". "}
+h6:before {counter-increment: h6; content: counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) "." counter(h6) ". "}
+h2.nocount:before, h3.nocount:before, h4.nocount:before, h5.nocount:before, h6.nocount:before {content: ""; counter-increment: none}
+
+
 .container h2 {
-    margin-top: 10px;
-    border-top: 2px solid #515151;
-    padding-top: 30px;
+    border-bottom: 2px solid #515151;
 }
 
 .container h3 {
     margin-top: 30px;
+}
+
+.container h3,
+.container h4,
+.container h5,
+.container h6 {
+    margin-top: 20px;
+    border-bottom: 1px solid #515151;
+    font-size: 20px;
+}
+
+.container h1,
+.container h2,
+.container h3,
+.container h4,
+.container h5,
+.container h6 {
+    padding: 10px 0;
+    overflow: hidden;
+}
+
+:target {
+    background-color: #F7DC8A;
+    color: #000;
+    animation: target-fade 1.5s 1;
+}
+
+@keyframes target-fade {
+    0% { background-color: #F7DC8A; }
+    25% { background-color: #f8bb00; }
+    50% { background-color: #F7DC8A; }
+    75% { background-color: #f8bb00; }
+    100% { background-color: #F7DC8A; }
 }
 
 .container .hljs {

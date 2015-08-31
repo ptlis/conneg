@@ -5,6 +5,9 @@ name: usage
 
 # Usage
 
+* Will be replaced with the ToC
+{:toc}
+
 Create a Negotiation instance:
 
 ~~~ php

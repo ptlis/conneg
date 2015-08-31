@@ -3,6 +3,9 @@ layout: code
 name: basics
 ---
 
+* Will be replaced with the ToC
+{:toc}
+
 # Concepts
 
 This is a high-level overview of the terms and concepts underlying content negotiation.
