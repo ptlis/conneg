@@ -24,9 +24,9 @@ $ composer require ptlis/conneg:~4.0.0.alpha.1
 If your application supports PSR-7 then the simplest way to get content negotiation is via the middlewares provided by [ptlis/psr7-conneg](https://github.com/ptlis/psr7-conneg).
 
 
-### In non PSR-7 Projects & Advanced Use-Cases
+### In non PSR-7 Projects
 
-Create a negotiator instance:
+First create a Negotiation instance. This provides methods to perform negotiation on client and server preferences.
 
 ```php
 use ptlis\ConNeg\Negotiation;
@@ -34,56 +34,22 @@ use ptlis\ConNeg\Negotiation;
 $negotiation = new Negotiation();
 ```
 
-This provides methods to negotiate on preferences provided by the client and server.
+In most cases your application will only care about the best match, to get these we can use the *Best() methods.
 
-Negotiation can be done for mime types, languages, charsets and encodings ([Accept](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1), [Accept-Language](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4), [Accept-Charset](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.2) and [Accept-Encoding](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3) HTTP fields respectively)
-
-
-#### Best Match Only
-
-In most cases your application will need the calculated best match, to do this use the *Best() methods. For example:
+For example, negotiation to decide whether to serve JSON or XML (preferring JSON) would look like:
 
 ```php
-$bestMime     = $negotiation->mimeBest($_SERVER['ACCEPT'], $serverMimePrefs);
+$bestMime = $negotiation->mimeBest(
+    $_SERVER['ACCEPT'], 
+    'application/json;q=1,application/xml;q=0.75'
+);
 ```
 
-These methods return a string value for the preferred variant (e.g. 'text/html', 'utf-8', etc).
+This will return a string representation of the best matching mime-type specified by the server's preferences (e.g. 'application/json').
 
+**Note:** server preferences a string-encoded as described [in the documentation](http://ptlis.github.io/conneg/basics.html#type-preference-encodings).
 
-#### All Matches 
-
-Additionally the *All() methods are available. These return all variant matches as a sorted (descending) array of MatchedPreference instances, encoding client & server preference data:
-
-```php
-$mimeList = $negotiation->mimeAll($_SERVER['ACCEPT'], $serverMimePrefs);
-```
-
-As the returned array is ordered and never empty, we can grab the preferred variant from the zeroth element:
-
-```php
-$bestVariant = $mimeList[0];
-```
-
-Generated data can then be accessed via getters:
-
-```php
-$variant = $bestVariant->getVariant();
-// $variant === 'text/html';
-
-$qualityFactor = $bestVariant->getQualityFactor(); // Product of the client & server preferences
-// $qualityFactor === 0.75;
-
-$precedence = $bestVariant->getPrecedence(); // Sum of client & server precedences
-// $precedence === 3;
-
-// Returns an object implementing PreferenceInterface that represents the client's
-// preference. You may then call the getQualityFactor() and getPrecedence() on this
-// instance
-$clientPref = $bestVariant->getClientPreference();
-
-// As above but for the server's preference
-$serverPref = $bestVariant->getServerPreference();
-```
+See the [detailed usage docs](http://ptlis.github.io/conneg/usage.html) for further (more complex) exampples.
 
 
 
