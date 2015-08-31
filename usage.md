@@ -92,6 +92,15 @@ $serverPref = $bestType->getServerPreference();
 ~~~
 
 
+## Partial Language Wildcards
+
+Say your language supports Spanish (```es```) - it would be burdensome to have to specify every permutation of extlangs in your server preferences (e.g. ```es```, ```es-419```, ```es-CO```, ```es-ES```). 
+
+Instead you can specify a family by using ```es-*``` which will match any language string beginning in ```es```.
+
+When using the ```languageBest()``` method the returned variant name will always be ```es``` rather than ```es-*``` or the client's full language tag as this aids for direct lookup.
+
+
 ## Negotiation Strategies
 
 There are three strategies that can be used when building an application that supports content negotiation; Server-Driven ([RFC 2616 Sec. 12.1](http://tools.ietf.org/html/rfc2616#section-12.1)), Agent-Driven ([RFC 2616 Sec. 12.2](tools.ietf.org/html/rfc2616#section-12.2)) and Transparent ([RFC 2295](http://tools.ietf.org/html/rfc2295)).
