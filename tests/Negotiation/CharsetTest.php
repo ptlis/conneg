@@ -17,7 +17,7 @@ use ptlis\ConNeg\Negotiation;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferenceInterface;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
-class CharsetDataProvider extends NegotiationDataProvider
+class CharsetTest extends NegotiationDataProvider
 {
     /**
      * @dataProvider charsetProvider

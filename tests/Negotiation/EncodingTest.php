@@ -17,7 +17,7 @@ use ptlis\ConNeg\Negotiation;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferenceInterface;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
-class EncodingDataProvider extends NegotiationDataProvider
+class EncodingTest extends NegotiationDataProvider
 {
     /**
      * @dataProvider encodingProvider
