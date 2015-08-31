@@ -16,9 +16,101 @@ Variants of the same resource may vary by language, charset, mime type or encodi
 For example, if the same image saved as PNG and JPEG would be variants for this purpose.
 
 
+## Quality Factors
+
+Quality factors are used to describe variant preferences, having a range from 1 (for the ideal representation) to 0 (for a completely degraded representation of the resource). Thee steps between are used to indicate varying levels of preference.
+
+[RFC2295 Sec 5.3](http://tools.ietf.org/html/rfc2295#section-5.3) provides a guide to assigning quality factors:
+
+~~~markdown
+1.000  perfect representation
+0.900  threshold of noticeable loss of quality
+0.800  noticeable, but acceptable quality reduction
+0.500  barely acceptable quality
+0.300  severely degraded quality
+0.000  completely degraded quality
+~~~
+
+## Preference Encoding
+
+Preferences should be encoded as described in [RFC2126](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html).
+
+In brief this is a comma-separated list, each element consisting of a type (e.g. ```text/html```) and optional quality factor (e.g ```text/html;q=0.5```).
+
+For example, given the following preferences:
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Mime Type</th>
+            <th>Relative Preference</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>application/json</td>
+            <td>Best representation available</td>
+        </tr>
+        <tr>
+            <td>application/xml</td>
+            <td>Less than ideal; our data doesn't encode well in XML</td>
+        </tr>
+        <tr>
+            <td>text/html</td>
+            <td>Allow fallback for humans, but not useful for other applications</td>
+        </tr>
+    </tbody>
+</table>
+
+We can assign appropriate quality factors to each variant:
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Mime Type</th>
+            <th>Quality Factor</th>
+            <th>Encoded</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>application/json</td>
+            <td>1</td>
+            <td>application/json;q=1</td>
+        </tr>
+        <tr>
+            <td>application/xml</td>
+            <td>0.7</td>
+            <td>application/xml;q=0.7</td>
+        </tr>
+        <tr>
+            <td>text/html</td>
+            <td>0.3</td>
+            <td>text/html;q=0.3</td>
+        </tr>
+    </tbody>
+</table>
+
+The resultant server preference string would look like ```application/json;q=1,application/xml;q=0.7,text/html;q=0.3```.
+
+
+
+## ConNeg Pipeline
+
+Content negotiation is performed in three stages:
+
+* *Parsing*: The client & server preferences are parsed into arrays of [```Preference```](https://github.com/ptlis/conneg/blob/master/src/Preference/Preference.php) instances.
+* *[Variant Matching](#variant-matching)*: The client & server preferences paired by applying the matching rules, resulting in an array of [```MatchedPreference```](https://github.com/ptlis/conneg/blob/master/src/Preference/Matched/MatchedPreference.php) instances.
+* *Sorting*: Matched preferences are sorted by the product of the client & server quality factors, the one with the largest value is the preferred variant.
+
+
+
 ## Variant Matching
 
-This is the process through which content negotiation occurs. There are several possible matching rules that can cause a server & client preference to be paired together. Each rule type has an associated precedence which is used to ensure only the most specific match is applied.
+Each variant specified by the server is compared to the variants provided by the client using each of the matching rules described below. The successful match with the highest precedence is applied and a [```MatchedPreference```](https://github.com/ptlis/conneg/blob/master/src/Preference/Matched/MatchedPreference.php) is created from the client & server preferences. 
+
+Once matching is complete the generated list of ```MatchedPreference``` is sorted by the product of the client & servers quality factors and the match with the highest value is the preferred type.
 
 The precedence of the rules are as follows (highest to lowest):
 
@@ -61,25 +153,3 @@ These match any server variant.
 ### No Match
 
 Used in one side of a MatchedPreference instance when the variant was present only in the server or client preferences.
-
-
-## Quality Factors
-
-Quality factors are used to describe variant preferences, having a range from 1 (for the ideal representation) to 0 (for a completely degraded representation of the resource). Thee steps between are used to indicate varying levels of preference.
-
-[RFC2295 Sec 5.3](http://tools.ietf.org/html/rfc2295#section-5.3) provides a guide to assigning quality factors:
-
-~~~markdown
-1.000  perfect representation
-0.900  threshold of noticeable loss of quality
-0.800  noticeable, but acceptable quality reduction
-0.500  barely acceptable quality
-0.300  severely degraded quality
-0.000  completely degraded quality
-~~~
-
-## Preference Encoding
-
-Preferences are encoded in a comma-separated list. Each element of the list consists of a type (e.g. ```text/html```) and optionally with a semicolon and a quality factor (e.g ```q=0.5```)
-
-This means that single preference looks like ```application/xml;q=0.7``` or ```application/json```, and in list form they would look like ```application/xml;q=0.7,application/json```.
