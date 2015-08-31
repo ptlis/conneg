@@ -19,7 +19,7 @@ $ composer require ptlis/conneg:~4.0.0.alpha.1
 ## Usage
 
 
-### In a PSR-7 Complaint Project
+### In a PSR-7 Project
 
 If your application supports PSR-7 then the simplest way to get content negotiation is via the middlewares provided by [ptlis/psr7-conneg](https://github.com/ptlis/psr7-conneg).
 
@@ -34,7 +34,7 @@ use ptlis\ConNeg\Negotiation;
 $negotiation = new Negotiation();
 ```
 
-In most cases your application will only care about the best match, to get these we can use the *Best() methods.
+In most cases your application will only care about the best match, to get these we can use the ```*Best()``` methods.
 
 For example, negotiation to decide whether to serve JSON or XML (preferring JSON) would look like:
 
@@ -45,11 +45,13 @@ $bestMime = $negotiation->mimeBest(
 );
 ```
 
-This will return a string representation of the best matching mime-type specified by the server's preferences (e.g. 'application/json').
+This will return a string representation of the best matching mime-type specified by the server's preferences, for example 'application/json'.
+
+Negotiation of Language, Encoding & Charset can be done by using the appropriate method (languageBest, encodingBest & charsetBest respectively).
 
 **Note:** server preferences a string-encoded as described [in the documentation](http://ptlis.github.io/conneg/basics.html#type-preference-encodings).
 
-See the [detailed usage docs](http://ptlis.github.io/conneg/usage.html) for further (more complex) exampples.
+See the [detailed usage docs](http://ptlis.github.io/conneg/usage.html) for further (more complex) examples.
 
 
 
