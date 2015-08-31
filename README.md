@@ -13,7 +13,7 @@ Supports negotiation on the  [Accept](http://www.w3.org/Protocols/rfc2616/rfc261
 With composer:
 
 ```shell
-$ composer require ptlis/conneg:~4.0.0.alpha.1
+$ composer require ptlis/conneg:~4.0.0
 ```
 
 ## Usage
