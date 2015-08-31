@@ -79,11 +79,40 @@ class MatchedPreference implements MatchedPreferenceInterface
      */
     public function getVariant()
     {
-        if (strlen($this->clientPref->getVariant()) && !strstr($this->clientPref->getVariant(), '*')) {
-            return $this->clientPref->getVariant();
-        } else {
+        // Special handling for language partial matches. These require that the returned variant name is the portion of
+        // the language before the wildcard as this is what the application will be using to encode the response.
+        if ($this->isLanguageWildcard()) {
+            return str_replace('-*', '', $this->serverPref->getVariant());
+
+        // If the client contained a wildcard or is absent return the concrete variant from teh server.
+        } elseif ($this->clientWildcardOrAbsent()) {
             return $this->serverPref->getVariant();
+
+        // In all other cases the client is canonical
+        } else {
+            return $this->clientPref->getVariant();
         }
+    }
+
+    /**
+     * Returns true if the match was by partial language wildcard.
+     *
+     * @return bool
+     */
+    private function isLanguageWildcard()
+    {
+        return PreferenceInterface::LANGUAGE === $this->fromField
+            && PreferenceInterface::PARTIAL_WILDCARD === $this->serverPref->getPrecedence();
+    }
+
+    /**
+     * Returns true if the client contained a wildcard or was absent.
+     *
+     * @return bool
+     */
+    private function clientWildcardOrAbsent()
+    {
+        return !(strlen($this->clientPref->getVariant()) && !strstr($this->clientPref->getVariant(), '*'));
     }
 
     /**

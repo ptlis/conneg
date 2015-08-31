@@ -501,6 +501,32 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                         new Preference('es-419', 1, Preference::COMPLETE)
                     )
                 )
+            ),
+
+            // Test override of matched language for partial language wildcards
+            // Requires that the returned variant name is the portion of the language before the wildcard as this
+            // is what the application will be using to encode the response.
+            'test_partial_language_variant-override' => array(
+                'client' => 'es-CO,en',
+                'server' => 'es-*;q=0.75,es-419',
+                'best' => 'es',
+                'all' => array(
+                    new MatchedPreference(
+                        Preference::LANGUAGE,
+                        new Preference('es-CO', 1, Preference::COMPLETE),
+                        new Preference('es-*', 0.75, Preference::PARTIAL_WILDCARD)
+                    ),
+                    new MatchedPreference(
+                        Preference::LANGUAGE,
+                        new Preference('en', 1, Preference::COMPLETE),
+                        new Preference('', 0, Preference::ABSENT)
+                    ),
+                    new MatchedPreference(
+                        Preference::LANGUAGE,
+                        new Preference('', 0, Preference::ABSENT),
+                        new Preference('es-419', 1, Preference::COMPLETE)
+                    )
+                )
             )
         );
     }
