@@ -5,7 +5,7 @@ name: basics
 
 # Content Negotiation Basics
 
-This is a high-level overview of the basic concepts behind content negotiation.
+This is a high-level overview of the terms and concepts underlying content negotiation.
 
 ## Variants
 
@@ -13,9 +13,13 @@ Variants are the different ways that the underlying information behind a resourc
 
 Variants of the same resource may vary by language, character encoding, mime type or encoding; the important concept is that these variations do not affect the content of the resource but merely it's representation.
 
+For example, if the same image saved as PNG and JPEG would be variants for this purpose. 
+
 ## Quality Factors
 
-Quality factors are used to indicate preferences for particular variant of a resource, they range from 1 for the ideal representation to 0 for a completely degraded representation of the resource. [RFC2295 Sec 5.3](http://tools.ietf.org/html/rfc2295#section-5.3) provides a guide to assigning quality factors:
+Quality factors are used to describe variant preferences, having a range from 1 (for the ideal representation) to 0 (for a completely degraded representation of the resource). Thee steps between are used to indicate varying levels of preference.
+
+[RFC2295 Sec 5.3](http://tools.ietf.org/html/rfc2295#section-5.3) provides a guide to assigning quality factors:
 
 ~~~markdown
 1.000  perfect representation
@@ -26,10 +30,8 @@ Quality factors are used to indicate preferences for particular variant of a res
 0.000  completely degraded quality
 ~~~
 
-## Type Preference Encodings
+## Preference Encoding
 
-Types are encoded comma-separated and consist of the type alongside a quality factor that indicates our application's relative preference for that type. Higher quality factors are more favoured, but note that the absence of an explicit quality factor is equivalent to setting it to one.
+Preferences are encoded in a comma-separated list. Each element of the list consists of a type (e.g. ```text/html```) and optionally with a semicolon and a quality factor (e.g ```q=0.5```)
 
-This means that ```application/json``` has a higher preference than ```application/xml;q=0.8``` as the quality factor for the former is implicitly 1.
-
-The resultant application preference string for negotiation in our API is ```application/json,application/xml;q=0.8``` (preferences may be provided in any order).
+This means that single preference looks like ```application/xml;q=0.7``` or ```application/json```, and in list form they would look like ```application/xml;q=0.7,application/json```.
