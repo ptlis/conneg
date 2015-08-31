@@ -5,18 +5,37 @@ name: usage
 
 # Usage
 
-These examples assume that your project uses a PSR-4 compliant autoloader; if this is not the case then loading the classes is left as an exercise for the reader.
-
-
-## API Examples
-
-For both examples we create a negotiator instance.
+Create a Negotiation instance:
 
 ~~~ php
-use ptlis\ConNeg\Negotiate;
+use ptlis\ConNeg\Negotiation;
 
-$negotiator = new Negotiate();
+$negotiation = new Negotiation();
 ~~~
+
+
+## Preferred Variant
+
+In most cases you will only care about the 'best' match between variants that your application serves and those the client accepts. In this case use the ```Negotiation::*Best``` methods:
+  
+* ```Negotiation::charsetBest()```
+* ```Negotiation::encodingBest()```
+* ```Negotiation::languageBest()```
+* ```Negotiation::mimeBest()```
+
+These methods (along with the ```*All()``` complimentary methods) accept two parameters. The first is the contents of the appropriate header field (e.g. ```Accept``` for mime negotiation) and the second is the server's preferences: 
+
+~~~ php
+$mimeBest = $negotiator->mimeBest(
+    $_SERVER['HTTP_ACCEPT'],
+    $serverPrefs
+);
+~~~
+
+
+
+
+
 
 And say that the client provided an Accept field like this:
 

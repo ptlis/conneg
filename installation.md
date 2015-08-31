@@ -26,3 +26,10 @@ Followed by a composer update:
 ~~~bash
 composer update
 ~~~
+
+
+After installation you need to include Composer's autoloader:
+
+~~~php
+require 'vendor/autoload.php';
+~~~
