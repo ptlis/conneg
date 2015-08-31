@@ -37,8 +37,8 @@ class SubtypeWildcardMatcher implements MatcherInterface
     {
         foreach ($matchingList as $key => $matching) {
             $serverPref = $matching->getServerPreference();
-            list($clientMimeType) = explode('/', $clientPref->getType());
-            list($serverMimeType) = explode('/', $serverPref->getType());
+            list($clientMimeType) = explode('/', $clientPref->getVariant());
+            list($serverMimeType) = explode('/', $serverPref->getVariant());
 
             if ($clientMimeType == $serverMimeType
                 && $clientPref->getPrecedence() > $matching->getClientPreference()->getPrecedence()

@@ -192,7 +192,7 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
     public function testParseServerAcceptWithInvalidExtens()
     {
         $this->setExpectedException(
-            '\ptlis\ConNeg\Exception\InvalidTypeException',
+            '\ptlis\ConNeg\Exception\InvalidVariantException',
             'Invalid count for parameters; expecting 1 or 3, got "2"'
         );
 
@@ -305,7 +305,7 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
     public function testParseAcceptInvalidType()
     {
         $this->setExpectedException(
-            '\ptlis\ConNeg\Exception\InvalidTypeException',
+            '\ptlis\ConNeg\Exception\InvalidVariantException',
             '"application/" is not a valid mime type'
         );
 
@@ -322,7 +322,7 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
     public function testParseAcceptInvalidTypeWithQualityFactor()
     {
         $this->setExpectedException(
-            '\ptlis\ConNeg\Exception\InvalidTypeException',
+            '\ptlis\ConNeg\Exception\InvalidVariantException',
             '"application/;q=0.8" is not a valid mime type'
         );
 
@@ -343,7 +343,7 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
     public function testParseAcceptInvalidParamsCount()
     {
         $this->setExpectedException(
-            '\ptlis\ConNeg\Exception\InvalidTypeException',
+            '\ptlis\ConNeg\Exception\InvalidVariantException',
             'Invalid count for parameters; expecting 1 or 3, got "2"'
         );
 

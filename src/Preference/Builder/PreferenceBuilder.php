@@ -13,7 +13,7 @@
 
 namespace ptlis\ConNeg\Preference\Builder;
 
-use ptlis\ConNeg\Exception\InvalidTypeException;
+use ptlis\ConNeg\Exception\InvalidVariantException;
 use ptlis\ConNeg\Preference\Preference;
 
 /**
@@ -24,10 +24,10 @@ class PreferenceBuilder extends AbstractPreferenceBuilder
     /**
      * @inheritDoc
      */
-    protected function validateType($type)
+    protected function validateVariant($variant)
     {
-        if ($this->isFromServer && '*' === $type) {
-            throw new InvalidTypeException('Wildcards are not allowed in server-provided types.');
+        if ($this->isFromServer && '*' === $variant) {
+            throw new InvalidVariantException('Wildcards are not allowed in server-provided variants.');
         }
     }
 
@@ -46,14 +46,14 @@ class PreferenceBuilder extends AbstractPreferenceBuilder
 
         return new Preference(
             $this->fromField,
-            $this->type,
+            $this->variant,
             $this->getQualityFactor(),
             $this->getPrecedence()
         );
     }
 
     /**
-     * Get the type's quality factor, defaulting to 0 on absent types.
+     * Get the variant's quality factor, defaulting to 0 on absent variant.
      *
      * @return float
      */
@@ -61,7 +61,7 @@ class PreferenceBuilder extends AbstractPreferenceBuilder
     {
         $qFactor = 0.0;
 
-        if (strlen($this->type)) {
+        if (strlen($this->variant)) {
             $qFactor = $this->qFactor;
         }
 
@@ -69,24 +69,24 @@ class PreferenceBuilder extends AbstractPreferenceBuilder
     }
 
     /**
-     * Determine the precedence from the type.
+     * Determine the precedence from the variant.
      *
      * @return int
      */
     private function getPrecedence()
     {
-        $precedence = Preference::ABSENT_TYPE;
+        $precedence = Preference::ABSENT;
 
         // Wildcards
-        if ('*' === $this->type) {
+        if ('*' === $this->variant) {
             $precedence = Preference::WILDCARD;
 
         // Special handling for Accept-Language field
-        } elseif (Preference::LANGUAGE === $this->fromField && '-*' === substr($this->type, -2, 2)) {
+        } elseif (Preference::LANGUAGE === $this->fromField && '-*' === substr($this->variant, -2, 2)) {
             $precedence = Preference::PARTIAL_WILDCARD;
 
         // Full match
-        } elseif (strlen($this->type)) {
+        } elseif (strlen($this->variant)) {
             $precedence = Preference::COMPLETE;
         }
 

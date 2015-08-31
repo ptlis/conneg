@@ -40,7 +40,7 @@ class MatchedPreferenceComparator
 
         // Quality factors & precedences match, simply sort alphabetically as this ensures that the sort is stable
         if (0 === $result) {
-            $result = $this->compareType($lValue, $rValue);
+            $result = $this->compareVariant($lValue, $rValue);
         }
 
         return $result;
@@ -134,8 +134,8 @@ class MatchedPreferenceComparator
      *
      * @return int -1, 0, 1 (see usort() callback for meaning)
      */
-    private function compareType(MatchedPreferenceInterface $lValue, MatchedPreferenceInterface $rValue)
+    private function compareVariant(MatchedPreferenceInterface $lValue, MatchedPreferenceInterface $rValue)
     {
-        return strcasecmp($lValue->getType(), $rValue->getType());
+        return strcasecmp($lValue->getVariant(), $rValue->getVariant());
     }
 }

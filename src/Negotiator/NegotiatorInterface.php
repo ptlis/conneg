@@ -22,7 +22,7 @@ use ptlis\ConNeg\Preference\PreferenceInterface;
 interface NegotiatorInterface
 {
     /**
-     * Return a collection of types sorted by preference.
+     * Return an array of variant preferences, sorted descending by preference .
      *
      * @param PreferenceInterface[] $clientPrefList
      * @param PreferenceInterface[] $serverPrefList
@@ -33,13 +33,13 @@ interface NegotiatorInterface
     public function negotiateAll(array $clientPrefList, array $serverPrefList, $fromField);
 
     /**
-     * Return the preferred type & product of server & client quality factors.
+     * Return the preferred variant.
      *
      * @param PreferenceInterface[] $clientPrefList
      * @param PreferenceInterface[] $serverPrefList
      * @param string $fromField
      *
-     * @return MatchedPreferenceInterface Array containing preference intersection, descending order.
+     * @return MatchedPreferenceInterface The preferred variant.
      */
     public function negotiateBest(array $clientPrefList, array $serverPrefList, $fromField);
 }

@@ -65,7 +65,7 @@ class PartialLanguageMatcher implements MatcherInterface
      * Returns true if the server preference contains a partial language that matches the language in the client
      * preference.
      *
-     * e.g. An server type of en-* would match en, en-US but not es-ES
+     * e.g. An server variant of en-* would match en, en-US but not es-ES
      *
      * @param string $fromField
      * @param MatchedPreference $matchedPreference
@@ -83,8 +83,8 @@ class PartialLanguageMatcher implements MatcherInterface
 
         // Note that this only supports the simplest case of (e.g.) en-* matching en-GB and en-US, additional
         // Language tags are explicitly ignored
-        list($clientMainLang) = explode('-', $newClientPref->getType());
-        list($serverMainLang) = explode('-', $serverPref->getType());
+        list($clientMainLang) = explode('-', $newClientPref->getVariant());
+        list($serverMainLang) = explode('-', $serverPref->getVariant());
 
         return PreferenceInterface::LANGUAGE === $fromField
             && PreferenceInterface::PARTIAL_WILDCARD === $serverPref->getPrecedence()

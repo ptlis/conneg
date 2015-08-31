@@ -33,27 +33,27 @@ class IssueTwoTest extends \PHPUnit_Framework_TestCase
         $expectList = array(
             new MatchedPreference(
                 new Preference(Preference::MIME, 'text/turtle', 1, Preference::COMPLETE),
-                new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
+                new Preference(Preference::MIME, '', 0, Preference::ABSENT)
             ),
             new MatchedPreference(
                 new Preference(Preference::MIME, 'application/rdf+json', 0.8, Preference::COMPLETE),
-                new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
+                new Preference(Preference::MIME, '', 0, Preference::ABSENT)
             ),
             new MatchedPreference(
                 new Preference(Preference::MIME, 'application/rdf+xml', 0.8, Preference::COMPLETE),
-                new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
+                new Preference(Preference::MIME, '', 0, Preference::ABSENT)
             ),
             new MatchedPreference(
                 new Preference(Preference::MIME, 'text/n3', 0.8, Preference::COMPLETE),
-                new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
+                new Preference(Preference::MIME, '', 0, Preference::ABSENT)
             ),
             new MatchedPreference(
                 new Preference(Preference::MIME, 'text/rdf+n3', 0.8, Preference::COMPLETE),
-                new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
+                new Preference(Preference::MIME, '', 0, Preference::ABSENT)
             ),
             new MatchedPreference(
                 new Preference(Preference::MIME, 'application/ld+json', 0.5, Preference::COMPLETE),
-                new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE)
+                new Preference(Preference::MIME, '', 0, Preference::ABSENT)
             )
         );
 

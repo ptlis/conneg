@@ -30,7 +30,7 @@ class PreferenceBuilderTest extends \PHPUnit_Framework_TestCase
         $real = $builder
             ->setFromField(Preference::ENCODING)
             ->setFromServer(true)
-            ->setType('utf-8')
+            ->setVariant('utf-8')
             ->setQualityFactor(1)
             ->get();
 
@@ -40,14 +40,14 @@ class PreferenceBuilderTest extends \PHPUnit_Framework_TestCase
     public function testBuildAbsentTypeSuccess()
     {
         // Absent types should always have a quality factor of 0
-        $expected = new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT_TYPE);
+        $expected = new Preference(Preference::LANGUAGE, '', 0, Preference::ABSENT);
 
         $builder = new PreferenceBuilder();
 
         $real = $builder
             ->setFromField(Preference::LANGUAGE)
             ->setFromServer(true)
-            ->setType('')
+            ->setVariant('')
             ->setQualityFactor(1)
             ->get();
 
@@ -56,7 +56,7 @@ class PreferenceBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testBuildEmptyTypeSuccess()
     {
-        $expected = new Preference(Preference::MIME, '', 0, Preference::ABSENT_TYPE);
+        $expected = new Preference(Preference::MIME, '', 0, Preference::ABSENT);
 
         $builder = new PreferenceBuilder();
 
@@ -76,7 +76,7 @@ class PreferenceBuilderTest extends \PHPUnit_Framework_TestCase
         $real = $builder
             ->setFromField(Preference::LANGUAGE)
             ->setFromServer(false)
-            ->setType('*')
+            ->setVariant('*')
             ->setQualityFactor(0.8)
             ->get();
 
@@ -86,8 +86,8 @@ class PreferenceBuilderTest extends \PHPUnit_Framework_TestCase
     public function testBuildServerWildcardTypeInvalid()
     {
         $this->setExpectedException(
-            '\ptlis\ConNeg\Exception\InvalidTypeException',
-            'Wildcards are not allowed in server-provided types.'
+            '\ptlis\ConNeg\Exception\InvalidVariantException',
+            'Wildcards are not allowed in server-provided variants.'
         );
 
         $builder = new PreferenceBuilder();
@@ -95,7 +95,7 @@ class PreferenceBuilderTest extends \PHPUnit_Framework_TestCase
         $builder
             ->setFromField(Preference::LANGUAGE)
             ->setFromServer(true)
-            ->setType('*')
+            ->setVariant('*')
             ->setQualityFactor(0.8)
             ->get();
     }
@@ -109,7 +109,7 @@ class PreferenceBuilderTest extends \PHPUnit_Framework_TestCase
         $real = $builder
             ->setFromField(Preference::LANGUAGE)
             ->setFromServer(false)
-            ->setType('utf-8')
+            ->setVariant('utf-8')
             ->setQualityFactor('asdf')
             ->get();
 
@@ -119,7 +119,7 @@ class PreferenceBuilderTest extends \PHPUnit_Framework_TestCase
     public function testServerInvalidQualityFactorString()
     {
         $this->setExpectedException(
-            '\ptlis\ConNeg\Exception\InvalidTypeException',
+            '\ptlis\ConNeg\Exception\InvalidVariantException',
             'Invalid quality factor "asdf" in server preferences'
         );
 
@@ -128,7 +128,7 @@ class PreferenceBuilderTest extends \PHPUnit_Framework_TestCase
         $builder
             ->setFromField(Preference::LANGUAGE)
             ->setFromServer(true)
-            ->setType('utf-8')
+            ->setVariant('utf-8')
             ->setQualityFactor('asdf')
             ->get();
     }
@@ -142,7 +142,7 @@ class PreferenceBuilderTest extends \PHPUnit_Framework_TestCase
         $real = $builder
             ->setFromField(Preference::LANGUAGE)
             ->setFromServer(false)
-            ->setType('utf-8')
+            ->setVariant('utf-8')
             ->setQualityFactor(7)
             ->get();
 
@@ -152,7 +152,7 @@ class PreferenceBuilderTest extends \PHPUnit_Framework_TestCase
     public function testServerInvalidQualityFactorTooLarge()
     {
         $this->setExpectedException(
-            '\ptlis\ConNeg\Exception\InvalidTypeException',
+            '\ptlis\ConNeg\Exception\InvalidVariantException',
             'Invalid quality factor "7" in server preferences'
         );
 
@@ -161,7 +161,7 @@ class PreferenceBuilderTest extends \PHPUnit_Framework_TestCase
         $builder
             ->setFromField(Preference::LANGUAGE)
             ->setFromServer(true)
-            ->setType('utf-8')
+            ->setVariant('utf-8')
             ->setQualityFactor(7)
             ->get();
     }
@@ -175,7 +175,7 @@ class PreferenceBuilderTest extends \PHPUnit_Framework_TestCase
         $real = $builder
             ->setFromField(Preference::LANGUAGE)
             ->setFromServer(false)
-            ->setType('utf-8')
+            ->setVariant('utf-8')
             ->setQualityFactor(-1)
             ->get();
 
@@ -185,7 +185,7 @@ class PreferenceBuilderTest extends \PHPUnit_Framework_TestCase
     public function testServerInvalidQualityFactorTooSmall()
     {
         $this->setExpectedException(
-            '\ptlis\ConNeg\Exception\InvalidTypeException',
+            '\ptlis\ConNeg\Exception\InvalidVariantException',
             'Invalid quality factor "-1" in server preferences'
         );
 
@@ -194,7 +194,7 @@ class PreferenceBuilderTest extends \PHPUnit_Framework_TestCase
         $builder
             ->setFromField(Preference::LANGUAGE)
             ->setFromServer(true)
-            ->setType('utf-8')
+            ->setVariant('utf-8')
             ->setQualityFactor(-1)
             ->get();
     }
@@ -210,7 +210,7 @@ class PreferenceBuilderTest extends \PHPUnit_Framework_TestCase
 
         $builder
             ->setFromServer(true)
-            ->setType('utf-8')
+            ->setVariant('utf-8')
             ->setQualityFactor(0.5)
             ->get();
     }

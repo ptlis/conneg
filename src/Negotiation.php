@@ -57,7 +57,7 @@ class Negotiation
     }
 
     /**
-     * Parse the Accept-Charset field & negotiate against server types, returns the preferred type.
+     * Parse the Accept-Charset field & negotiate against server preferences, returns the preferred variant.
      *
      * @param string $clientField
      * @param string $serverField
@@ -70,7 +70,7 @@ class Negotiation
     }
 
     /**
-     * Parse the Accept-Charset field & negotiate against server types, returns a sorted array of preferences.
+     * Parse the Accept-Charset field & negotiate against server preferences, returns a sorted array of preferences.
      *
      * @param string $clientField
      * @param string $serverField
@@ -85,7 +85,7 @@ class Negotiation
     }
 
     /**
-     * Parse the Accept-Encoding field & negotiate against server types, returns the preferred type.
+     * Parse the Accept-Encoding field & negotiate against server preferences, returns the preferred variant.
      *
      * @param string $clientField
      * @param string $serverField
@@ -98,7 +98,7 @@ class Negotiation
     }
 
     /**
-     * Parse the Accept-Encoding field & negotiate against server types, returns a sorted array of preferences.
+     * Parse the Accept-Encoding field & negotiate against server preferences, returns a sorted array of preferences.
      *
      * @param string $clientField
      * @param string $serverField
@@ -113,7 +113,7 @@ class Negotiation
     }
 
     /**
-     * Parse the Accept-Language field & negotiate against server types, returns the preferred type.
+     * Parse the Accept-Language field & negotiate against server preferences, returns the preferred variant.
      *
      * @param string $clientField
      * @param string $serverField
@@ -126,7 +126,7 @@ class Negotiation
     }
 
     /**
-     * Parse the Accept-Language field & negotiate against server types, returns a sorted array of preferences.
+     * Parse the Accept-Language field & negotiate against server preferences, returns a sorted array of preferences.
      *
      * @param string $clientField
      * @param string $serverField
@@ -141,7 +141,7 @@ class Negotiation
     }
 
     /**
-     * Parse the Accept field & negotiate against server types, returns the preferred type.
+     * Parse the Accept field & negotiate against server preferences, returns the preferred variant.
      *
      * @param string $clientField
      * @param string $serverField
@@ -154,7 +154,7 @@ class Negotiation
     }
 
     /**
-     * Parse the Accept field & negotiate against server types, returns a sorted array of preferences.
+     * Parse the Accept field & negotiate against server preferences, returns a sorted array of preferences.
      *
      * @param string $clientField
      * @param string $serverField
@@ -169,7 +169,7 @@ class Negotiation
     }
 
     /**
-     * Shared code to parse an Accept* field & negotiate against server types, returns the preferred type.
+     * Shared code to parse an Accept* field & negotiate against server preferences, returns the preferred variant.
      *
      * @param string $clientField
      * @param string $serverField
@@ -186,7 +186,7 @@ class Negotiation
     }
 
     /**
-     * Shared code to parse an Accept* field & negotiate against server types, returns an array of preferences.
+     * Shared code to parse an Accept* field & negotiate against server preferences, returns an array of preferences.
      *
      * @param string $clientField
      * @param string $serverField

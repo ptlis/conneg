@@ -14,9 +14,9 @@
 namespace ptlis\ConNeg\Exception;
 
 /**
- * Exception thrown on encountering an invalid type.
+ * Exception thrown on encountering an invalid variant.
  */
-class InvalidTypeException extends \RuntimeException
+class InvalidVariantException extends \RuntimeException
 {
 
 }

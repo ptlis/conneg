@@ -21,7 +21,7 @@ use ptlis\ConNeg\Preference\PreferenceInterface;
 interface PreferenceBuilderInterface
 {
     /**
-     * Set whether the type originates from the server.
+     * Set whether the preference originates from the server.
      *
      * @param bool $isFromServer
      *
@@ -39,13 +39,13 @@ interface PreferenceBuilderInterface
     public function setFromField($fromField);
 
     /**
-     * Set the string representation of the type.
+     * Set the string representation of the variant.
      *
-     * @param string $type
+     * @param string $variant
      *
      * @return $this
      */
-    public function setType($type);
+    public function setVariant($variant);
 
     /**
      * Set the quality factor.

@@ -14,12 +14,12 @@
 namespace ptlis\ConNeg\Preference;
 
 /**
- * Interface for value types storing type preferences.
+ * Interface for value types storing variant preferences.
  */
 interface PreferenceInterface
 {
-    /** Null/absent type, used as a placeholder for matched preferences. */
-    const ABSENT_TYPE = -1;
+    /** Null/absent variant, used as a placeholder for matched preferences. */
+    const ABSENT = -1;
 
     /** Wildcard match */
     const WILDCARD = 0;
@@ -27,46 +27,46 @@ interface PreferenceInterface
     /** Partial wildcard (e.g. text/* or en-*) */
     const PARTIAL_WILDCARD = 1;
 
-    /** Fully qualified type */
+    /** Fully qualified variant */
     const COMPLETE = 2;
 
 
-    /** Charset type */
+    /** Charset variant */
     const CHARSET = 'Accept-Charset';
 
-    /** Encoding type */
+    /** Encoding variant */
     const ENCODING = 'Accept-Encoding';
 
-    /** Language type */
+    /** Language variant */
     const LANGUAGE = 'Accept-Language';
 
-    /** Mime type */
+    /** Mime variant */
     const MIME = 'Accept';
 
 
     /**
-     * Return the full type as a string.
+     * Return the variant name.
      *
      * @return string
      */
-    public function getType();
+    public function getVariant();
 
     /**
-     * Return the precedence of the type (wildcards are superseded by full matches etc).
+     * Return the precedence of the variant (wildcards are superseded by full matches etc).
      *
      * @return int
      */
     public function getPrecedence();
 
     /**
-     * Returns the quality factor for the type.
+     * Returns the quality factor for the variant.
      *
      * @return float
      */
     public function getQualityFactor();
 
     /**
-     * Create string representation of type.
+     * Create string representation of the preference.
      *
      * @return string
      */

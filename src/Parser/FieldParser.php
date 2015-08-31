@@ -13,12 +13,12 @@
 
 namespace ptlis\ConNeg\Parser;
 
-use ptlis\ConNeg\Exception\InvalidTypeException;
+use ptlis\ConNeg\Exception\InvalidVariantException;
 use ptlis\ConNeg\Preference\Builder\PreferenceBuilderInterface;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
- * Parser that accepts a tokenized HTTP Accept or Accept-* field and returns an array of Type value objects.
+ * Parser that accepts a tokenized HTTP Accept or Accept-* field and returns an array of Preference value objects.
  */
 class FieldParser
 {
@@ -48,22 +48,21 @@ class FieldParser
     }
 
     /**
-     * Accepts a tokenized Accept* HTTP field and returns an array of Type value objects.
+     * Accepts a tokenized Accept* HTTP field and returns an array of Preference value objects.
      *
-     * @throws InvalidTypeException
+     * @throws InvalidVariantException
      *
-     * @param array<string> $tokenList An array of types from the client; needed as we must be more tolerant of
-     *                                 malformed fields with incoming data than from the server.
-     * @param bool $serverField If true the field came from the server & we error on malformed data otherwise we
-     *                          suppress errors for client types.
+     * @param array<string> $tokenList Parsed tokens
+     * @param bool $serverField If true the field came from the server & we error on malformed data, otherwise we
+     *                          suppress errors for client preferences..
      * @param string $fromField Which field the tokens came from
      *
      * @return PreferenceInterface[]
      */
     public function parse(array $tokenList, $serverField, $fromField)
     {
-        // Bundle tokens by type.
-        $bundleList = $this->bundleTokens($tokenList, Tokens::TYPE_SEPARATOR);
+        // Bundle tokens by variant.
+        $bundleList = $this->bundleTokens($tokenList, Tokens::VARIANT_SEPARATOR);
 
         $prefList = array();
         foreach ($bundleList as $bundle) {
@@ -74,9 +73,9 @@ class FieldParser
     }
 
     /**
-     * Accepts tokens for a single type and returns the type value object encapsulating that data.
+     * Accepts tokens for a single variant and returns the Preference value object encapsulating that data.
      *
-     * @throws InvalidTypeException
+     * @throws InvalidVariantException
      *
      * @param array<string> $tokenBundle
      * @param bool $serverField
@@ -88,14 +87,14 @@ class FieldParser
     {
         $pref = null;
         try {
-            list($typeTokenList, $paramTokenList) = $this->splitTypeAndParamTokens($tokenBundle, $fromField);
+            list($variantTokenList, $paramTokenList) = $this->splitVariantAndParamTokens($tokenBundle, $fromField);
 
             $paramBundleList = $this->bundleTokens($paramTokenList, Tokens::PARAMS_SEPARATOR);
             $this->validateParamBundleList($paramBundleList, $serverField);
 
-            $pref = $this->createPreference($typeTokenList, $paramBundleList, $serverField, $fromField);
+            $pref = $this->createPreference($variantTokenList, $paramBundleList, $serverField, $fromField);
 
-        } catch (InvalidTypeException $e) {
+        } catch (InvalidVariantException $e) {
             if ($serverField) {
                 throw $e;
             }
@@ -105,45 +104,45 @@ class FieldParser
     }
 
     /**
-     * Splits the token list into type & parameter arrays.
+     * Splits the token list into variant & parameter arrays.
      *
-     * @throws InvalidTypeException
+     * @throws InvalidVariantException
      *
      * @param array<string> $tokenBundle
      * @param string $fromField
      *
      * @return string[][]
      */
-    private function splitTypeAndParamTokens(array $tokenBundle, $fromField)
+    private function splitVariantAndParamTokens(array $tokenBundle, $fromField)
     {
         if (PreferenceInterface::MIME === $fromField) {
-            $this->validateBundleMimeType($tokenBundle);
-            $typeTokenList = array_slice($tokenBundle, 0, 3);
+            $this->validateBundleMimeVariant($tokenBundle);
+            $variantTokenList = array_slice($tokenBundle, 0, 3);
             $paramTokenList = array_slice($tokenBundle, 3);
         } else {
-            $typeTokenList = array_slice($tokenBundle, 0, 1);
+            $variantTokenList = array_slice($tokenBundle, 0, 1);
             $paramTokenList = array_slice($tokenBundle, 1);
         }
 
-        return array($typeTokenList, $paramTokenList);
+        return array($variantTokenList, $paramTokenList);
     }
 
     /**
-     * Accepts the bundled tokens for type & parameter data and builds the Type value object.
+     * Accepts the bundled tokens for variant & parameter data and builds the Preference value object.
      *
-     * @param array<string> $typeTokenList
+     * @param array<string> $variantTokenList
      * @param array<array<string>> $paramBundleList
      * @param bool $serverField
      * @param string $fromField
      *
      * @return PreferenceInterface
      */
-    private function createPreference(array $typeTokenList, array $paramBundleList, $serverField, $fromField)
+    private function createPreference(array $variantTokenList, array $paramBundleList, $serverField, $fromField)
     {
         $builder = $this->getBuilder($fromField)
             ->setFromField($fromField)
             ->setFromServer($serverField)
-            ->setType(implode('', $typeTokenList));
+            ->setVariant(implode('', $variantTokenList));
 
         // Look for quality factor, discarding accept-extens
         foreach ($paramBundleList as $paramBundle) {
@@ -172,12 +171,12 @@ class FieldParser
     }
 
     /**
-     * Splits token list up into one bundle per type for later processing.
+     * Splits token list up into one bundle per variant for later processing.
      *
      * @param array<string> $tokenList
      * @param string $targetToken The token to split the list up by.
      *
-     * @return array<array<string>> an array of arrays - the child array contains the tokens for a single type.
+     * @return array<array<string>> an array of arrays - the child array contains the tokens for a single variant.
      */
     private function bundleTokens(array $tokenList, $targetToken)
     {
@@ -185,7 +184,7 @@ class FieldParser
         $bundle = array();
 
         foreach ($tokenList as $token) {
-            // On type separator add bundle to list & re-initialize empty bundle
+            // On token match add the bundle to list & re-initialize empty bundle
             if ($targetToken === $token) {
                 $bundleList[] = $bundle;
                 $bundle = array();
@@ -208,18 +207,18 @@ class FieldParser
     /**
      * Checks to see if the bundle is valid for a mime type, if an anomaly is detected then an exception is thrown.
      *
-     * @throws InvalidTypeException
+     * @throws InvalidVariantException
      *
      * @param array<string> $bundle
      */
-    private function validateBundleMimeType(array $bundle)
+    private function validateBundleMimeVariant(array $bundle)
     {
         if (count($bundle) < 3                          // Too few items in bundle
             || Tokens::MIME_SEPARATOR !== $bundle[1]    // Invalid separator
             || Tokens::isSeparator($bundle[0], true)    // Invalid type
             || Tokens::isSeparator($bundle[2], true)    // Invalid subtype
         ) {
-            throw new InvalidTypeException(
+            throw new InvalidVariantException(
                 '"' . implode('', $bundle) . '" is not a valid mime type'
             );
         }
@@ -228,18 +227,18 @@ class FieldParser
     /**
      * Checks to see if the parameters are correctly formed, if an anomaly is detected then an exception is thrown.
      *
-     * @throws InvalidTypeException
+     * @throws InvalidVariantException
      *
      * @param array<array<string>> $paramBundleList
      * @param bool $serverField     If true the field came from the server & we error on malformed data otherwise
-     *                              we suppress errors for client types.
+     *                              we suppress errors for client preferences.
      */
     private function validateParamBundleList(array $paramBundleList, $serverField)
     {
         foreach ($paramBundleList as $paramBundle) {
             try {
                 $this->validateParamBundle($paramBundle);
-            } catch (InvalidTypeException $e) {
+            } catch (InvalidVariantException $e) {
                 // Rethrow exception only if the field was provided by the server
                 if ($serverField) {
                     throw $e;
@@ -253,7 +252,7 @@ class FieldParser
      *
      * Due to the way we process tokens the only required should be for the correct number of tokens.
      *
-     * @throws InvalidTypeException
+     * @throws InvalidVariantException
      *
      * @param string[] $paramBundle
      */
@@ -261,7 +260,7 @@ class FieldParser
     {
         // Wrong number of components
         if (1 !== count($paramBundle) && 3 !== count($paramBundle)) {
-            throw new InvalidTypeException(
+            throw new InvalidVariantException(
                 'Invalid count for parameters; expecting 1 or 3, got "' . count($paramBundle) . '"'
             );
         }

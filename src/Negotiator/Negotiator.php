@@ -27,7 +27,7 @@ use ptlis\ConNeg\Preference\Matched\MatchedPreferenceSort;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
- * Negotiator for charset, encoding & language types.
+ * Negotiator for Accept-Charset, Accept-Encoding & Accept-Language fields.
  */
 class Negotiator implements NegotiatorInterface
 {
@@ -122,7 +122,7 @@ class Negotiator implements NegotiatorInterface
     }
 
     /**
-     * Match client types to server types.
+     * Match client variants to server variants.
      *
      * @param string $fromField
      * @param PreferenceInterface[] $clientPrefList
@@ -140,7 +140,7 @@ class Negotiator implements NegotiatorInterface
     }
 
     /**
-     * Match a single client type to the server types.
+     * Match a single client variant to the server variants.
      *
      * @parma string $fromField
      * @param PreferenceInterface $clientPreference

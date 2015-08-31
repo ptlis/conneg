@@ -19,7 +19,7 @@ use ptlis\ConNeg\Preference\Matched\MatchedPreferenceInterface;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
- * Matcher looking for exact type matches.
+ * Matcher looking for exact variant matches.
  */
 class ExactMatcher implements MatcherInterface
 {
@@ -44,7 +44,7 @@ class ExactMatcher implements MatcherInterface
      */
     public function hasMatch($fromField, array $matchingList, PreferenceInterface $clientPref)
     {
-        return $this->getMatchingTypes($matchingList, $clientPref) >= 0;
+        return $this->getMatchingIndex($matchingList, $clientPref) >= 0;
     }
 
     /**
@@ -52,7 +52,7 @@ class ExactMatcher implements MatcherInterface
      */
     public function match($fromField, array $matchingList, PreferenceInterface $clientPref)
     {
-        $matchIndex = $this->getMatchingTypes($matchingList, $clientPref);
+        $matchIndex = $this->getMatchingIndex($matchingList, $clientPref);
 
         if ($matchIndex >= 0) {
             $newMatch = new MatchedPreference(
@@ -69,19 +69,19 @@ class ExactMatcher implements MatcherInterface
     }
 
     /**
-     * Returns the first index containing a matching type.
+     * Returns the first index containing a matching variant, or -1 if not present.
      *
      * @param MatchedPreferenceInterface[] $matchingList
      * @param PreferenceInterface $pref
      *
      * @return int
      */
-    private function getMatchingTypes(array $matchingList, PreferenceInterface $pref)
+    private function getMatchingIndex(array $matchingList, PreferenceInterface $pref)
     {
         $index = -1;
 
         foreach ($matchingList as $key => $match) {
-            if ($match->getType() === $pref->getType()) {
+            if ($match->getVariant() === $pref->getVariant()) {
                 $index = $key;
             }
         }

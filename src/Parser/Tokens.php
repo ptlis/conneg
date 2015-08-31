@@ -19,12 +19,12 @@ namespace ptlis\ConNeg\Parser;
 class Tokens
 {
     /**
-     * Token that indicates the boundary between type data
+     * Token that indicates the boundary between variant data
      */
-    const TYPE_SEPARATOR = ',';
+    const VARIANT_SEPARATOR = ',';
 
     /**
-     * Token that indicates the boundary between the type & any params attached to it.
+     * Token that indicates the boundary between the variant & any params attached to it.
      */
     const PARAMS_SEPARATOR = ';';
 
@@ -50,7 +50,7 @@ class Tokens
     public static function isSeparator($string, $mimeField)
     {
         $separatorList = array(
-            self::TYPE_SEPARATOR,
+            self::VARIANT_SEPARATOR,
             self::PARAMS_SEPARATOR,
             self::PARAMS_KV_SEPARATOR
         );

@@ -13,7 +13,7 @@
 
 namespace ptlis\ConNeg\Preference\Builder;
 
-use ptlis\ConNeg\Exception\InvalidTypeException;
+use ptlis\ConNeg\Exception\InvalidVariantException;
 use ptlis\ConNeg\Preference\Preference;
 
 /**
@@ -24,19 +24,19 @@ class MimePreferenceBuilder extends AbstractPreferenceBuilder
     /**
      * @inheritDoc
      */
-    protected function validateType($type)
+    protected function validateVariant($variant)
     {
-        if ($this->isFromServer && strlen($type) > 0) {
-            $typeParts = explode('/', $type);
+        if ($this->isFromServer && strlen($variant) > 0) {
+            $variantParts = explode('/', $variant);
 
             // Too many/few slashes
-            if (2 !== count($typeParts)) {
-                throw new InvalidTypeException('"' . $type . '" is not a valid mime type');
+            if (2 !== count($variantParts)) {
+                throw new InvalidVariantException('"' . $variant . '" is not a valid mime type');
             }
 
             // Wildcards disallowed in server preferences
-            if (in_array('*', $typeParts)) {
-                throw new InvalidTypeException('Wildcards are not allowed in server-provided types.');
+            if (in_array('*', $variantParts)) {
+                throw new InvalidVariantException('Wildcards are not allowed in server-provided variants.');
             }
         }
     }
@@ -44,23 +44,23 @@ class MimePreferenceBuilder extends AbstractPreferenceBuilder
     /**
      * @inheritDoc
      */
-    protected function normalizeType($type)
+    protected function normalizeVariant($variant)
     {
-        $typeParts = explode('/', $type);
+        $variantParts = explode('/', $variant);
 
         // Ignore malformed preferences
-        if (2 !== count($typeParts)) {
-            $type = '';
+        if (2 !== count($variantParts)) {
+            $variant = '';
 
         } else {
-            // Types in form of */foo aren't valid
-            list($mimeType, $subType) = $typeParts;
+            // Variants in form of */foo aren't valid
+            list($mimeType, $subType) = $variantParts;
             if ('*' === $mimeType && '*' !== $subType) {
-                $type = '';
+                $variant = '';
             }
         }
 
-        return $type;
+        return $variant;
     }
 
     /**
@@ -78,14 +78,14 @@ class MimePreferenceBuilder extends AbstractPreferenceBuilder
 
         return new Preference(
             $this->fromField,
-            $this->type,
+            $this->variant,
             $this->getQualityFactor(),
             $this->getPrecedence()
         );
     }
 
     /**
-     * Get the type's quality factor, defaulting to 0 on absent types.
+     * Get the variants's quality factor, defaulting to 0 on absent variant.
      *
      * @return float
      */
@@ -93,7 +93,7 @@ class MimePreferenceBuilder extends AbstractPreferenceBuilder
     {
         $qFactor = 0.0;
 
-        if (2 === count(explode('/', $this->type))) {
+        if (2 === count(explode('/', $this->variant))) {
             $qFactor = $this->qFactor;
         }
 
@@ -101,18 +101,18 @@ class MimePreferenceBuilder extends AbstractPreferenceBuilder
     }
 
     /**
-     * Determine the precedence from the type.
+     * Determine the precedence from the variant.
      *
      * @return int
      */
     private function getPrecedence()
     {
-        $precedence = Preference::ABSENT_TYPE;
+        $precedence = Preference::ABSENT;
 
-        // A type is present
-        $explodedType = explode('/', $this->type);
-        if (2 === count($explodedType)) {
-            list($mimeType, $subType) = $explodedType;
+        // A variant is present
+        $variantParts = explode('/', $this->variant);
+        if (2 === count($variantParts)) {
+            list($mimeType, $subType) = $variantParts;
 
             $precedence = Preference::COMPLETE;
 

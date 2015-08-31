@@ -64,16 +64,16 @@ class MatchedPreference implements MatchedPreferenceInterface
     }
 
     /**
-     * Get the shared type for this pair.
+     * Get the shared variant for this pair.
      *
      * @return string
      */
-    public function getType()
+    public function getVariant()
     {
-        if (strlen($this->clientPref->getType()) && !strstr($this->clientPref->getType(), '*')) {
-            return $this->clientPref->getType();
+        if (strlen($this->clientPref->getVariant()) && !strstr($this->clientPref->getVariant(), '*')) {
+            return $this->clientPref->getVariant();
         } else {
-            return $this->serverPref->getType();
+            return $this->serverPref->getVariant();
         }
     }
 
@@ -105,6 +105,6 @@ class MatchedPreference implements MatchedPreferenceInterface
      */
     public function __toString()
     {
-        return $this->getType() . ';q=' . $this->getQualityFactor();
+        return $this->getVariant() . ';q=' . $this->getQualityFactor();
     }
 }

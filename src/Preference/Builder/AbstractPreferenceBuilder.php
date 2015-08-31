@@ -13,7 +13,7 @@
 
 namespace ptlis\ConNeg\Preference\Builder;
 
-use ptlis\ConNeg\Exception\InvalidTypeException;
+use ptlis\ConNeg\Exception\InvalidVariantException;
 
 /**
  * Shared preference building implementation.
@@ -33,7 +33,7 @@ abstract class AbstractPreferenceBuilder implements PreferenceBuilderInterface
     /**
      * @var string
      */
-    protected $type = '';
+    protected $variant = '';
 
     /**
      * @var float
@@ -66,16 +66,16 @@ abstract class AbstractPreferenceBuilder implements PreferenceBuilderInterface
     /**
      * @inheritDoc
      *
-     * @throws InvalidTypeException If the provided type is not valid.
+     * @throws InvalidVariantException If the provided variant is not valid.
      */
-    public function setType($type)
+    public function setVariant($variant)
     {
         if ($this->isFromServer) {
-            $this->validateType($type);
+            $this->validateVariant($variant);
         }
 
         $clone = clone $this;
-        $clone->type = $this->normalizeType($type);
+        $clone->variant = $this->normalizeVariant($variant);
 
         return $clone;
     }
@@ -83,12 +83,12 @@ abstract class AbstractPreferenceBuilder implements PreferenceBuilderInterface
     /**
      * @inheritDoc
      *
-     * @throws InvalidTypeException If an invalid quality factor in encountered when building an server type.
+     * @throws InvalidVariantException If an invalid quality factor in encountered when building an server preference.
      */
     public function setQualityFactor($qFactor)
     {
         if ($this->isFromServer && !$this->validQualityFactor($qFactor)) {
-            throw new InvalidTypeException('Invalid quality factor "' . $qFactor . '" in server preferences');
+            throw new InvalidVariantException('Invalid quality factor "' . $qFactor . '" in server preferences');
         }
 
         $qFactor = $this->normalizeQualityFactor($qFactor);
@@ -100,24 +100,24 @@ abstract class AbstractPreferenceBuilder implements PreferenceBuilderInterface
     }
 
     /**
-     * Validate the type, returning true if the type is valid.
+     * Validate the variant, returning true if the variant is valid.
      *
-     * @throws InvalidTypeException If the provided type is not valid.
+     * @throws InvalidVariantException If the provided variant is not valid.
      *
-     * @param string $type
+     * @param string $variant
      */
-    abstract protected function validateType($type);
+    abstract protected function validateVariant($variant);
 
     /**
-     * Normalises the type.
+     * Normalises the variant.
      *
-     * @param string $type
+     * @param string $variant
      *
      * @return string
      */
-    protected function normalizeType($type)
+    protected function normalizeVariant($variant)
     {
-        return $type;
+        return $variant;
     }
 
     /**

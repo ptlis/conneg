@@ -14,33 +14,33 @@
 namespace ptlis\ConNeg\Preference;
 
 /**
- * Value types storing type preferences.
+ * Value type storing variant preferences.
  */
 class Preference implements PreferenceInterface
 {
     /**
-     * The field that this type preference was derived from.
+     * The field that this preference was derived from.
      *
      * @var string
      */
     private $fromField;
 
     /**
-     * The name of the type.
+     * The variant name.
      *
      * @var string
      */
-    private $type;
+    private $variant;
 
     /**
-     * The quality factor associated with this type.
+     * The quality factor associated with this variant.
      *
      * @var float
      */
     private $qFactor;
 
     /**
-     * Type precedence of the type (named > wildcard > absent).
+     * Precedence of the variant (full > partial wildcard > wildcard > absent).
      *
      * @var int
      */
@@ -51,14 +51,14 @@ class Preference implements PreferenceInterface
      * Constructor
      *
      * @param string $field
-     * @param string $type
+     * @param string $variant
      * @param float $qFactor
      * @param int $precedence
      */
-    public function __construct($field, $type, $qFactor, $precedence)
+    public function __construct($field, $variant, $qFactor, $precedence)
     {
         $this->fromField = $field;
-        $this->type = $type;
+        $this->variant = $variant;
         $this->qFactor = $qFactor;
         $this->precedence = $precedence;
     }
@@ -66,9 +66,9 @@ class Preference implements PreferenceInterface
     /**
      * @inheritDoc
      */
-    public function getType()
+    public function getVariant()
     {
-        return $this->type;
+        return $this->variant;
     }
 
     /**
@@ -93,8 +93,8 @@ class Preference implements PreferenceInterface
     public function __toString()
     {
         $str = '';
-        if (strlen($this->getType())) {
-            $str = $this->getType() . ';q=' . $this->getQualityFactor();
+        if (strlen($this->getVariant())) {
+            $str = $this->getVariant() . ';q=' . $this->getQualityFactor();
         }
         return $str;
     }
