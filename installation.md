@@ -8,7 +8,7 @@ name: installation
 Either from the console:
 
 ~~~bash
-composer require ptlis/conneg-bundle:"~3.0.0"
+composer require ptlis/conneg-bundle:"~4.0.0"
 ~~~
 
 Or by Editing composer.json:
@@ -16,7 +16,7 @@ Or by Editing composer.json:
 ~~~json
 {
     "require": {
-        "ptlis/conneg-bundle": "~3.0.0"
+        "ptlis/conneg-bundle": "~4.0.0"
     }
 }
 ~~~
