@@ -19,7 +19,7 @@ class PreferenceTest extends \PHPUnit_Framework_TestCase
 {
     public function testType()
     {
-        $type = new Preference(Preference::LANGUAGE, 'utf-8', 1, Preference::COMPLETE);
+        $type = new Preference('utf-8', 1, Preference::COMPLETE);
 
         $this->assertSame('utf-8', $type->getVariant());
         $this->assertSame(1, $type->getQualityFactor());

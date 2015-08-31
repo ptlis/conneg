@@ -23,7 +23,7 @@ class MimePreferenceBuilderTest extends \PHPUnit_Framework_TestCase
 {
     public function testBuildTypeSuccess()
     {
-        $expected = new Preference(Preference::MIME, 'text/html', 1, Preference::COMPLETE);
+        $expected = new Preference('text/html', 1, Preference::COMPLETE);
 
         $builder = new MimePreferenceBuilder();
 
@@ -39,7 +39,7 @@ class MimePreferenceBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testBuildClientWildcardTypeOnlyInvalid()
     {
-        $expected = new Preference(Preference::MIME, '', 0, Preference::ABSENT);
+        $expected = new Preference('', 0, Preference::ABSENT);
 
         $builder = new MimePreferenceBuilder();
 
@@ -55,7 +55,7 @@ class MimePreferenceBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testBuildClientTypeInvalid()
     {
-        $expected = new Preference(Preference::MIME, '', 0, Preference::ABSENT);
+        $expected = new Preference('', 0, Preference::ABSENT);
 
         $builder = new MimePreferenceBuilder();
 

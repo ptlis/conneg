@@ -48,9 +48,9 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = array(
-            new Preference(Preference::MIME, 'application/atom+xml', 0.8, Preference::COMPLETE),
-            new Preference(Preference::MIME, 'text/html', 0.3, Preference::COMPLETE),
-            new Preference(Preference::MIME, 'application/rss+xml', 1, Preference::COMPLETE)
+            new Preference('application/atom+xml', 0.8, Preference::COMPLETE),
+            new Preference('text/html', 0.3, Preference::COMPLETE),
+            new Preference('application/rss+xml', 1, Preference::COMPLETE)
         );
 
         $parser = new FieldParser(new PreferenceBuilder(), new MimePreferenceBuilder());
@@ -89,9 +89,9 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = array(
-            new Preference(Preference::MIME, 'application/atom+xml', 0.8, Preference::COMPLETE),
-            new Preference(Preference::MIME, 'text/html', 0.3, Preference::COMPLETE),
-            new Preference(Preference::MIME, 'application/rss+xml', 1, Preference::COMPLETE)
+            new Preference('application/atom+xml', 0.8, Preference::COMPLETE),
+            new Preference('text/html', 0.3, Preference::COMPLETE),
+            new Preference('application/rss+xml', 1, Preference::COMPLETE)
         );
 
         $parser = new FieldParser(new PreferenceBuilder(), new MimePreferenceBuilder());
@@ -132,9 +132,9 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = array(
-            new Preference(Preference::MIME, 'application/atom+xml', 0.8, Preference::COMPLETE),
-            new Preference(Preference::MIME, 'text/html', 0.3, Preference::COMPLETE),
-            new Preference(Preference::MIME, 'application/rss+xml', 1, Preference::COMPLETE)
+            new Preference('application/atom+xml', 0.8, Preference::COMPLETE),
+            new Preference('text/html', 0.3, Preference::COMPLETE),
+            new Preference('application/rss+xml', 1, Preference::COMPLETE)
         );
 
         $parser = new FieldParser(new PreferenceBuilder(), new MimePreferenceBuilder());
@@ -177,9 +177,9 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = array(
-            new Preference(Preference::MIME, 'application/atom+xml', 0.8, Preference::COMPLETE),
-            new Preference(Preference::MIME, 'text/html', 0.3, Preference::COMPLETE),
-            new Preference(Preference::MIME, 'application/rss+xml', 1, Preference::COMPLETE)
+            new Preference('application/atom+xml', 0.8, Preference::COMPLETE),
+            new Preference('text/html', 0.3, Preference::COMPLETE),
+            new Preference('application/rss+xml', 1, Preference::COMPLETE)
         );
 
         $parser = new FieldParser(new PreferenceBuilder(), new MimePreferenceBuilder());
@@ -262,9 +262,9 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = array(
-            new Preference(Preference::MIME, 'application/atom+xml', 0.8, Preference::COMPLETE),
-            new Preference(Preference::MIME, 'text/html', 0.3, Preference::COMPLETE),
-            new Preference(Preference::MIME, 'application/rss+xml', 1, Preference::COMPLETE)
+            new Preference('application/atom+xml', 0.8, Preference::COMPLETE),
+            new Preference('text/html', 0.3, Preference::COMPLETE),
+            new Preference('application/rss+xml', 1, Preference::COMPLETE)
         );
 
         $parser = new FieldParser(new PreferenceBuilder(), new MimePreferenceBuilder());
@@ -291,8 +291,8 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = array(
-            new Preference(Preference::LANGUAGE, 'es-*', 0.7, Preference::PARTIAL_WILDCARD),
-            new Preference(Preference::LANGUAGE, 'es-ES', 0.9, Preference::COMPLETE)
+            new Preference('es-*', 0.7, Preference::PARTIAL_WILDCARD),
+            new Preference('es-ES', 0.9, Preference::COMPLETE)
         );
 
         $parser = new FieldParser(new PreferenceBuilder(), new MimePreferenceBuilder());
@@ -374,8 +374,8 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = array(
-            new Preference(Preference::CHARSET, 'iso-8859-5', 1, Preference::COMPLETE),
-            new Preference(Preference::CHARSET, 'utf-8', 0.9, Preference::COMPLETE),
+            new Preference('iso-8859-5', 1, Preference::COMPLETE),
+            new Preference('utf-8', 0.9, Preference::COMPLETE),
         );
 
         $parser = new FieldParser(new PreferenceBuilder(), new MimePreferenceBuilder());
@@ -399,8 +399,8 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = array(
-            new Preference(Preference::CHARSET, 'iso-8859-5', 1, Preference::COMPLETE),
-            new Preference(Preference::CHARSET, 'utf-8', 0.9, Preference::COMPLETE),
+            new Preference('iso-8859-5', 1, Preference::COMPLETE),
+            new Preference('utf-8', 0.9, Preference::COMPLETE),
         );
 
         $parser = new FieldParser(new PreferenceBuilder(), new MimePreferenceBuilder());
@@ -424,8 +424,8 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = array(
-            new Preference(Preference::CHARSET, 'iso-8859-5', 1, Preference::COMPLETE),
-            new Preference(Preference::CHARSET, 'utf-8', 0.9, Preference::COMPLETE),
+            new Preference('iso-8859-5', 1, Preference::COMPLETE),
+            new Preference('utf-8', 0.9, Preference::COMPLETE),
         );
 
         $parser = new FieldParser(new PreferenceBuilder(), new MimePreferenceBuilder());

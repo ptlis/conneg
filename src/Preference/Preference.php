@@ -19,13 +19,6 @@ namespace ptlis\ConNeg\Preference;
 class Preference implements PreferenceInterface
 {
     /**
-     * The field that this preference was derived from.
-     *
-     * @var string
-     */
-    private $fromField;
-
-    /**
      * The variant name.
      *
      * @var string
@@ -50,14 +43,12 @@ class Preference implements PreferenceInterface
     /**
      * Constructor
      *
-     * @param string $field
      * @param string $variant
      * @param float $qFactor
      * @param int $precedence
      */
-    public function __construct($field, $variant, $qFactor, $precedence)
+    public function __construct($variant, $qFactor, $precedence)
     {
-        $this->fromField = $field;
         $this->variant = $variant;
         $this->qFactor = $qFactor;
         $this->precedence = $precedence;

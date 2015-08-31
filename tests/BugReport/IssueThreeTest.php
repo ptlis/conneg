@@ -32,12 +32,12 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
 
         $expectList = array(
             new MatchedPreference(
-                new Preference(Preference::MIME, 'application/rdf+xml', 0.5, Preference::COMPLETE),
-                new Preference(Preference::MIME, '', 0, Preference::ABSENT)
+                new Preference('application/rdf+xml', 0.5, Preference::COMPLETE),
+                new Preference('', 0, Preference::ABSENT)
             ),
             new MatchedPreference(
-                new Preference(Preference::MIME, 'text/html', 0.3, Preference::COMPLETE),
-                new Preference(Preference::MIME, '', 0, Preference::ABSENT)
+                new Preference('text/html', 0.3, Preference::COMPLETE),
+                new Preference('', 0, Preference::ABSENT)
             )
         );
 
@@ -58,8 +58,8 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
 
         $expectList = array(
             new MatchedPreference(
-                new Preference(Preference::MIME, 'application/xhtml+xml', 0.5, Preference::COMPLETE),
-                new Preference(Preference::MIME, '', 0, Preference::ABSENT)
+                new Preference('application/xhtml+xml', 0.5, Preference::COMPLETE),
+                new Preference('', 0, Preference::ABSENT)
             )
         );
 
@@ -80,12 +80,12 @@ class IssueThreeTest extends \PHPUnit_Framework_TestCase
 
         $expectList = array(
             new MatchedPreference(
-                new Preference(Preference::MIME, 'application/rdf+xml', 0.5, Preference::COMPLETE),
-                new Preference(Preference::MIME, '', 0, Preference::ABSENT)
+                new Preference('application/rdf+xml', 0.5, Preference::COMPLETE),
+                new Preference('', 0, Preference::ABSENT)
             ),
             new MatchedPreference(
-                new Preference(Preference::MIME, 'text/html', 0.5, Preference::COMPLETE),
-                new Preference(Preference::MIME, '', 0, Preference::ABSENT)
+                new Preference('text/html', 0.5, Preference::COMPLETE),
+                new Preference('', 0, Preference::ABSENT)
             )
         );
 

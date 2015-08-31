@@ -77,7 +77,6 @@ class MimePreferenceBuilder extends AbstractPreferenceBuilder
         }
 
         return new Preference(
-            $this->fromField,
             $this->variant,
             $this->getQualityFactor(),
             $this->getPrecedence()

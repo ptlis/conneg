@@ -23,8 +23,8 @@ class MatchedPreferenceTest extends \PHPUnit_Framework_TestCase
     public function testNewCharsetTypeOne()
     {
         $pair = new MatchedPreference(
-            new Preference(Preference::CHARSET, 'utf-8', 0.5, Preference::COMPLETE),
-            new Preference(Preference::CHARSET, '*', 0.3, Preference::WILDCARD)
+            new Preference('utf-8', 0.5, Preference::COMPLETE),
+            new Preference('*', 0.3, Preference::WILDCARD)
         );
 
         $this->assertSame('utf-8', $pair->getVariant());
@@ -36,8 +36,8 @@ class MatchedPreferenceTest extends \PHPUnit_Framework_TestCase
     public function testNewCharsetTypeTwo()
     {
         $pair = new MatchedPreference(
-            new Preference(Preference::CHARSET, '*', 0.3, Preference::WILDCARD),
-            new Preference(Preference::CHARSET, 'utf-8', 0.5, Preference::COMPLETE)
+            new Preference('*', 0.3, Preference::WILDCARD),
+            new Preference('utf-8', 0.5, Preference::COMPLETE)
         );
 
         $this->assertSame('utf-8', $pair->getVariant());
