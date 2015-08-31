@@ -94,7 +94,6 @@ class MatchedPreference implements MatchedPreferenceInterface
      */
     public function getPrecedence()
     {
-        // TODO: Wrong behaviour? Perhaps return the lowest precedence...
         return $this->getServerPreference()->getPrecedence() + $this->getClientPreference()->getPrecedence();
     }
 
