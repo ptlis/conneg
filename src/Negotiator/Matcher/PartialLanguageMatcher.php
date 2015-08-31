@@ -14,6 +14,7 @@
 namespace ptlis\ConNeg\Negotiator\Matcher;
 
 use ptlis\ConNeg\Preference\Matched\MatchedPreference;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferenceInterface;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
@@ -26,15 +27,7 @@ class PartialLanguageMatcher implements MatcherInterface
      */
     public function hasMatch($fromField, array $matchingList, PreferenceInterface $clientPref)
     {
-        $hasMatch = false;
-
-        foreach ($matchingList as $matching) {
-            if ($this->partialLangMatches($fromField, $matching, $clientPref)) {
-                $hasMatch = true;
-            }
-        }
-
-        return $hasMatch;
+        return count($this->getMatchingIndexes($fromField, $matchingList, $clientPref)) > 0;
     }
 
     /**
@@ -42,23 +35,38 @@ class PartialLanguageMatcher implements MatcherInterface
      */
     public function match($fromField, array $matchingList, PreferenceInterface $clientPref)
     {
-        $newMatchingList = array();
+        $matchingIndexList = $this->getMatchingIndexes($fromField, $matchingList, $clientPref);
+
+        foreach ($matchingIndexList as $matchingIndex) {
+            $matchingList[$matchingIndex] = new MatchedPreference(
+                $clientPref,
+                $matchingList[$matchingIndex]->getServerPreference()
+            );
+        }
+
+        return $matchingList;
+    }
+
+    /**
+     * Returns an array of indexes for of matches of higher precedence than the existing pairing.
+     *
+     * @param string $fromField
+     * @param MatchedPreferenceInterface[] $matchingList
+     * @param PreferenceInterface $clientPref
+     *
+     * @return int[]
+     */
+    private function getMatchingIndexes($fromField, array $matchingList, PreferenceInterface $clientPref)
+    {
+        $matchingIndexList = array();
 
         foreach ($matchingList as $key => $matching) {
             if ($this->partialLangMatches($fromField, $matching, $clientPref)) {
-                $newPair = new MatchedPreference(
-                    $clientPref,
-                    $matching->getServerPreference()
-                );
-
-                $newMatchingList[$key] = $newPair;
-
-            } else {
-                $newMatchingList[$key] = $matching;
+                $matchingIndexList[] = $key;
             }
         }
 
-        return $newMatchingList;
+        return $matchingIndexList;
     }
 
     /**
@@ -68,14 +76,14 @@ class PartialLanguageMatcher implements MatcherInterface
      * e.g. An server variant of en-* would match en, en-US but not es-ES
      *
      * @param string $fromField
-     * @param MatchedPreference $matchedPreference
+     * @param MatchedPreferenceInterface $matchedPreference
      * @param PreferenceInterface $newClientPref
      *
      * @return bool
      */
     private function partialLangMatches(
         $fromField,
-        MatchedPreference $matchedPreference,
+        MatchedPreferenceInterface $matchedPreference,
         PreferenceInterface $newClientPref
     ) {
         $serverPref = $matchedPreference->getServerPreference();

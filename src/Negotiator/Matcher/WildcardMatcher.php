@@ -14,6 +14,7 @@
 namespace ptlis\ConNeg\Negotiator\Matcher;
 
 use ptlis\ConNeg\Preference\Matched\MatchedPreference;
+use ptlis\ConNeg\Preference\Matched\MatchedPreferenceInterface;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
@@ -26,8 +27,8 @@ class WildcardMatcher implements MatcherInterface
      */
     public function hasMatch($fromField, array $matchingList, PreferenceInterface $clientPref)
     {
-        // TODO: Check to see if there is an actual match?
-        return PreferenceInterface::WILDCARD === $clientPref->getPrecedence();
+        return PreferenceInterface::WILDCARD === $clientPref->getPrecedence()
+            && count($this->getMatchingIndexes($matchingList, $clientPref));
     }
 
     /**
@@ -35,15 +36,36 @@ class WildcardMatcher implements MatcherInterface
      */
     public function match($fromField, array $matchingList, PreferenceInterface $clientPref)
     {
-        foreach ($matchingList as $key => $matching) {
-            if ($clientPref->getPrecedence() > $matching->getClientPreference()->getPrecedence()) {
-                $matchingList[$key] = new MatchedPreference(
-                    $clientPref,
-                    $matchingList[$key]->getServerPreference()
-                );
-            }
+        $matchingIndexList = $this->getMatchingIndexes($matchingList, $clientPref);
+
+        foreach ($matchingIndexList as $matchingIndex) {
+            $matchingList[$matchingIndex] = new MatchedPreference(
+                $clientPref,
+                $matchingList[$matchingIndex]->getServerPreference()
+            );
         }
 
         return $matchingList;
+    }
+
+    /**
+     * Returns an array of indexes for of matches of higher precedence than the existing pairing.
+     *
+     * @param MatchedPreferenceInterface[] $matchingList
+     * @param PreferenceInterface $clientPref
+     *
+     * @return int[]
+     */
+    private function getMatchingIndexes(array $matchingList, PreferenceInterface $clientPref)
+    {
+        $matchingIndexList = array();
+
+        foreach ($matchingList as $key => $matching) {
+            if ($clientPref->getPrecedence() > $matching->getClientPreference()->getPrecedence()) {
+                $matchingIndexList[] = $key;
+            }
+        }
+
+        return $matchingIndexList;
     }
 }
