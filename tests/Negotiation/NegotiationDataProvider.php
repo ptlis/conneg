@@ -630,7 +630,72 @@ abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
                 )
             ),
 
-            // TODO: Test with presence of accept-extens components
+            // Test with types containing accept-extens fragments
+            // Should be ignored for the purposes of matching and building preference types
+            'full_with_accept_extens' => array(
+                'client' => 'text/html;level=4;q=0.7',
+                'server' => 'text/plain,text/html,application/xml',
+                'best' => 'text/html',
+                'all' => array(
+                    new MatchedPreference(
+                        new Preference(Preference::MIME, 'text/html', 0.7, Preference::COMPLETE),
+                        new Preference(Preference::MIME, 'text/html', 1, Preference::COMPLETE)
+                    ),
+                    new MatchedPreference(
+                        new Preference(Preference::MIME, '', 0, Preference::ABSENT),
+                        new Preference(Preference::MIME, 'application/xml', 1, Preference::COMPLETE)
+                    ),
+                    new MatchedPreference(
+                        new Preference(Preference::MIME, '', 0, Preference::ABSENT),
+                        new Preference(Preference::MIME, 'text/plain', 1, Preference::COMPLETE)
+                    )
+                )
+            ),
+
+            // Test with types containing quoted accept-extens fragments
+            // Should be ignored for the purposes of matching and building preference types
+            'full_with_quoted_accept_extens' => array(
+                'client' => 'text/html;foo="bar";q=0.7',
+                'server' => 'text/plain,text/html,application/xml',
+                'best' => 'text/html',
+                'all' => array(
+                    new MatchedPreference(
+                        new Preference(Preference::MIME, 'text/html', 0.7, Preference::COMPLETE),
+                        new Preference(Preference::MIME, 'text/html', 1, Preference::COMPLETE)
+                    ),
+                    new MatchedPreference(
+                        new Preference(Preference::MIME, '', 0, Preference::ABSENT),
+                        new Preference(Preference::MIME, 'application/xml', 1, Preference::COMPLETE)
+                    ),
+                    new MatchedPreference(
+                        new Preference(Preference::MIME, '', 0, Preference::ABSENT),
+                        new Preference(Preference::MIME, 'text/plain', 1, Preference::COMPLETE)
+                    )
+                )
+            ),
+
+            // Test with types containing an accept-extens fragment that includes a valid mime-type
+            // Should be ignored for the purposes of matching and building preference types
+            // A naive parser may misinterpret application/xml as a possible variant
+            'full_with_accept_extens_mimetype' => array(
+                'client' => 'text/html;q=0.7;subtype="application/xml"',
+                'server' => 'text/plain,text/html,application/xml',
+                'best' => 'text/html',
+                'all' => array(
+                    new MatchedPreference(
+                        new Preference(Preference::MIME, 'text/html', 0.7, Preference::COMPLETE),
+                        new Preference(Preference::MIME, 'text/html', 1, Preference::COMPLETE)
+                    ),
+                    new MatchedPreference(
+                        new Preference(Preference::MIME, '', 0, Preference::ABSENT),
+                        new Preference(Preference::MIME, 'application/xml', 1, Preference::COMPLETE)
+                    ),
+                    new MatchedPreference(
+                        new Preference(Preference::MIME, '', 0, Preference::ABSENT),
+                        new Preference(Preference::MIME, 'text/plain', 1, Preference::COMPLETE)
+                    )
+                )
+            )
         );
     }
 }
