@@ -143,7 +143,7 @@ class Negotiator implements NegotiatorInterface
     /**
      * Match a single client variant to the server variants.
      *
-     * @parma string $fromField
+     * @param string $fromField
      * @param PreferenceInterface $clientPreference
      * @param MatchedPreferenceInterface[] $matchingList
      *

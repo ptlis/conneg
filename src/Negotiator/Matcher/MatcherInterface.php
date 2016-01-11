@@ -24,7 +24,7 @@ interface MatcherInterface
     /**
      * Returns true if this matcher can do matching for the client preference.
      *
-     * @parma string $fromField
+     * @param string $fromField
      * @param MatchedPreferenceInterface[] $matchingList
      * @param PreferenceInterface $clientPref
      *
@@ -36,7 +36,7 @@ interface MatcherInterface
      * Perform the matching of client preference to server-provided preference, returning a new array containing the
      * result of the matching operation.
      *
-     * @parma string $fromField
+     * @param string $fromField
      * @param MatchedPreferenceInterface[] $matchingList
      * @param PreferenceInterface $clientPref
      *
