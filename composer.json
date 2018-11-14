@@ -31,12 +31,7 @@
         "php": ">=5.3.0"
     },
     "require-dev": {
-        "pdepend/pdepend":                      "~2.0",
-        "phploc/phploc":                        "~2.0",
-        "phpmd/phpmd":                          "~2.2",
-        "phpunit/phpunit":                      "~4.5",
-        "sebastian/phpcpd":                     "~2.0",
-        "squizlabs/php_codesniffer":            "~2.0"
+        "phpunit/phpunit":                      "~4.5"
     },
     "autoload": {
         "psr-4": {
