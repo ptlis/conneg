@@ -36,10 +36,8 @@
     "autoload": {
         "psr-4": {
             "ptlis\\ConNeg\\": "src/",
-            "ptlis\\ConNeg\\Test\\": "tests/"
+            "ptlis\\ConNeg\\Test\\": "tests/",
+            "ptlis\\ConNeg\\NewTest\\": "new_tests"
         }
-    },
-    "config": {
-        "bin-dir": "bin"
     }
 }
