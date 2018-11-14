@@ -7,6 +7,6 @@
 /build/tmp/
 /bin/
 /vendor/
-/composer.phar
 /.idea/
 /phpunit.xml
+/composer.lock
