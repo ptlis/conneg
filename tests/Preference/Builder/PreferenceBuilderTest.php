@@ -8,13 +8,14 @@
 
 namespace ptlis\ConNeg\Test\Preference\Builder;
 
+use PHPUnit\Framework\TestCase;
 use ptlis\ConNeg\Preference\Builder\PreferenceBuilder;
 use ptlis\ConNeg\Preference\Preference;
 
 /**
  * Tests for standard type builder
  */
-class PreferenceBuilderTest extends \PHPUnit_Framework_TestCase
+class PreferenceBuilderTest extends TestCase
 {
     public function testBuildTypeSuccess()
     {
@@ -80,10 +81,8 @@ class PreferenceBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testBuildServerWildcardTypeInvalid()
     {
-        $this->setExpectedException(
-            '\ptlis\ConNeg\Exception\InvalidVariantException',
-            'Wildcards are not allowed in server-provided variants.'
-        );
+        $this->expectException('\ptlis\ConNeg\Exception\InvalidVariantException');
+        $this->expectExceptionMessage('Wildcards are not allowed in server-provided variants.');
 
         $builder = new PreferenceBuilder();
 
@@ -113,10 +112,8 @@ class PreferenceBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testServerInvalidQualityFactorString()
     {
-        $this->setExpectedException(
-            '\ptlis\ConNeg\Exception\InvalidVariantException',
-            'Invalid quality factor "asdf" in server preferences'
-        );
+        $this->expectException('\ptlis\ConNeg\Exception\InvalidVariantException');
+        $this->expectExceptionMessage('Invalid quality factor "asdf" in server preferences');
 
         $builder = new PreferenceBuilder();
 
@@ -146,10 +143,8 @@ class PreferenceBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testServerInvalidQualityFactorTooLarge()
     {
-        $this->setExpectedException(
-            '\ptlis\ConNeg\Exception\InvalidVariantException',
-            'Invalid quality factor "7" in server preferences'
-        );
+        $this->expectException('\ptlis\ConNeg\Exception\InvalidVariantException');
+        $this->expectExceptionMessage('Invalid quality factor "7" in server preferences');
 
         $builder = new PreferenceBuilder();
 
@@ -179,10 +174,8 @@ class PreferenceBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testServerInvalidQualityFactorTooSmall()
     {
-        $this->setExpectedException(
-            '\ptlis\ConNeg\Exception\InvalidVariantException',
-            'Invalid quality factor "-1" in server preferences'
-        );
+        $this->expectException('\ptlis\ConNeg\Exception\InvalidVariantException');
+        $this->expectExceptionMessage('Invalid quality factor "-1" in server preferences');
 
         $builder = new PreferenceBuilder();
 
@@ -196,10 +189,8 @@ class PreferenceBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testServerOmittedField()
     {
-        $this->setExpectedException(
-            '\RuntimeException',
-            'The HTTP field must be provided to the builder.'
-        );
+        $this->expectException('\RuntimeException');
+        $this->expectExceptionMessage('The HTTP field must be provided to the builder.');
 
         $builder = new PreferenceBuilder();
 

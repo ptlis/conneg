@@ -8,6 +8,7 @@
 
 namespace ptlis\ConNeg\Test\Parse;
 
+use PHPUnit\Framework\TestCase;
 use ptlis\ConNeg\Parser\FieldParser;
 use ptlis\ConNeg\Preference\Builder\MimePreferenceBuilder;
 use ptlis\ConNeg\Preference\Builder\PreferenceBuilder;
@@ -16,7 +17,7 @@ use ptlis\ConNeg\Preference\Preference;
 /**
  * Tests to ensure that the parser behaves correctly.
  */
-class FieldParserTest extends \PHPUnit_Framework_TestCase
+class FieldParserTest extends TestCase
 {
     public function testParseAccept()
     {
@@ -186,10 +187,8 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
 
     public function testParseServerAcceptWithInvalidExtens()
     {
-        $this->setExpectedException(
-            '\ptlis\ConNeg\Exception\InvalidVariantException',
-            'Invalid count for parameters; expecting 1 or 3, got "2"'
-        );
+        $this->expectException('\ptlis\ConNeg\Exception\InvalidVariantException');
+        $this->expectExceptionMessage('Invalid count for parameters; expecting 1 or 3, got "2"');
 
         $mimeTokens = array(
             'application',
@@ -299,10 +298,8 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
 
     public function testParseAcceptInvalidType()
     {
-        $this->setExpectedException(
-            '\ptlis\ConNeg\Exception\InvalidVariantException',
-            '"application/" is not a valid mime type'
-        );
+        $this->expectException('\ptlis\ConNeg\Exception\InvalidVariantException');
+        $this->expectExceptionMessage('"application/" is not a valid mime type');
 
         $mimeTokens = array(
             'application',
@@ -316,10 +313,8 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
 
     public function testParseAcceptInvalidTypeWithQualityFactor()
     {
-        $this->setExpectedException(
-            '\ptlis\ConNeg\Exception\InvalidVariantException',
-            '"application/;q=0.8" is not a valid mime type'
-        );
+        $this->expectException('\ptlis\ConNeg\Exception\InvalidVariantException');
+        $this->expectExceptionMessage('"application/;q=0.8" is not a valid mime type');
 
         $mimeTokens = array(
             'application',
@@ -337,10 +332,8 @@ class FieldParserTest extends \PHPUnit_Framework_TestCase
 
     public function testParseAcceptInvalidParamsCount()
     {
-        $this->setExpectedException(
-            '\ptlis\ConNeg\Exception\InvalidVariantException',
-            'Invalid count for parameters; expecting 1 or 3, got "2"'
-        );
+        $this->expectException('\ptlis\ConNeg\Exception\InvalidVariantException');
+        $this->expectExceptionMessage('Invalid count for parameters; expecting 1 or 3, got "2"');
 
         $mimeTokens = array(
             'application',

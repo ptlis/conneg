@@ -8,13 +8,14 @@
 
 namespace ptlis\ConNeg\Test\Preference\Builder;
 
+use PHPUnit\Framework\TestCase;
 use ptlis\ConNeg\Preference\Builder\MimePreferenceBuilder;
 use ptlis\ConNeg\Preference\Preference;
 
 /**
  * Tests for mime type builder
  */
-class MimePreferenceBuilderTest extends \PHPUnit_Framework_TestCase
+class MimePreferenceBuilderTest extends TestCase
 {
     public function testBuildTypeSuccess()
     {
@@ -66,10 +67,8 @@ class MimePreferenceBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testBuildServerInvalidType()
     {
-        $this->setExpectedException(
-            '\ptlis\ConNeg\Exception\InvalidVariantException',
-            '"foo" is not a valid mime type'
-        );
+        $this->expectException('\ptlis\ConNeg\Exception\InvalidVariantException');
+        $this->expectExceptionMessage('"foo" is not a valid mime type');
 
         $builder = new MimePreferenceBuilder();
 
@@ -83,10 +82,8 @@ class MimePreferenceBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testBuildServerWildcardInvalid()
     {
-        $this->setExpectedException(
-            '\ptlis\ConNeg\Exception\InvalidVariantException',
-            'Wildcards are not allowed in server-provided variants.'
-        );
+        $this->expectException('\ptlis\ConNeg\Exception\InvalidVariantException');
+        $this->expectExceptionMessage('Wildcards are not allowed in server-provided variants.');
 
         $builder = new MimePreferenceBuilder();
 
@@ -100,10 +97,8 @@ class MimePreferenceBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testServerOmittedField()
     {
-        $this->setExpectedException(
-            '\RuntimeException',
-            'The HTTP field must be provided to the builder.'
-        );
+        $this->expectException('\RuntimeException');
+        $this->expectExceptionMessage('The HTTP field must be provided to the builder.');
 
         $builder = new MimePreferenceBuilder();
 

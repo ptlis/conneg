@@ -8,9 +8,10 @@
 
 namespace ptlis\ConNeg\Test\Preference;
 
+use PHPUnit\Framework\TestCase;
 use ptlis\ConNeg\Preference\Preference;
 
-class PreferenceTest extends \PHPUnit_Framework_TestCase
+class PreferenceTest extends TestCase
 {
     public function testType()
     {
