@@ -19,7 +19,7 @@ class MimePreferenceBuilder extends AbstractPreferenceBuilder
     /**
      * @inheritDoc
      */
-    protected function validateVariant($variant)
+    protected function validateVariant(string $variant)
     {
         if ($this->isFromServer && strlen($variant) > 0) {
             $variantParts = explode('/', $variant);
@@ -39,7 +39,7 @@ class MimePreferenceBuilder extends AbstractPreferenceBuilder
     /**
      * @inheritDoc
      */
-    protected function normalizeVariant($variant)
+    protected function normalizeVariant(string $variant)
     {
         $variantParts = explode('/', $variant);
 

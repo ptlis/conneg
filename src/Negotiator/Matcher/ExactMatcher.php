@@ -37,7 +37,7 @@ class ExactMatcher implements MatcherInterface
     /**
      * @inheritDoc
      */
-    public function hasMatch($fromField, array $matchingList, PreferenceInterface $clientPref)
+    public function hasMatch(string $fromField, array $matchingList, PreferenceInterface $clientPref)
     {
         return $this->getMatchingIndex($matchingList, $clientPref) >= 0;
     }
@@ -45,7 +45,7 @@ class ExactMatcher implements MatcherInterface
     /**
      * @inheritDoc
      */
-    public function match($fromField, array $matchingList, PreferenceInterface $clientPref)
+    public function match(string $fromField, array $matchingList, PreferenceInterface $clientPref)
     {
         $matchIndex = $this->getMatchingIndex($matchingList, $clientPref);
 
@@ -68,16 +68,16 @@ class ExactMatcher implements MatcherInterface
      * Returns the first index containing a matching variant, or -1 if not present.
      *
      * @param MatchedPreferenceInterface[] $matchingList
-     * @param PreferenceInterface $pref
+     * @param PreferenceInterface $clientPref
      *
      * @return int
      */
-    private function getMatchingIndex(array $matchingList, PreferenceInterface $pref)
+    private function getMatchingIndex(array $matchingList, PreferenceInterface $clientPref)
     {
         $index = -1;
 
         foreach ($matchingList as $key => $match) {
-            if ($match->getVariant() === $pref->getVariant()) {
+            if ($match->getVariant() === $clientPref->getVariant()) {
                 $index = $key;
             }
         }

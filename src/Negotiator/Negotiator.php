@@ -74,7 +74,7 @@ class Negotiator implements NegotiatorInterface
     /**
      * @inheritDoc
      */
-    public function negotiateAll(array $clientPrefList, array $serverPrefList, $fromField)
+    public function negotiateAll(array $clientPrefList, array $serverPrefList, string $fromField)
     {
         $emptyPref = $this->getBuilder($fromField)
             ->setFromField($fromField)
@@ -100,7 +100,7 @@ class Negotiator implements NegotiatorInterface
     /**
      * @inheritDoc
      */
-    public function negotiateBest(array $clientPrefList, array $serverPrefList, $fromField)
+    public function negotiateBest(array $clientPrefList, array $serverPrefList, string $fromField)
     {
         $pairCollection = $this->negotiateAll($clientPrefList, $serverPrefList, $fromField);
 
@@ -126,7 +126,7 @@ class Negotiator implements NegotiatorInterface
      *
      * @return MatchedPreferenceInterface[]
      */
-    private function matchClientPreferences($fromField, array $clientPrefList, array $matchingList)
+    private function matchClientPreferences(string $fromField, array $clientPrefList, array $matchingList)
     {
         foreach ($clientPrefList as $clientPref) {
             $matchingList = $this->matchSingleClientPreference($fromField, $clientPref, $matchingList);
@@ -144,7 +144,7 @@ class Negotiator implements NegotiatorInterface
      *
      * @return MatchedPreferenceInterface[]
      */
-    private function matchSingleClientPreference($fromField, PreferenceInterface $clientPreference, array $matchingList)
+    private function matchSingleClientPreference(string $fromField, PreferenceInterface $clientPreference, array $matchingList)
     {
         foreach ($this->matcherList as $matcher) {
             if ($matcher->hasMatch($fromField, $matchingList, $clientPreference)) {
@@ -164,7 +164,7 @@ class Negotiator implements NegotiatorInterface
      *
      * @return PreferenceBuilderInterface
      */
-    private function getBuilder($fromField)
+    private function getBuilder(string $fromField)
     {
         if (PreferenceInterface::MIME === $fromField) {
             return $this->mimePrefBuilder;

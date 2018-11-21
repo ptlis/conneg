@@ -39,7 +39,7 @@ abstract class AbstractPreferenceBuilder implements PreferenceBuilderInterface
     /**
      * @inheritDoc
      */
-    public function setFromServer($isFromServer)
+    public function setFromServer(bool $isFromServer)
     {
         $clone = clone $this;
         $clone->isFromServer = $isFromServer;
@@ -50,7 +50,7 @@ abstract class AbstractPreferenceBuilder implements PreferenceBuilderInterface
     /**
      * @inheritDoc
      */
-    public function setFromField($fromField)
+    public function setFromField(string $fromField)
     {
         $clone = clone $this;
         $clone->fromField = $fromField;
@@ -63,7 +63,7 @@ abstract class AbstractPreferenceBuilder implements PreferenceBuilderInterface
      *
      * @throws InvalidVariantException If the provided variant is not valid.
      */
-    public function setVariant($variant)
+    public function setVariant(string $variant)
     {
         if ($this->isFromServer) {
             $this->validateVariant($variant);
@@ -80,7 +80,7 @@ abstract class AbstractPreferenceBuilder implements PreferenceBuilderInterface
      *
      * @throws InvalidVariantException If an invalid quality factor in encountered when building an server preference.
      */
-    public function setQualityFactor($qFactor)
+    public function setQualityFactor(float $qFactor)
     {
         if ($this->isFromServer && !$this->validQualityFactor($qFactor)) {
             throw new InvalidVariantException('Invalid quality factor "' . $qFactor . '" in server preferences');
@@ -101,7 +101,7 @@ abstract class AbstractPreferenceBuilder implements PreferenceBuilderInterface
      *
      * @param string $variant
      */
-    abstract protected function validateVariant($variant);
+    abstract protected function validateVariant(string $variant);
 
     /**
      * Normalises the variant.
@@ -110,7 +110,7 @@ abstract class AbstractPreferenceBuilder implements PreferenceBuilderInterface
      *
      * @return string
      */
-    protected function normalizeVariant($variant)
+    protected function normalizeVariant(string $variant)
     {
         return $variant;
     }
@@ -122,7 +122,7 @@ abstract class AbstractPreferenceBuilder implements PreferenceBuilderInterface
      *
      * @return bool
      */
-    private function validQualityFactor($qFactor)
+    private function validQualityFactor(float $qFactor)
     {
         return is_numeric($qFactor) && $qFactor >= 0 && $qFactor <= 1;
     }
@@ -134,7 +134,7 @@ abstract class AbstractPreferenceBuilder implements PreferenceBuilderInterface
      *
      * @return float
      */
-    private function normalizeQualityFactor($qFactor)
+    private function normalizeQualityFactor(float $qFactor)
     {
         if (!is_numeric($qFactor)) {
             $qFactor = 1.0;

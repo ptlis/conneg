@@ -42,7 +42,7 @@ class Preference implements PreferenceInterface
      * @param float $qFactor
      * @param int $precedence
      */
-    public function __construct($variant, $qFactor, $precedence)
+    public function __construct(string $variant, float $qFactor, int $precedence)
     {
         $this->variant = $variant;
         $this->qFactor = $qFactor;

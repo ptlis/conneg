@@ -59,7 +59,7 @@ class Negotiation
      *
      * @return string
      */
-    public function charsetBest($clientField, $serverField)
+    public function charsetBest(string $clientField, string $serverField)
     {
         return $this->genericBest($clientField, $serverField, MatchedPreferenceInterface::CHARSET);
     }
@@ -74,7 +74,7 @@ class Negotiation
      *
      * @return MatchedPreferenceInterface[]
      */
-    public function charsetAll($clientField, $serverField)
+    public function charsetAll(string $clientField, string $serverField)
     {
         return $this->genericAll($clientField, $serverField, MatchedPreferenceInterface::CHARSET);
     }
@@ -87,7 +87,7 @@ class Negotiation
      *
      * @return string
      */
-    public function encodingBest($clientField, $serverField)
+    public function encodingBest(string $clientField, string $serverField)
     {
         return $this->genericBest($clientField, $serverField, MatchedPreferenceInterface::ENCODING);
     }
@@ -102,7 +102,7 @@ class Negotiation
      *
      * @return MatchedPreferenceInterface[]
      */
-    public function encodingAll($clientField, $serverField)
+    public function encodingAll(string $clientField, string $serverField)
     {
         return $this->genericAll($clientField, $serverField, MatchedPreferenceInterface::ENCODING);
     }
@@ -115,7 +115,7 @@ class Negotiation
      *
      * @return string
      */
-    public function languageBest($clientField, $serverField)
+    public function languageBest(string $clientField, string $serverField)
     {
         return $this->genericBest($clientField, $serverField, MatchedPreferenceInterface::LANGUAGE);
     }
@@ -130,7 +130,7 @@ class Negotiation
      *
      * @return MatchedPreferenceInterface[]
      */
-    public function languageAll($clientField, $serverField)
+    public function languageAll(string $clientField, string $serverField)
     {
         return $this->genericAll($clientField, $serverField, MatchedPreferenceInterface::LANGUAGE);
     }
@@ -143,7 +143,7 @@ class Negotiation
      *
      * @return string
      */
-    public function mimeBest($clientField, $serverField)
+    public function mimeBest(string $clientField, string $serverField)
     {
         return $this->genericBest($clientField, $serverField, MatchedPreferenceInterface::MIME);
     }
@@ -158,7 +158,7 @@ class Negotiation
      *
      * @return MatchedPreferenceInterface[]
      */
-    public function mimeAll($clientField, $serverField)
+    public function mimeAll(string $clientField, string $serverField)
     {
         return $this->genericAll($clientField, $serverField, MatchedPreferenceInterface::MIME);
     }
@@ -172,7 +172,7 @@ class Negotiation
      *
      * @return string
      */
-    private function genericBest($clientField, $serverField, $fromField)
+    private function genericBest(string $clientField, string $serverField, string $fromField)
     {
         $clientPrefList = $this->parsePreferences(false, $clientField, $fromField);
         $serverPrefList = $this->parsePreferences(true, $serverField, $fromField);
@@ -189,7 +189,7 @@ class Negotiation
      *
      * @return MatchedPreferenceInterface[]
      */
-    private function genericAll($clientField, $serverField, $fromField)
+    private function genericAll(string $clientField, string $serverField, string $fromField)
     {
         $clientPrefList = $this->parsePreferences(false, $clientField, $fromField);
         $serverPrefList = $this->parsePreferences(true, $serverField, $fromField);
@@ -206,7 +206,7 @@ class Negotiation
      *
      * @return PreferenceInterface[]
      */
-    private function parsePreferences($serverField, $field, $fromField)
+    private function parsePreferences(bool $serverField, string $field, string $fromField)
     {
         $tokenList = $this->tokenizer->tokenize($field, $fromField);
 

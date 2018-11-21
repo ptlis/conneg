@@ -94,37 +94,6 @@ class PreferenceBuilderTest extends TestCase
             ->get();
     }
 
-    public function testClientInvalidQualityFactorString()
-    {
-        $expected = new Preference('utf-8', 1, Preference::COMPLETE);
-
-        $builder = new PreferenceBuilder();
-
-        $real = $builder
-            ->setFromField(Preference::LANGUAGE)
-            ->setFromServer(false)
-            ->setVariant('utf-8')
-            ->setQualityFactor('asdf')
-            ->get();
-
-        $this->assertEquals($expected, $real);
-    }
-
-    public function testServerInvalidQualityFactorString()
-    {
-        $this->expectException('\ptlis\ConNeg\Exception\InvalidVariantException');
-        $this->expectExceptionMessage('Invalid quality factor "asdf" in server preferences');
-
-        $builder = new PreferenceBuilder();
-
-        $builder
-            ->setFromField(Preference::LANGUAGE)
-            ->setFromServer(true)
-            ->setVariant('utf-8')
-            ->setQualityFactor('asdf')
-            ->get();
-    }
-
     public function testClientInvalidQualityFactorTooLarge()
     {
         $expected = new Preference('utf-8', 1, Preference::COMPLETE);

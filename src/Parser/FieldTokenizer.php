@@ -25,7 +25,7 @@ class FieldTokenizer
      *
      * @return array<string>
      */
-    public function tokenize($httpField, $fromField)
+    public function tokenize(string $httpField, string $fromField)
     {
         $quoteSeparators = array('"', "'");
         $tokenList = array();

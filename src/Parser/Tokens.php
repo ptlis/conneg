@@ -42,7 +42,7 @@ class Tokens
      *
      * @return bool
      */
-    public static function isSeparator($string, $mimeField)
+    public static function isSeparator(string $string, bool $mimeField)
     {
         $separatorList = array(
             self::VARIANT_SEPARATOR,

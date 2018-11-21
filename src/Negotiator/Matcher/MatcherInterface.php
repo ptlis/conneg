@@ -25,7 +25,7 @@ interface MatcherInterface
      *
      * @return bool
      */
-    public function hasMatch($fromField, array $matchingList, PreferenceInterface $clientPref);
+    public function hasMatch(string $fromField, array $matchingList, PreferenceInterface $clientPref);
 
     /**
      * Perform the matching of client preference to server-provided preference, returning a new array containing the
@@ -37,5 +37,5 @@ interface MatcherInterface
      *
      * @return MatchedPreferenceInterface[]
      */
-    public function match($fromField, array $matchingList, PreferenceInterface $clientPref);
+    public function match(string $fromField, array $matchingList, PreferenceInterface $clientPref);
 }

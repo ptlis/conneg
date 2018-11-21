@@ -44,7 +44,7 @@ class MatchedPreference implements MatchedPreferenceInterface
      * @param PreferenceInterface $serverPref
      * @param PreferenceInterface $clientPref
      */
-    public function __construct($fromField, PreferenceInterface $clientPref, PreferenceInterface $serverPref)
+    public function __construct(string $fromField, PreferenceInterface $clientPref, PreferenceInterface $serverPref)
     {
         $this->fromField = $fromField;
         $this->clientPref = $clientPref;

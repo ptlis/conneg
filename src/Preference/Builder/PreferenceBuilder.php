@@ -19,7 +19,7 @@ class PreferenceBuilder extends AbstractPreferenceBuilder
     /**
      * @inheritDoc
      */
-    protected function validateVariant($variant)
+    protected function validateVariant(string $variant)
     {
         if ($this->isFromServer && '*' === $variant) {
             throw new InvalidVariantException('Wildcards are not allowed in server-provided variants.');

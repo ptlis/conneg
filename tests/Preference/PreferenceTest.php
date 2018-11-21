@@ -15,10 +15,10 @@ class PreferenceTest extends TestCase
 {
     public function testType()
     {
-        $type = new Preference('utf-8', 1, Preference::COMPLETE);
+        $type = new Preference('utf-8', 1.0, Preference::COMPLETE);
 
         $this->assertSame('utf-8', $type->getVariant());
-        $this->assertSame(1, $type->getQualityFactor());
+        $this->assertSame(1.0, $type->getQualityFactor());
         $this->assertSame('utf-8;q=1', $type->__toString());
         $this->assertSame(2, $type->getPrecedence());
     }
