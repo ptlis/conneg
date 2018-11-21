@@ -10,6 +10,7 @@ namespace ptlis\ConNeg\Preference\Builder;
 
 use ptlis\ConNeg\Exception\InvalidVariantException;
 use ptlis\ConNeg\Preference\Preference;
+use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
  * MIME preference builder.
@@ -19,7 +20,7 @@ class MimePreferenceBuilder extends AbstractPreferenceBuilder
     /**
      * @inheritDoc
      */
-    protected function validateVariant(string $variant)
+    protected function validateVariant(string $variant): void
     {
         if ($this->isFromServer && strlen($variant) > 0) {
             $variantParts = explode('/', $variant);
@@ -39,7 +40,7 @@ class MimePreferenceBuilder extends AbstractPreferenceBuilder
     /**
      * @inheritDoc
      */
-    protected function normalizeVariant(string $variant)
+    protected function normalizeVariant(string $variant): string
     {
         $variantParts = explode('/', $variant);
 
@@ -63,7 +64,7 @@ class MimePreferenceBuilder extends AbstractPreferenceBuilder
      *
      * @throws \RuntimeException if the HTTP field was not provided
      */
-    public function get()
+    public function get(): PreferenceInterface
     {
         if (is_null($this->fromField)) {
             throw new \RuntimeException(
@@ -83,7 +84,7 @@ class MimePreferenceBuilder extends AbstractPreferenceBuilder
      *
      * @return float
      */
-    private function getQualityFactor()
+    private function getQualityFactor(): float
     {
         $qFactor = 0.0;
 
@@ -99,7 +100,7 @@ class MimePreferenceBuilder extends AbstractPreferenceBuilder
      *
      * @return int
      */
-    private function getPrecedence()
+    private function getPrecedence(): int
     {
         $precedence = Preference::ABSENT;
 

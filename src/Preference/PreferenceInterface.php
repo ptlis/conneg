@@ -44,26 +44,26 @@ interface PreferenceInterface
      *
      * @return string
      */
-    public function getVariant();
+    public function getVariant(): string;
 
     /**
      * Return the precedence of the variant (wildcards are superseded by full matches etc).
      *
      * @return int
      */
-    public function getPrecedence();
+    public function getPrecedence(): int;
 
     /**
      * Returns the quality factor for the variant.
      *
      * @return float
      */
-    public function getQualityFactor();
+    public function getQualityFactor(): float;
 
     /**
      * Create string representation of the preference.
      *
      * @return string
      */
-    public function __toString();
+    public function __toString(): string;
 }

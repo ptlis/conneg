@@ -23,7 +23,7 @@ class MatchedPreferenceComparator
      *
      * @return int -1, 0, 1 (see usort() callback for meaning)
      */
-    public function compare(MatchedPreferenceInterface $lValue, MatchedPreferenceInterface $rValue)
+    public function compare(MatchedPreferenceInterface $lValue, MatchedPreferenceInterface $rValue): int
     {
         // Compare by quality factors - highest quality factor has precedence.
         $result = $this->compareQualityFactorPair($lValue, $rValue);
@@ -52,7 +52,7 @@ class MatchedPreferenceComparator
     private function compareQualityFactorPair(
         MatchedPreferenceInterface $lValue,
         MatchedPreferenceInterface $rValue
-    ) {
+    ): int {
         // Build a list of quality factor comparisons to perform; highest preference given to quality factor products,
         // followed by those provided by the client & finally the server provided.
         $compareList = array(
@@ -91,7 +91,7 @@ class MatchedPreferenceComparator
      *
      * @return int -1, 0, 1 (see usort() callback for meaning)
      */
-    private function compareQualityFactor(PreferenceInterface $lValue, PreferenceInterface $rValue)
+    private function compareQualityFactor(PreferenceInterface $lValue, PreferenceInterface $rValue): int
     {
         if ($rValue->getQualityFactor() < $lValue->getQualityFactor()) {
             return -1;
@@ -110,7 +110,7 @@ class MatchedPreferenceComparator
      *
      * @return int -1, 0, 1 (see usort() callback for meaning)
      */
-    private function comparePrecedence(PreferenceInterface $lValue, PreferenceInterface $rValue)
+    private function comparePrecedence(PreferenceInterface $lValue, PreferenceInterface $rValue): int
     {
         if ($rValue->getPrecedence() < $lValue->getPrecedence()) {
             return -1;
@@ -129,7 +129,7 @@ class MatchedPreferenceComparator
      *
      * @return int -1, 0, 1 (see usort() callback for meaning)
      */
-    private function compareVariant(MatchedPreferenceInterface $lValue, MatchedPreferenceInterface $rValue)
+    private function compareVariant(MatchedPreferenceInterface $lValue, MatchedPreferenceInterface $rValue): int
     {
         return strcasecmp($lValue->getVariant(), $rValue->getVariant());
     }

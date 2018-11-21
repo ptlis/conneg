@@ -20,7 +20,7 @@ class SubtypeWildcardMatcher implements MatcherInterface
     /**
      * @inheritDoc
      */
-    public function hasMatch(string $fromField, array $matchingList, PreferenceInterface $clientPref)
+    public function hasMatch(string $fromField, array $matchingList, PreferenceInterface $clientPref): bool
     {
         return PreferenceInterface::MIME === $fromField
             && PreferenceInterface::PARTIAL_WILDCARD === $clientPref->getPrecedence()
@@ -30,7 +30,7 @@ class SubtypeWildcardMatcher implements MatcherInterface
     /**
      * @inheritDoc
      */
-    public function match(string $fromField, array $matchingList, PreferenceInterface $clientPref)
+    public function match(string $fromField, array $matchingList, PreferenceInterface $clientPref): array
     {
         $matchingIndexList = $this->getMatchingIndexes($matchingList, $clientPref);
 
@@ -53,7 +53,7 @@ class SubtypeWildcardMatcher implements MatcherInterface
      *
      * @return int[]
      */
-    private function getMatchingIndexes(array $matchingList, PreferenceInterface $clientPref)
+    private function getMatchingIndexes(array $matchingList, PreferenceInterface $clientPref): array
     {
         $matchingIndexList = array();
 

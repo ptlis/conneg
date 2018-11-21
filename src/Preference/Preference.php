@@ -52,7 +52,7 @@ class Preference implements PreferenceInterface
     /**
      * @inheritDoc
      */
-    public function getVariant()
+    public function getVariant(): string
     {
         return $this->variant;
     }
@@ -60,7 +60,7 @@ class Preference implements PreferenceInterface
     /**
      * @inheritDoc
      */
-    public function getPrecedence()
+    public function getPrecedence(): int
     {
         return $this->precedence;
     }
@@ -68,7 +68,7 @@ class Preference implements PreferenceInterface
     /**
      * @inheritDoc
      */
-    public function getQualityFactor()
+    public function getQualityFactor(): float
     {
         return $this->qFactor;
     }
@@ -76,7 +76,7 @@ class Preference implements PreferenceInterface
     /**
      * @inheritDoc
      */
-    public function __toString()
+    public function __toString(): string
     {
         $str = '';
         if (strlen($this->getVariant())) {

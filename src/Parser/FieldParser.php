@@ -54,7 +54,7 @@ class FieldParser
      *
      * @return PreferenceInterface[]
      */
-    public function parse(array $tokenList, bool $serverField, string $fromField)
+    public function parse(array $tokenList, bool $serverField, string $fromField): array
     {
         // Bundle tokens by variant.
         $bundleList = $this->bundleTokens($tokenList, Tokens::VARIANT_SEPARATOR);
@@ -78,7 +78,7 @@ class FieldParser
      *
      * @return null|PreferenceInterface
      */
-    private function parseBundle(array $tokenBundle, bool $serverField, string $fromField)
+    private function parseBundle(array $tokenBundle, bool $serverField, string $fromField): ?PreferenceInterface
     {
         $pref = null;
         try {
@@ -108,7 +108,7 @@ class FieldParser
      *
      * @return string[][]
      */
-    private function splitVariantAndParamTokens(array $tokenBundle, string $fromField)
+    private function splitVariantAndParamTokens(array $tokenBundle, string $fromField): array
     {
         if (PreferenceInterface::MIME === $fromField) {
             $this->validateBundleMimeVariant($tokenBundle);
@@ -132,8 +132,12 @@ class FieldParser
      *
      * @return PreferenceInterface
      */
-    private function createPreference(array $variantTokenList, array $paramBundleList, bool $serverField, string $fromField)
-    {
+    private function createPreference(
+        array $variantTokenList,
+        array $paramBundleList,
+        bool $serverField,
+        string $fromField
+    ): PreferenceInterface {
         $builder = $this->getBuilder($fromField)
             ->setFromField($fromField)
             ->setFromServer($serverField)
@@ -158,7 +162,7 @@ class FieldParser
      *
      * @return bool
      */
-    private function isQualityFactor(array $paramBundle)
+    private function isQualityFactor(array $paramBundle): bool
     {
         return 3 == count($paramBundle)
             && 'q' === $paramBundle[0]
@@ -173,7 +177,7 @@ class FieldParser
      *
      * @return array<array<string>> an array of arrays - the child array contains the tokens for a single variant.
      */
-    private function bundleTokens(array $tokenList, string $targetToken)
+    private function bundleTokens(array $tokenList, string $targetToken): array
     {
         $bundleList = array();
         $bundle = array();
@@ -206,7 +210,7 @@ class FieldParser
      *
      * @param array<string> $bundle
      */
-    private function validateBundleMimeVariant(array $bundle)
+    private function validateBundleMimeVariant(array $bundle): void
     {
         if (count($bundle) < 3                          // Too few items in bundle
             || Tokens::MIME_SEPARATOR !== $bundle[1]    // Invalid separator
@@ -228,7 +232,7 @@ class FieldParser
      * @param bool $serverField     If true the field came from the server & we error on malformed data otherwise
      *                              we suppress errors for client preferences.
      */
-    private function validateParamBundleList(array $paramBundleList, bool $serverField)
+    private function validateParamBundleList(array $paramBundleList, bool $serverField): void
     {
         foreach ($paramBundleList as $paramBundle) {
             try {
@@ -251,7 +255,7 @@ class FieldParser
      *
      * @param string[] $paramBundle
      */
-    private function validateParamBundle(array $paramBundle)
+    private function validateParamBundle(array $paramBundle): void
     {
         // Wrong number of components
         if (1 !== count($paramBundle) && 3 !== count($paramBundle)) {
@@ -268,7 +272,7 @@ class FieldParser
      *
      * @return PreferenceBuilderInterface
      */
-    private function getBuilder(string $fromField)
+    private function getBuilder(string $fromField): PreferenceBuilderInterface
     {
         if (PreferenceInterface::MIME === $fromField) {
             return $this->mimePrefBuilder;

@@ -22,7 +22,7 @@ interface PreferenceBuilderInterface
      *
      * @return $this
      */
-    public function setFromServer(bool $isFromServer);
+    public function setFromServer(bool $isFromServer): self;
 
     /**
      * Sets the HTTP field that the preference was derived from.
@@ -31,7 +31,7 @@ interface PreferenceBuilderInterface
      *
      * @return $this
      */
-    public function setFromField(string $fromField);
+    public function setFromField(string $fromField): self;
 
     /**
      * Set the string representation of the variant.
@@ -40,7 +40,7 @@ interface PreferenceBuilderInterface
      *
      * @return $this
      */
-    public function setVariant(string $variant);
+    public function setVariant(string $variant): self;
 
     /**
      * Set the quality factor.
@@ -49,12 +49,12 @@ interface PreferenceBuilderInterface
      *
      * @return $this
      */
-    public function setQualityFactor(float $qFactor);
+    public function setQualityFactor(float $qFactor): self;
 
     /**
      * Get the hydrated preference object.
      *
      * @return PreferenceInterface
      */
-    public function get();
+    public function get(): PreferenceInterface;
 }

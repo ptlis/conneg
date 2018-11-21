@@ -54,7 +54,7 @@ class MatchedPreference implements MatchedPreferenceInterface
     /**
      * @inheritDoc
      */
-    public function getClientPreference()
+    public function getClientPreference(): PreferenceInterface
     {
         return $this->clientPref;
     }
@@ -62,7 +62,7 @@ class MatchedPreference implements MatchedPreferenceInterface
     /**
      * @inheritDoc
      */
-    public function getServerPreference()
+    public function getServerPreference(): PreferenceInterface
     {
         return $this->serverPref;
     }
@@ -72,7 +72,7 @@ class MatchedPreference implements MatchedPreferenceInterface
      *
      * @return string
      */
-    public function getVariant()
+    public function getVariant(): string
     {
         // Special handling for language partial matches. These require that the returned variant name is the portion of
         // the language before the wildcard as this is what the application will be using to encode the response.
@@ -94,7 +94,7 @@ class MatchedPreference implements MatchedPreferenceInterface
      *
      * @return bool
      */
-    private function isLanguageWildcard()
+    private function isLanguageWildcard(): bool
     {
         return PreferenceInterface::LANGUAGE === $this->fromField
             && PreferenceInterface::PARTIAL_WILDCARD === $this->serverPref->getPrecedence();
@@ -105,7 +105,7 @@ class MatchedPreference implements MatchedPreferenceInterface
      *
      * @return bool
      */
-    private function clientWildcardOrAbsent()
+    private function clientWildcardOrAbsent(): bool
     {
         return !(strlen($this->clientPref->getVariant()) && !strstr($this->clientPref->getVariant(), '*'));
     }
@@ -115,7 +115,7 @@ class MatchedPreference implements MatchedPreferenceInterface
      *
      * @return float
      */
-    public function getQualityFactor()
+    public function getQualityFactor(): float
     {
         return $this->clientPref->getQualityFactor() * $this->serverPref->getQualityFactor();
     }
@@ -125,7 +125,7 @@ class MatchedPreference implements MatchedPreferenceInterface
      *
      * @return int
      */
-    public function getPrecedence()
+    public function getPrecedence(): int
     {
         return $this->getServerPreference()->getPrecedence() + $this->getClientPreference()->getPrecedence();
     }
@@ -135,7 +135,7 @@ class MatchedPreference implements MatchedPreferenceInterface
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->getVariant() . ';q=' . $this->getQualityFactor();
     }

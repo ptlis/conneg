@@ -25,7 +25,7 @@ interface NegotiatorInterface
      *
      * @return MatchedPreferenceInterface[] Array containing preference intersection, descending order.
      */
-    public function negotiateAll(array $clientPrefList, array $serverPrefList, string $fromField);
+    public function negotiateAll(array $clientPrefList, array $serverPrefList, string $fromField): array;
 
     /**
      * Return the preferred variant.
@@ -36,5 +36,9 @@ interface NegotiatorInterface
      *
      * @return MatchedPreferenceInterface The preferred variant.
      */
-    public function negotiateBest(array $clientPrefList, array $serverPrefList, string $fromField);
+    public function negotiateBest(
+        array $clientPrefList,
+        array $serverPrefList,
+        string $fromField
+    ): MatchedPreferenceInterface;
 }

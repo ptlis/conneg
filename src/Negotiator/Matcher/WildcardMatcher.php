@@ -20,7 +20,7 @@ class WildcardMatcher implements MatcherInterface
     /**
      * @inheritDoc
      */
-    public function hasMatch(string $fromField, array $matchingList, PreferenceInterface $clientPref)
+    public function hasMatch(string $fromField, array $matchingList, PreferenceInterface $clientPref): bool
     {
         return PreferenceInterface::WILDCARD === $clientPref->getPrecedence()
             && count($this->getMatchingIndexes($matchingList, $clientPref));
@@ -29,7 +29,7 @@ class WildcardMatcher implements MatcherInterface
     /**
      * @inheritDoc
      */
-    public function match(string $fromField, array $matchingList, PreferenceInterface $clientPref)
+    public function match(string $fromField, array $matchingList, PreferenceInterface $clientPref): array
     {
         $matchingIndexList = $this->getMatchingIndexes($matchingList, $clientPref);
 
@@ -52,7 +52,7 @@ class WildcardMatcher implements MatcherInterface
      *
      * @return int[]
      */
-    private function getMatchingIndexes(array $matchingList, PreferenceInterface $clientPref)
+    private function getMatchingIndexes(array $matchingList, PreferenceInterface $clientPref): array
     {
         $matchingIndexList = array();
 

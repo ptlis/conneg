@@ -20,12 +20,12 @@ interface MatchedPreferenceInterface extends PreferenceInterface
      *
      * @return PreferenceInterface
      */
-    public function getClientPreference();
+    public function getClientPreference(): PreferenceInterface;
 
     /**
      * Returns the server's preference.
      *
      * @return PreferenceInterface
      */
-    public function getServerPreference();
+    public function getServerPreference(): PreferenceInterface;
 }

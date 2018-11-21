@@ -10,6 +10,7 @@ namespace ptlis\ConNeg\Preference\Builder;
 
 use ptlis\ConNeg\Exception\InvalidVariantException;
 use ptlis\ConNeg\Preference\Preference;
+use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
  * Shared preference builder (handles Charset, Encoding & Language).
@@ -19,7 +20,7 @@ class PreferenceBuilder extends AbstractPreferenceBuilder
     /**
      * @inheritDoc
      */
-    protected function validateVariant(string $variant)
+    protected function validateVariant(string $variant): void
     {
         if ($this->isFromServer && '*' === $variant) {
             throw new InvalidVariantException('Wildcards are not allowed in server-provided variants.');
@@ -31,7 +32,7 @@ class PreferenceBuilder extends AbstractPreferenceBuilder
      *
      * @throws \RuntimeException if the HTTP field was not provided
      */
-    public function get()
+    public function get(): PreferenceInterface
     {
         if (is_null($this->fromField)) {
             throw new \RuntimeException(
@@ -51,7 +52,7 @@ class PreferenceBuilder extends AbstractPreferenceBuilder
      *
      * @return float
      */
-    private function getQualityFactor()
+    private function getQualityFactor(): float
     {
         $qFactor = 0.0;
 
@@ -67,7 +68,7 @@ class PreferenceBuilder extends AbstractPreferenceBuilder
      *
      * @return int
      */
-    private function getPrecedence()
+    private function getPrecedence(): int
     {
         $precedence = Preference::ABSENT;
 

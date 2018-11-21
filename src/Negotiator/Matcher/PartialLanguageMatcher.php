@@ -20,7 +20,7 @@ class PartialLanguageMatcher implements MatcherInterface
     /**
      * @inheritDoc
      */
-    public function hasMatch(string $fromField, array $matchingList, PreferenceInterface $clientPref)
+    public function hasMatch(string $fromField, array $matchingList, PreferenceInterface $clientPref): bool
     {
         return count($this->getMatchingIndexes($fromField, $matchingList, $clientPref)) > 0;
     }
@@ -28,7 +28,7 @@ class PartialLanguageMatcher implements MatcherInterface
     /**
      * @inheritDoc
      */
-    public function match(string $fromField, array $matchingList, PreferenceInterface $clientPref)
+    public function match(string $fromField, array $matchingList, PreferenceInterface $clientPref): array
     {
         $matchingIndexList = $this->getMatchingIndexes($fromField, $matchingList, $clientPref);
 
@@ -52,7 +52,7 @@ class PartialLanguageMatcher implements MatcherInterface
      *
      * @return int[]
      */
-    private function getMatchingIndexes(string $fromField, array $matchingList, PreferenceInterface $clientPref)
+    private function getMatchingIndexes(string $fromField, array $matchingList, PreferenceInterface $clientPref): array
     {
         $matchingIndexList = array();
 
@@ -81,7 +81,7 @@ class PartialLanguageMatcher implements MatcherInterface
         string $fromField,
         MatchedPreferenceInterface $matchedPreference,
         PreferenceInterface $newClientPref
-    ) {
+    ): bool {
         $serverPref = $matchedPreference->getServerPreference();
         $oldClientPref = $matchedPreference->getClientPreference();
 

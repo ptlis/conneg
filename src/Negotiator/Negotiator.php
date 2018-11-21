@@ -74,7 +74,7 @@ class Negotiator implements NegotiatorInterface
     /**
      * @inheritDoc
      */
-    public function negotiateAll(array $clientPrefList, array $serverPrefList, string $fromField)
+    public function negotiateAll(array $clientPrefList, array $serverPrefList, string $fromField): array
     {
         $emptyPref = $this->getBuilder($fromField)
             ->setFromField($fromField)
@@ -100,8 +100,11 @@ class Negotiator implements NegotiatorInterface
     /**
      * @inheritDoc
      */
-    public function negotiateBest(array $clientPrefList, array $serverPrefList, string $fromField)
-    {
+    public function negotiateBest(
+        array $clientPrefList,
+        array $serverPrefList,
+        string $fromField
+    ): MatchedPreferenceInterface {
         $pairCollection = $this->negotiateAll($clientPrefList, $serverPrefList, $fromField);
 
         if (count($pairCollection)) {
@@ -126,7 +129,7 @@ class Negotiator implements NegotiatorInterface
      *
      * @return MatchedPreferenceInterface[]
      */
-    private function matchClientPreferences(string $fromField, array $clientPrefList, array $matchingList)
+    private function matchClientPreferences(string $fromField, array $clientPrefList, array $matchingList): array
     {
         foreach ($clientPrefList as $clientPref) {
             $matchingList = $this->matchSingleClientPreference($fromField, $clientPref, $matchingList);
@@ -144,7 +147,7 @@ class Negotiator implements NegotiatorInterface
      *
      * @return MatchedPreferenceInterface[]
      */
-    private function matchSingleClientPreference(string $fromField, PreferenceInterface $clientPreference, array $matchingList)
+    private function matchSingleClientPreference(string $fromField, PreferenceInterface $clientPreference, array $matchingList): array
     {
         foreach ($this->matcherList as $matcher) {
             if ($matcher->hasMatch($fromField, $matchingList, $clientPreference)) {
@@ -164,7 +167,7 @@ class Negotiator implements NegotiatorInterface
      *
      * @return PreferenceBuilderInterface
      */
-    private function getBuilder(string $fromField)
+    private function getBuilder(string $fromField): PreferenceBuilderInterface
     {
         if (PreferenceInterface::MIME === $fromField) {
             return $this->mimePrefBuilder;

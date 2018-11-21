@@ -20,7 +20,7 @@ class MatchedPreferenceSort
      *
      * @return MatchedPreferenceInterface[]
      */
-    public function sortAscending(array $prefList)
+    public function sortAscending(array $prefList): array
     {
         $comparator = new MatchedPreferenceComparator();
 
@@ -41,7 +41,7 @@ class MatchedPreferenceSort
      *
      * @return MatchedPreferenceInterface[]
      */
-    public function sortDescending(array $prefList)
+    public function sortDescending(array $prefList): array
     {
         $comparator = new MatchedPreferenceComparator();
 
