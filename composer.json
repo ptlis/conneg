@@ -1,8 +1,8 @@
 {
-    "name":         "ptlis/conneg",
-    "description":  "Tools for performing content negotiation.",
-    "license":      "MIT",
-    "keywords":     [
+    "name": "ptlis/conneg",
+    "description": "Tools for performing content negotiation.",
+    "license": "MIT",
+    "keywords": [
         "content",
         "negotiation",
         "parse",
@@ -20,18 +20,18 @@
         "accept-language",
         "accept-charset"
     ],
-    "type":         "library",
+    "type": "library",
     "authors": [
         {
             "name": "brian ridley",
-            "email":"ptlis@ptlis.net"
+            "email": "ptlis@ptlis.net"
         }
     ],
     "require": {
-        "php": ">=5.5.0"
+        "php": ">=7.2.0"
     },
     "require-dev": {
-        "phpunit/phpunit":                      "~4.5"
+        "phpunit/phpunit": "^7.0.0"
     },
     "autoload": {
         "psr-4": {
