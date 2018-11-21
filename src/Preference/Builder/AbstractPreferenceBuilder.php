@@ -136,19 +136,6 @@ abstract class AbstractPreferenceBuilder implements PreferenceBuilderInterface
      */
     private function normalizeQualityFactor(float $qFactor): float
     {
-        if (!is_numeric($qFactor)) {
-            $qFactor = 1.0;
-
-        } elseif ($qFactor < 0) {
-            $qFactor = 0.0;
-
-        } elseif ($qFactor > 1) {
-            $qFactor = 1.0;
-
-        } else {
-            $qFactor = floatval($qFactor);
-        }
-
-        return $qFactor;
+        return max(0.0, min(1.0, $qFactor));
     }
 }
