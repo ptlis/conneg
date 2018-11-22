@@ -15,7 +15,7 @@ use ptlis\ConNeg\Preference\PreferenceInterface;
 /**
  * Matcher creating MatchedPreference instances with an absent server preference.
  */
-class AbsentMatcher implements MatcherInterface
+final class AbsentMatcher implements MatcherInterface
 {
     /**
      * @var PreferenceBuilderInterface

@@ -24,7 +24,7 @@ use ptlis\ConNeg\Preference\PreferenceInterface;
 /**
  * Negotiator for Accept-Charset, Accept-Encoding & Accept-Language fields.
  */
-class Negotiator implements NegotiatorInterface
+final class Negotiator implements NegotiatorInterface
 {
     /**
      * @var PreferenceBuilderInterface

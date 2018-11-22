@@ -15,7 +15,7 @@ use ptlis\ConNeg\Preference\PreferenceInterface;
 /**
  * Matcher for server-provided partial languages (e.g. 'en-*').
  */
-class PartialLanguageMatcher implements MatcherInterface
+final class PartialLanguageMatcher implements MatcherInterface
 {
     /**
      * @inheritDoc

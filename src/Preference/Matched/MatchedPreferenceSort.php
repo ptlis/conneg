@@ -11,7 +11,7 @@ namespace ptlis\ConNeg\Preference\Matched;
 /**
  * Helper class encoding the rules governing the sorting of MatchedPreferenceCollections.
  */
-class MatchedPreferenceSort
+final class MatchedPreferenceSort
 {
     /**
      * Sort the array of MatchedPreference instances in ascending order.

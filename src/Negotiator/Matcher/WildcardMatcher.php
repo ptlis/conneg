@@ -15,7 +15,7 @@ use ptlis\ConNeg\Preference\PreferenceInterface;
 /**
  * Matcher for full wildcards (e.g. '*' and '*\/*
  */
-class WildcardMatcher implements MatcherInterface
+final class WildcardMatcher implements MatcherInterface
 {
     /**
      * @inheritDoc

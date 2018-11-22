@@ -15,7 +15,7 @@ use ptlis\ConNeg\Preference\PreferenceInterface;
 /**
  * Matcher for subtype wildcards (e.g. 'text/*').
  */
-class SubtypeWildcardMatcher implements MatcherInterface
+final class SubtypeWildcardMatcher implements MatcherInterface
 {
     /**
      * @inheritDoc

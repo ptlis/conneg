@@ -20,7 +20,7 @@ use ptlis\ConNeg\Preference\PreferenceInterface;
 /**
  * Class providing a simple API through which content negotiation is performed.
  */
-class Negotiation
+final class Negotiation
 {
     /**
      * @var FieldTokenizer

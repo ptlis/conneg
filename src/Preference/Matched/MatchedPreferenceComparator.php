@@ -13,7 +13,7 @@ use ptlis\ConNeg\Preference\PreferenceInterface;
 /**
  * Comparator used to order the preferences.
  */
-class MatchedPreferenceComparator
+final class MatchedPreferenceComparator
 {
     /**
      * Comparison function used for ordering matched preferences.

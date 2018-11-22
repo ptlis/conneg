@@ -13,7 +13,7 @@ use ptlis\ConNeg\Preference\PreferenceInterface;
 /**
  * Class for matched preferences.
  */
-class MatchedPreference implements MatchedPreferenceInterface
+final class MatchedPreference implements MatchedPreferenceInterface
 {
     /**
      * Which HTTP field the match relates to.

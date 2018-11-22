@@ -15,7 +15,7 @@ use ptlis\ConNeg\Preference\PreferenceInterface;
 /**
  * MIME preference builder.
  */
-class MimePreferenceBuilder extends AbstractPreferenceBuilder
+final class MimePreferenceBuilder extends AbstractPreferenceBuilder
 {
     /**
      * @inheritDoc

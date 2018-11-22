@@ -15,7 +15,7 @@ use ptlis\ConNeg\Preference\PreferenceInterface;
 /**
  * Shared preference builder (handles Charset, Encoding & Language).
  */
-class PreferenceBuilder extends AbstractPreferenceBuilder
+final class PreferenceBuilder extends AbstractPreferenceBuilder
 {
     /**
      * @inheritDoc

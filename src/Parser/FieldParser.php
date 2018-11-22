@@ -15,7 +15,7 @@ use ptlis\ConNeg\Preference\PreferenceInterface;
 /**
  * Parser that accepts a tokenized HTTP Accept or Accept-* field and returns an array of Preference value objects.
  */
-class FieldParser
+final class FieldParser
 {
     /**
      * @var PreferenceBuilderInterface

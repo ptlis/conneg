@@ -11,7 +11,7 @@ namespace ptlis\ConNeg\Parser;
 /**
  * Class constants used for tokenization.
  */
-class Tokens
+final class Tokens
 {
     /**
      * Token that indicates the boundary between variant data

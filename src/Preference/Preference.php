@@ -11,7 +11,7 @@ namespace ptlis\ConNeg\Preference;
 /**
  * Value type storing variant preferences.
  */
-class Preference implements PreferenceInterface
+final class Preference implements PreferenceInterface
 {
     /**
      * The variant name.

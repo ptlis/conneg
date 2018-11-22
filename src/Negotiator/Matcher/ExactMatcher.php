@@ -16,7 +16,7 @@ use ptlis\ConNeg\Preference\PreferenceInterface;
 /**
  * Matcher looking for exact variant matches.
  */
-class ExactMatcher implements MatcherInterface
+final class ExactMatcher implements MatcherInterface
 {
     /**
      * @var MatchedPreferenceComparator

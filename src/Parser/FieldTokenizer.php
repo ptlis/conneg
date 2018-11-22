@@ -13,7 +13,7 @@ use ptlis\ConNeg\Preference\Preference;
 /**
  * Simple tokenizer
  */
-class FieldTokenizer
+final class FieldTokenizer
 {
     /**
      * Tokenize the HTTP field for subsequent processing.
