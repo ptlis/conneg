@@ -10,3 +10,5 @@
 /composer.phar
 /.idea/
 /phpunit.xml
+composer.lock
+.phpunit.result.cache

@@ -8,13 +8,14 @@
 
 namespace ptlis\ConNeg\Test\Parse;
 
+use PHPUnit\Framework\TestCase;
 use ptlis\ConNeg\Parser\FieldTokenizer;
 use ptlis\ConNeg\Preference\PreferenceInterface;
 
 /**
  * Tests to ensure that the tokenizer behaves correctly.
  */
-class FieldTokenizerTest extends \PHPUnit_Framework_TestCase
+class FieldTokenizerTest extends TestCase
 {
     public function testTokenizeAcceptCharset()
     {

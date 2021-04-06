@@ -8,6 +8,7 @@
 
 namespace ptlis\ConNeg\Test\BugReport;
 
+use PHPUnit\Framework\TestCase;
 use ptlis\ConNeg\Negotiation;
 use ptlis\ConNeg\Preference\Preference;
 use ptlis\ConNeg\Preference\Matched\MatchedPreference;
@@ -15,7 +16,7 @@ use ptlis\ConNeg\Preference\Matched\MatchedPreference;
 /**
  * Regression tests for Issue #2.
  */
-class IssueTwoTest extends \PHPUnit_Framework_TestCase
+class IssueTwoTest extends TestCase
 {
     /**
      * @link https://github.com/ptlis/conneg/issues/2 GitHub Issue #2.

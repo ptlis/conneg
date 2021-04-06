@@ -8,12 +8,13 @@
 
 namespace ptlis\ConNeg\Test\Negotiation;
 
+use PHPUnit\Framework\TestCase;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferenceInterface;
 use ptlis\ConNeg\Preference\Matched\MatchedPreferenceSort;
 use ptlis\ConNeg\Preference\Preference;
 use ptlis\ConNeg\Preference\Matched\MatchedPreference;
 
-abstract class NegotiationDataProvider extends \PHPUnit_Framework_TestCase
+abstract class NegotiationDataProvider extends TestCase
 {
     public function charsetProvider()
     {

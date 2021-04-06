@@ -8,10 +8,11 @@
 
 namespace ptlis\ConNeg\Test\Preference\Matched;
 
+use PHPUnit\Framework\TestCase;
 use ptlis\ConNeg\Preference\Preference;
 use ptlis\ConNeg\Preference\Matched\MatchedPreference;
 
-class MatchedPreferenceTest extends \PHPUnit_Framework_TestCase
+class MatchedPreferenceTest extends TestCase
 {
     public function testNewCharsetTypeOne()
     {
