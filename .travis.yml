@@ -6,7 +6,7 @@ php:
   - 8.0
 
 before_script:
-    - composer install --no-dev
+    - composer install
 
 script:
     - XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-clover=coverage.clover
